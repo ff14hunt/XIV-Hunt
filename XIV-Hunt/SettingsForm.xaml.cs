@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FFXIV_GameSense
 {
@@ -48,6 +49,18 @@ namespace FFXIV_GameSense
         private void OncePerHuntCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             HuntInterval.IsEnabled = true;
+        }
+
+        private void FATEPercentInterval_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = sender as TextBox;
+            if (int.TryParse(textbox.Text, out int value))
+            {
+                if (value > 100)
+                    textbox.Text = "100";
+                else if (value < 0)
+                    textbox.Text = "0";
+            }
         }
 
         //private void ClearCookiesButton_Click(object sender, RoutedEventArgs e)

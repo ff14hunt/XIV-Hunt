@@ -37,9 +37,7 @@ namespace FFXIV_GameSense
         private System.Windows.Forms.NotifyIcon ni;
         private ProcessViewModel pvm;
         private static SettingsForm SettingsWindow;
-        private DateTime LastSlashHuntTime;
         private CancellationTokenSource cts;
-        private static readonly string[] doesNotExistL = { " does not exist.", "“ existiert nicht als Textkommando.", "” n'existe pas." };//JP has the input on the end
         private static bool WroteDRPop = false;
 
         public Window1()
@@ -232,15 +230,11 @@ namespace FFXIV_GameSense
                 HuntConnectionTextBlock.Text = string.Format(Properties.Resources.FormNoProcess, (Environment.Is64BitProcess) ? "ffxiv_dx11.exe" : "ffxiv.exe");
                 if (ProcessComboBox.SelectedValue != null && FFXIVProcessHelper.GetFFXIVProcess((int)ProcessComboBox.SelectedValue) != null)
                 {
-                    bool RestartNamedPipe = Program.mem != null && Program.mem.Process.Id != (int?)ProcessComboBox.SelectedValue;
                     if (Program.mem != null)
                         Program.mem.Dispose();
                     Program.mem = null;
                     Program.mem = new FFXIVMemory(FFXIVProcessHelper.GetFFXIVProcess((int)ProcessComboBox.SelectedValue));
-                    if (RestartNamedPipe)
-                    {
-                        PersistentNamedPipeServer.Restart();
-                    }
+                    PersistentNamedPipeServer.Restart();
                 }
                 FFXIVHunts.LeaveGroup();
                 HuntNotifyGroupBox.IsEnabled = false;
@@ -261,33 +255,26 @@ namespace FFXIV_GameSense
             if (hunts != null)
             {
                 hunts.Check(Program.mem);
-                //foreach (FATE f in Program.mem.GetFateList())
-                //logViewer.AddLogEntry(f.Name + " @ " + XIVDB.XIVDBfunc.GetZoneName(f.ZoneID) + " ( " + Combatant.getXReadable(f.PosX, f.ZoneID).ToString("F1") + "  , " + Combatant.getYReadable(f.PosY, f.ZoneID).ToString("F1") + " )  " + f.Progress + "%");
-                //logViewer.AddLogEntry(f.Name + "==" + f.ReadName + "  " + (f.Name == f.ReadName).ToString());
-                //User Searches
-
-                var errmessages = Program.mem.ReadChatLogBackwards(4).Where(x => x.Channel == ChatChannel.Error && x.Timestamp > LastSlashHuntTime);
-                var huntmessages = errmessages.Where(x => x.GetCleanString.ToLower().Contains("/hunt")).OrderBy(x=>x.Timestamp);
-                if (huntmessages.Any())
+                //User commands
+                string LastCommand = Program.mem.GetLastFailedCommand();
+                if (LastCommand.StartsWith("/hunt "))
                 {
-                    string s = huntmessages.Last().GetCleanString;
-                    string huntSearchTerm = s.Substring(s.ToLower().IndexOf("/hunt") + 6).Remove(doesNotExistL);
-                    huntSearchTerm = huntSearchTerm.Trim();
+                    string huntSearchTerm = LastCommand.Substring(6);
                     if (GameResources.IsDailyHunt(huntSearchTerm, out ushort id))
                     {
                         Tuple<ushort, float, float> huntInfo = GameResources.GetDailyHuntInfo(id);
                         _ = Program.mem.WriteChatMessage(ChatMessage.MakePosChatMessage(string.Format(Properties.Resources.LKICanBeFoundAt, GameResources.GetEnemyName(id, true)), huntInfo.Item1, huntInfo.Item2, huntInfo.Item3));
-                        LastSlashHuntTime = huntmessages.Last().Timestamp;
+                        Program.mem.WipeLastFailedCommand();
                     }
                     else if (hunts.hunts.Exists(x => x.Name.Equals(huntSearchTerm, StringComparison.CurrentCultureIgnoreCase)))
                     {
-                        _ = hunts.LastKnownInfoFor(hunts.hunts.First(x => x.Name.Equals(huntSearchTerm, StringComparison.CurrentCultureIgnoreCase)).Id);
-                        LastSlashHuntTime = huntmessages.Last().Timestamp;
+                        _ = hunts.LastKnownInfoForHunt(hunts.hunts.First(x => x.Name.Equals(huntSearchTerm, StringComparison.CurrentCultureIgnoreCase)).Id);
+                        Program.mem.WipeLastFailedCommand();
                     }
                     else if (GameResources.GetEnemyId(huntSearchTerm, out ushort bnpcid))
                     {
                         _ = hunts.RandomPositionForBNpc(bnpcid);
-                        LastSlashHuntTime = huntmessages.Last().Timestamp;
+                        Program.mem.WipeLastFailedCommand();
                     }
                     else if(GameResources.GetFateId(huntSearchTerm, true) > 0)
                     {
@@ -299,7 +286,7 @@ namespace FFXIV_GameSense
                                 c.IsChecked = true;
                             OtherFATEsCheckComboBox_ItemSelectionChanged(null, null);
                         }
-                        LastSlashHuntTime = huntmessages.Last().Timestamp;
+                        Program.mem.WipeLastFailedCommand();
                     }
                     else
                     {
@@ -310,14 +297,12 @@ namespace FFXIV_GameSense
                                 _ = Program.mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result));
                             }
                         });
-                        LastSlashHuntTime = huntmessages.Last().Timestamp;
+                        Program.mem.WipeLastFailedCommand();
                     }
                 }
-                var performmessages = errmessages.Where(x => x.GetCleanString.ToLower().Contains("/perform "));
-                if (performmessages.Any())
+                if (LastCommand.StartsWith("/perform "))
                 {
-                    string s = performmessages.Last().GetCleanString;
-                    string request = s.Substring(s.ToLower().IndexOf("/perform ") + 9).Remove(doesNotExistL);
+                    string request = LastCommand.Substring(9);
                     string nametxt = request.Trim();
                     if (!nametxt.EndsWith(".txt"))
                         nametxt += ".txt";
@@ -334,25 +319,23 @@ namespace FFXIV_GameSense
                             _ = Program.mem.PlayPerformance(p, cts.Token);
                         else
                             TryMML(pathnametxt);
-                        LastSlashHuntTime = performmessages.Last().Timestamp;
+                        Program.mem.WipeLastFailedCommand();
                     }
                     else if(File.Exists(pathnamemml))
                     {
                         StopPerformance();
                         TryMML(pathnamemml);
-                        LastSlashHuntTime = performmessages.Last().Timestamp;
+                        Program.mem.WipeLastFailedCommand();
                     }
                 }
-                performmessages = errmessages.Where(x => x.GetCleanString.ToLower().Contains("/performstop"));
-                if (performmessages.Any() && cts != null)
+                if (LastCommand.StartsWith("/performstop") && cts != null)
                 {
                     cts.Cancel();
+                    Program.mem.WipeLastFailedCommand();
                 }
-                var posmessages = errmessages.Where(x => x.GetCleanString.ToLower().Contains("/flag"));
-                if (posmessages.Any())
+                if (LastCommand.StartsWith("/flag "))
                 {
-                    string s = posmessages.Last().GetCleanString;
-                    string[] coords = s.Substring(s.ToLower().IndexOf("/flag ") + 6).Remove(doesNotExistL).Split(',');
+                    string[] coords = LastCommand.Substring(6).Split(',');
                     if (coords.Length > 1 && float.TryParse(coords[0], out float xR) && float.TryParse(coords[1], out float yR))
                     {
                         ushort zid = Program.mem.GetZoneId();
@@ -360,7 +343,7 @@ namespace FFXIV_GameSense
                         float y = Combatant.GetCoordFromReadable(yR, zid);
                         var cm = ChatMessage.MakePosChatMessage(string.Empty, zid, x, y);
                         _ = Program.mem.WriteChatMessage(cm);
-                        LastSlashHuntTime = posmessages.Last().Timestamp;
+                        Program.mem.WipeLastFailedCommand();
                     }
                 }
                 var cf = Program.mem.GetContentFinder();

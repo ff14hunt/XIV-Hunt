@@ -40,6 +40,8 @@ namespace FFXIV_GameSense
         private const string contentFinderConditionSignature64 = "440fb643**488d51**488d0d";
         private const string serverIdSignature32 = "e8********8d8e********e8********8d8e********e8********8d8e********e8********b9********e8********8d8e********e8********b9********e8********b9********e8********a1";
         private const string serverIdSignature64 = "e8********488d8b********e8********488d8b********e8********488d8b********e8********488d0d********e8********488d8b********e8********488d0d********e8********488d0d********e8********488b15";
+        private const string lastFailedCommandSignature32 = "83f9**7c**5b5fb8";
+        private const string lastFailedCommandSignature64 = "4183f8**7c**488d05";
         //private const int charmapOffset32 = 0;
         //private const int charmapOffset64 = 0;
         private const int targetOffset32 = 0x58;
@@ -48,6 +50,8 @@ namespace FFXIV_GameSense
         private const int contentFinderConditionOffset64 = 0xF4;
         private const int currentContentFinderConditionOffset32 = 0x50;
         private const int currentContentFinderConditionOffset64 = 0x50;
+        private const int lastFailedCommandOffset32 = 0x1B2;
+        private const int lastFailedCommandOffset64 = 0x1C2;
         private static readonly int[] serverTimeOffset32 = { 0x14C0, 0x4, 0x644 };
         private static readonly int[] serverTimeOffset64 = { 0x1710, 0x8, 0x7D4 };
         private static readonly int[] chatLogStartOffset32 = { 0x18, 0x2C0, 0x0 };
@@ -70,6 +74,7 @@ namespace FFXIV_GameSense
         private IntPtr serverIdAddress = IntPtr.Zero;
         private IntPtr contentFinderConditionAddress = IntPtr.Zero;
         private IntPtr currentContentFinderConditionAddress = IntPtr.Zero;
+        private IntPtr lastFailedCommandAddress = IntPtr.Zero;
 
         //internal byte GetZoneInstance()
         //{
@@ -154,7 +159,7 @@ namespace FFXIV_GameSense
             if (charmapAddress == IntPtr.Zero ||
                 targetAddress == IntPtr.Zero ||
                 serverIdAddress == IntPtr.Zero ||
-                !Program.mem.IsValidServerId())
+                !IsValidServerId())
             {
                 return GetPointerAddress();
             }
@@ -171,6 +176,7 @@ namespace FFXIV_GameSense
             string fateListSignature = (_mode == FFXIVClientMode.FFXIV_32) ? fateListSignature32 : fateListSignature64;
             string contentFinderConditionSignature = (_mode == FFXIVClientMode.FFXIV_32) ? contentFinderConditionSignature32 : contentFinderConditionSignature64;
             string serverIdSignature = (_mode == FFXIVClientMode.FFXIV_32) ? serverIdSignature32 : serverIdSignature64;
+            string lastFailedCommandSignature = (_mode == FFXIVClientMode.FFXIV_32) ? lastFailedCommandSignature32 : lastFailedCommandSignature64;
             int[] serverTimeOffset = (_mode == FFXIVClientMode.FFXIV_32) ? serverTimeOffset32 : serverTimeOffset64;
             int[] chatLogStartOffset = (_mode == FFXIVClientMode.FFXIV_32) ? chatLogStartOffset32 : chatLogStartOffset64;
             int[] chatLogTailOffset = (_mode == FFXIVClientMode.FFXIV_32) ? chatLogTailOffset32 : chatLogTailOffset64;
@@ -179,6 +185,7 @@ namespace FFXIV_GameSense
             //int charmapOffset = (_mode == FFXIVClientMode.FFXIV_32) ? charmapOffset32 : charmapOffset64;
             int contentFinderConditionOffset = (_mode == FFXIVClientMode.FFXIV_32) ? contentFinderConditionOffset32 : contentFinderConditionOffset64;
             int currentContentFinderConditionOffset = (_mode == FFXIVClientMode.FFXIV_32) ? currentContentFinderConditionOffset32 : currentContentFinderConditionOffset64;
+            int lastFailedCommandOffset = (_mode == FFXIVClientMode.FFXIV_32) ? lastFailedCommandOffset32 : lastFailedCommandOffset64;
 
             List<string> fail = new List<string>();
 
@@ -312,17 +319,32 @@ namespace FFXIV_GameSense
                 fail.Add(nameof(contentFinderConditionAddress));
             }
 
-            //SigScan("48896c24**565741564881ec********440fb635", 0, bRIP);
+            // LASTFAILEDCOMMAND
+            list = SigScan(lastFailedCommandSignature, 0, bRIP);
+            if (list == null || list.Count == 0)
+            {
+                lastFailedCommandAddress = IntPtr.Zero;
+            }
+            if (list.Count == 1)
+            {
+                lastFailedCommandAddress = list[0] + lastFailedCommandOffset;
+            }
+            if (lastFailedCommandAddress == IntPtr.Zero)
+            {
+                fail.Add(nameof(lastFailedCommandAddress));
+            }
 
             Debug.WriteLine(nameof(charmapAddress) + ": 0x{0:X}", charmapAddress.ToInt64());
             Debug.WriteLine(nameof(targetAddress) + ": 0x{0:X}", targetAddress.ToInt64());
             Debug.WriteLine(nameof(zoneIdAddress) + ": 0x{0:X}", zoneIdAddress.ToInt64());
             Debug.WriteLine(nameof(chatLogStartAddress) + ": 0x{0:X}", chatLogStartAddress.ToInt64());
             Debug.WriteLine(nameof(chatLogTailAddress) + ": 0x{0:X}", chatLogTailAddress.ToInt64());
+            Debug.WriteLine(nameof(fateListAddress) + ": 0x{0:X}", fateListAddress.ToInt64());
             Debug.WriteLine(nameof(serverIdAddress) + ": 0x{0:X}", serverIdAddress.ToInt64());
             Debug.WriteLine(nameof(serverTimeAddress) + ": 0x{0:X}", serverTimeAddress.ToInt64());
             Debug.WriteLine(nameof(contentFinderConditionAddress) + ": 0x{0:X}", contentFinderConditionAddress.ToInt64());
             Debug.WriteLine(nameof(currentContentFinderConditionAddress) + ": 0x{0:X}", currentContentFinderConditionAddress.ToInt64());
+            Debug.WriteLine(nameof(lastFailedCommandAddress) + ": 0x{0:X}", lastFailedCommandAddress.ToInt64());
 
             if (c != null)
             {
@@ -335,6 +357,16 @@ namespace FFXIV_GameSense
             }
             return !fail.Any();
         }
+
+        internal void WipeLastFailedCommand(byte len = 62)
+        {
+            if (len > 62)
+                len = 62;
+            byte[] arr = new byte[len];
+            NativeMethods.WriteProcessMemory(Process.Handle, lastFailedCommandAddress, arr, (uint)arr.Length, out uint lpNumberOfBytesWritten);
+        }
+
+        internal string GetLastFailedCommand() => GetStringFromBytes(GetByteArray(lastFailedCommandAddress, 70), 0, 70);
 
         internal ushort GetCurrentContentFinderCondition() => BitConverter.ToUInt16(GetByteArray(currentContentFinderConditionAddress, 2), 0);
 

@@ -138,10 +138,15 @@ namespace FFXIV_GameSense
 
         private void PutInChat(FATEReport fate)
         {
-            if (Settings.Default.NoAnnouncementsInContent && Program.mem.GetCurrentContentFinderCondition() > 0)
-                return;
             int idx = fates.IndexOf(fate);
-            if (FateNotifyCheck(fates[idx].ID) && fates[idx].lastPutInChat < Program.mem.GetServerUtcTime().AddMinutes(-Settings.Default.FATEInterval) && !fate.HasEnded/*|| (!fates[idx].HasEnded && fate.HasEnded && fate.Progress == 100)*/)
+            fates[idx].State = fate.State;
+            fates[idx].StartTimeEpoch = fate.StartTimeEpoch;
+            fates[idx].Duration = fate.Duration;
+            fates[idx].Progress = fate.Progress;
+            bool skipAnnounce = Settings.Default.NoAnnouncementsInContent && Program.mem.GetCurrentContentFinderCondition() > 0
+                || (Math.Abs(fate.TimeRemaining.TotalHours) < 3 && fate.TimeRemaining.TotalMinutes < Settings.Default.FATEMinimumMinutesRemaining)
+                || ((fate.State == FATEState.Preparation) ? fates[idx].lastPutInChat > Program.mem.GetServerUtcTime().AddMinutes(-10) : Math.Abs(fate.Progress - fates[idx].LastReportedProgress) < Settings.Default.FATEMinimumPercentInterval);
+            if (FateNotifyCheck(fates[idx].ID) && fates[idx].lastPutInChat < Program.mem.GetServerUtcTime().AddMinutes(-Settings.Default.FATEInterval) && !fate.HasEnded && !skipAnnounce)
             {
                 var cm = new ChatMessage();
                 string postpend;
@@ -155,12 +160,10 @@ namespace FFXIV_GameSense
                 _ = Program.mem.WriteChatMessage(cm);
                 CheckAndPlaySound(HuntRank.FATE);
                 fates[idx].lastPutInChat = Program.mem.GetServerUtcTime();
+                fates[idx].LastReportedProgress = fate.Progress;
                 //if (fate.Progress > 99)
                 //    fates[idx].lastReportedDead = DateTime.UtcNow;
             }
-            fates[idx].State = fate.State;
-            fates[idx].StartTimeEpoch = fate.StartTimeEpoch;
-            fates[idx].Duration = fate.Duration;
         }
 
         private static List<FATEReport> ConstructFATEReports()
@@ -173,7 +176,7 @@ namespace FFXIV_GameSense
             return l;
         }
 
-        internal async Task LastKnownInfoFor(ushort id)
+        internal async Task LastKnownInfoForHunt(ushort id)
         {
             World world;
             string e;
@@ -615,11 +618,12 @@ namespace FFXIV_GameSense
         [JsonProperty("wId")]
         public ushort WorldId { get; set; }
         //public byte Instance { get; set; }
-        [IgnoreDataMember]
+        [JsonIgnore]
         public DateTime lastPutInChat = DateTime.MinValue;
-        [IgnoreDataMember]
+        [JsonIgnore]
         public DateTime lastReportedDead = DateTime.MinValue;
-
+        [JsonIgnore]
+        public byte LastReportedProgress = byte.MaxValue;
         public FATEReport() : base()
         { }
 
