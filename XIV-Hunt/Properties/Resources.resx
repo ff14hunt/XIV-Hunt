@@ -154,7 +154,6 @@
   </data>
   <data name="FailedToSigScan" xml:space="preserve">
     <value>Failed to signature scan ({0}).</value>
-    <comment>Unused</comment>
   </data>
   <data name="FATEReportReceived" xml:space="preserve">
     <value>[{0}] Report received: {1} - {2}%</value>

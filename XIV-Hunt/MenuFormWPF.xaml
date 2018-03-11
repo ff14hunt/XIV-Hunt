@@ -7,9 +7,6 @@
         x:Class="FFXIV_GameSense.Window1"
         mc:Ignorable="d"
         Title="XIV-Hunt" Height="246.667" Width="500" ResizeMode="CanMinimize" Icon="Resources/enemy.ico">
-    <Window.Resources>
-        <Image x:Key="LogIcon" Source="Resources/log icon.png"/>
-    </Window.Resources>
     <Grid IsHitTestVisible="True">
         <Button HorizontalAlignment="Left" Margin="453,10,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="OpenSettings" ToolTip="{x:Static properties:Resources.OpenSettingsToolTip}">
             <StackPanel>
