@@ -1,5 +1,5 @@
 ﻿key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
-#,,,,Hierarchy,MapMarkerRange,Id,SizeFactor,Offset{X},Offset{Y},PlaceName{Region},PlaceName,PlaceName{Sub},,,TerritoryType,,
+#,,,,Hierarchy,MapMarkerRange,Id,SizeFactor,Offset{X},Offset{Y},PlaceName{Region},PlaceName,PlaceName{Sub},DiscoveryIndex,,TerritoryType,DiscoveryArrayByte,
 int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,PlaceName,int16,uint32,TerritoryType,bit&01,bit&02
 0,0,0,0,0,0,"",100,0,0,"","","",-1,0,,True,False
 1,0,0,0,1,0,"default/00",100,0,0,"???","Eorzea","",-1,0,"",True,False
@@ -57,7 +57,7 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 53,4,4,0,1,102,"r1f1/00",100,0,0,"Coerthas","Coerthas Central Highlands","",9,8388606,"r1f1",False,False
 54,2,11,1,1,11,"f1d2/02",200,0,0,"The Black Shroud","Haukke Manor","Second Floor",8,1966080,"f1d2",False,False
 55,2,11,3,1,13,"f1d2/03",200,0,0,"The Black Shroud","Haukke Manor","Cellarage",8,130560,"f1d2",False,False
-56,0,0,1,1,52,"w1d5/01",200,0,0,"Thanalan","Praetorium","Sky Level",26,2,"w1d5",True,False
+56,0,0,1,1,52,"w1d5/01",200,0,0,"Thanalan","The Praetorium","Sky Level",26,2,"w1d5",True,False
 57,0,0,0,1,87,"s1b1/00",200,0,0,"La Noscea","Upper Aetheroacoustic Exploratory Site","",21,254,"s1b1",True,False
 58,0,0,0,1,88,"s1b2/00",200,0,0,"La Noscea","Lower Aetheroacoustic Exploratory Site","",22,6,"s1b2",True,False
 59,0,0,0,1,92,"s1b4/00",200,0,0,"La Noscea","Ragnarok Drive Cylinder","",-1,0,"s1b4",True,False
@@ -100,12 +100,12 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 96,3,14,2,1,64,"w1r1/02",200,0,0,"Thanalan","Cutter's Cry","The Wet Sands",20,96,"w1r1",True,False
 97,3,14,3,1,65,"w1r1/03",200,0,0,"Thanalan","Cutter's Cry","The Blue Sands",20,1792,"w1r1",True,False
 98,0,0,2,1,293,"r1fa/02",400,0,0,"Coerthas","The Howling Eye","",-1,0,"r1fa_event",True,True
-99,0,0,2,1,53,"w1d5/02",200,0,0,"Thanalan","Praetorium","Castrum Control",26,12,"w1d5",True,False
-100,0,0,3,1,54,"w1d5/03",200,0,0,"Thanalan","Praetorium","Castrum Defense",26,48,"w1d5",True,False
-101,0,0,4,1,55,"w1d5/04",200,0,0,"Thanalan","Praetorium","Main Level",26,832,"w1d5",True,False
-102,0,0,5,1,57,"w1d5/05",200,0,0,"Thanalan","Praetorium","Ground Level",26,3072,"w1d5",True,False
-103,0,0,6,1,56,"w1d5/06",100,0,0,"Thanalan","Praetorium","Research Level",26,61440,"w1d5",True,False
-104,0,0,7,1,0,"w1d5/07",100,0,0,"Thanalan","Praetorium","",-1,0,"w1d5",True,False
+99,0,0,2,1,53,"w1d5/02",200,0,0,"Thanalan","The Praetorium","Castrum Control",26,12,"w1d5",True,False
+100,0,0,3,1,54,"w1d5/03",200,0,0,"Thanalan","The Praetorium","Castrum Defense",26,48,"w1d5",True,False
+101,0,0,4,1,55,"w1d5/04",200,0,0,"Thanalan","The Praetorium","Main Level",26,832,"w1d5",True,False
+102,0,0,5,1,57,"w1d5/05",200,0,0,"Thanalan","The Praetorium","Ground Level",26,3072,"w1d5",True,False
+103,0,0,6,1,56,"w1d5/06",100,0,0,"Thanalan","The Praetorium","Research Level",26,61440,"w1d5",True,False
+104,0,0,7,1,0,"w1d5/07",100,0,0,"Thanalan","The Praetorium","",-1,0,"w1d5",True,False
 105,0,0,0,1,0,"l1f1/02",400,0,0,"Mor Dhona","Mor Dhona","",-1,0,"l1f1",True,True
 106,0,0,0,1,0,"default/00",100,0,0,"???","Eorzean Subterrane","",-1,0,"s1b7_2",True,False
 107,0,0,0,1,38,"w1e6/00",400,0,0,"Thanalan","The Waking Sands","",-1,0,"w1e6",True,True
@@ -285,8 +285,8 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 281,2,18,2,1,210,"f1d8/02",200,197,325,"The Black Shroud","The Lost City of Amdapor (Hard)","Sanctum of Dreams",63,1984,"f1d8",True,False
 282,2,18,3,1,211,"f1d8/03",200,-175,-297,"The Black Shroud","The Lost City of Amdapor (Hard)","The Crystallum",63,63488,"f1d8",True,False
 283,0,0,0,1,0,"a2fd/00",400,0,0,"Abalathia's Spine","Containment Bay S1T7","",-1,0,"a2fd",True,False
-284,0,0,0,1,208,"s1p4/00",200,0,0,"La Noscea","The Feasting Grounds","",-1,0,"s1p4",True,False
-285,0,0,0,1,208,"s1p5/00",200,0,0,"La Noscea","The Feasting Grounds","",-1,0,"s1p4",True,False
+284,0,0,0,1,208,"s1p4/00",200,0,0,"La Noscea","The Feasting Grounds","",-1,0,"",True,False
+285,0,0,0,1,208,"s1p5/00",200,0,0,"La Noscea","The Feasting Grounds","",-1,0,"",True,False
 286,0,0,0,1,215,"d2a5/00",200,0,0,"Dravania","The Fist of the Son","",65,62,"d2a5",True,False
 287,0,0,1,1,216,"d2a6/01",200,0,0,"Dravania","The Cuff of the Son","Forward Ring",66,2,"d2a6",True,False
 288,0,0,2,1,217,"d2a6/02",200,0,150,"Dravania","The Cuff of the Son","Rear Ring",66,124,"d2a6",True,False
@@ -349,7 +349,7 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 345,6,8,3,1,260,"z2r3/03",200,0,0,"Abalathia's Spine","Dun Scaith","The Crumbling Hold",76,8192,"z2r3",True,False
 346,0,0,0,1,261,"z2r3/04",200,350,400,"Abalathia's Spine","","Hold Roof",76,16384,"z2r3",True,False
 347,0,0,0,1,0,"z2r3/05",200,-350,400,"Abalathia's Spine","","Unwhere",-1,0,"z2r3",True,False
-348,0,0,0,1,251,"f1p1/00",200,0,0,"The Black Shroud","Lichenweed","",-1,0,"f1p1_1",True,False
+348,0,0,0,1,251,"f1p1/00",200,0,0,"The Black Shroud","Lichenweed","",-1,0,"",True,False
 349,0,0,0,1,251,"f1p2/00",200,0,0,"The Black Shroud","Lichenweed","",-1,0,"f1p2_1",True,False
 350,7,14,1,1,262,"d2d8/01",200,128,-32,"Dravania","Sohm Al (Hard)","Betrayal",78,30,"d2d8",True,False
 351,7,14,2,1,263,"d2d8/02",200,-256,-192,"Dravania","Sohm Al (Hard)","The Veins",78,992,"d2d8",True,False
@@ -415,9 +415,9 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 411,0,0,0,1,300,"e3t1/00",200,0,0,"Hingashi","Kugane","",-1,0,"ec005",True,False
 412,0,0,0,1,301,"d2p1/00",100,0,0,"Dravania","Astragalos","",-1,0,"d2p1",True,False
 413,8,9,1,1,306,"g3d4/01",200,185,5,"Gyr Abania","The Drowned City of Skalla","The Shallows",89,3070,"g3d4",True,False
-414,0,0,0,1,0,"z3fa/00",100,0,0,"???","","",-1,0,"",True,False
+414,0,0,0,1,318,"z3fa/00",100,0,0,"???","Eureka Anemos","",93,32766,"z3fa",True,False
 415,8,9,2,1,307,"g3d4/02",200,-315,5,"Gyr Abania","The Drowned City of Skalla","The Depths",89,62464,"g3d4",True,False
-416,0,0,0,1,0,"f1bz/00",400,0,0,"???","","",-1,0,"",True,False
+416,0,0,0,1,0,"f1bz/00",400,0,0,"???","The Binding Coil of Bahamut","",-1,0,"f1bz",True,False
 417,0,0,0,1,275,"g3d2/02",200,-250,128,"Gyr Abania","The Hall of the Griffin","",80,16320,"g3d2_event",True,True
 418,13,1,0,3,0,"region/99",100,0,0,"???","???","",-1,0,,True,False
 419,0,0,0,1,305,"g3e6/00",200,0,0,"Gyr Abania","The Resonatorium","",-1,0,"g3e6",True,True
@@ -440,3 +440,33 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 436,0,0,0,1,0,"g3fc/02",400,0,32,"Gyr Abania","Myth","",-1,0,"g3fc",True,False
 437,0,0,0,1,298,"e3eb/00",400,-60,-46,"Othard","Doman Enclave","",-1,0,"e3eb",True,True
 438,0,0,0,1,0,"e1i4/00",400,0,0,"Hingashi","Kobai Goten Apartment","",-1,0,"e1i4_2",True,False
+439,11,8,0,1,321,"e3d5/00",200,0,0,"Othard","Hells' Lid","",94,16382,"e3d5",True,False
+440,0,0,0,1,311,"l1p2/00",200,0,0,"Mor Dhona","Crystal Tower Training Grounds","",-1,0,"l1p2",True,False
+441,6,9,1,1,315,"a2d4/01",200,0,350,"Abalathia's Spine","The Fractal Continuum (Hard)","Central Complex",91,14,"a2d4",True,False
+442,6,9,2,1,316,"a2d4/02",200,237,-128,"Abalathia's Spine","The Fractal Continuum (Hard)","Starboard Complex",91,496,"a2d4",True,False
+443,6,9,3,1,317,"a2d4/03",200,0,-300,"Abalathia's Spine","The Fractal Continuum (Hard)","Rear Complex",91,32256,"a2d4",True,False
+444,0,0,0,1,0,"default/00",100,0,0,"Gyr Abania","The Interdimensional Rift","",-1,0,"z3e5",True,True
+445,0,0,0,1,320,"z3o6/00",200,-67,-250,"Gyr Abania","The Interdimensional Rift","",90,30,"e0196",True,False
+446,0,0,1,1,0,"z3o7/01",400,0,0,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+447,0,0,0,1,0,"z3o8/00",400,0,0,"Gyr Abania","Sigmascape V2.0","",-1,0,"z3o8",True,False
+448,0,0,0,1,0,"z3o9/00",400,0,0,"Gyr Abania","Sigmascape V3.0","",-1,0,"z3o9",True,False
+449,0,0,0,1,0,"z3oa/00",400,0,0,"Gyr Abania","Sigmascape V4.0","",-1,0,"z3oa",True,False
+450,0,0,0,1,0,"e3fb/00",400,0,0,"Othard","The Jade Stoa","",-1,0,"e3fb",True,False
+451,0,0,0,1,0,"f1e9/00",400,0,125,"The Black Shroud","Valentione's Ceremony","",-1,0,"f1e9",True,False
+452,0,0,0,1,0,"z3o7/02",400,30,-45,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+453,0,0,0,1,0,"z3o7/03",400,-145,70,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+454,0,0,0,1,0,"z3o7/04",400,-145,26,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+455,0,0,0,1,0,"z3o7/05",400,-145,-28,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+456,0,0,0,1,0,"z3o7/06",400,-145,-72,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+457,0,0,0,1,0,"z3o7/07",400,-216,70,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+458,0,0,0,1,0,"z3o7/08",400,-216,26,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+459,0,0,0,1,0,"z3o7/09",400,-216,-28,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+460,0,0,0,1,0,"z3o7/10",400,-216,-72,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
+461,0,0,0,1,314,"e3e7/00",400,0,0,"Othard","Kienkan","",-1,0,"e3e7",True,True
+462,0,0,0,1,319,"e3e8/00",400,-62,475,"Othard","Reisen Temple","",-1,0,"e3e8",True,True
+463,0,0,0,1,313,"e3ec/00",400,-60,-46,"Othard","Doman Enclave","",-1,0,"e3ec",True,True
+464,0,0,1,1,0,"e3d6/01",200,0,0,"Hingashi","The Swallow's Compass","",92,62,"",True,False
+465,0,0,2,1,0,"e3d6/02",200,0,0,"Hingashi","The Swallow's Compass","",92,960,"",True,False
+466,0,0,3,1,0,"e3d6/03",200,0,0,"Hingashi","The Swallow's Compass","",92,15360,"",True,False
+467,0,0,0,1,0,"z3fb/00",100,0,0,"???","","",-1,0,"",True,False
+468,0,0,0,0,0,"",100,0,0,"","","",-1,0,,True,False

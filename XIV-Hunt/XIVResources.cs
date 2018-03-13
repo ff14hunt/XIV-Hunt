@@ -17,10 +17,9 @@ namespace XIVDB
     static class GameResources
     {
         private const string SquareBrauquetsRegex = @"\[(.*?)\]";
-        private static readonly string[] lineEnding = new string[] { Environment.NewLine };//"\r\n" on Windows
-        //private const string UnsupportedHtmlTagsRegex = @"<.*(?<!Emphasis)(?<!SoftHyphen\/)(?<!Indent\/)>";
+        private static readonly string[] lineEnding = new string[] { Environment.NewLine };
         private const string HtmlTagsRegex = "<.*?>";
-        private static Dictionary<ushort, FATEName> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort result)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[27].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => ParseFATEName(line[27]));
+        private static Dictionary<ushort, FATEName> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort result)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => ParseFATEName(line[28]));
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
         private readonly static Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort result)).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
 
@@ -30,7 +29,6 @@ namespace XIVDB
             if (id > 0 && id < lines.Length)
             {
                 return lines[id].Split(',')[3].Trim('"').FirstLetterToUpperCase();
-                //return Regex.Replace(lines[id].Split(',')[3].Trim('"'), UnsupportedHtmlTagsRegex, string.Empty).FirstLetterToUpperCase();
             }
             return "Unknown duty " + id;
         }
