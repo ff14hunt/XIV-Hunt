@@ -638,7 +638,7 @@ namespace FFXIV_GameSense
             {
                 return false;
             }
-            return ID.Equals(item.ID) && WorldId.Equals(item.WorldId);
+            return ID.Equals(item.ID) /*&& WorldId.Equals(item.WorldId)*/;
         }
 
         public override int GetHashCode()
