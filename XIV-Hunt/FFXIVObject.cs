@@ -305,6 +305,16 @@ namespace FFXIV_GameSense
         {
             return ID.GetHashCode();
         }
+
+        public bool IsDataCenterShared() => IsDataCenterShared(ID);
+
+        public static bool IsDataCenterShared(ushort ID)
+        {
+            if ((ID > 962 && ID < 1101) || (ID > 1327 && ID < 1349 && ID != 1330))
+                return true;
+            else
+                return false;
+        }
     }
 
     public enum FATEState : byte

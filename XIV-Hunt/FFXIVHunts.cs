@@ -122,7 +122,7 @@ namespace FFXIV_GameSense
             });
             hubProxy.On<FATEReport>("ReceiveFATE", fate =>
             {
-                //Debug.WriteLine(string.Format(Resources.FATEReportReceived, XIVDBfunc.GetWorldName(fate.WorldId), fate.Name, fate.Progress));
+                //Debug.WriteLine(string.Format(Resources.FATEReportReceived, GameResources.GetWorldName(fate.WorldId), fate.Name(true), fate.Progress));
                 PutInChat(fate);
             });
             _ = ConnectToGSHunt();
@@ -139,6 +139,8 @@ namespace FFXIV_GameSense
         private void PutInChat(FATEReport fate)
         {
             int idx = fates.IndexOf(fate);
+            if (idx == -1)
+                return;
             fates[idx].State = fate.State;
             fates[idx].StartTimeEpoch = fate.StartTimeEpoch;
             fates[idx].Duration = fate.Duration;
@@ -262,7 +264,10 @@ namespace FFXIV_GameSense
             {
                 if (f.ZoneID == thisZone)
                 {
-                    ReportFate(f);
+                    if (f.IsDataCenterShared())
+                        PutInChat(new FATEReport(f) { WorldId = mem.GetServerId() });
+                    else
+                        ReportFate(f);
                 }
             }
         }
@@ -638,7 +643,7 @@ namespace FFXIV_GameSense
             {
                 return false;
             }
-            return ID.Equals(item.ID) /*&& WorldId.Equals(item.WorldId)*/;
+            return ID.Equals(item.ID) && WorldId.Equals(item.WorldId);
         }
 
         public override int GetHashCode()
