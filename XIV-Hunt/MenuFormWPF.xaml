@@ -14,7 +14,7 @@
                 <!--<TextBlock TextAlignment="Center">Settings</TextBlock>-->
             </StackPanel>
         </Button>
-        <TextBlock MouseLeftButtonUp="HuntConnectionTextBlock_MouseLeftButtonUp" x:Name="HuntConnectionTextBlock" Margin="10,43,0,110" Text="ConnectionStringDammy"/>
+        <TextBlock MouseLeftButtonUp="HuntConnectionTextBlock_MouseLeftButtonUp" x:Name="HuntConnectionTextBlock" Margin="10,43,0,0" Text="ConnectionStringDammy" Height="45" VerticalAlignment="Top"/>
         <GroupBox IsHitTestVisible="True" x:Name="HuntNotifyGroupBox" Margin="10,68,0,0" Header="{x:Static properties:Resources.GroupBoxHeader}" IsEnabled="False" Height="140" VerticalAlignment="Top" HorizontalAlignment="Left" Width="474">
             <Grid Margin="5,4,-2,0" IsHitTestVisible="True" x:Name="Grid">
                 <Grid.RowDefinitions>
@@ -174,7 +174,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox x:Name="LanguageComboBox" Margin="135,10,259,187" ToolTip="{x:Static properties:Resources.RestartForChanges}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=LanguageCI, Mode=TwoWay}" SelectedValuePath="Tag">
+        <ComboBox x:Name="LanguageComboBox" Margin="135,10,259,0" ToolTip="{x:Static properties:Resources.RestartForChanges}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=LanguageCI, Mode=TwoWay}" SelectedValuePath="Tag" Height="22" VerticalAlignment="Top">
             <ComboBoxItem Content="English" Tag="en-US" />
             <ComboBoxItem Content="Français" Tag="fr-FR" />
             <ComboBoxItem Content="Deutsch" Tag="de-DE" />
