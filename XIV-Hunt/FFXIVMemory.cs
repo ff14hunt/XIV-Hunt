@@ -635,7 +635,7 @@ namespace FFXIV_GameSense
             {
                 ID = BitConverter.ToUInt16(ba, 0x18),
                 StartTimeEpoch = BitConverter.ToUInt32(ba, 0x20),
-                Duration = BitConverter.ToInt16(ba, 0x28),
+                Duration = BitConverter.ToUInt16(ba, 0x28),
                 ReadName = (_mode == FFXIVClientMode.FFXIV_64) ? GetStringFromBytes(ba, 0xE2) : GetStringFromBytes(ba, 0xAA),
                 State = (_mode == FFXIVClientMode.FFXIV_64) ? (FATEState)ba[0x3AC] : (FATEState)ba[0x2F4],
                 Progress = (_mode == FFXIVClientMode.FFXIV_64) ? ba[0x3B3] : ba[0x2FB],

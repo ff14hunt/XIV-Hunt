@@ -266,7 +266,7 @@ namespace FFXIV_GameSense
         public ushort ZoneID { get; set; }
         public FATEState State { get; set; }
         public uint StartTimeEpoch { get; set; }
-        public int Duration { get; set; }
+        public ushort Duration { get; set; }
         public DateTime LastReported { get; set; }
         [JsonIgnore]
         public DateTime EndTime => DateTimeOffset.FromUnixTimeSeconds(StartTimeEpoch + Duration).UtcDateTime;
