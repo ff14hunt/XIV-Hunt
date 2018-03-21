@@ -499,8 +499,8 @@ namespace FFXIV_GameSense
 
         internal DateTime GetServerUtcTime()
         {
-            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            return epoch.AddSeconds(GetUInt32(serverTimeAddress)).AddMilliseconds(GetUInt16(serverTimeAddress,4));
+            byte[] ba = GetByteArray(serverTimeAddress, 6);
+            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(BitConverter.ToUInt32(ba, 0)).AddMilliseconds(BitConverter.ToUInt16(ba, 4));
         }
 
         public Combatant GetTargetCombatant()
