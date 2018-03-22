@@ -22,6 +22,9 @@ using XIVDB;
 using FFXIV_GameSense.MML;
 using System.Text.RegularExpressions;
 using static FFXIV_GameSense.FFXIVMemory;
+using System.Windows.Data;
+using Newtonsoft.Json;
+using FFXIV_GameSense.UI;
 
 namespace FFXIV_GameSense
 {
@@ -35,7 +38,7 @@ namespace FFXIV_GameSense
         internal SoundPlayer FATEsp;
         private CheckBox currentCMPlacement;
         private System.Windows.Forms.NotifyIcon ni;
-        private ProcessViewModel pvm;
+        private ViewModel vm;
         private static SettingsForm SettingsWindow;
         private CancellationTokenSource cts;
         private static bool WroteDRPop = false;
@@ -45,7 +48,7 @@ namespace FFXIV_GameSense
             Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.Default.LanguageCI);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.LanguageCI);
             InitializeComponent();
-            pvm = new ProcessViewModel();
+            vm = new ViewModel();
             Closed += MenuForm_FormClosed;
             dispatcherTimer1s = new DispatcherTimer
             {
@@ -67,7 +70,7 @@ namespace FFXIV_GameSense
                     WindowState = WindowState.Normal;
                     ni.Visible = false;
                 };
-            DataContext = pvm;
+            DataContext = vm;
             OtherFATEsCheckComboBox.Items.Filter += FilterPredicate;
             OtherFATEsCheckComboBox_ItemSelectionChanged(null, null);
             _ = PopulateFATEList();
@@ -189,7 +192,7 @@ namespace FFXIV_GameSense
                 if (ProcessComboBox.SelectedIndex < 0)
                     ProcessComboBox.SelectedIndex = 0;
                 int? psv = (int?)ProcessComboBox.SelectedValue;
-                pvm.Refresh();
+                vm.Refresh();
                 if (psv > 0)
                     ProcessComboBox.SelectedValue = psv;
                 if (ProcessComboBox.Items.Count > 1)
@@ -736,13 +739,49 @@ namespace FFXIV_GameSense
         }
     }
 
-    public class ProcessViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Process> processes;
-        public ProcessViewModel() => processes = new ObservableCollection<Process>(FFXIVProcessHelper.GetFFXIVProcessList());
-        public void Refresh() => OnPropertyChanged("ProcessEntries");
+        private ObservableCollection<UI.FATEListViewItem> FATEs;
+        private bool GotFATEZones = false;
+        private bool IsFetchingZones = false;
+        public ViewModel()
+        {
+            FATEs = new ObservableCollection<UI.FATEListViewItem>();
+            foreach (FATE f in GameResources.GetFates().DistinctBy(x=>x.Name()))
+                FATEs.Add(new FATEListViewItem(f));
+        }
+
+        public void Refresh()
+        {
+            OnPropertyChanged("ProcessEntries");
+            if (FFXIVHunts.joined && !GotFATEZones && !IsFetchingZones)
+                _ = UpdateFATEZones();
+        }
+
         public ObservableCollection<Process> ProcessEntries => new ObservableCollection<Process>(FFXIVProcessHelper.GetFFXIVProcessList());
+        public ObservableCollection<UI.FATEListViewItem> FATEEntries => FATEs;
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private async Task UpdateFATEZones()
+        {
+            IsFetchingZones = true;
+            string e;
+            var r = await FFXIVHunts.http.GetAsync(FFXIVHunts.baseUrl+"api/worlds/FATEIDZoneID/");
+            if (r.IsSuccessStatusCode)
+            {
+                e = await r.Content.ReadAsStringAsync();
+                var fateidzoneid = JsonConvert.DeserializeObject<Dictionary<ushort, List<ushort>>>(e);
+                foreach (UI.FATEListViewItem i in FATEs)
+                {
+                    if (fateidzoneid.ContainsKey(i.ID))
+                    {
+                        i.Zones = string.Join(", ", fateidzoneid[i.ID].Distinct().Select(x => GameResources.GetZoneName(x)));
+                    }
+                }
+                GotFATEZones = true;
+            }
+            IsFetchingZones = false;
+        }
     }
 }

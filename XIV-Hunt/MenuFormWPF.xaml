@@ -4,18 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:properties="clr-namespace:FFXIV_GameSense.Properties"
+        xmlns:UI="clr-namespace:FFXIV_GameSense.UI"
         x:Class="FFXIV_GameSense.Window1"
         mc:Ignorable="d"
-        Title="XIV-Hunt" Height="246.667" Width="500" ResizeMode="CanMinimize" Icon="Resources/enemy.ico">
+        Title="XIV-Hunt" Height="450" MinHeight="450" Width="500" MinWidth="500" ResizeMode="CanResize" Icon="Resources/enemy.ico">
     <Grid IsHitTestVisible="True">
-        <Button HorizontalAlignment="Left" Margin="453,10,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="OpenSettings" ToolTip="{x:Static properties:Resources.OpenSettingsToolTip}">
+        <Button Margin="0,10,10,0" VerticalAlignment="Top" MaxHeight="32" Click="OpenSettings" ToolTip="{x:Static properties:Resources.OpenSettingsToolTip}" HorizontalAlignment="Right" Width="31">
             <StackPanel>
-                <Image Source="Resources/SettingsIcon.png" />
-                <!--<TextBlock TextAlignment="Center">Settings</TextBlock>-->
+                <Image Source="Resources/SettingsIcon.png" MaxHeight="26" />
             </StackPanel>
         </Button>
         <TextBlock MouseLeftButtonUp="HuntConnectionTextBlock_MouseLeftButtonUp" x:Name="HuntConnectionTextBlock" Margin="10,43,0,0" Text="ConnectionStringDammy" Height="45" VerticalAlignment="Top"/>
-        <GroupBox IsHitTestVisible="True" x:Name="HuntNotifyGroupBox" Margin="10,68,0,0" Header="{x:Static properties:Resources.GroupBoxHeader}" IsEnabled="False" Height="140" VerticalAlignment="Top" HorizontalAlignment="Left" Width="474">
+        <GroupBox IsHitTestVisible="True" x:Name="HuntNotifyGroupBox" Margin="10,68,10,0" Header="{x:Static properties:Resources.GroupBoxHeader}" IsEnabled="False" Height="140" VerticalAlignment="Top">
             <Grid Margin="5,4,-2,0" IsHitTestVisible="True" x:Name="Grid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
@@ -28,8 +28,6 @@
                     <ColumnDefinition Width=".5*" />
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
-                <!--<CheckBox x:Name="QCheckIxion" Grid.Row="1" Grid.Column="3" Margin="5,5,166,18" Content="A Horse Outside" IsEnabled="False" Checked="QCheck_Checked" Unchecked="QCheck_Unchecked"/>
-                <CheckBox x:Name="QCheckFoxyLady" Grid.Row="1" Grid.Column="3" Margin="5,22,152,0" Content="Foxy Lady" IsEnabled="False" Checked="QCheck_Checked" Unchecked="QCheck_Unchecked"/>-->
                 <CheckBox x:Name="SBell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=SPlaySound, Mode=TwoWay}" Grid.Column="0" Grid.Row="0" Opacity="0.25" Click="SBell_Click" IsEnabled="False">
                     <CheckBox.Template>
                         <ControlTemplate>
@@ -174,11 +172,14 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox x:Name="LanguageComboBox" Margin="135,10,259,0" ToolTip="{x:Static properties:Resources.RestartForChanges}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=LanguageCI, Mode=TwoWay}" SelectedValuePath="Tag" Height="22" VerticalAlignment="Top">
+        <ComboBox x:Name="LanguageComboBox" Margin="135,10,0,0" ToolTip="{x:Static properties:Resources.RestartForChanges}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=LanguageCI, Mode=TwoWay}" SelectedValuePath="Tag" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100">
             <ComboBoxItem Content="English" Tag="en-US" />
             <ComboBoxItem Content="Français" Tag="fr-FR" />
             <ComboBoxItem Content="Deutsch" Tag="de-DE" />
             <ComboBoxItem Content="日本語" Tag="ja-JP" />
         </ComboBox>
+        <GroupBox Header="{x:Static properties:Resources.FormFATEs}" Margin="10,213,10,10">
+            <UI:FATEsListView x:Name="FATEsListView" DataContext="{Binding Path=FATEEntries, Mode=OneWay}"/>
+        </GroupBox>
     </Grid>
 </Window>

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Diagnostics;
 using FFXIV_GameSense.Properties;
@@ -60,7 +59,7 @@ namespace FFXIV_GameSense
         private static HubConnection hubConnection;
         private static IHubProxy hubProxy;
         internal static HttpClient http = new HttpClient();
-        private static bool joined = false;
+        internal static bool joined = false;
         private static bool joining = false;
         private static bool connecting = false;
         private static ushort lastJoined, lastZone;
@@ -147,7 +146,7 @@ namespace FFXIV_GameSense
             fates[idx].Progress = fate.Progress;
             bool skipAnnounce = Settings.Default.NoAnnouncementsInContent && Program.mem.GetCurrentContentFinderCondition() > 0
                 || (Math.Abs(fate.TimeRemaining.TotalHours) < 3 && fate.TimeRemaining.TotalMinutes < Settings.Default.FATEMinimumMinutesRemaining)
-                || ((fate.State == FATEState.Preparation) ? fates[idx].lastPutInChat > Program.mem.GetServerUtcTime().AddMinutes(-10) : Math.Abs(fate.Progress - fates[idx].LastReportedProgress) < Settings.Default.FATEMinimumPercentInterval);
+                || ((fate.State == FATEState.Preparation) ? fates[idx].lastPutInChat > Program.mem.GetServerUtcTime().AddMinutes(-10) : Math.Abs(fate.Progress - fates[idx].LastReportedProgress) < Settings.Default.FATEMinimumPercentInterval && Settings.Default.FATEMinimumPercentInterval > 0);
             if (FateNotifyCheck(fates[idx].ID) && fates[idx].lastPutInChat < Program.mem.GetServerUtcTime().AddMinutes(-Settings.Default.FATEInterval) && !fate.HasEnded && !skipAnnounce)
             {
                 var cm = new ChatMessage();
@@ -339,7 +338,7 @@ namespace FFXIV_GameSense
             catch (Exception) { }
         }
 
-        private bool FateNotifyCheck(ushort id)
+        private static bool FateNotifyCheck(ushort id)
         {
             //Get first ID for the FATE with this name
             id = GameResources.GetFateId(GameResources.GetFateName(id, true));

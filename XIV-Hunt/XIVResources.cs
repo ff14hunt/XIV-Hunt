@@ -9,17 +9,30 @@ using System.Text.RegularExpressions;
 
 namespace XIVDB
 {
-    class FATEName
+    public class FATEInfo
     {
-        public string NoTags { get; set; }
-        public string WithTags { get; set; }
+        public byte ClassJobLevel { get; private set; }
+        public string NoTags { get; private set; }
+        public string WithTags { get; private set; }
+        public string IconObjective { get; private set; }
+        public string IconMap { get; private set; }
+
+        public FATEInfo(string[] line)
+        {
+            string fn = line[28].Trim('"');
+            ClassJobLevel = byte.Parse(line[4]);
+            WithTags = fn;
+            NoTags = Regex.Replace(fn, GameResources.HtmlTagsRegex, string.Empty);
+            IconObjective = line[11].Trim('"').Replace(".tex", ".png");
+            IconMap = line[12].Trim('"').Replace(".tex", ".png");
+        }
     }
     static class GameResources
     {
         private const string SquareBrauquetsRegex = @"\[(.*?)\]";
         private static readonly string[] lineEnding = new string[] { Environment.NewLine };
-        private const string HtmlTagsRegex = "<.*?>";
-        private static Dictionary<ushort, FATEName> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort result)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => ParseFATEName(line[28]));
+        internal const string HtmlTagsRegex = "<.*?>";
+        private static Dictionary<ushort, FATEInfo> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort result)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => new FATEInfo(line));
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
         private readonly static Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort result)).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
 
@@ -43,20 +56,21 @@ namespace XIVDB
 
         internal static string GetFateName(ushort iD, bool stripTags = true)
         {
-            if (FATENames.TryGetValue(iD, out FATEName name))
+            if (FATENames.TryGetValue(iD, out FATEInfo name))
                 return stripTags ? name.NoTags : name.WithTags;
             return "Unknown FATE: " + iD;
         }
 
-        private static FATEName ParseFATEName(string name)
+        internal static FATEInfo GetFATEInfo(ushort iD)
         {
-            string fn = name.Trim('"');
-            return new FATEName { WithTags = fn, NoTags = Regex.Replace(fn, HtmlTagsRegex, string.Empty) };//meh
+            if (FATENames.TryGetValue(iD, out FATEInfo fi))
+                return fi;
+            return null;
         }
 
         internal static ushort GetFateId(string name, bool ignoreCase = false)
         {
-            foreach (KeyValuePair<ushort, FATEName> f in FATENames)
+            foreach (KeyValuePair<ushort, FATEInfo> f in FATENames)
                 if (f.Value.NoTags.Equals(name, ignoreCase ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture))
                     return f.Key;
             return 0;
@@ -65,7 +79,7 @@ namespace XIVDB
         public static List<FATE> GetFates()
         {
             List<FATE> l = new List<FATE>();
-            foreach (KeyValuePair<ushort, FATEName> f in FATENames)
+            foreach (KeyValuePair<ushort, FATEInfo> f in FATENames)
             {
                 if (f.Key == 122 || f.Key == 145 || f.Key == 151 || f.Key == 130 || f.Key == 173 || f.Key == 182)
                     continue;

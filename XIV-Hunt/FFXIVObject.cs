@@ -274,6 +274,8 @@ namespace FFXIV_GameSense
         public TimeSpan TimeRemaining => (EndTime - Program.mem.GetServerUtcTime());//TODO: fix
         [JsonIgnore]
         public bool HasEnded => State == FATEState.Ended || State == FATEState.Failed;
+        [JsonIgnore]
+        public FATEInfo FATEInfo => GameResources.GetFATEInfo(ID);
 
         public FATE() { }
 
@@ -373,7 +375,7 @@ namespace FFXIV_GameSense
     {
         public short ID { get; set; }
         public short Value { get; set; }
-        public float Timer { get; set; }//floating point, how to make readable time format?
+        public float Timer { get; set; }
         public uint CasterId { get; set; }
 
         public bool Equals(Status p)
