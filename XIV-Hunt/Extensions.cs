@@ -93,5 +93,10 @@ namespace FFXIV_GameSense
             a[0] = char.ToUpper(a[0]);
             return new string(a);
         }
+
+        public static uint ToEpoch(this DateTime d)
+        {
+            return Convert.ToUInt32((TimeZoneInfo.ConvertTimeToUtc(d) - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds);
+        }
     }
 }

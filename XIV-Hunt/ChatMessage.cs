@@ -9,7 +9,7 @@ namespace FFXIV_GameSense
     internal class ChatMessage
     {
         internal DateTime Timestamp { get; set; }
-        private uint Epoch => Convert.ToUInt32(DateTimeToUnixTimestamp(Timestamp));
+        private uint Epoch => Timestamp.ToEpoch();
         internal ChatChannel Channel { get; set; }
         internal ChatFilter Filter { get; set; }
         internal string Sender { get; set; }
@@ -75,11 +75,6 @@ namespace FFXIV_GameSense
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
-        }
-
-        public static double DateTimeToUnixTimestamp(DateTime dateTime)
-        {
-            return (TimeZoneInfo.ConvertTimeToUtc(dateTime) - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
         }
 
         internal byte[] ToArray()
