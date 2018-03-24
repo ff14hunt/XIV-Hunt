@@ -299,7 +299,7 @@ namespace FFXIV_GameSense
         internal static async Task<Item> LookupItemXIVDB(string itemname)
         {
             string e;
-            var r = await http.GetAsync("https://api.xivdb.com/search?string="+WebUtility.UrlEncode(itemname)+"&one=items&language="+Thread.CurrentThread.CurrentUICulture.Name.Substring(0,2));
+            var r = await http.GetAsync("https://api.xivdb.com/search?string="+WebUtility.UrlEncode(itemname)+"&one=items&strict=on&language="+Thread.CurrentThread.CurrentUICulture.Name.Substring(0,2));
             if (r.IsSuccessStatusCode)
                 e = await r.Content.ReadAsStringAsync();
             else
