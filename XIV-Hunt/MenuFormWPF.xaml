@@ -7,7 +7,7 @@
         xmlns:UI="clr-namespace:FFXIV_GameSense.UI"
         x:Class="FFXIV_GameSense.Window1"
         mc:Ignorable="d"
-        Title="XIV-Hunt" Height="450" MinHeight="450" Width="500" MinWidth="500" ResizeMode="CanResize" Icon="Resources/enemy.ico">
+        Title="XIV-Hunt" Height="450" MinHeight="450" Width="600" MinWidth="600" ResizeMode="CanResize" Icon="Resources/enemy.ico">
     <Grid IsHitTestVisible="True">
         <Button Margin="0,10,10,0" VerticalAlignment="Top" MaxHeight="32" Click="OpenSettings" ToolTip="{x:Static properties:Resources.OpenSettingsToolTip}" HorizontalAlignment="Right" Width="31">
             <StackPanel>
@@ -15,56 +15,51 @@
             </StackPanel>
         </Button>
         <TextBlock MouseLeftButtonUp="HuntConnectionTextBlock_MouseLeftButtonUp" x:Name="HuntConnectionTextBlock" Margin="10,43,0,0" Text="ConnectionStringDammy" Height="45" VerticalAlignment="Top"/>
-        <GroupBox IsHitTestVisible="True" x:Name="HuntNotifyGroupBox" Margin="10,68,10,0" Header="{x:Static properties:Resources.GroupBoxHeader}" IsEnabled="False" Height="140" VerticalAlignment="Top">
+        <GroupBox IsHitTestVisible="True" x:Name="HuntNotifyGroupBox" Margin="10,68,10,10" Header="{x:Static properties:Resources.GroupBoxHeader}" IsEnabled="False">
             <Grid Margin="5,4,-2,0" IsHitTestVisible="True" x:Name="Grid">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" MaxHeight="36" />
+                    <RowDefinition Height="7.5*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*" MaxWidth="38" />
+                    <ColumnDefinition Width="1.5*" />
                     <ColumnDefinition Width=".5*" />
                     <ColumnDefinition Width="1.5*" />
                     <ColumnDefinition Width=".5*" />
-                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
-                <CheckBox x:Name="SBell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=SPlaySound, Mode=TwoWay}" Grid.Column="0" Grid.Row="0" Opacity="0.25" Click="SBell_Click" IsEnabled="False">
+                <CheckBox x:Name="SBell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=SPlaySound, Mode=TwoWay}" Grid.Column="0" Grid.Row="0" Opacity="0.25" Click="SBell_Click" IsEnabled="{Binding ElementName=SCheck, Path=IsChecked, Mode=TwoWay}">
                     <CheckBox.Template>
                         <ControlTemplate>
                             <Image Source="Resources/bell alarm icon.png"/>
                         </ControlTemplate>
                     </CheckBox.Template>
                 </CheckBox>
-                <CheckBox x:Name="ABell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=APlaySound, Mode=TwoWay}" Grid.Column="0" Grid.Row="1" Opacity="0.25" Click="SBell_Click" IsEnabled="False">
+                <CheckBox x:Name="ABell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=APlaySound, Mode=TwoWay}" Grid.Column="2" Grid.Row="0" Opacity="0.25" Click="SBell_Click" IsEnabled="{Binding ElementName=ACheck, Path=IsChecked, Mode=TwoWay}">
                     <CheckBox.Template>
                         <ControlTemplate>
                             <Image Source="Resources/bell alarm icon.png"/>
                         </ControlTemplate>
                     </CheckBox.Template>
                 </CheckBox>
-                <CheckBox x:Name="BBell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=BPlaySound, Mode=TwoWay}"  Grid.Column="0" Grid.Row="2" Opacity="0.25" Click="SBell_Click" IsEnabled="False">
+                <CheckBox x:Name="BBell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=BPlaySound, Mode=TwoWay}"  Grid.Column="4" Grid.Row="0" Opacity="0.25" Click="SBell_Click" IsEnabled="{Binding ElementName=BCheck, Path=IsChecked, Mode=TwoWay}">
                     <CheckBox.Template>
                         <ControlTemplate>
                             <Image Source="Resources/bell alarm icon.png"/>
                         </ControlTemplate>
                     </CheckBox.Template>
                 </CheckBox>
-                <CheckBox x:Name="FATEBell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=FATEPlaySound, Mode=TwoWay}" Grid.Column="2" Grid.Row="0" Opacity="0.25" Click="SBell_Click" IsEnabled="False">
+                <CheckBox x:Name="FATEBell" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=FATEPlaySound, Mode=TwoWay}" Grid.Column="0" Grid.Row="1" Opacity="0.25" Click="SBell_Click" IsEnabled="{Binding Path=FATEsAny, Mode=OneTime}" IsEnabledChanged="FATEBell_IsEnabledChanged" VerticalAlignment="Top">
                     <CheckBox.Template>
                         <ControlTemplate>
                             <Image Source="Resources/bell alarm icon.png"/>
                         </ControlTemplate>
                     </CheckBox.Template>
                 </CheckBox>
-                <TextBlock Text="{x:Static properties:Resources.FormFATEs}" Grid.Column="3" Grid.Row="0"/>
-                <TextBlock x:Name="SelectedFateCountTextBlock" Text="{x:Static properties:Resources.FormFATESingle}" Margin="0,0,10,0" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right"/>
-                <ComboBox x:Name="OtherFATEsCheckComboBox" Grid.Row="0" Grid.Column="3" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.IsContainerVirtualizable="True" GotFocus="OtherFATEsCheckComboBox_GotFocus" Margin="0,16,10,0" IsEditable="True" IsReadOnly="False" IsTextSearchEnabled="False" Keyboard.KeyUp="OtherFATEsSearchTextBox_KeyUp" SelectionChanged="OtherFATEsCheckComboBox_SelectionChanged">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <CheckBox Content="{Binding Content}" IsChecked="{Binding IsChecked}" Checked="OtherFATEsCheckComboBox_ItemSelectionChanged" Unchecked="OtherFATEsCheckComboBox_ItemSelectionChanged"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <TextBlock Text="{x:Static properties:Resources.FormFATEs}" Grid.Column="1" Grid.Row="1"/>
+                <UI:FATEsListView x:Name="FATEsListView" DataContext="{Binding Path=FATEEntries, Mode=OneWay}" AllFATEsDeselected="FATEsListView_AllFATEsDeselected" FATESelected="FATEsListView_FATESelected" Margin="0,16,0,0" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6"/>
                 <CheckBox x:Name="SCheck" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=notifyS, Mode=TwoWay}" Grid.Column="1" Grid.Row="0" Content="{x:Static properties:Resources.FormSRanks}" Checked="SCheck_Checked" Unchecked="SCheck_Unchecked"/>
                 <UniformGrid Grid.Column="1" Margin="0,16,10,0" Columns="3" IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=notifyS, Mode=TwoWay}" IsEnabledChanged="UniformGrid_IsEnabledChanged">
                     <CheckBox x:Name="SARR" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=SARR, Mode=TwoWay}" Checked="FilterCheckBoxOpacityUp" Unchecked="FilterCheckBoxOpacityDown" Opacity="0.35">
@@ -95,8 +90,8 @@
                         </CheckBox.Template>
                     </CheckBox>
                 </UniformGrid>
-                <CheckBox x:Name="ACheck" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=notifyA, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Content="{x:Static properties:Resources.FormARanks}" Checked="ACheck_Checked" Unchecked="ACheck_Unchecked"/>
-                <UniformGrid Grid.Column="1" Grid.Row="1" Margin="0,16,10,0" Columns="3" IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=notifyA, Mode=TwoWay}" IsEnabledChanged="UniformGrid_IsEnabledChanged">
+                <CheckBox x:Name="ACheck" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=notifyA, Mode=TwoWay}" Grid.Column="3" Grid.Row="0" Content="{x:Static properties:Resources.FormARanks}" Checked="ACheck_Checked" Unchecked="ACheck_Unchecked"/>
+                <UniformGrid Grid.Column="3" Grid.Row="0" Margin="0,16,10,0" Columns="3" IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=notifyA, Mode=TwoWay}" IsEnabledChanged="UniformGrid_IsEnabledChanged">
                     <CheckBox x:Name="AARR" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=AARR, Mode=TwoWay}" Checked="FilterCheckBoxOpacityUp" Unchecked="FilterCheckBoxOpacityDown" Opacity="0.35">
                         <CheckBox.Template>
                             <ControlTemplate>
@@ -125,8 +120,8 @@
                         </CheckBox.Template>
                     </CheckBox>
                 </UniformGrid>
-                <CheckBox x:Name="BCheck" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=notifyB, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Content="{x:Static properties:Resources.FormBRanks}" Checked="BCheck_Checked" Unchecked="BCheck_Unchecked"/>
-                <UniformGrid Grid.Column="1" Grid.Row="2" Margin="0,16,10,0" Columns="3" IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=notifyB, Mode=TwoWay}" IsEnabledChanged="UniformGrid_IsEnabledChanged">
+                <CheckBox x:Name="BCheck" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=notifyB, Mode=TwoWay}" Grid.Column="5" Grid.Row="0" Content="{x:Static properties:Resources.FormBRanks}" Checked="BCheck_Checked" Unchecked="BCheck_Unchecked"/>
+                <UniformGrid Grid.Column="5" Grid.Row="0" Margin="0,16,10,0" Columns="3" IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=notifyB, Mode=TwoWay}" IsEnabledChanged="UniformGrid_IsEnabledChanged">
                     <CheckBox x:Name="BARR" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=BARR, Mode=TwoWay}" Checked="FilterCheckBoxOpacityUp" Unchecked="FilterCheckBoxOpacityDown" Opacity="0.35">
                         <CheckBox.Template>
                             <ControlTemplate>
@@ -155,7 +150,7 @@
                         </CheckBox.Template>
                     </CheckBox>
                 </UniformGrid>
-                <CheckBox Grid.Column="3" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Content="{x:Static properties:Resources.FormDutyRoulette}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=notifyDutyRoulette, Mode=TwoWay}"/>
+                <CheckBox Grid.Column="6" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Top" Content="{x:Static properties:Resources.FormDutyRoulette}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=notifyDutyRoulette, Mode=TwoWay}"/>
             </Grid>
         </GroupBox>
         <ComboBox x:Name="ProcessComboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" SelectedValuePath="Id" ItemsSource="{Binding Path=ProcessEntries,Mode=OneWay}" SelectedValue="{Binding Id}" IsEnabled="False">
@@ -178,8 +173,5 @@
             <ComboBoxItem Content="Deutsch" Tag="de-DE" />
             <ComboBoxItem Content="日本語" Tag="ja-JP" />
         </ComboBox>
-        <GroupBox Header="{x:Static properties:Resources.FormFATEs}" Margin="10,213,10,10">
-            <UI:FATEsListView x:Name="FATEsListView" DataContext="{Binding Path=FATEEntries, Mode=OneWay}"/>
-        </GroupBox>
     </Grid>
 </Window>

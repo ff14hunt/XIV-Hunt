@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FFXIV_GameSense.Properties;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +19,7 @@ namespace FFXIV_GameSense.UI
         public FATEsListView()
         {
             InitializeComponent();
+            UpdateFATEsSelectedCount();
         }
 
         private bool Filter(object obj)
@@ -112,10 +113,38 @@ namespace FFXIV_GameSense.UI
             CollectionViewSource.GetDefaultView(ListView.ItemsSource).Refresh();
         }
 
-        public void AutoSizeZonesColumn()
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            foreach (var c in ((GridView)ListView.View).Columns)
-                c.Width = c.ActualWidth;
+            UpdateFATEsSelectedCount();
+            if (Settings.Default.FATEs.Count == 0)
+                AllFATEsDeselected(null, EventArgs.Empty);
+            else
+                FATESelected(null, EventArgs.Empty);
         }
+
+        private void UpdateFATEsSelectedCount()
+        {
+            if (Settings.Default.FATEs.Count == 1)
+                SelectedFateCountTextBlock.Text = string.Format(Properties.Resources.FormFATESingle, Settings.Default.FATEs.Count);
+            else if(Settings.Default.FATEs.Count > 1)
+                SelectedFateCountTextBlock.Text = string.Format(Properties.Resources.FormFATEPlural, Settings.Default.FATEs.Count);
+            if (Settings.Default.FATEs.Count == 0)
+                SelectedFateCountTextBlock.Text = string.Empty;
+        }
+
+        public event EventHandler AllFATEsDeselected;
+        public event EventHandler FATESelected;
+
+        private void ResizeFilterBox()
+        {
+            FilterTextBox.Width = ActualWidth - SelectedFateCountTextBlock.ActualWidth - (SelectedFateCountTextBlock.ActualWidth > 0 ? 15 : 0);
+        }
+
+        private void SelectedFateCountTextBlock_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            FilterTextBox.Width = ActualWidth - e.NewSize.Width - (e.NewSize.Width > 0 ? 15 : 0);
+        }
+
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e) => ResizeFilterBox();
     }
 }

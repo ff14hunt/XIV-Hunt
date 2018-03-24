@@ -22,7 +22,6 @@ using XIVDB;
 using FFXIV_GameSense.MML;
 using System.Text.RegularExpressions;
 using static FFXIV_GameSense.FFXIVMemory;
-using System.Windows.Data;
 using Newtonsoft.Json;
 using FFXIV_GameSense.UI;
 
@@ -71,9 +70,6 @@ namespace FFXIV_GameSense
                     ni.Visible = false;
                 };
             DataContext = vm;
-            OtherFATEsCheckComboBox.Items.Filter += FilterPredicate;
-            OtherFATEsCheckComboBox_ItemSelectionChanged(null, null);
-            _ = PopulateFATEList();
             LanguageComboBox.SelectionChanged += LanguageComboBox_SelectionChanged;
             if (Settings.Default.StartMinimized)
             {
@@ -84,31 +80,6 @@ namespace FFXIV_GameSense
                     OnStateChanged(EventArgs.Empty);
                 }
             }
-        }
-
-        private async Task PopulateFATEList()
-        {
-            foreach (FATE f in GameResources.GetFates().DistinctBy(x => x.Name(true)))
-            {
-                await OtherFATEsCheckComboBox.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    var c = new CheckBox() { Content = f.Name(true) };
-                    c.IsChecked = Settings.Default.FATEs.Contains(f.ID.ToString());
-                    c.Unchecked += C_Unchecked;
-                    c.Checked += C_Checked;
-                    OtherFATEsCheckComboBox.Items.Add(c);
-                }));
-            }
-        }
-
-        private void C_Checked(object sender, RoutedEventArgs e)
-        {
-            Settings.Default.FATEs.Add(GameResources.GetFateId(((CheckBox)sender).Content.ToString()).ToString());
-        }
-
-        private void C_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Settings.Default.FATEs.Remove(GameResources.GetFateId(((CheckBox)sender).Content.ToString()).ToString());
         }
 
         protected override void OnStateChanged(EventArgs e)
@@ -169,41 +140,20 @@ namespace FFXIV_GameSense
             }
         }
 
-        private bool FilterPredicate(object obj)
-        {
-            if (obj is CheckBox text)
-            {
-                if (text.Content.ToString().IndexOf(OtherFATEsCheckComboBox.Text, StringComparison.CurrentCultureIgnoreCase) != -1)
-                {
-                    return true;
-                }
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         private void DispatcherTimer1s_Tick(object sender, EventArgs e)
         {
-            try
+            if (ProcessComboBox.SelectedIndex < 0)
+                ProcessComboBox.SelectedIndex = 0;
+            int? psv = (int?)ProcessComboBox.SelectedValue;
+            vm.Refresh();
+            if (psv > 0)
+                ProcessComboBox.SelectedValue = psv;
+            if (ProcessComboBox.Items.Count > 1)
+                ProcessComboBox.IsEnabled = true;
+            else
             {
-                if (ProcessComboBox.SelectedIndex < 0)
-                    ProcessComboBox.SelectedIndex = 0;
-                int? psv = (int?)ProcessComboBox.SelectedValue;
-                vm.Refresh();
-                if (psv > 0)
-                    ProcessComboBox.SelectedValue = psv;
-                if (ProcessComboBox.Items.Count > 1)
-                    ProcessComboBox.IsEnabled = true;
-                else
-                {
-                    ProcessComboBox.IsEnabled = false;
-                }
+                ProcessComboBox.IsEnabled = false;
             }
-            catch (Exception) { }
-
 #if DEBUG
             if (AnyProblems())
                 return;
@@ -279,15 +229,13 @@ namespace FFXIV_GameSense
                         _ = hunts.RandomPositionForBNpc(bnpcid);
                         Program.mem.WipeLastFailedCommand();
                     }
-                    else if(GameResources.GetFateId(huntSearchTerm, true) > 0)
+                    ushort fid = GameResources.GetFateId(huntSearchTerm, true);
+                    if (fid > 0)
                     {
-                        _ = hunts.LastKnownInfoForFATE(GameResources.GetFateId(huntSearchTerm, true));
+                        _ = hunts.LastKnownInfoForFATE(fid);
                         if (Settings.Default.TrackFATEAfterQuery)
                         {
-                            var c = OtherFATEsCheckComboBox.Items.Cast<CheckBox>().Single(x => ((string)x.Content).Equals(huntSearchTerm, StringComparison.CurrentCultureIgnoreCase));
-                            if (c != null)
-                                c.IsChecked = true;
-                            OtherFATEsCheckComboBox_ItemSelectionChanged(null, null);
+                            vm.FATEEntries.SingleOrDefault(x=>x.ID==fid).Announce=true;
                         }
                         Program.mem.WipeLastFailedCommand();
                     }
@@ -593,60 +541,39 @@ namespace FFXIV_GameSense
         {
             var cb = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as CheckBox;
             CheckBox_Checked(cb, new RoutedEventArgs());
-
         }
 
         private void SCheck_Checked(object sender, RoutedEventArgs e)
         {
-            SBell.IsEnabled = true;
             if (!Settings.Default.SARR && !Settings.Default.SHW && !Settings.Default.SSB)
                 Settings.Default.SSB = Settings.Default.SHW = Settings.Default.SARR = true;
         }
 
         private void ACheck_Checked(object sender, RoutedEventArgs e)
         {
-            ABell.IsEnabled = true;
             if (!Settings.Default.AARR && !Settings.Default.AHW && !Settings.Default.ASB)
                 Settings.Default.ASB = Settings.Default.AHW = Settings.Default.AARR = true;
         }
 
         private void BCheck_Checked(object sender, RoutedEventArgs e)
         {
-            BBell.IsEnabled = true;
             if (!Settings.Default.BARR && !Settings.Default.BHW && !Settings.Default.BSB)
                 Settings.Default.BSB = Settings.Default.BHW = Settings.Default.BARR = true;
-        }
-
-        private void FATECheck_Checked(object sender, RoutedEventArgs e)
-        {
-            FATEBell.IsEnabled = true;
         }
 
         private void SCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             UnsetAlarmSound(SBell);
-            SBell.IsChecked = SBell.IsEnabled = false;
         }
 
         private void ACheck_Unchecked(object sender, RoutedEventArgs e)
         {
             UnsetAlarmSound(ABell);
-            ABell.IsChecked = ABell.IsEnabled = false;
         }
 
         private void BCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             UnsetAlarmSound(BBell);
-            BBell.IsChecked = BBell.IsEnabled = false;
-        }
-
-        private void FATECheck_Unchecked(object sender, RoutedEventArgs e)
-        {
-            foreach (CheckBox cb in OtherFATEsCheckComboBox.Items)
-                if ((bool)cb.IsChecked)
-                    return;
-            UnsetAlarmSound(FATEBell);
-            FATEBell.IsChecked = FATEBell.IsEnabled = false;
         }
 
         private void FilterCheckBoxOpacityUp(object sender, RoutedEventArgs e)
@@ -671,42 +598,6 @@ namespace FFXIV_GameSense
                 ((UniformGrid)sender).Opacity = 1f;
             else
                 ((UniformGrid)sender).Opacity = 0.35f;
-        }
-
-        private void OtherFATEsCheckComboBox_ItemSelectionChanged(object sender, RoutedEventArgs e)
-        {
-            int selected = Settings.Default.FATEs.Count;
-            if (selected == 1)
-                SelectedFateCountTextBlock.Text = string.Format(Properties.Resources.FormFATESingle, selected);
-            else
-                SelectedFateCountTextBlock.Text = string.Format(Properties.Resources.FormFATEPlural, selected);
-            if (selected == 0)
-            {
-                UnsetAlarmSound(FATEBell);
-                FATEBell.IsChecked = FATEBell.IsEnabled = false;
-                SelectedFateCountTextBlock.Text = string.Empty;
-            }
-            else if (selected > 0)
-            {
-                FATEBell.IsEnabled = true;
-            }
-        }
-
-        private void OtherFATEsSearchTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if ((e.Key == Key.Enter) || (e.Key == Key.Tab) || (e.Key == Key.Return))
-            {
-                OtherFATEsCheckComboBox.Items.Filter = null;
-            }
-            else if ((e.Key == Key.Down) || (e.Key == Key.Up))
-            {
-                OtherFATEsCheckComboBox.IsDropDownOpen = true;
-            }
-            else
-            {
-                OtherFATEsCheckComboBox.Items.Filter += FilterPredicate;
-                OtherFATEsCheckComboBox.IsDropDownOpen = true;
-            }
         }
 
         private void OtherFATEsCheckComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -737,16 +628,37 @@ namespace FFXIV_GameSense
             }
 
         }
+
+        private void FATEBell_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if(sender is CheckBox)
+            {
+                if (!(bool)e.NewValue)
+                {
+                    UnsetAlarmSound(((CheckBox)sender));
+                }
+            }
+        }
+
+        private void FATEsListView_AllFATEsDeselected(object sender, EventArgs e)
+        {
+            FATEBell.IsEnabled = false;
+        }
+
+        private void FATEsListView_FATESelected(object sender, EventArgs e)
+        {
+            FATEBell.IsEnabled = true;
+        }
     }
 
     public class ViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<UI.FATEListViewItem> FATEs;
+        private ObservableCollection<FATEListViewItem> FATEs;
         private bool GotFATEZones = false;
         private bool IsFetchingZones = false;
         public ViewModel()
         {
-            FATEs = new ObservableCollection<UI.FATEListViewItem>();
+            FATEs = new ObservableCollection<FATEListViewItem>();
             foreach (FATE f in GameResources.GetFates().DistinctBy(x=>x.Name()))
                 FATEs.Add(new FATEListViewItem(f));
         }
@@ -755,15 +667,16 @@ namespace FFXIV_GameSense
         {
             OnPropertyChanged("ProcessEntries");
             if (FFXIVHunts.joined && !GotFATEZones && !IsFetchingZones)
-                _ = UpdateFATEZones();
+                _ = GetFATEZones();
         }
 
         public ObservableCollection<Process> ProcessEntries => new ObservableCollection<Process>(FFXIVProcessHelper.GetFFXIVProcessList());
-        public ObservableCollection<UI.FATEListViewItem> FATEEntries => FATEs;
+        public ObservableCollection<FATEListViewItem> FATEEntries => FATEs;
+        public bool FATEsAny => FATEs.Any(x => x.Announce);
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private async Task UpdateFATEZones()
+        private async Task GetFATEZones()
         {
             IsFetchingZones = true;
             string e;
@@ -771,12 +684,12 @@ namespace FFXIV_GameSense
             if (r.IsSuccessStatusCode)
             {
                 e = await r.Content.ReadAsStringAsync();
-                var fateidzoneid = JsonConvert.DeserializeObject<Dictionary<ushort, List<ushort>>>(e);
-                foreach (UI.FATEListViewItem i in FATEs)
+                var fateidzoneid = JsonConvert.DeserializeObject<Dictionary<ushort, ushort[]>>(e);
+                foreach (FATEListViewItem i in FATEs)
                 {
                     if (fateidzoneid.ContainsKey(i.ID))
                     {
-                        i.Zones = string.Join(", ", fateidzoneid[i.ID].Distinct().Select(x => GameResources.GetZoneName(x)));
+                        i.Zones = string.Join(", ", fateidzoneid[i.ID].Distinct().Select(x => GameResources.GetZoneName(x)).Distinct());
                     }
                 }
                 GotFATEZones = true;
