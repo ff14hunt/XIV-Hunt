@@ -612,7 +612,7 @@ namespace FFXIV_GameSense
                 if (ptr.Equals(IntPtr.Zero))
                     break;
                 fatePtrs.Add(ptr);
-                i = (_mode == FFXIVClientMode.FFXIV_64) ? i + 8 : i + 4;
+                i += (_mode == FFXIVClientMode.FFXIV_64) ? 8 : 4;
             }
 
             var currentZone = GetZoneId();
@@ -636,15 +636,15 @@ namespace FFXIV_GameSense
                 ID = BitConverter.ToUInt16(ba, 0x18),
                 StartTimeEpoch = BitConverter.ToUInt32(ba, 0x20),
                 Duration = BitConverter.ToUInt16(ba, 0x28),
-                ReadName = (_mode == FFXIVClientMode.FFXIV_64) ? GetStringFromBytes(ba, 0xE2) : GetStringFromBytes(ba, 0xAA),
-                State = (_mode == FFXIVClientMode.FFXIV_64) ? (FATEState)ba[0x3AC] : (FATEState)ba[0x2F4],
-                Progress = (_mode == FFXIVClientMode.FFXIV_64) ? ba[0x3B3] : ba[0x2FB],
-                PosX = (_mode == FFXIVClientMode.FFXIV_64) ? BitConverter.ToSingle(ba, 0x400) : BitConverter.ToSingle(ba, 0x340),
-                PosZ = (_mode == FFXIVClientMode.FFXIV_64) ? BitConverter.ToSingle(ba, 0x404) : BitConverter.ToSingle(ba, 0x344),
-                PosY = (_mode == FFXIVClientMode.FFXIV_64) ? BitConverter.ToSingle(ba, 0x408) : BitConverter.ToSingle(ba, 0x348),
-                ZoneID = (_mode == FFXIVClientMode.FFXIV_64) ? BitConverter.ToUInt16(ba, 0x624) : BitConverter.ToUInt16(ba, 0x4F4)
+                ReadName = GetStringFromBytes(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0xE2 : 0xAA),
+                State = (FATEState)ba[(_mode == FFXIVClientMode.FFXIV_64) ? 0x3AC : 0x2F4],
+                Progress = ba[(_mode == FFXIVClientMode.FFXIV_64) ? 0x3B3 : 0x2FB],
+                PosX = BitConverter.ToSingle(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x400 : 0x340),
+                PosZ = BitConverter.ToSingle(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x404 : 0x344),
+                PosY = BitConverter.ToSingle(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x408 : 0x348),
+                ZoneID = BitConverter.ToUInt16(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x624 : 0x4F4)
             };
-            if (BitConverter.ToInt16(ba, 0x18) == 0 || f.Progress < 0 || f.Progress > 100)
+            if (f.ID == 0 || f.Progress < 0 || f.Progress > 100)
                 return null;
             else
                 return f;
