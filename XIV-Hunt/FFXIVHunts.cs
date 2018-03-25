@@ -104,7 +104,7 @@ namespace FFXIV_GameSense
             for (ushort i = 2953; i < 2970; i++)
                 hunts.Add(new Hunt(i, HuntRank.S));
 
-            if(hubConnection == null)
+            if (hubConnection == null)
                 hubConnection = new HubConnection(baseUrl);
             if (!string.IsNullOrWhiteSpace(Settings.Default.Cookies))
             {
@@ -244,7 +244,7 @@ namespace FFXIV_GameSense
             }
             ServerTimeUtc = mem.GetServerUtcTime();
             ushort thisZone = mem.GetZoneId();
-            if(thisZone != lastZone && Settings.Default.OncePerHunt && Settings.Default.ForgetOnZoneChange)
+            if (thisZone != lastZone && Settings.Default.OncePerHunt && Settings.Default.ForgetOnZoneChange)
             {
                 HuntsPutInChat.Clear();
             }
@@ -299,12 +299,19 @@ namespace FFXIV_GameSense
         internal static async Task<Item> LookupItemXIVDB(string itemname)
         {
             string e;
-            var r = await http.GetAsync("https://api.xivdb.com/search?string="+WebUtility.UrlEncode(itemname)+"&one=items&strict=on&language="+Thread.CurrentThread.CurrentUICulture.Name.Substring(0,2));
-            if (r.IsSuccessStatusCode)
-                e = await r.Content.ReadAsStringAsync();
-            else
-                return null;
-            var results = JObject.Parse(e).SelectToken("items.results").ToObject<List<Item>>();
+            int page = 1;
+            string uri = "https://api.xivdb.com/search?string=" + WebUtility.UrlEncode(itemname) + "&one=items&strict=on&language=" + Thread.CurrentThread.CurrentUICulture.Name.Substring(0, 2)+ "&page=";
+            var results = new List<Item>();
+            while ( page==1 ? true : results.Count >= 60 && !results.Any(x => x.Name.Equals(itemname, StringComparison.CurrentCultureIgnoreCase)))
+            {
+                var r = await http.GetAsync(uri + page);
+                if (r.IsSuccessStatusCode)
+                    e = await r.Content.ReadAsStringAsync();
+                else
+                    return null;
+                results = JObject.Parse(e).SelectToken("items.results").ToObject<List<Item>>();
+                page++;
+            }
             return results.SingleOrDefault(x => x.Name.Equals(itemname, StringComparison.InvariantCultureIgnoreCase));
         }
 
@@ -361,12 +368,13 @@ namespace FFXIV_GameSense
 
         private async Task TryConnect()
         {
-            if(hubConnection.CookieContainer == null || hubConnection.CookieContainer.Count == 0)
+            if (hubConnection.CookieContainer == null || hubConnection.CookieContainer.Count == 0)
                 hubConnection.CookieContainer = Application.Current.Dispatcher.Invoke(() => Login(Program.mem.GetServerId()));
             try
             {
                 await hubConnection.Start();
-            }catch(HttpClientException e)
+            }
+            catch (HttpClientException e)
             {
                 if (e.Message.Contains("Unauthorized"))
                 {
