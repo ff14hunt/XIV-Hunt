@@ -633,22 +633,16 @@ namespace FFXIV_GameSense
         {
             if(sender is CheckBox)
             {
-                if (!(bool)e.NewValue)
+                if (!(bool)e.NewValue && Settings.Default.FATEs.Count==0)
                 {
                     UnsetAlarmSound(((CheckBox)sender));
                 }
             }
         }
 
-        private void FATEsListView_AllFATEsDeselected(object sender, EventArgs e)
-        {
-            FATEBell.IsEnabled = false;
-        }
+        private void FATEsListView_AllFATEsDeselected(object sender, EventArgs e) => FATEBell.IsEnabled = false;
 
-        private void FATEsListView_FATESelected(object sender, EventArgs e)
-        {
-            FATEBell.IsEnabled = true;
-        }
+        private void FATEsListView_FATESelected(object sender, EventArgs e) => FATEBell.IsEnabled = true;
     }
 
     public class ViewModel : INotifyPropertyChanged
