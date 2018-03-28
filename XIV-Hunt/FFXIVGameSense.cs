@@ -20,7 +20,7 @@ namespace FFXIV_GameSense
             Process thisProc = Process.GetCurrentProcess();
             //If restarted by itself, give previous process 1sec to shutdown.
             if (NativeMethods.ParentProcessUtilities.GetParentProcess().ProcessName.Equals(thisProc.ProcessName))
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
             if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
             {
                 MessageBox.Show(Resources.AppIsAlreadyRunning);

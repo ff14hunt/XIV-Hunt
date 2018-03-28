@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media.Animation;
 
 namespace FFXIV_GameSense.UI
 {
@@ -104,7 +105,7 @@ namespace FFXIV_GameSense.UI
 
         private void FilterTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(((TextBox)sender).Text))
+            if (string.IsNullOrWhiteSpace(((TextBox)sender).Text))
                 FilterCoverTextBlock.Visibility = Visibility.Visible;
         }
 
@@ -126,7 +127,7 @@ namespace FFXIV_GameSense.UI
         {
             if (Settings.Default.FATEs.Count == 1)
                 SelectedFateCountTextBlock.Text = string.Format(Properties.Resources.FormFATESingle, Settings.Default.FATEs.Count);
-            else if(Settings.Default.FATEs.Count > 1)
+            else if (Settings.Default.FATEs.Count > 1)
                 SelectedFateCountTextBlock.Text = string.Format(Properties.Resources.FormFATEPlural, Settings.Default.FATEs.Count);
             if (Settings.Default.FATEs.Count == 0)
                 SelectedFateCountTextBlock.Text = string.Empty;
@@ -137,12 +138,14 @@ namespace FFXIV_GameSense.UI
 
         private void ResizeFilterBox()
         {
-            FilterTextBox.Width = ActualWidth - SelectedFateCountTextBlock.ActualWidth - (SelectedFateCountTextBlock.ActualWidth > 0 ? 15 : 0);
+            FilterTextBox.BeginAnimation(WidthProperty, null);
+            FilterTextBox.Width = ActualWidth - SelectedFateCountTextBlock.ActualWidth - (SelectedFateCountTextBlock.ActualWidth > 0 ? 12 : 0);
         }
 
         private void SelectedFateCountTextBlock_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            FilterTextBox.Width = ActualWidth - e.NewSize.Width - (e.NewSize.Width > 0 ? 15 : 0);
+            double newWidth = ActualWidth - e.NewSize.Width - (e.NewSize.Width > 0 ? 12 : 0);
+            FilterTextBox.BeginAnimation(WidthProperty, new DoubleAnimation { From = FilterTextBox.ActualWidth, To = newWidth, Duration = TimeSpan.FromMilliseconds(250) });
         }
 
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e) => ResizeFilterBox();
