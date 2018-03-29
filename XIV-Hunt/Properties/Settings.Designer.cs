@@ -467,5 +467,29 @@ namespace FFXIV_GameSense.Properties {
                 this["FATEMinimumPercentInterval"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FlashTaskbarIconOnDFPop {
+            get {
+                return ((bool)(this["FlashTaskbarIconOnDFPop"]));
+            }
+            set {
+                this["FlashTaskbarIconOnDFPop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FlashTaskbarIconOnHuntAndFATEs {
+            get {
+                return ((bool)(this["FlashTaskbarIconOnHuntAndFATEs"]));
+            }
+            set {
+                this["FlashTaskbarIconOnHuntAndFATEs"] = value;
+            }
+        }
     }
 }

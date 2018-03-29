@@ -45,6 +45,10 @@ namespace FFXIV_GameSense
           out uint lpThreadId
         );
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+
         internal static async Task InjectDLL(IntPtr hProcess, string strDLLName)
         {
             // Length of string containing the DLL file name +1 byte padding 
@@ -188,6 +192,53 @@ namespace FFXIV_GameSense
                     return null;
                 }
             }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct FLASHWINFO
+        {
+            /// <summary>
+            /// The size of the structure in bytes.
+            /// </summary>
+            public uint cbSize;
+            /// <summary>
+            /// A Handle to the Window to be Flashed. The window can be either opened or minimized.
+            /// </summary>
+            public IntPtr hwnd;
+            /// <summary>
+            /// The Flash Status.
+            /// </summary>
+            public uint dwFlags;
+            /// <summary>
+            /// The number of times to Flash the window.
+            /// </summary>
+            public uint uCount;
+            /// <summary>
+            /// The rate at which the Window is to be flashed, in milliseconds. If Zero, the function uses the default cursor blink rate.
+            /// </summary>
+            public uint dwTimeout;
+        }
+
+        private const uint FLASHW_STOP = 0;// Stop flashing. The system restores the window to its original stae.
+        private const uint FLASHW_CAPTION = 1;// Flash the window caption.
+        private const uint FLASHW_TASKBAR = 2;// Flash the taskbar button.
+        private const uint FLASHW_ALL = 3;// Flash both the window caption and taskbar button. This is equivalent to setting the FLASHW_CAPTION | FLASHW_TRAY flags.
+        private const uint FLASHW_TIMER = 4;// Flash continuously, until the FLASHW_STOP flag is set.
+        private const uint FLASHW_TIMERNOFG = 12;// Flash continuously until the window comes to the foreground.
+
+        internal static bool FlashTaskbarIcon(Process process, uint duration, bool stopOnFocus = false) => FlashWindowEx(process, duration, stopOnFocus ? FLASHW_TASKBAR | FLASHW_TIMERNOFG : FLASHW_TASKBAR);
+        internal static bool FlashTaskbarIcon(Process process) => FlashWindowEx(process, uint.MaxValue, FLASHW_TASKBAR | FLASHW_TIMERNOFG);
+        internal static bool StopFlashWindowEx(Process process) => FlashWindowEx(process, 0, FLASHW_STOP);
+
+        private static bool FlashWindowEx(Process process, uint duration, uint flags)
+        {
+            var pwfi = new FLASHWINFO();
+            pwfi.cbSize = Convert.ToUInt32(Marshal.SizeOf(pwfi));
+            pwfi.hwnd = process.MainWindowHandle;
+            pwfi.dwFlags = flags;
+            pwfi.uCount = duration;
+            pwfi.dwTimeout = 0;
+            return FlashWindowEx(ref pwfi);
         }
     }
 }

@@ -117,12 +117,17 @@ namespace FFXIV_GameSense
             hubProxy.On<Hunt>("ReceiveHunt", hunt =>
             {
                 Debug.WriteLine(string.Format(Resources.ReportReceived, GameResources.GetWorldName(hunt.WorldId), hunt.Name));
-                PutInChat(hunt);
+                if (PutInChat(hunt) && Settings.Default.FlashTaskbarIconOnHuntAndFATEs)
+                    if (hunt.LastAlive)
+                        NativeMethods.FlashTaskbarIcon(Program.mem.Process, 45, true);
+                    else
+                        NativeMethods.StopFlashWindowEx(Program.mem.Process);
             });
             hubProxy.On<FATEReport>("ReceiveFATE", fate =>
             {
                 //Debug.WriteLine(string.Format(Resources.FATEReportReceived, GameResources.GetWorldName(fate.WorldId), fate.Name(true), fate.Progress));
-                PutInChat(fate);
+                if (PutInChat(fate) && Settings.Default.FlashTaskbarIconOnHuntAndFATEs)
+                    NativeMethods.FlashTaskbarIcon(Program.mem.Process);
             });
             _ = ConnectToGSHunt();
         }
@@ -135,11 +140,11 @@ namespace FFXIV_GameSense
                 await JoinServerGroup();
         }
 
-        private void PutInChat(FATEReport fate)
+        private bool PutInChat(FATEReport fate)
         {
             int idx = fates.IndexOf(fate);
             if (idx == -1)
-                return;
+                return false;
             fates[idx].State = fate.State;
             fates[idx].StartTimeEpoch = fate.StartTimeEpoch;
             fates[idx].Duration = fate.Duration;
@@ -164,7 +169,9 @@ namespace FFXIV_GameSense
                 fates[idx].LastReportedProgress = fate.Progress;
                 //if (fate.Progress > 99)
                 //    fates[idx].lastReportedDead = DateTime.UtcNow;
+                return true;
             }
+            return false;
         }
 
         private static List<FATEReport> ConstructFATEReports()
@@ -263,8 +270,8 @@ namespace FFXIV_GameSense
             {
                 if (f.ZoneID == thisZone)
                 {
-                    if (f.IsDataCenterShared())
-                        PutInChat(new FATEReport(f) { WorldId = mem.GetServerId() });
+                    if (f.IsDataCenterShared() && PutInChat(new FATEReport(f) { WorldId = mem.GetServerId() }) && Settings.Default.FlashTaskbarIconOnHuntAndFATEs)
+                        NativeMethods.FlashTaskbarIcon(Program.mem.Process);
                     else
                         ReportFate(f);
                 }
@@ -300,9 +307,9 @@ namespace FFXIV_GameSense
         {
             string e;
             int page = 1;
-            string uri = "https://api.xivdb.com/search?string=" + WebUtility.UrlEncode(itemname) + "&one=items&strict=on&language=" + Thread.CurrentThread.CurrentUICulture.Name.Substring(0, 2)+ "&page=";
+            string uri = "https://api.xivdb.com/search?string=" + WebUtility.UrlEncode(itemname) + "&one=items&strict=on&language=" + Thread.CurrentThread.CurrentUICulture.Name.Substring(0, 2) + "&page=";
             var results = new List<Item>();
-            while ( page==1 ? true : results.Count >= 60 && !results.Any(x => x.Name.Equals(itemname, StringComparison.CurrentCultureIgnoreCase)))
+            while (page == 1 ? true : results.Count >= 60 && !results.Any(x => x.Name.Equals(itemname, StringComparison.CurrentCultureIgnoreCase)))
             {
                 var r = await http.GetAsync(uri + page);
                 if (r.IsSuccessStatusCode)
@@ -443,10 +450,10 @@ namespace FFXIV_GameSense
             return null;
         }
 
-        private void PutInChat(Hunt hunt)
+        private bool PutInChat(Hunt hunt)
         {
             if (Settings.Default.NoAnnouncementsInContent && Program.mem.GetCurrentContentFinderCondition() > 0)
-                return;
+                return false;
             if ((hunt.IsARR() && hunt.Rank == HuntRank.B && Settings.Default.BARR && Settings.Default.notifyB)
                 || (hunt.IsARR() && hunt.Rank == HuntRank.A && Settings.Default.AARR && Settings.Default.notifyA)
                 || (hunt.IsARR() && hunt.Rank == HuntRank.S && Settings.Default.SARR && Settings.Default.notifyS)
@@ -470,6 +477,7 @@ namespace FFXIV_GameSense
                         hunts[idx] = hunt;
                         HuntsPutInChat.Add(hunt.OccurrenceID);
                         hunts[idx].lastPutInChat = Program.mem.GetServerUtcTime();
+                        return true;
                     }
                 }
                 else if (hunts[idx].lastReportedDead < ServerTimeUtc.AddSeconds(-12) && !hunt.LastAlive)
@@ -480,9 +488,11 @@ namespace FFXIV_GameSense
                         _ = Program.mem.WriteChatMessage(cm);
                         hunts[idx] = hunt;
                         hunts[idx].lastReportedDead = Program.mem.GetServerUtcTime();
+                        return true;
                     }
                 }
             }
+            return false;
         }
 
         private static ushort GetZoneId(ushort huntId)

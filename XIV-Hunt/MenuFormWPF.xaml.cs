@@ -41,6 +41,7 @@ namespace FFXIV_GameSense
         private static SettingsForm SettingsWindow;
         private CancellationTokenSource cts;
         private static bool WroteDRPop = false;
+        private static bool IconIsFlashing = false;
 
         public Window1()
         {
@@ -298,13 +299,22 @@ namespace FFXIV_GameSense
                     }
                 }
                 var cf = Program.mem.GetContentFinder();
+                if(Settings.Default.FlashTaskbarIconOnDFPop && cf.State==ContentFinderState.Popped && !IconIsFlashing)
+                {
+                    NativeMethods.FlashTaskbarIcon(Program.mem.Process, 45);
+                    IconIsFlashing = true;
+                }
                 if (Settings.Default.notifyDutyRoulette && cf.State == ContentFinderState.Popped && cf.IsDutyRouletteQueued() && !WroteDRPop)//Pop and DR
                 {
                     _ = Program.mem.WriteChatMessage(new ChatMessage { Message = Encoding.UTF8.GetBytes(string.Format(Properties.Resources.DutyRouletteResult, cf.InstanceContentName)) });
                     WroteDRPop = true;
                 }
                 else if (cf.State != ContentFinderState.Popped)
-                    WroteDRPop = false;
+                {
+                    if (IconIsFlashing)
+                        NativeMethods.StopFlashWindowEx(Program.mem.Process);
+                    IconIsFlashing = WroteDRPop = false;
+                }
             }
         }
 
