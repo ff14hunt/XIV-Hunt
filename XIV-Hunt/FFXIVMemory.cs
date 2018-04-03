@@ -117,7 +117,7 @@ namespace FFXIV_GameSense
         {
             cts.Cancel();
             while (_thread.IsAlive)
-                Task.Delay(10);
+                Task.Delay(5);
             Debug.WriteLine("FFXIVMemory Instance disposed");
         }
 
@@ -435,7 +435,7 @@ namespace FFXIV_GameSense
             }
             if (!PersistentNamedPipeServer.IsConnected())
             {
-                await NativeMethods.InjectDLL(Process.Handle, dllfile);
+                await NativeMethods.InjectDLL(Process, dllfile, _mode==FFXIVClientMode.FFXIV_32);
                 for(int w = 0; !PersistentNamedPipeServer.IsConnected() && w < 1000; w += 100)
                 {
                     await Task.Delay(100);
