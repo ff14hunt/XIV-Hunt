@@ -235,9 +235,6 @@
   <data name="Fate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fate.fr.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="AppIsAlreadyRunning" xml:space="preserve">
-    <value>Application is already running</value>
-  </data>
   <data name="StartWithWindows" xml:space="preserve">
     <value>Start with Windows</value>
   </data>

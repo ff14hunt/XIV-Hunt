@@ -133,8 +133,7 @@ namespace FFXIV_GameSense.UI
                 SelectedFateCountTextBlock.Text = string.Empty;
         }
 
-        public event EventHandler AllFATEsDeselected;
-        public event EventHandler FATESelected;
+        public event EventHandler AllFATEsDeselected, FATESelected;
 
         private void ResizeFilterBox()
         {

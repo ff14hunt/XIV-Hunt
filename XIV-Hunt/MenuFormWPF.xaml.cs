@@ -1,29 +1,29 @@
-﻿using System;
-using System.Windows;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Win32;
-using System.Media;
-using System.Windows.Controls;
-using System.IO;
+﻿using FFXIV_GameSense.MML;
 using FFXIV_GameSense.Properties;
+using FFXIV_GameSense.UI;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using Squirrel;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Media;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
-using System.Globalization;
-using System.Threading;
-using System.Reflection;
-using System.Text;
 using XIVDB;
-using FFXIV_GameSense.MML;
-using System.Text.RegularExpressions;
-using static FFXIV_GameSense.FFXIVMemory;
-using Newtonsoft.Json;
-using FFXIV_GameSense.UI;
 
 namespace FFXIV_GameSense
 {
@@ -48,6 +48,8 @@ namespace FFXIV_GameSense
             Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.Default.LanguageCI);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.LanguageCI);
             InitializeComponent();
+            AssemblyName an = Assembly.GetExecutingAssembly().GetName();
+            Title = an.Name + " " + an.Version.ToString(3) + " - " + (Environment.Is64BitProcess ? "64" : "32") + "-Bit";
             vm = new ViewModel();
             Closed += MenuForm_FormClosed;
             dispatcherTimer1s = new DispatcherTimer
@@ -61,7 +63,7 @@ namespace FFXIV_GameSense
             {
                 Icon = Properties.Resources.enemy,
                 Visible = false,
-                Text = Assembly.GetExecutingAssembly().GetName().Name + " " + Assembly.GetExecutingAssembly().GetName().Version
+                Text = Title
             };
             ni.Click += delegate (object sender, EventArgs args)
                 {
@@ -169,10 +171,10 @@ namespace FFXIV_GameSense
             }
             catch (Exception ex)
             {
-                if (ex is MemoryScanException && dispatcherTimer1s.Interval.TotalSeconds < 5)
+                if (ex is FFXIVMemory.MemoryScanException && dispatcherTimer1s.Interval.TotalSeconds < 5)
                     dispatcherTimer1s.Interval = TimeSpan.FromSeconds(dispatcherTimer1s.Interval.TotalSeconds + 1);
                 Debug.WriteLine("Interval: " + dispatcherTimer1s.Interval.TotalSeconds + "s");
-                //Program.WriteExceptionToErrorFile(ex);
+                Program.WriteExceptionToErrorFile(ex);
             }
 #endif
         }
@@ -181,7 +183,7 @@ namespace FFXIV_GameSense
         {
             if (Program.mem == null || !Program.mem.ValidateProcess() || Program.mem.GetSelfCombatant() == null || Program.mem.Process.Id != (int?)ProcessComboBox.SelectedValue)
             {
-                HuntConnectionTextBlock.Text = string.Format(Properties.Resources.FormNoProcess, (Environment.Is64BitProcess) ? "ffxiv_dx11.exe" : "ffxiv.exe");
+                HuntConnectionTextBlock.Text = string.Format(Properties.Resources.FormNoProcess, "ffxiv.exe" + (Environment.Is64BitProcess ? "/ffxiv_dx11.exe" : string.Empty));
                 if (ProcessComboBox.SelectedValue != null && FFXIVProcessHelper.GetFFXIVProcess((int)ProcessComboBox.SelectedValue) != null)
                 {
                     if (Program.mem != null)
@@ -252,7 +254,7 @@ namespace FFXIV_GameSense
                         Program.mem.WipeLastFailedCommand();
                     }
                 }
-                if (LastCommand.StartsWith("/perform "))
+                if (LastCommand.StartsWith("/perform ") && Directory.Exists(Settings.Default.PerformDirectory))
                 {
                     string request = LastCommand.Substring(9);
                     string nametxt = request.Trim();
@@ -261,8 +263,8 @@ namespace FFXIV_GameSense
                     string namemml = request.Trim();
                     if (!namemml.EndsWith(".mml"))
                         namemml += ".mml";
-                    string pathnametxt = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nametxt);
-                    string pathnamemml = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, namemml);
+                    string pathnametxt = Path.Combine(Settings.Default.PerformDirectory, nametxt);
+                    string pathnamemml = Path.Combine(Settings.Default.PerformDirectory, namemml);
                     if (File.Exists(pathnametxt))
                     {
                         StopPerformance();
@@ -623,8 +625,12 @@ namespace FFXIV_GameSense
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Settings.Default.Save();
+#if DEBUG
             System.Windows.Forms.Application.Restart();
             Application.Current.Shutdown();
+#else
+            UpdateManager.RestartApp();
+#endif
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)

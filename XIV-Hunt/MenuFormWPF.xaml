@@ -7,7 +7,7 @@
         xmlns:UI="clr-namespace:FFXIV_GameSense.UI"
         x:Class="FFXIV_GameSense.Window1"
         mc:Ignorable="d"
-        Title="XIV-Hunt" Height="450" MinHeight="450" Width="600" MinWidth="600" ResizeMode="CanResize" Icon="Resources/enemy.ico">
+        Height="450" MinHeight="450" Width="600" MinWidth="600" ResizeMode="CanResize" Icon="Resources/enemy.ico">
     <Grid IsHitTestVisible="True">
         <Button Margin="0,10,10,0" VerticalAlignment="Top" MaxHeight="32" Click="OpenSettings" ToolTip="{x:Static properties:Resources.OpenSettingsToolTip}" HorizontalAlignment="Right" Width="31">
             <StackPanel>

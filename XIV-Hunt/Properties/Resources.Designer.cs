@@ -61,15 +61,6 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application is already running.
-        /// </summary>
-        public static string AppIsAlreadyRunning {
-            get {
-                return ResourceManager.GetString("AppIsAlreadyRunning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap bell_alarm_icon {
@@ -178,10 +169,10 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
-        ///#,,Level,CLevel,CLevel{Max},EventItem,,,,,Icon{Objective},Icon{Map},,,,,,,,,,Name,Description,Objective,StatusText[0],StatusText[1],StatusText[2],,,,,,,
-        ///int32,byte,Level,byte,byte,EventItem,uint16,byte,byte,byte,Image,Image,uint32,int32,uint32,uint32,uint16,uint16,uint16,bit&amp;01,bit&amp;02,bit&amp;04,uint16,bit&amp;08,bit&amp;10,bit&amp;20,uint32,str,str,str,str,str,str,uint32
-        ///0,0,,0,0,,0,0,0,0,&quot;ui/icon/000000/000000.tex&quot;,&quot;ui/icon/00 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
+        ///#,,,,ClassJobLevel,ClassJobLevel{Max},EventItem,,,,,Icon{Objective},Icon{Map},,,,,,,,,,,,,,,,Name,Description,Objective,StatusText[0],StatusText[1],StatusText[2],
+        ///int32,byte,byte,uint32,byte,byte,EventItem,uint16,byte,byte,byte,Image,Image,uint32,int32,uint32,uint32,uint16,uint16,uint16,bit&amp;01,bit&amp;02,bit&amp;04,uint16,bit&amp;08,bit&amp;10,bit&amp;20,uint32,str,str,str,str,str,str,uint32
+        ///0,0,0,0,0,0,,0,0,0,0,&quot;ui/icon/000000/0 [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Fate {
             get {
@@ -562,11 +553,11 @@ namespace FFXIV_GameSense.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
-        ///#,,,,Hierarchy,MapMarkerRange,Id,SizeFactor,Offset{X},Offset{Y},PlaceName{Region},PlaceName,PlaceName{Sub},,,TerritoryType,,
+        ///#,,,,Hierarchy,MapMarkerRange,Id,SizeFactor,Offset{X},Offset{Y},PlaceName{Region},PlaceName,PlaceName{Sub},DiscoveryIndex,,TerritoryType,DiscoveryArrayByte,
         ///int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,PlaceName,int16,uint32,TerritoryType,bit&amp;01,bit&amp;02
         ///0,0,0,0,0,0,&quot;&quot;,100,0,0,&quot;&quot;,&quot;&quot;,&quot;&quot;,-1,0,,True,False
         ///1,0,0,0,1,0,&quot;default/00&quot;,100,0,0,&quot;???&quot;,&quot;Eorzea&quot;,&quot;&quot;,-1,0,&quot;&quot;,True,False
-        ///2,2,2,0,1,3,&quot;f1t1/00&quot;,200,0,0,&quot;The Black Shroud&quot;,&quot;New Gridania&quot;,&quot;&quot;,-1,0,&quot;f1t1&quot;,True,False        /// [rest of string was truncated]&quot;;.
+        ///2,2,2,0,1,3,&quot;f1t1/00&quot;,200,0,0,&quot;The Black Shroud&quot;,&quot;New Grid [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Map {
             get {
@@ -721,9 +712,8 @@ namespace FFXIV_GameSense.Properties {
         ///30,&quot;Unicorn&quot;,1,1,True
         ///31,&quot;Yojimbo&quot;,1,2,True
         ///32,&quot;Zeromus&quot;,1,2,True
-        ///33,&quot;Twintania&quot;,3,5,True
-        ///34,&quot;Brynhildr&quot;,3,5,True
-        /// [rest of string was truncated]&quot;;.
+        ///33,&quot;Twintania&quot;,5,0,False
+        ///34,&quot;Brynhildr&quot;,3,5,True        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string World {
             get {

@@ -314,18 +314,6 @@ namespace FFXIV_GameSense.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool StartWithWindows {
-            get {
-                return ((bool)(this["StartWithWindows"]));
-            }
-            set {
-                this["StartWithWindows"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public float HuntInterval {
             get {
@@ -489,6 +477,27 @@ namespace FFXIV_GameSense.Properties {
             }
             set {
                 this["FlashTaskbarIconOnHuntAndFATEs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PerformDirectory {
+            get {
+                return ((string)(this["PerformDirectory"]));
+            }
+            set {
+                this["PerformDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://xivhunt.net/Releases")]
+        public string UpdateLocation {
+            get {
+                return ((string)(this["UpdateLocation"]));
             }
         }
     }
