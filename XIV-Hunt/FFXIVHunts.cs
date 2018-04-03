@@ -194,30 +194,33 @@ namespace FFXIV_GameSense
             else
                 return;
             world = JsonConvert.DeserializeObject<World>(e);
-            Hunt huntresult = world.Hunts.First(x => x.Id == id);
-            if (huntresult == null)
+            Hunt result = world.Hunts.First(x => x.Id == id);
+            if (result == null)
                 return;
-            var timeSinceLastReport = ServerTimeUtc.Subtract(huntresult.LastReported);
+            var timeSinceLastReport = ServerTimeUtc.Subtract(result.LastReported);
+            if (timeSinceLastReport < TimeSpan.Zero)
+                timeSinceLastReport = TimeSpan.Zero;
             var cm = new ChatMessage();
-            if (!huntresult.LastAlive)
+            double TotalHours = Math.Floor(timeSinceLastReport.TotalHours);
+            if (!result.LastAlive)
             {
-                cm.Message = Encoding.UTF8.GetBytes(string.Format(Resources.LKIHuntKilled, huntresult.Name));
+                cm.Message = Encoding.UTF8.GetBytes(string.Format(Resources.LKIHuntKilled, result.Name));
                 if (Resources.LKIHuntKilled.Contains("<time>"))//japanese case
-                    cm.Message = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(cm.Message).Replace("<time>", string.Format(Resources.LKIHoursMinutes, Math.Floor(timeSinceLastReport.TotalHours), timeSinceLastReport.Minutes)));
+                    cm.Message = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(cm.Message).Replace("<time>", string.Format(Resources.LKIHoursMinutes, TotalHours, timeSinceLastReport.Minutes)));
                 else if (timeSinceLastReport.TotalDays > 90)
-                    cm.Message = Encoding.UTF8.GetBytes(string.Format(Resources.LKIHuntNotReported, huntresult.Name));
+                    cm.Message = Encoding.UTF8.GetBytes(string.Format(Resources.LKIHuntNotReported, result.Name));
                 else if (timeSinceLastReport.TotalHours > 72)
-                    cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(string.Format(Resources.LKIHours, Math.Floor(timeSinceLastReport.TotalHours)))).ToArray();
+                    cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(string.Format(Resources.LKIHours, TotalHours))).ToArray();
                 else if (timeSinceLastReport.TotalHours < 1)
                     cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(string.Format(Resources.LKIMinutes, Math.Floor(timeSinceLastReport.TotalMinutes)))).ToArray();
                 else
-                    cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(string.Format(Resources.LKIHoursMinutes, Math.Floor(timeSinceLastReport.TotalHours), timeSinceLastReport.Minutes))).ToArray();
+                    cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(string.Format(Resources.LKIHoursMinutes, TotalHours, timeSinceLastReport.Minutes))).ToArray();
                 cm.Message = cm.Message.Concat(new byte[] { 0x00 }).ToArray();
             }
             else
             {
-                var zid = GetZoneId(huntresult.Id);
-                cm = ChatMessage.MakePosChatMessage(string.Format(Resources.LKILastSeenAt, huntresult.Name), zid, huntresult.LastX, huntresult.LastY, string.Format(Resources.LKIHoursMinutes, Math.Floor(timeSinceLastReport.TotalHours), timeSinceLastReport.Minutes));
+                var zid = GetZoneId(result.Id);
+                cm = ChatMessage.MakePosChatMessage(string.Format(Resources.LKILastSeenAt, result.Name), zid, result.LastX, result.LastY, string.Format(Resources.LKIHoursMinutes, TotalHours, timeSinceLastReport.Minutes));
             }
             await Program.mem.WriteChatMessage(cm);
         }
@@ -230,6 +233,8 @@ namespace FFXIV_GameSense
             if (result == null)
                 return;
             var timeSinceLastReport = ServerTimeUtc.Subtract(result.LastReported);
+            if (timeSinceLastReport < TimeSpan.Zero)
+                timeSinceLastReport = TimeSpan.Zero;
             ChatMessage cm = new ChatMessage();
             if (timeSinceLastReport.TotalDays > 90)
                 cm.Message = Encoding.UTF8.GetBytes(string.Format(Resources.LKIHuntNotReported, result.Name()));
@@ -309,15 +314,14 @@ namespace FFXIV_GameSense
             int page = 1;
             string uri = "https://api.xivdb.com/search?string=" + WebUtility.UrlEncode(itemname) + "&one=items&strict=on&language=" + Thread.CurrentThread.CurrentUICulture.Name.Substring(0, 2) + "&page=";
             var results = new List<Item>();
-            while (page == 1 ? true : results.Count >= 60 && !results.Any(x => x.Name.Equals(itemname, StringComparison.CurrentCultureIgnoreCase)))
+            while (page == 1 ? true : results.Count != 0 && !results.Any(x => x.Name.Equals(itemname, StringComparison.CurrentCultureIgnoreCase)))
             {
-                var r = await http.GetAsync(uri + page);
+                var r = await http.GetAsync(uri + page++);
                 if (r.IsSuccessStatusCode)
                     e = await r.Content.ReadAsStringAsync();
                 else
                     return null;
                 results = JObject.Parse(e).SelectToken("items.results").ToObject<List<Item>>();
-                page++;
             }
             return results.SingleOrDefault(x => x.Name.Equals(itemname, StringComparison.InvariantCultureIgnoreCase));
         }
@@ -365,11 +369,7 @@ namespace FFXIV_GameSense
                 return;
             connecting = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            try
-            {
-                await TryConnect();
-            }
-            catch (Exception) { }
+            await TryConnect();
             connecting = false;
         }
 
@@ -507,8 +507,6 @@ namespace FFXIV_GameSense
 
         private void CheckAndPlaySound(HuntRank r)
         {
-            try
-            {
                 if (r == HuntRank.S && Settings.Default.SPlaySound && Settings.Default.SBell != Resources.NoSoundAlert)
                     Program.w1.Ssp.Play();
                 else if (r == HuntRank.A && Settings.Default.APlaySound && Settings.Default.ABell != Resources.NoSoundAlert)
@@ -517,8 +515,6 @@ namespace FFXIV_GameSense
                     Program.w1.Bsp.Play();
                 else if (r == HuntRank.FATE && Settings.Default.FATEPlaySound && Settings.Default.FATEBell != Resources.NoSoundAlert)
                     Program.w1.FATEsp.Play();
-            }
-            catch (Exception) { }
         }
 
         private async void ReportHunt(Combatant c)
