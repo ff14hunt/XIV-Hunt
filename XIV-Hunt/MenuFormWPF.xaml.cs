@@ -173,8 +173,9 @@ namespace FFXIV_GameSense
             {
                 if (ex is FFXIVMemory.MemoryScanException && dispatcherTimer1s.Interval.TotalSeconds < 5)
                     dispatcherTimer1s.Interval = TimeSpan.FromSeconds(dispatcherTimer1s.Interval.TotalSeconds + 1);
+                else if(!(ex is FFXIVMemory.MemoryScanException))
+                    Program.WriteExceptionToErrorFile(ex);
                 Debug.WriteLine("Interval: " + dispatcherTimer1s.Interval.TotalSeconds + "s");
-                Program.WriteExceptionToErrorFile(ex);
             }
 #endif
         }
