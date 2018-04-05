@@ -72,17 +72,19 @@ namespace FFXIV_GameSense
             uint LenWrite = (uint)DLLName.Length + 1;
             // Allocate memory within the virtual address space of the target process 
             IntPtr AllocMem = VirtualAllocEx(hProcess, (IntPtr)null, LenWrite, AllocationType.Commit, MemoryProtection.ExecuteReadWrite); //allocation pour WriteProcessMemory 
-
+            
             // Write DLL file name to allocated memory in target process 
             WriteProcessMemory(hProcess, AllocMem, Encoding.Default.GetBytes(DLLName), LenWrite, out uint bytesout);
             // Function pointer "Injector" 
             IntPtr Injector;
             if (Environment.Is64BitProcess && x86proc)//WOW64 case
             {
-                MODULEENTRY32 k32mod = GetModules(Process.Id).SingleOrDefault(x => x.szModule == "kernel32.dll");
+                MODULEENTRY32 k32mod = GetModules((uint)Process.Id).SingleOrDefault(x => x.szModule.Equals("kernel32.dll", StringComparison.InvariantCultureIgnoreCase));
                 using (PEFile pe = new PEFile(StreamLoader.FromFile(k32mod.szExePath)))//alternatively ReadProcessMemory... but source name?
                 {
-                    Injector = IntPtr.Add(k32mod.hModule, (int)pe.Export.GetExportFunctions().SingleOrDefault(x => x.Name.Equals("LoadLibraryA")).Address);
+                    Version winver = Environment.OSVersion.Version;
+                    string LoadLibraryVariant = winver.Major <= 6 && winver.Minor <= 1 ? "LoadLibraryA" : "LoadLibraryExA";
+                    Injector = IntPtr.Add(k32mod.hModule, (int)pe.Export.GetExportFunctions().SingleOrDefault(x => x.Name.Equals(LoadLibraryVariant)).Address);
                 }
             }
             else
@@ -133,10 +135,10 @@ namespace FFXIV_GameSense
             return;
         }
 
-        private static List<MODULEENTRY32> GetModules(int pid)
+        private static List<MODULEENTRY32> GetModules(uint pid)
         {
             List<MODULEENTRY32> modules = new List<MODULEENTRY32>();
-            IntPtr hModule = CreateToolhelp32Snapshot(SnapshotFlags.TH32CS_SNAPMODULE | SnapshotFlags.TH32CS_SNAPMODULE32, (uint)pid);
+            IntPtr hModule = CreateToolhelp32Snapshot(SnapshotFlags.TH32CS_SNAPMODULE | SnapshotFlags.TH32CS_SNAPMODULE32, pid);
             MODULEENTRY32 mEntry = new MODULEENTRY32();
             mEntry.dwSize = (uint)Marshal.SizeOf(mEntry);
             while (Module32Next(hModule, ref mEntry))
