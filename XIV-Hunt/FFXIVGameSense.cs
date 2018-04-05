@@ -16,9 +16,9 @@ namespace FFXIV_GameSense
         public static void Main(string[] args)
         {
 #if !DEBUG
-            if(args.Length!=0 && args[0].Equals("werror",StringComparison.CurrentCultureIgnoreCase))
-#endif
+            //if (args.Length != 0 && args[0].Equals("werror", StringComparison.CurrentCultureIgnoreCase))
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+#endif
             if (ApplicationRunningHelper.AlreadyRunning())
             {
                 Thread.Sleep(2000);
@@ -30,7 +30,7 @@ namespace FFXIV_GameSense
                 Updater.RestoreSettings();
                 Settings.Default.Reload();
             }
-#if !DEBUG   
+#if !DEBUG
             SquirrelAwareApp.HandleEvents(onAppUpdate: v => Updater.OnAppUpdate(), onFirstRun: () => Updater.OnFirstRun());
             try { NativeMethods.SetCurrentProcessExplicitAppUserModelID("com.squirrel.XIVHunt.XIV-Hunt"); } catch { }
             using (var cts = new CancellationTokenSource())
@@ -53,7 +53,7 @@ namespace FFXIV_GameSense
 
         internal static void WriteExceptionToErrorFile(Exception ex)
         {
-            File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "error.txt"), ex.GetType().ToString() + ":" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine );
+            File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "error.txt"), ex.GetType().ToString() + ":" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine);
         }
     }
 }

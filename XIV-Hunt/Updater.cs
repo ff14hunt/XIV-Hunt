@@ -45,6 +45,7 @@ namespace FFXIV_GameSense
                 mgr.RemoveUninstallerRegistryEntry();
                 mgr.CreateUninstallerRegistryEntry();
             }
+            DeleteOldVersions();
         }
 
         internal static void OnFirstRun()
@@ -74,11 +75,34 @@ namespace FFXIV_GameSense
             string mostrecent = di.EnumerateDirectories().OrderByDescending(x => x.CreationTime).First().FullName;
             di = new DirectoryInfo(mostrecent);
             string settings = Path.Combine(di.EnumerateDirectories().OrderByDescending(x => x.CreationTime).First().FullName, "user.config");
-            if(File.Exists(settings))
+            if (File.Exists(settings))
             {
                 string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\last.config";
                 File.Copy(settings, destination, true);
             }
+        }
+
+        private static void DeleteOldVersions()
+        {
+            DirectoryInfo appDir = new DirectoryInfo(Assembly.GetExecutingAssembly().Location).Parent;
+            var olderDirs = appDir.EnumerateDirectories("app-*").OrderByDescending(x => x.Name).Skip(3);
+            foreach (DirectoryInfo oldDir in olderDirs)
+                try
+                {
+                    oldDir.Delete(true);
+                }
+                catch (Exception) { }
+            var packagesDir = Path.Combine(appDir.FullName, "packages");
+            if (!Directory.Exists(packagesDir))
+                return;
+            DirectoryInfo packDir = new DirectoryInfo(packagesDir);
+            var olderPackages = packDir.EnumerateFiles("*.nupkg").OrderByDescending(x => x.Name).Skip(6);
+            foreach (var oldPack in olderPackages)
+                try
+                {
+                    oldPack.Delete();
+                }
+                catch (Exception) { }
         }
 
         internal static void RestoreSettings()
