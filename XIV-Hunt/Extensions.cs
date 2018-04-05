@@ -98,5 +98,10 @@ namespace FFXIV_GameSense
         {
             return Convert.ToUInt32((TimeZoneInfo.ConvertTimeToUtc(d) - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds);
         }
+
+        public static bool IsWithin(this float val, int min, int max)
+        {
+            return val >= min && val <= max;
+        }
     }
 }

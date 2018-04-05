@@ -644,7 +644,7 @@ namespace FFXIV_GameSense
                 PosY = BitConverter.ToSingle(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x408 : 0x348),
                 ZoneID = BitConverter.ToUInt16(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x624 : 0x4F4)
             };
-            if (f.ID == 0 || f.Progress < 0 || f.Progress > 100)
+            if (f.ID == 0 || f.Progress < 0 || f.Progress > 100 || !f.PosX.IsWithin(-1024, 1024) || !f.PosY.IsWithin(-1024,1024))
                 return null;
             else
                 return f;
