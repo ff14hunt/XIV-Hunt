@@ -29,6 +29,7 @@ namespace FFXIV_GameSense
                     {
                         BackupSettings();
                         shouldRestart = true;
+                        DeleteOldVersions();
                         mgr.UpdateApp().Wait();//y u no cleanup ლ(ಠ_ಠლ)
                     }
                 }
@@ -45,7 +46,6 @@ namespace FFXIV_GameSense
                 mgr.RemoveUninstallerRegistryEntry();
                 mgr.CreateUninstallerRegistryEntry();
             }
-            DeleteOldVersions();
         }
 
         internal static void OnFirstRun()
@@ -85,7 +85,7 @@ namespace FFXIV_GameSense
         private static void DeleteOldVersions()
         {
             DirectoryInfo appDir = new DirectoryInfo(Assembly.GetExecutingAssembly().Location).Parent.Parent;
-            var olderDirs = appDir.EnumerateDirectories("app-*").OrderByDescending(x => x.Name).Skip(3);
+            var olderDirs = appDir.EnumerateDirectories("app-*").OrderByDescending(x => x.Name).Skip(2);
             foreach (DirectoryInfo oldDir in olderDirs)
                 try
                 {
@@ -96,7 +96,7 @@ namespace FFXIV_GameSense
             if (!Directory.Exists(packagesDir))
                 return;
             DirectoryInfo packDir = new DirectoryInfo(packagesDir);
-            var olderPackages = packDir.EnumerateFiles("*.nupkg").OrderByDescending(x => x.Name).Skip(6);
+            var olderPackages = packDir.EnumerateFiles("*.nupkg").OrderByDescending(x => x.Name).Skip(4);
             foreach (var oldPack in olderPackages)
                 try
                 {
