@@ -122,7 +122,11 @@ namespace FFXIV_GameSense
                 return;
             }
             // Sleep for 1 second 
-            await Task.Delay(1000);//Thread.Sleep(1000);
+            //await Task.Delay(1000);//Thread.Sleep(1000);
+            for (int w = 0; !PersistentNamedPipeServer.Instance.IsConnected && w < 1000; w += 10)
+            {
+                await Task.Delay(10);
+            }
             // Clear up allocated space ( Allocmem ) 
             VirtualFreeEx(hProcess, AllocMem, (UIntPtr)0, 0x8000);
             // Make sure thread handle is valid before closing... prevents crashes. 

@@ -12,8 +12,6 @@ namespace FFXIV_GameSense
         private static volatile NamedPipeServerStream NPS;
         private static object NPSlock = new object();
 
-        internal static bool IsConnected() => Instance.IsConnected;
-
         internal static NamedPipeServerStream Instance
         {
             get

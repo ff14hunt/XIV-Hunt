@@ -433,10 +433,10 @@ namespace FFXIV_GameSense
                 }
                 catch (Exception) { }
             }
-            if (!PersistentNamedPipeServer.IsConnected())
+            if (!PersistentNamedPipeServer.Instance.IsConnected)
             {
                 await NativeMethods.InjectDLL(Process, dllfile, _mode==FFXIVClientMode.FFXIV_32);
-                for(int w = 0; !PersistentNamedPipeServer.IsConnected() && w < 1000; w += 100)
+                for(int w = 0; !PersistentNamedPipeServer.Instance.IsConnected && w < 1000; w += 100)
                 {
                     await Task.Delay(100);
                 }
@@ -773,7 +773,7 @@ namespace FFXIV_GameSense
 
         internal async Task PlayPerformance(Performance p, CancellationToken cts)
         {
-            if (!PersistentNamedPipeServer.IsConnected())
+            if (!PersistentNamedPipeServer.Instance.IsConnected)
                 await TryInject();
             await p.PlayAsync(Process.Id, cts);
         }
@@ -782,7 +782,7 @@ namespace FFXIV_GameSense
         {
             p.Unmute();
             p.Play();
-            if (!PersistentNamedPipeServer.IsConnected())
+            if (!PersistentNamedPipeServer.Instance.IsConnected)
                 await TryInject();
             Task.Run(async () =>
             {
