@@ -784,23 +784,30 @@ namespace FFXIV_GameSense
             p.Play();
             if (!PersistentNamedPipeServer.Instance.IsConnected)
                 await TryInject();
-            Task.Run(async () =>
+            List<Task> TaskOfTracks = new List<Task>();
+            foreach(var track in p.Tracks)
             {
-                TimeSpan ts = new TimeSpan(0);
-                foreach (var n in p.Tracks.First().notes)
+                var trackTask = new Task(async () =>
                 {
-                    var w = (n.TimeSpan - ts);
-                    if (w.TotalMilliseconds > 0)
+                    TimeSpan ts = new TimeSpan(0);
+                    foreach (var note in track.notes)
                     {
-                        Debug.WriteLine("Waiting for " + w.TotalMilliseconds + "ms");
-                        await Task.Delay(w);
+                        TimeSpan w = note.TimeSpan - ts;
+                        if (w.TotalMilliseconds > 0)
+                        {
+                            await Task.Delay(w);
+                        }
+                        if (cts.IsCancellationRequested)
+                            break;
+                        Debug.WriteLine("Playing: " + p.Tracks.IndexOf(track) + "/" + note.Type);
+                        PersistentNamedPipeServer.SendPipeMessage(new PipeMessage { PID = Process.Id, Cmd = PMCommand.PlayNote, Parameter = note.GetStep() });
+                        ts = note.TimeSpan;
                     }
-                    if (cts.IsCancellationRequested)
-                        break;
-                    PersistentNamedPipeServer.SendPipeMessage(new PipeMessage { PID = Process.Id, Cmd = PMCommand.PlayNote, Parameter = n.GetStep() });
-                    ts = n.TimeSpan;
-                }
-            }).Start();
+                });
+                trackTask.Start();
+                TaskOfTracks.Add(trackTask);
+            }
+            Task.WaitAll(TaskOfTracks.ToArray(), cts);
         }
 
         private static string GetStringFromBytes(byte[] source, int offset = 0, int size = 256)
