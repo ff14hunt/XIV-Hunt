@@ -17,7 +17,7 @@ namespace FFXIV_GameSense
         public static void Main(string[] args)
         {
 #if !DEBUG
-            if (args.Length != 0 && args.Any(x=>x.Equals("werror", StringComparison.CurrentCultureIgnoreCase)))
+            //if (args.Length != 0 && args.Any(x=>x.Equals("werror", StringComparison.CurrentCultureIgnoreCase)))
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 #endif
             if (ApplicationRunningHelper.AlreadyRunning())
@@ -54,7 +54,7 @@ namespace FFXIV_GameSense
 
         internal static void WriteExceptionToErrorFile(Exception ex)
         {
-            File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "error.txt"), ex.GetType().ToString() + ":" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine);
+            File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "error.txt"), DateTime.UtcNow + ":" + ex.GetType().ToString() + ":" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine);
         }
     }
 }
