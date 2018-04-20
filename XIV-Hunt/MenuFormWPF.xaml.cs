@@ -239,7 +239,7 @@ namespace FFXIV_GameSense
                         _ = hunts.LastKnownInfoForFATE(fid);
                         if (Settings.Default.TrackFATEAfterQuery)
                         {
-                            vm.FATEEntries.SingleOrDefault(x=>x.ID==fid).Announce=true;
+                            vm.FATEEntries.SingleOrDefault(x => x.ID == fid).Announce = true;
                         }
                         Program.mem.WipeLastFailedCommand();
                     }
@@ -276,7 +276,7 @@ namespace FFXIV_GameSense
                             TryMML(pathnametxt);
                         Program.mem.WipeLastFailedCommand();
                     }
-                    else if(File.Exists(pathnamemml))
+                    else if (File.Exists(pathnamemml))
                     {
                         StopPerformance();
                         TryMML(pathnamemml);
@@ -302,7 +302,7 @@ namespace FFXIV_GameSense
                     }
                 }
                 var cf = Program.mem.GetContentFinder();
-                if(Settings.Default.FlashTaskbarIconOnDFPop && cf.State==ContentFinderState.Popped && !IconIsFlashing)
+                if (Settings.Default.FlashTaskbarIconOnDFPop && cf.State == ContentFinderState.Popped && !IconIsFlashing)
                 {
                     NativeMethods.FlashTaskbarIcon(Program.mem.Process, 45);
                     IconIsFlashing = true;
@@ -355,7 +355,8 @@ namespace FFXIV_GameSense
         private static string RemoveBlockComments(string i)
         {
             var blockComments = @"/\*(.*?)\*/";
-            return Regex.Replace(i, blockComments, me => {
+            return Regex.Replace(i, blockComments, me =>
+            {
                 if (me.Value.StartsWith("/*") || me.Value.StartsWith("//"))
                     return me.Value.StartsWith("//") ? Environment.NewLine : "";
                 return me.Value;
@@ -648,9 +649,9 @@ namespace FFXIV_GameSense
 
         private void FATEBell_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if(sender is CheckBox)
+            if (sender is CheckBox)
             {
-                if (!(bool)e.NewValue && Settings.Default.FATEs.Count==0)
+                if (!(bool)e.NewValue && Settings.Default.FATEs.Count == 0)
                 {
                     UnsetAlarmSound(((CheckBox)sender));
                 }
@@ -670,7 +671,7 @@ namespace FFXIV_GameSense
         public ViewModel()
         {
             FATEs = new ObservableCollection<FATEListViewItem>();
-            foreach (FATE f in GameResources.GetFates().DistinctBy(x=>x.Name()))
+            foreach (FATE f in GameResources.GetFates().DistinctBy(x => x.Name()))
                 FATEs.Add(new FATEListViewItem(f));
         }
 
@@ -691,18 +692,18 @@ namespace FFXIV_GameSense
         {
             IsFetchingZones = true;
             string e;
-            var r = await FFXIVHunts.http.GetAsync(FFXIVHunts.baseUrl+"api/worlds/FATEIDZoneID/");
+            var r = await FFXIVHunts.http.GetAsync(FFXIVHunts.baseUrl + "api/worlds/FATEIDZoneID/");
             if (r.IsSuccessStatusCode)
             {
                 e = await r.Content.ReadAsStringAsync();
                 var fateidzoneid = JsonConvert.DeserializeObject<Dictionary<ushort, ushort[]>>(e);
-                foreach (FATEListViewItem i in FATEs)
+                await Task.Run(() =>
                 {
-                    if (fateidzoneid.ContainsKey(i.ID))
+                    foreach (FATEListViewItem i in FATEs.Where(x => fateidzoneid.ContainsKey(x.ID)))
                     {
                         i.Zones = string.Join(", ", fateidzoneid[i.ID].Distinct().Select(x => GameResources.GetZoneName(x)).Distinct());
                     }
-                }
+                });
                 GotFATEZones = true;
             }
             IsFetchingZones = false;
