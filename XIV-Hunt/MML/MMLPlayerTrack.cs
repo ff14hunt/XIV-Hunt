@@ -30,20 +30,18 @@ namespace TextPlayer.MML {
     /// A concrete implementation of MMLPlayer for MultiTrackMMLPlayer.
     /// </summary>
     public class MMLPlayerTrack : MMLPlayer {
-        private MultiTrackMMLPlayer parent;
-
         public MMLPlayerTrack(MultiTrackMMLPlayer parent)
             : base() {
-            this.parent = parent;
+            Parent = parent;
         }
 
         protected override void PlayNote(Note note, int channel, TimeSpan time) {
-            parent.PlayNote(note, channel, this, time);
+            Parent.PlayNote(note, channel, this, time);
         }
 
         protected override void SetTempo(MMLCommand cmd) {
             if (Mode == MMLMode.Mabinogi) { // tempo changes in Mabinogi apply to all tracks
-                parent.SetTempo(Convert.ToInt32(cmd.Args[0]));
+                Parent.SetTempo(Convert.ToInt32(cmd.Args[0]));
             }
             else { // tempo changes in ArcheAge only apply to the current track
                 base.SetTempo(cmd);
@@ -53,6 +51,6 @@ namespace TextPlayer.MML {
         protected override void CalculateDuration() {
         }
 
-        public MultiTrackMMLPlayer Parent { get { return parent; } }
+        public MultiTrackMMLPlayer Parent { get; }
     }
 }

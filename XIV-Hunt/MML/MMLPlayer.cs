@@ -65,8 +65,6 @@ namespace TextPlayer.MML {
         /// </summary>
         protected double spm;
         private int volume;
-
-        private MMLSettings settings;
         private TimeSpan duration;
 
         protected List<MMLCommand> commands;
@@ -86,9 +84,8 @@ namespace TextPlayer.MML {
 
         public MMLPlayer()
             : base() {
-            settings = new MMLSettings();
+            Settings = new MMLSettings();
             SetDefaultValues();
-            settings.MaxSize = 1024 * 4;
         }
 
         private void SetDefaultValues() {
@@ -142,8 +139,8 @@ namespace TextPlayer.MML {
                         break;
                 }
 
-                if (dur > settings.MaxDuration) {
-                    throw new SongDurationException("Song exceeded maximum duration " + settings.MaxDuration);
+                if (dur > Settings.MaxDuration) {
+                    throw new SongDurationException("Song exceeded maximum duration " + Settings.MaxDuration);
                 }
             }
 
@@ -300,10 +297,10 @@ namespace TextPlayer.MML {
         }
 
         private Note ValidateAndPlayNote(Note note) {
-            if (note.Octave < settings.MinOctave)
-                note.Octave = settings.MinOctave;
-            else if (note.Octave > settings.MaxOctave)
-                note.Octave = settings.MaxOctave;
+            if (note.Octave < Settings.MinOctave)
+                note.Octave = Settings.MinOctave;
+            else if (note.Octave > Settings.MaxOctave)
+                note.Octave = Settings.MaxOctave;
             note.Volume = Math.Max(0f, Math.Min(note.Volume, 1f));
             if (!Muted)
                 PlayNote(note, 0, nextTick);
@@ -421,10 +418,10 @@ namespace TextPlayer.MML {
 
         protected virtual void SetOctave(int newOctave) {
             octave = newOctave;
-            if (octave < settings.MinOctave)
-                octave = settings.MinOctave;
-            else if (octave > settings.MaxOctave)
-                octave = settings.MaxOctave;
+            if (octave < Settings.MinOctave)
+                octave = Settings.MinOctave;
+            else if (octave > Settings.MaxOctave)
+                octave = Settings.MaxOctave;
         }
 
         protected virtual void SetTempo(MMLCommand cmd) {
@@ -438,10 +435,10 @@ namespace TextPlayer.MML {
             }
 
             volume = vol;
-            if (volume < settings.MinVolume)
-                volume = settings.MinVolume;
-            else if (volume > settings.MaxVolume)
-                volume = settings.MaxVolume;
+            if (volume < Settings.MinVolume)
+                volume = Settings.MinVolume;
+            else if (volume > Settings.MaxVolume)
+                volume = Settings.MaxVolume;
         }
 
         private MMLLength GetLength(string number, string dot) {
@@ -458,7 +455,7 @@ namespace TextPlayer.MML {
         }
 
         private void SetTempoAndSecondsPerMeasure(int value, ref int tempo, ref double spm) {
-            tempo = Math.Max(settings.MinTempo, Math.Min(settings.MaxTempo, value));
+            tempo = Math.Max(Settings.MinTempo, Math.Min(Settings.MaxTempo, value));
             spm = 60d / ((double)tempo / 4);
         }
 
@@ -473,8 +470,8 @@ namespace TextPlayer.MML {
         }
         public List<MMLCommand> Commands { get { return commands; } }
         public TimeSpan NextTick { get { return nextTick; } }
-        public MMLSettings Settings { get { return settings; } set { settings = value; } }
-        internal override ValidationSettings ValidationSettings { get { return settings; } }
+        public MMLSettings Settings { get; set; }
+        internal override ValidationSettings ValidationSettings { get { return Settings; } }
         public override TimeSpan Duration { get { return duration; } }
         public MMLMode Mode { get; set; }
         #endregion

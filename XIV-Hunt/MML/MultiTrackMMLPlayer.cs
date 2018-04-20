@@ -31,21 +31,14 @@ namespace TextPlayer.MML {
     /// A ready made class that supports multiple simultaneously playing MML tracks.
     /// </summary>
     public abstract class MultiTrackMMLPlayer : IMusicPlayer {
-        private List<MMLPlayerTrack> tracks;
         private bool muted;
-        private bool loop;
-        private MMLSettings settings;
-        private TimeSpan duration;
         protected TimeSpan startTime;
         protected TimeSpan lastTime;
         private MMLMode mmlMode;
 
         public MultiTrackMMLPlayer() {
-            tracks = new List<MMLPlayerTrack>();
-            settings = new MMLSettings
-            {
-                MaxSize = 1024 * 4 * 3
-            };
+            Tracks = new List<MMLPlayerTrack>();
+            Settings = new MMLSettings();
         }
 
         /// <summary>
@@ -60,7 +53,7 @@ namespace TextPlayer.MML {
             //if (Muted)
             //    return;
 
-            int index = tracks.IndexOf(track);
+            int index = Tracks.IndexOf(track);
             if (index < 0)
                 return;
             PlayNote(note, index, time);
@@ -74,7 +67,7 @@ namespace TextPlayer.MML {
             if (mmlMode == MMLMode.ArcheAge) // ArcheAge tempo changes only apply to the track they occur in
                 return;
 
-            foreach (var track in tracks) {
+            foreach (var track in Tracks) {
                 track.Tempo = tempo;
             }
         }
@@ -91,7 +84,7 @@ namespace TextPlayer.MML {
         /// </summary>
         /// <param name="currentTime">Time the playing started.</param>
         public virtual void Play(TimeSpan currentTime) {
-            foreach (var track in tracks)
+            foreach (var track in Tracks)
                 track.Play(currentTime);
 
             startTime = currentTime;
@@ -112,13 +105,13 @@ namespace TextPlayer.MML {
         public virtual void Update(TimeSpan currentTime) {
             if (mmlMode == MMLMode.Mabinogi) {
                 while (currentTime >= NextTick && Playing) {
-                    foreach (var track in tracks) {
+                    foreach (var track in Tracks) {
                         track.Update(track.NextTick);
                     }
                 }
             }
             else {
-                foreach (var track in tracks) {
+                foreach (var track in Tracks) {
                     track.Update(currentTime);
                 }
             }
@@ -138,16 +131,16 @@ namespace TextPlayer.MML {
             Play(TimeSpan.Zero);
 
             while (Playing) {
-                foreach (var track in tracks) {
+                foreach (var track in Tracks) {
                     track.Update(track.NextTick);
                 }
 
-                if (NextTick > settings.MaxDuration) {
-                    throw new SongDurationException("Song exceeded maximum duration " + settings.MaxDuration);
+                if (NextTick > Settings.MaxDuration) {
+                    throw new SongDurationException("Song exceeded maximum duration " + Settings.MaxDuration);
                 }
             }
 
-            duration = NextTick;
+            Duration = NextTick;
 
             if (!storedMute)
                 Unmute();
@@ -157,7 +150,7 @@ namespace TextPlayer.MML {
         /// Stops this music player.
         /// </summary>
         public virtual void Stop() {
-            foreach (var track in tracks)
+            foreach (var track in Tracks)
                 track.Stop();
 
             lastTime = TimeSpan.Zero;
@@ -232,15 +225,15 @@ namespace TextPlayer.MML {
             if (tokens.Length > maxTracks && maxTracks > 0)
                 throw new MalformedMMLException("Maximum number of tracks exceeded. Count: " + tokens.Length + ", max: " + maxTracks);
 
-            tracks = new List<MMLPlayerTrack>();
+            Tracks = new List<MMLPlayerTrack>();
             for (int i = 0; i < tokens.Length; ++i){
                 var track = new MMLPlayerTrack(this)
                 {
-                    Settings = settings
+                    Settings = Settings
                 };
                 track.Load(tokens[i]);
                 track.Mode = mmlMode;
-                tracks.Add(track);
+                Tracks.Add(track);
             }
 
             CalculateDuration();
@@ -297,14 +290,14 @@ namespace TextPlayer.MML {
             muted = false;
         }
 
-        public List<MMLPlayerTrack> Tracks { get { return tracks; } }
+        public List<MMLPlayerTrack> Tracks { get; private set; }
         /// <summary>
         /// Boolean value indicating whether the player is still playing music.
         /// </summary>
         public bool Playing {
             get {
-                for (int i = 0; i < tracks.Count; ++i){
-                    if (tracks[i].Playing)
+                for (int i = 0; i < Tracks.Count; ++i){
+                    if (Tracks[i].Playing)
                         return true;
                 }
                 return false;
@@ -329,20 +322,20 @@ namespace TextPlayer.MML {
         /// <summary>
         /// Duration of the song.
         /// </summary>
-        public TimeSpan Duration { get { return duration; } }
+        public TimeSpan Duration { get; private set; }
 
-        public bool Loop { get { return loop; } set { loop = value; } }
+        public bool Loop { get; set; }
 
         private TimeSpan NextTick {
             get {
                 long max = 0;
-                for (int i = 0; i < tracks.Count; ++i){
-                    max = Math.Max(max, tracks[i].NextTick.Ticks);
+                for (int i = 0; i < Tracks.Count; ++i){
+                    max = Math.Max(max, Tracks[i].NextTick.Ticks);
                 }
                 return new TimeSpan(max);
             }
         }
-        public MMLSettings Settings { get { return settings; } set { settings = value; } }
+        public MMLSettings Settings { get; set; }
         public virtual TimeSpan Elapsed { get { return lastTime - startTime; } }
         public MMLMode Mode {
             get {
@@ -350,8 +343,8 @@ namespace TextPlayer.MML {
             }
             set {
                 mmlMode = value;
-                for (int i = 0; i < tracks.Count; ++i){
-                    tracks[i].Mode = mmlMode;
+                for (int i = 0; i < Tracks.Count; ++i){
+                    Tracks[i].Mode = mmlMode;
                 }
             }
         }

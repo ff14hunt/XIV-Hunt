@@ -27,13 +27,10 @@ using System.Text;
 
 namespace TextPlayer.MML {
     public class MMLSettings : ValidationSettings {
-        private int minVolume = 1;
-        private int maxVolume = 15;
+        public MMLSettings() { }
 
-        public MMLSettings() {
-        }
+        public int MinVolume { get; set; } = 1;
 
-        public int MinVolume { get { return minVolume; } set { minVolume = value; } }
-        public int MaxVolume { get { return maxVolume; } set { maxVolume = value; } }
+        public int MaxVolume { get; set; } = 15;
     }
 }
