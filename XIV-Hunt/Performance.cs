@@ -69,7 +69,7 @@ namespace FFXIV_GameSense
         {
             foreach (Note n in Sheet)
             {
-                PersistentNamedPipeServer.SendPipeMessage(new PipeMessage { PID = pid, Cmd = PMCommand.PlayNote, Parameter = n.Id });
+                PersistentNamedPipeServer.SendPipeMessage(new PipeMessage(pid, PMCommand.PlayNote) { Parameter = n.Id });
                 await Task.Delay((int)n.Wait);
                 if (cts.IsCancellationRequested)
                     break;

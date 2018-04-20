@@ -415,7 +415,7 @@ namespace FFXIV_GameSense
                 NativeMethods.WriteProcessMemory(Process.Handle, chatLogTailAddress, BitConverter.GetBytes(tail + Convert.ToUInt64(msg.Length)), sizeof(ulong), out written);
             else
                 NativeMethods.WriteProcessMemory(Process.Handle, chatLogTailAddress, BitConverter.GetBytes(tail + Convert.ToUInt32(msg.Length)), sizeof(uint), out written);
-            var SlashInstanceCommand = new PipeMessage { PID = Program.mem.Process.Id, Cmd = PMCommand.SlashInstance };
+            var SlashInstanceCommand = new PipeMessage(Process.Id, PMCommand.SlashInstance);
             PersistentNamedPipeServer.SendPipeMessage(SlashInstanceCommand);
         }
 
@@ -800,7 +800,7 @@ namespace FFXIV_GameSense
                         if (cts.IsCancellationRequested)
                             break;
                         Debug.WriteLine("Playing: " + p.Tracks.IndexOf(track) + "/" + note.Type);
-                        PersistentNamedPipeServer.SendPipeMessage(new PipeMessage { PID = Process.Id, Cmd = PMCommand.PlayNote, Parameter = note.GetStep() });
+                        PersistentNamedPipeServer.SendPipeMessage(new PipeMessage(Process.Id, PMCommand.PlayNote){ Parameter = note.GetStep() });
                         ts = note.TimeSpan;
                     }
                 });
