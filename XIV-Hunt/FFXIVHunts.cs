@@ -507,6 +507,8 @@ namespace FFXIV_GameSense
 
         private void CheckAndPlaySound(HuntRank r)
         {
+            try
+            {
                 if (r == HuntRank.S && Settings.Default.SPlaySound && Settings.Default.SBell != Resources.NoSoundAlert)
                     Program.w1.Ssp.Play();
                 else if (r == HuntRank.A && Settings.Default.APlaySound && Settings.Default.ABell != Resources.NoSoundAlert)
@@ -515,6 +517,7 @@ namespace FFXIV_GameSense
                     Program.w1.Bsp.Play();
                 else if (r == HuntRank.FATE && Settings.Default.FATEPlaySound && Settings.Default.FATEBell != Resources.NoSoundAlert)
                     Program.w1.FATEsp.Play();
+            }catch(Exception ex) { Program.WriteExceptionToErrorFile(ex); }
         }
 
         private async void ReportHunt(Combatant c)
