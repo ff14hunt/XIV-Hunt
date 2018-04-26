@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,6 +44,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugSymbols>false</DebugSymbols>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>FFXIV_GameSense.Program</StartupObject>
@@ -90,7 +92,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NuGet.Squirrel, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\squirrel.windows.1.7.9\lib\Net45\NuGet.Squirrel.dll</HintPath>
+      <HintPath>..\packages\squirrel.windows.1.8.0\lib\Net45\NuGet.Squirrel.dll</HintPath>
     </Reference>
     <Reference Include="PEReader">
       <HintPath>..\..\PEReader-master\PEReader\bin\Release\PEReader.dll</HintPath>
@@ -103,8 +105,8 @@
     <Reference Include="Splat, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Splat.3.0.0\lib\net45\Splat.dll</HintPath>
     </Reference>
-    <Reference Include="Squirrel, Version=1.7.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\squirrel.windows.1.7.9\lib\Net45\Squirrel.dll</HintPath>
+    <Reference Include="Squirrel, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\squirrel.windows.1.8.0\lib\Net45\Squirrel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -353,11 +355,11 @@ foreach (var item in filesToCleanup)
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Resource.Embedder.1.2.5\build\Resource.Embedder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.1.2.5\build\Resource.Embedder.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\Fody.3.0.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.0.1\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.0.3\build\Fody.targets'))" />
   </Target>
   <Import Project="..\packages\Resource.Embedder.1.2.5\build\Resource.Embedder.targets" Condition="Exists('..\packages\Resource.Embedder.1.2.5\build\Resource.Embedder.targets')" />
   <Import Project="..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets')" />
-  <Import Project="..\packages\Fody.3.0.1\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.1\build\Fody.targets')" />
+  <Import Project="..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.3\build\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

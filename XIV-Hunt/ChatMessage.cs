@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -14,6 +13,12 @@ namespace FFXIV_GameSense
         internal ChatFilter Filter { get; set; }
         internal string Sender { get; set; }
         internal byte[] Message { get; set; }
+        internal string MessageString
+        {
+            get => Encoding.UTF8.GetString(Message);
+            set => Message = Encoding.UTF8.GetBytes(value);
+        }
+        internal string MessageStringClean => CleanString(Encoding.UTF8.GetString(Message));
         private const string possep = "<pos>";
         private static readonly Dictionary<string, byte[]> Tags = new Dictionary<string, byte[]>
         {
@@ -100,16 +105,6 @@ namespace FFXIV_GameSense
             return msg;
         }
 
-        internal string GetCleanString
-        {
-            get { return CleanString(Encoding.UTF8.GetString(Message)); }
-        }
-
-        //internal static string GetCleanString(byte[] msg)
-        //{
-        //    return CleanString(Encoding.UTF8.GetString(msg));
-        //}
-
         private static string CleanString(string input)
         {
             return new string(input.Where(value => (value >= 0x0020 && value <= 0xD7FF) || (value >= 0xE000 && value <= 0xFFFD) || value == 0x0009 || value == 0x000A || value == 0x000D).ToArray());
@@ -143,15 +138,9 @@ namespace FFXIV_GameSense
             var color = new byte[] { 0x02, 0x13, 0x06, 0xFE, 0xFF, 0xFF, 0x7B, 0x1A, 0x03 };
             var end = new byte[] { 0x02, 0x27, 0x07, 0xCF, 0x01, 0x01, 0x01, 0xFF, 0x01, 0x03, 0x02, 0x13, 0x02, 0xEC, 0x03 };
             if (Array.IndexOf(ItemHeader1And2, 0x00) > -1)
-            {
-                Debug.WriteLine("ItemHeader contains 0x00. Params: " + Item.Id);
-                return null;
-            }
+                throw new ArgumentException("ItemHeader contains 0x00. Params: " + Item.Id, nameof(Item));
             cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(ItemHeader1And2).Concat(ItemHeader3).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(Item.Name)).Concat(end).ToArray();
-            if (!string.IsNullOrEmpty(postpend))
-                cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).Concat(new byte[] { 0x00 }).ToArray();
-            else
-                cm.Message = cm.Message.Concat(new byte[] { 0x00 }).ToArray();
+            cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).Concat(new byte[] { 0x00 }).ToArray();
             return cm;
         }
 
@@ -163,17 +152,14 @@ namespace FFXIV_GameSense
             var posX = CoordToFlagPosCoord(x);
             var posY = CoordToFlagPosCoord(y);
             //z does not appear to be used for the link; only for the text
-            var posPost = new byte[] { 0xFF, 0x01, 0x03 };//end +/ terminator
-            pos = pos.Concat(posZone).Concat(posX).Concat(posY).Concat(posPost).ToArray();
+            var posEnd = new byte[] { 0xFF, 0x01, 0x03 };//end +/ terminator
+            pos = pos.Concat(posZone).Concat(posX).Concat(posY).Concat(posEnd).ToArray();
             pos[2] = Convert.ToByte(pos.Length - 3);
             //                                            ?     ?     R     G     B
             var color = new byte[] { 0x02, 0x13, 0x06, 0xFE, 0xFF, 0xA3, 0xEA, 0xF3, 0x03 };
             var end = new byte[] { 0x02, 0x27, 0x07, 0xCF, 0x01, 0x01, 0x01, 0xFF, 0x01, 0x03 };
-            if (Array.IndexOf(posPost, 0x00) > -1)
-            {
-                Debug.WriteLine("posPost contains 0x00. Params: " + zoneId + " " + x + " " + y);
-                return null;
-            }
+            if (Array.IndexOf(posEnd, 0x00) > -1)
+                throw new ArgumentException("posPost contains 0x00. Params: " + zoneId + " " + x + " " + y);
 
             if (prepend.Contains(possep))
             {
