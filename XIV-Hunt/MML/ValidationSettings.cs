@@ -22,36 +22,34 @@
 // THE SOFTWARE.
 #endregion
 using System;
+using FFXIV_GameSense.Properties;
 
 namespace TextPlayer {
     public abstract class ValidationSettings {
-        private int maxSize = 8192;
-        private TimeSpan maxDuration = TimeSpan.FromMinutes(5);
-        private byte minTempo = 32;
-        private byte maxTempo = byte.MaxValue;
-        private byte minOctave = 1;
-        private byte maxOctave = 10;
-
-        public ValidationSettings() {
-        }
+        public ValidationSettings() { }
 
         /// <summary>
         /// Maximum allowed file size in bytes.
         /// </summary>
-        public int MaxSize { get { return maxSize; } set { maxSize = value; } }
+        public int MaxSize { get; set; } = Settings.Default.MMLMaxSizeBytes;
+
         /// <summary>
         /// Maximum allowed length of song.
         /// </summary>
-        public TimeSpan MaxDuration { get { return maxDuration; } set { maxDuration = value; } }
+        public TimeSpan MaxDuration { get; set; } = Settings.Default.MMLMaxDuration;
+
         /// <summary>
         /// Minimum beats per minute.
         /// </summary>
-        public byte MinTempo { get { return minTempo; } set { minTempo = value; } }
+        public byte MinTempo { get; set; } = 32;
+
         /// <summary>
         /// Maximum beats per minute.
         /// </summary>
-        public byte MaxTempo { get { return maxTempo; } set { maxTempo = value; } }
-        public byte MinOctave { get { return minOctave; } set { minOctave = value; } }
-        public byte MaxOctave { get { return maxOctave; } set { maxOctave = value; } }
+        public byte MaxTempo { get; set; } = byte.MaxValue;
+
+        public byte MinOctave { get; set; } = 1;
+
+        public byte MaxOctave { get; set; } = 10;
     }
 }

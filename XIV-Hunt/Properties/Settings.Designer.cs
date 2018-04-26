@@ -500,5 +500,23 @@ namespace FFXIV_GameSense.Properties {
                 return ((string)(this["UpdateLocation"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("16384")]
+        public int MMLMaxSizeBytes {
+            get {
+                return ((int)(this["MMLMaxSizeBytes"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:15:00")]
+        public global::System.TimeSpan MMLMaxDuration {
+            get {
+                return ((global::System.TimeSpan)(this["MMLMaxDuration"]));
+            }
+        }
     }
 }
