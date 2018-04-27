@@ -160,13 +160,13 @@ namespace FFXIV_GameSense
 #if DEBUG
             if (AnyProblems())
                 return;
-            HuntAndChatCheck();
+            HuntAndCFCheck();
 #else
             try
             {
                 if (AnyProblems())
                     return;
-                HuntAndChatCheck();
+                HuntAndCFCheck();
                 dispatcherTimer1s.Interval = TimeSpan.FromSeconds(1);
             }
             catch (Exception ex)
@@ -191,6 +191,7 @@ namespace FFXIV_GameSense
                         Program.mem.Dispose();
                     Program.mem = null;
                     Program.mem = new FFXIVMemory(FFXIVProcessHelper.GetFFXIVProcess((int)ProcessComboBox.SelectedValue));
+                    Program.mem.OnNewCommand += ProcessChatCommand;
                     PersistentNamedPipeServer.Restart();
                 }
                 FFXIVHunts.LeaveGroup();
@@ -207,100 +208,91 @@ namespace FFXIV_GameSense
             return false;
         }
 
-        private void HuntAndChatCheck()
+        private void ProcessChatCommand(object sender, CommandEventArgs e)
+        {
+            Debug.WriteLine($"[{nameof(ProcessChatCommand)}] New command: {e.Command.ToString()} {e.Parameter}");
+            if (e.Command == Command.Hunt)
+            {
+                if (GameResources.TryGetDailyHuntInfo(e.Parameter, out Tuple<ushort, ushort, float, float> hi))
+                {
+                    _ = Program.mem.WriteChatMessage(ChatMessage.MakePosChatMessage(string.Format(Properties.Resources.LKICanBeFoundAt, GameResources.GetEnemyName(hi.Item1, true)), hi.Item2, hi.Item3, hi.Item4));
+                }
+                else if (hunts.hunts.Exists(x => x.Name.Equals(e.Parameter, StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    _ = hunts.LastKnownInfoForHunt(hunts.hunts.First(x => x.Name.Equals(e.Parameter, StringComparison.CurrentCultureIgnoreCase)).Id);
+                }
+                else if (GameResources.GetEnemyId(e.Parameter, out ushort bnpcid))
+                {
+                    _ = hunts.RandomPositionForBNpc(bnpcid);
+                }
+                ushort fid = GameResources.GetFateId(e.Parameter, true);
+                if (fid > 0)
+                {
+                    _ = hunts.LastKnownInfoForFATE(fid);
+                    if (Settings.Default.TrackFATEAfterQuery)
+                    {
+                        vm.FATEEntries.SingleOrDefault(x => x.ID == fid).Announce = true;
+                    }
+                }
+                else
+                {
+                    FFXIVHunts.LookupItemXIVDB(e.Parameter).ContinueWith(t =>
+                    {
+                        if (t.Result != null)
+                        {
+                            _ = Program.mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result));
+                        }
+                    });
+                }
+            }
+            else if (e.Command == Command.Perform && Directory.Exists(Settings.Default.PerformDirectory))
+            {
+                string nametxt = e.Parameter;
+                if (!nametxt.EndsWith(".txt"))
+                    nametxt += ".txt";
+                string namemml = e.Parameter;
+                if (!namemml.EndsWith(".mml"))
+                    namemml += ".mml";
+                string pathnametxt = Path.Combine(Settings.Default.PerformDirectory, nametxt);
+                string pathnamemml = Path.Combine(Settings.Default.PerformDirectory, namemml);
+                if (File.Exists(pathnametxt))
+                {
+                    StopPerformance();
+                    var p = new Performance(string.Join(",", File.ReadAllLines(pathnametxt)));
+                    if (p.Sheet.Count > 0)
+                        _ = Program.mem.PlayPerformance(p, cts.Token);
+                    else
+                        TryMML(pathnametxt);
+                }
+                else if (File.Exists(pathnamemml))
+                {
+                    StopPerformance();
+                    TryMML(pathnamemml);
+                }
+            }
+            else if (e.Command == Command.PerformStop && cts != null)
+            {
+                cts.Cancel();
+            }
+            else if (e.Command==Command.Flag)
+            {
+                string[] coords = e.Parameter.Split(',');
+                if (coords.Length > 1 && float.TryParse(coords[0], out float xR) && float.TryParse(coords[1], out float yR))
+                {
+                    ushort zid = Program.mem.GetZoneId();
+                    float x = Combatant.GetCoordFromReadable(xR, zid);
+                    float y = Combatant.GetCoordFromReadable(yR, zid);
+                    var cm = ChatMessage.MakePosChatMessage(string.Empty, zid, x, y);
+                    _ = Program.mem.WriteChatMessage(cm);
+                }
+            }
+        }
+
+        private void HuntAndCFCheck()
         {
             if (hunts != null)
             {
                 hunts.Check(Program.mem);
-                //User commands
-                string LastCommand = Program.mem.GetLastFailedCommand();
-                if (LastCommand.StartsWith("/hunt "))
-                {
-                    string huntSearchTerm = LastCommand.Substring(6);
-                    if (GameResources.IsDailyHunt(huntSearchTerm, out ushort id))
-                    {
-                        Tuple<ushort, float, float> huntInfo = GameResources.GetDailyHuntInfo(id);
-                        _ = Program.mem.WriteChatMessage(ChatMessage.MakePosChatMessage(string.Format(Properties.Resources.LKICanBeFoundAt, GameResources.GetEnemyName(id, true)), huntInfo.Item1, huntInfo.Item2, huntInfo.Item3));
-                        Program.mem.WipeLastFailedCommand();
-                    }
-                    else if (hunts.hunts.Exists(x => x.Name.Equals(huntSearchTerm, StringComparison.CurrentCultureIgnoreCase)))
-                    {
-                        _ = hunts.LastKnownInfoForHunt(hunts.hunts.First(x => x.Name.Equals(huntSearchTerm, StringComparison.CurrentCultureIgnoreCase)).Id);
-                        Program.mem.WipeLastFailedCommand();
-                    }
-                    else if (GameResources.GetEnemyId(huntSearchTerm, out ushort bnpcid))
-                    {
-                        _ = hunts.RandomPositionForBNpc(bnpcid);
-                        Program.mem.WipeLastFailedCommand();
-                    }
-                    ushort fid = GameResources.GetFateId(huntSearchTerm, true);
-                    if (fid > 0)
-                    {
-                        _ = hunts.LastKnownInfoForFATE(fid);
-                        if (Settings.Default.TrackFATEAfterQuery)
-                        {
-                            vm.FATEEntries.SingleOrDefault(x => x.ID == fid).Announce = true;
-                        }
-                        Program.mem.WipeLastFailedCommand();
-                    }
-                    else
-                    {
-                        FFXIVHunts.LookupItemXIVDB(huntSearchTerm).ContinueWith(t =>
-                        {
-                            if (t.Result != null)
-                            {
-                                _ = Program.mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result));
-                            }
-                        });
-                        Program.mem.WipeLastFailedCommand();
-                    }
-                }
-                if (LastCommand.StartsWith("/perform ") && Directory.Exists(Settings.Default.PerformDirectory))
-                {
-                    string request = LastCommand.Substring(9);
-                    string nametxt = request.Trim();
-                    if (!nametxt.EndsWith(".txt"))
-                        nametxt += ".txt";
-                    string namemml = request.Trim();
-                    if (!namemml.EndsWith(".mml"))
-                        namemml += ".mml";
-                    string pathnametxt = Path.Combine(Settings.Default.PerformDirectory, nametxt);
-                    string pathnamemml = Path.Combine(Settings.Default.PerformDirectory, namemml);
-                    if (File.Exists(pathnametxt))
-                    {
-                        StopPerformance();
-                        var p = new Performance(string.Join(",", File.ReadAllLines(pathnametxt)));
-                        if (p.Sheet.Count > 0)
-                            _ = Program.mem.PlayPerformance(p, cts.Token);
-                        else
-                            TryMML(pathnametxt);
-                        Program.mem.WipeLastFailedCommand();
-                    }
-                    else if (File.Exists(pathnamemml))
-                    {
-                        StopPerformance();
-                        TryMML(pathnamemml);
-                        Program.mem.WipeLastFailedCommand();
-                    }
-                }
-                if (LastCommand.StartsWith("/performstop") && cts != null)
-                {
-                    cts.Cancel();
-                    Program.mem.WipeLastFailedCommand();
-                }
-                if (LastCommand.StartsWith("/flag "))
-                {
-                    string[] coords = LastCommand.Substring(6).Split(',');
-                    if (coords.Length > 1 && float.TryParse(coords[0], out float xR) && float.TryParse(coords[1], out float yR))
-                    {
-                        ushort zid = Program.mem.GetZoneId();
-                        float x = Combatant.GetCoordFromReadable(xR, zid);
-                        float y = Combatant.GetCoordFromReadable(yR, zid);
-                        var cm = ChatMessage.MakePosChatMessage(string.Empty, zid, x, y);
-                        _ = Program.mem.WriteChatMessage(cm);
-                        Program.mem.WipeLastFailedCommand();
-                    }
-                }
                 var cf = Program.mem.GetContentFinder();
                 if (Settings.Default.FlashTaskbarIconOnDFPop && cf.State == ContentFinderState.Popped && !IconIsFlashing)
                 {

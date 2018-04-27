@@ -23,6 +23,7 @@ namespace FFXIV_GameSense
         internal static PersistentNamedPipeServer PNPS;
         internal List<Combatant> Combatants { get; private set; }
         internal object CombatantsLock => new object();
+        internal event EventHandler<CommandEventArgs> OnNewCommand = delegate {};
 
         private const string charmapSignature32 = "81f9ffff0000741781f958010000730f8b0c8d";
         private const string charmapSignature64 = "488b420848c1e8033da701000077248bc0488d0d";
@@ -104,7 +105,7 @@ namespace FFXIV_GameSense
 
             Combatants = new List<Combatant>();
             cts = new CancellationTokenSource();
-            _thread = new Thread(new ThreadStart(DoScanCombatants))
+            _thread = new Thread(new ThreadStart(ScanMemoryLoop))
             {
                 IsBackground = true
             };
@@ -121,23 +122,48 @@ namespace FFXIV_GameSense
             Debug.WriteLine("FFXIVMemory Instance disposed");
         }
 
-        private void DoScanCombatants()
+        private void ScanMemoryLoop()
         {
-            List<Combatant> c;
-            while (!cts.IsCancellationRequested)
+            const int interval = 50;
+            uint cnt = uint.MinValue;
+            while(!cts.IsCancellationRequested)
             {
-                Thread.Sleep(100);
-                if (!ValidateProcess())
+                Thread.Sleep(interval);
+                if (cnt % 10 == 0 && !ValidateProcess())
                 {
                     Thread.Sleep(1000);
                     return;
                 }
+                ScanFailedCommand();
+                if (cnt % 10 == 0)
+                    ScanCombatants();
 
-                c = _getCombatantList();
-                lock (CombatantsLock)
-                {
-                    Combatants = c;
-                }
+                if (cnt >= uint.MaxValue - 5)
+                    cnt = 0;
+                else
+                    cnt++;
+            }
+        }
+
+        private void ScanFailedCommand()
+        {
+            string cmd = GetLastFailedCommand();
+            if (string.IsNullOrWhiteSpace(cmd))
+                return;
+            WipeLastFailedCommand();
+            if(cmd.StartsWith("/") && cmd.Length > 1 && Enum.TryParse(cmd.Split(' ')[0].Substring(1), true, out Command command))
+            {
+                CommandEventArgs cmdargs = new CommandEventArgs(command, cmd.Substring(cmd.IndexOf(' ') + 1).Trim());
+                OnNewCommand(this, cmdargs);
+            }
+        }
+
+        private void ScanCombatants()
+        {
+            List<Combatant> c = _getCombatantList();
+            lock (CombatantsLock)
+            {
+                Combatants = c;
             }
         }
 
@@ -358,7 +384,7 @@ namespace FFXIV_GameSense
             return !fail.Any();
         }
 
-        internal void WipeLastFailedCommand(byte len = 62)
+        private void WipeLastFailedCommand(byte len = 62)
         {
             if (len > 62)
                 len = 62;
@@ -366,7 +392,7 @@ namespace FFXIV_GameSense
             NativeMethods.WriteProcessMemory(Process.Handle, lastFailedCommandAddress, arr, (uint)arr.Length, out uint lpNumberOfBytesWritten);
         }
 
-        internal string GetLastFailedCommand() => GetStringFromBytes(GetByteArray(lastFailedCommandAddress, 70), 0, 70);
+        private string GetLastFailedCommand() => GetStringFromBytes(GetByteArray(lastFailedCommandAddress, 70), 0, 70);
 
         internal ushort GetCurrentContentFinderCondition() => BitConverter.ToUInt16(GetByteArray(currentContentFinderConditionAddress, 2), 0);
 
@@ -384,8 +410,7 @@ namespace FFXIV_GameSense
         internal List<ChatMessage> ReadChatLogBackwards(int count)
         {
             var ChatLog = new List<ChatMessage>();
-            //will overflow if chatlog contains 4+mil messages of max size
-            ulong length = (_mode == FFXIVClientMode.FFXIV_64) ? GetUInt64(chatLogTailAddress) - (ulong)chatLogStartAddress.ToInt64() : GetUInt32(chatLogTailAddress) - (ulong)chatLogStartAddress.ToInt64();
+            ulong length = ((_mode == FFXIVClientMode.FFXIV_64) ? GetUInt64(chatLogTailAddress) : GetUInt32(chatLogTailAddress)) - (ulong)chatLogStartAddress.ToInt64();
             byte[] ws = GetByteArray(chatLogStartAddress, (uint)length);
             int currentStart = ws.Length;
             int currentEnd = ws.Length;
@@ -650,7 +675,7 @@ namespace FFXIV_GameSense
                 return f;
         }
 
-        internal unsafe List<Combatant> _getCombatantList()
+        private unsafe List<Combatant> _getCombatantList()
         {
             uint num = 344;
             List<Combatant> result = new List<Combatant>();
@@ -1026,7 +1051,25 @@ namespace FFXIV_GameSense
         {
             return System.Collections.StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
         }
+    }
 
+    internal class CommandEventArgs : EventArgs
+    {
+        public Command Command { get; private set; }
+        public string Parameter { get; private set; }
 
+        public CommandEventArgs(Command cmd, string p)
+        {
+            Command = cmd;
+            Parameter = p;
+        }
+    }
+
+    internal enum Command
+    {
+        Hunt,
+        Perform,
+        PerformStop,
+        Flag
     }
 }

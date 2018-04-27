@@ -256,21 +256,6 @@ namespace XIVDB
             return d;
         }
 
-        internal static Tuple<ushort, float, float> GetDailyHuntInfo(ushort id)
-        {
-            int i = 0;
-            string[] lines = Resources.DailyHunts.Split(lineEnding, StringSplitOptions.None);
-            while (i < lines.Length)
-            {
-                if (lines[i].Split('|')[0].Equals(id.ToString()))
-                {
-                    return new Tuple<ushort, float, float>(ushort.Parse(lines[i].Split('|')[1]), float.Parse(lines[i].Split('|')[2]), float.Parse(lines[i].Split('|')[3]));
-                }
-                i++;
-            }
-            return new Tuple<ushort, float, float>(0, 0f, 0f);
-        }
-
         private static ushort GetEnemyId(string huntSearchTerm)
         {
             int i = 0;
@@ -286,9 +271,10 @@ namespace XIVDB
             return 0;
         }
 
-        internal static bool IsDailyHunt(string huntSearchTerm, out ushort id)
+        internal static bool TryGetDailyHuntInfo(string huntSearchTerm, out Tuple<ushort, ushort, float, float> huntInfo)
         {
-            id = GetEnemyId(huntSearchTerm.Trim());
+            huntInfo = new Tuple<ushort, ushort, float, float>(0, 0, 0, 0);
+            ushort id = GetEnemyId(huntSearchTerm.Trim());
             if (id == 0)
                 return false;
             int i = 0;
@@ -297,6 +283,7 @@ namespace XIVDB
             {
                 if (lines[i].Split('|')[0].Equals(id.ToString()))
                 {
+                    huntInfo = new Tuple<ushort, ushort, float, float>(id, ushort.Parse(lines[i].Split('|')[1]), float.Parse(lines[i].Split('|')[2]), float.Parse(lines[i].Split('|')[3]));
                     return true;
                 }
                 i++;
