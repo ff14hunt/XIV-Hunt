@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace FFXIV_GameSense
 {
@@ -102,6 +103,20 @@ namespace FFXIV_GameSense
         public static bool IsWithin(this float val, int min, int max)
         {
             return val >= min && val <= max;
+        }
+
+        public static int IndexOf<T>(this IEnumerable<T> collection, IEnumerable<T> sequence)
+        {
+            var ccount = collection.Count();
+            var scount = sequence.Count();
+            if (scount > ccount)
+                return -1;
+            if (collection.Take(scount).SequenceEqual(sequence))
+                return 0;
+            int index = Enumerable.Range(1, ccount - scount + 1).FirstOrDefault(i => collection.Skip(i).Take(scount).SequenceEqual(sequence));
+            if (index == 0)
+                return -1;
+            return index;
         }
     }
 }
