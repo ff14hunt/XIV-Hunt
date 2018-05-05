@@ -1,24 +1,31 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using XIVDB;
 
 namespace FFXIV_GameSense
 {
     internal class ChatMessage
     {
+        [JsonIgnore]
         internal DateTime Timestamp { get; set; }
+        [JsonProperty]
         private uint Epoch => Timestamp.ToEpoch();
+        [JsonProperty]
         internal ChatChannel Channel { get; set; }
         internal ChatFilter Filter { get; set; }
-        internal string Sender { get; set; }
-        internal byte[] Message { get; set; }
+        [JsonProperty]
+        internal Sender Sender { get; set; }
+        [JsonProperty]
+        private byte[] Message { get; set; }
+        [JsonIgnore]
         internal string MessageString
         {
             get => Encoding.UTF8.GetString(Message);
             set => Message = Encoding.UTF8.GetBytes(value);
         }
-        internal string MessageStringClean => CleanString(Encoding.UTF8.GetString(Message));
         private const string possep = "<pos>";
         private static readonly Dictionary<string, byte[]> Tags = new Dictionary<string, byte[]>
         {
@@ -37,7 +44,7 @@ namespace FFXIV_GameSense
             { 4, new byte[] { 0xB3, 0x8C, 0xFF } },
             { 7, new byte[] { 0xFA, 0x89, 0xB6 } }
         };
-
+        
         /// <summary>
         /// Default constructor. Sets timestamp to now and channel to Echo, message=null;
         /// </summary>
@@ -60,7 +67,7 @@ namespace FFXIV_GameSense
         /// The rest is the message, including payloads.
         /// </summary>
         /// <param name="arr">Byte array should be longer than 10</param>
-        internal ChatMessage(byte[] arr)
+        internal ChatMessage(byte[] arr, ushort wid)
         {
             if (arr.Length < 10)
             {
@@ -69,7 +76,7 @@ namespace FFXIV_GameSense
             Timestamp = UnixTimeStampToDateTime(BitConverter.ToUInt32(arr.Take(4).ToArray(), 0));
             Channel = (ChatChannel)arr[4];
             Filter = (ChatFilter)arr[5];//hmm
-            Sender = Encoding.UTF8.GetString(arr, 9, Array.FindIndex(arr.Skip(9).ToArray(), x => x == 0x3A));
+            Sender = new Sender(arr.Skip(9).Take(Array.FindIndex(arr.Skip(9).ToArray(), x => x == 0x3A)).ToArray(), wid);
             int pos = arr.Skip(9).ToList().IndexOf(0x3A) + 10;
             Message = arr.Skip(pos).ToArray();
         }
@@ -78,8 +85,7 @@ namespace FFXIV_GameSense
         {
             // Unix timestamp is seconds past epoch
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
-            return dtDateTime;
+            return dtDateTime.AddSeconds(unixTimeStamp);
         }
 
         internal byte[] ToArray()
@@ -90,8 +96,8 @@ namespace FFXIV_GameSense
             a.Add((byte)Filter);
             a.AddRange(new byte[] { 0x00, 0x00 });
             a.Add(Convert.ToByte(':'));
-            if (!string.IsNullOrEmpty(Sender))
-                a.AddRange(Encoding.UTF8.GetBytes(Sender));
+            if (Sender != null && !string.IsNullOrEmpty(Sender.Name))
+                a.AddRange(Sender.ToArray());//TODO: ommit world and link when apropriate?
             a.Add(Convert.ToByte(':'));
             if (Message != null)
                 a.AddRange(ReplaceTags(Message));
@@ -105,12 +111,7 @@ namespace FFXIV_GameSense
             return msg;
         }
 
-        private static string CleanString(string input)
-        {
-            return new string(input.Where(value => (value >= 0x0020 && value <= 0xD7FF) || (value >= 0xE000 && value <= 0xFFFD) || value == 0x0009 || value == 0x000A || value == 0x000D).ToArray());
-        }
-
-        internal static ChatMessage MakeItemChatMessage(XIVDB.Item Item, string prepend = "", string postpend = "")
+        internal static ChatMessage MakeItemChatMessage(Item Item, string prepend = "", string postpend = "")
         {
             var cm = new ChatMessage();
             var idba = BitConverter.GetBytes(Item.Id);
@@ -148,7 +149,7 @@ namespace FFXIV_GameSense
         {
             var cm = new ChatMessage();
             var pos = new byte[] { 0x02, 0x27, 0x12, 0x04 };
-            var posZone = XIVDB.GameResources.GetMapMarkerZoneId(zoneId, mapId);
+            var posZone = GameResources.GetMapMarkerZoneId(zoneId, mapId);
             var posX = CoordToFlagPosCoord(x);
             var posY = CoordToFlagPosCoord(y);
             //z does not appear to be used for the link; only for the text
@@ -174,7 +175,7 @@ namespace FFXIV_GameSense
                 postpend = split.Last();
             }
 
-            cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(pos).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(XIVDB.GameResources.GetZoneName(zoneId) + " ( " + Combatant.GetXReadable(x, zoneId).ToString("0.0").Replace(',', '.') + "  , " + Combatant.GetYReadable(y, zoneId).ToString("0.0").Replace(',', '.') + " )")).Concat(end).ToArray();
+            cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(pos).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(GameResources.GetZoneName(zoneId) + " ( " + Combatant.GetXReadable(x, zoneId).ToString("0.0").Replace(',', '.') + "  , " + Combatant.GetYReadable(y, zoneId).ToString("0.0").Replace(',', '.') + " )")).Concat(end).ToArray();
             if (!string.IsNullOrEmpty(postpend))
                 cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).Concat(new byte[] { 0x00 }).ToArray();
             else
@@ -207,6 +208,65 @@ namespace FFXIV_GameSense
                 if (t[i] == 0x00)
                     t[i]++;
             return t;
+        }
+    }
+
+    public class Sender
+    {
+        [JsonProperty]
+        public string Name { get; private set; }
+        [JsonProperty]
+        public ushort WorldID { get; private set; }
+        [JsonIgnore]
+        public string WorldName => GameResources.GetWorldName(WorldID);
+        [JsonIgnore]
+        private static readonly byte[] WorldSign = new byte[] { 0x02, 0x12, 0x02, 0x59, 0x03 };
+        [JsonIgnore]
+        private static readonly byte[] LinkStart = new byte[] { 0x02, 0x27 };
+        [JsonIgnore]
+        private static readonly byte[] LinkEnd = new byte[] { 0x02, 0x27, 0x07, 0xCF, 0x01, 0x01, 0x01, 0xFF, 0x01, 0x03 };
+        [JsonIgnore]
+        private static readonly byte[] LinkStartTemplate = new byte[] { 0x02, 0x27, 0x00, 0x01, 0x1F, 0x01, 0x01, 0xFF, 0x0B, 0x00 };
+
+        public Sender(byte[] senderpart, ushort wid)
+        {
+            if (senderpart.IndexOf(LinkStart) == 0)
+            {
+                //first occurence is full name, second is display-as (full name / surabbr / forabbr / initials)
+                Name = Encoding.UTF8.GetString(senderpart.Skip(9).Take(senderpart[8] - 1).ToArray());
+                int nameend = senderpart.IndexOf(LinkEnd) + LinkEnd.Length;
+                if (nameend != senderpart.Length)
+                    WorldID = GameResources.GetWorldID(Encoding.UTF8.GetString(senderpart.Skip(nameend + WorldSign.Length).ToArray()));
+                else
+                    WorldID = wid;
+            }
+            else
+                Name = Encoding.UTF8.GetString(senderpart);
+        }
+
+        internal byte[] ToArray(bool link = true, bool world = true)
+        {
+            List<byte> arr = new List<byte>();
+            if (!string.IsNullOrWhiteSpace(Name))
+            {
+                byte[] n = Encoding.UTF8.GetBytes(Name);
+                if (link)
+                {
+                    arr.AddRange(LinkStartTemplate);
+                    arr.AddRange(n);
+                    arr[2] = Convert.ToByte(n.Length + 8);
+                    arr.Add(0x03);
+                    arr[9] = Convert.ToByte(n.Length + 1);
+                }
+                arr.AddRange(n);
+                arr.AddRange(LinkEnd);
+            }
+            if (world)
+            {
+                arr.AddRange(WorldSign);
+                arr.AddRange(Encoding.UTF8.GetBytes(WorldName));
+            }
+            return arr.ToArray();
         }
     }
 

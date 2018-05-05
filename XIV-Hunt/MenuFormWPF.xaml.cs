@@ -14,7 +14,6 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -194,7 +193,9 @@ namespace FFXIV_GameSense
                     Program.mem.OnNewCommand += ProcessChatCommand;
                     PersistentNamedPipeServer.Restart();
                 }
-                FFXIVHunts.LeaveGroup();
+                if (hunts != null)
+                    AsyncHelper.RunSync(hunts.LeaveGroup);
+
                 HuntNotifyGroupBox.IsEnabled = false;
                 return true;
             }
@@ -202,7 +203,7 @@ namespace FFXIV_GameSense
             {
                 if (hunts == null && Program.mem != null && Program.mem.ValidateProcess())
                     hunts = new FFXIVHunts();
-                hunts.Connect();
+                _ = hunts.Connect();
                 HuntNotifyGroupBox.IsEnabled = true;
             }
             return false;
@@ -274,7 +275,7 @@ namespace FFXIV_GameSense
             {
                 cts.Cancel();
             }
-            else if (e.Command==Command.Flag)
+            else if (e.Command == Command.Flag)
             {
                 string[] coords = e.Parameter.Split(',');
                 if (coords.Length > 1 && float.TryParse(coords[0], out float xR) && float.TryParse(coords[1], out float yR))
@@ -301,7 +302,7 @@ namespace FFXIV_GameSense
                 }
                 if (Settings.Default.notifyDutyRoulette && cf.State == ContentFinderState.Popped && cf.IsDutyRouletteQueued() && !WroteDRPop)//Pop and DR
                 {
-                    _ = Program.mem.WriteChatMessage(new ChatMessage { Message = Encoding.UTF8.GetBytes(string.Format(Properties.Resources.DutyRouletteResult, cf.InstanceContentName)) });
+                    _ = Program.mem.WriteChatMessage(new ChatMessage { MessageString = string.Format(Properties.Resources.DutyRouletteResult, cf.InstanceContentName) });
                     WroteDRPop = true;
                 }
                 else if (cf.State != ContentFinderState.Popped)
@@ -376,7 +377,7 @@ namespace FFXIV_GameSense
         private void HuntConnectionTextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (((TextBlock)sender).Text.Contains("Disconnected"))
-                hunts.Connect();
+                _ = hunts.Connect();
         }
 
         public void Dispose()
@@ -700,5 +701,14 @@ namespace FFXIV_GameSense
             }
             IsFetchingZones = false;
         }
+    }
+
+    internal static class AsyncHelper
+    {
+        private static readonly TaskFactory _myTaskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
+
+        public static TResult RunSync<TResult>(Func<Task<TResult>> func) => _myTaskFactory.StartNew(func).Unwrap().GetAwaiter().GetResult();
+
+        public static void RunSync(Func<Task> func) => _myTaskFactory.StartNew(func).Unwrap().GetAwaiter().GetResult();
     }
 }

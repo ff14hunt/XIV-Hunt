@@ -46,6 +46,14 @@ namespace XIVDB
             return "Unknown duty " + id;
         }
 
+        internal static ushort GetWorldID(string name)
+        {
+            foreach(var kvp in WorldNames)
+                if (kvp.Value == name)
+                    return kvp.Key;
+            return 0;
+        }
+
         private static string[] GetFateLine(string line)
         {
             string[] li = line.Replace(", ", "##COMMA##").Split(',');
@@ -283,7 +291,8 @@ namespace XIVDB
             {
                 if (lines[i].Split('|')[0].Equals(id.ToString()))
                 {
-                    huntInfo = new Tuple<ushort, ushort, float, float>(id, ushort.Parse(lines[i].Split('|')[1]), float.Parse(lines[i].Split('|')[2]), float.Parse(lines[i].Split('|')[3]));
+                    string[] values = lines[i].Split('|');
+                    huntInfo = new Tuple<ushort, ushort, float, float>(id, ushort.Parse(values[1]), float.Parse(values[2]), float.Parse(values[3]));
                     return true;
                 }
                 i++;
