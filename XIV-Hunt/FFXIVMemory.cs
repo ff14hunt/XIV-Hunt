@@ -407,20 +407,25 @@ namespace FFXIV_GameSense
             };
         }
 
-        internal List<ChatMessage> ReadChatLogBackwards(int count)
+        internal List<ChatMessage> ReadChatLogBackwards(uint count = 1000, Predicate<ChatMessage> filter = null, Predicate<ChatMessage> stopOn = null)
         {
             var ChatLog = new List<ChatMessage>();
             ulong length = ((_mode == FFXIVClientMode.FFXIV_64) ? GetUInt64(chatLogTailAddress) : GetUInt32(chatLogTailAddress)) - (ulong)chatLogStartAddress.ToInt64();
             byte[] ws = GetByteArray(chatLogStartAddress, (uint)length);
             int currentStart = ws.Length;
             int currentEnd = ws.Length;
+            ushort wid = GetServerId();
             while (currentStart > 0 && count > 0)
             {
                 currentStart--;
                 if (ws[currentStart] == 0x00 && ws[currentStart - 1] == 0x00)
                 {
                     currentStart -= 7;
-                    ChatLog.Add(new ChatMessage(ws.Skip(currentStart).Take(currentEnd - currentStart).ToArray()));
+                    ChatMessage cm = new ChatMessage(ws.Skip(currentStart).Take(currentEnd - currentStart).ToArray(), wid);
+                    if (stopOn != null && stopOn.Invoke(cm))
+                        break;
+                    if(filter == null || filter.Invoke(cm))
+                        ChatLog.Add(cm);
                     currentEnd = currentStart;
                     count--;
                 }
