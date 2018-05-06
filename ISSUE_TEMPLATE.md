@@ -1,6 +1,6 @@
 ### Which version, and executable, of XIV-Hunt together with which version of FFXIV have the issue you are about to describe?  
-<sup>**For example:** *XIV-Huntx86.exe (v4.2.5.2) together with ffxiv.exe (DX9)*</sup>  
-<sup>**Or:** *XIV-Hunt.exe (v4.2.5.2) together with ffxiv_dx11.exe (DX11)*</sup>  
+<sup>**For example:** *XIV-Hunt.exe (v4.2.21) together with ffxiv.exe (DX9)*</sup>  
+<sup>**Or:** *XIV-Hunt.exe (v4.2.22) together with ffxiv_dx11.exe (DX11)*</sup>  
 
 ---
 
