@@ -47,8 +47,7 @@ namespace FFXIV_GameSense
             Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.Default.LanguageCI);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.LanguageCI);
             InitializeComponent();
-            AssemblyName an = Assembly.GetExecutingAssembly().GetName();
-            Title = an.Name + " " + an.Version.ToString(3) + " - " + (Environment.Is64BitProcess ? "64" : "32") + "-Bit";
+            Title = Program.AssemblyName.Name + " " + Program.AssemblyName.Version.ToString(3) + " - " + (Environment.Is64BitProcess ? "64" : "32") + "-Bit";
             vm = new ViewModel();
             Closed += MenuForm_FormClosed;
             dispatcherTimer1s = new DispatcherTimer

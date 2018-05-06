@@ -3,6 +3,7 @@ using Squirrel;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 
@@ -12,6 +13,7 @@ namespace FFXIV_GameSense
     {
         internal static FFXIVMemory mem;
         internal static Window1 w1;
+        internal static AssemblyName AssemblyName = Assembly.GetExecutingAssembly().GetName();
 
         [STAThread]
         public static void Main(string[] args)
