@@ -234,6 +234,11 @@ namespace FFXIV_GameSense
                         vm.FATEEntries.SingleOrDefault(x => x.ID == fid).Announce = true;
                     }
                 }
+                else if (Enum.TryParse(e.Parameter.Split(' ').Last(), out HuntRank hr) && hr != HuntRank.FATE && GameResources.TryGetZoneID(e.Parameter.Substring(0, e.Parameter.Length - 2).Trim(), out ushort ZoneID) && FFXIVHunts.MapHunts.ContainsKey(ZoneID))
+                {
+                    foreach (ushort hid in FFXIVHunts.MapHunts[ZoneID].Where(x => hunts.HuntRankFor(x) == hr))
+                        _ = hunts.LastKnownInfoForHunt(hid);
+                }
                 else
                 {
                     FFXIVHunts.LookupItemXIVDB(e.Parameter).ContinueWith(t =>

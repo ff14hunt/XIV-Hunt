@@ -48,7 +48,7 @@ namespace XIVDB
 
         internal static ushort GetWorldID(string name)
         {
-            foreach(var kvp in WorldNames)
+            foreach (var kvp in WorldNames)
                 if (kvp.Value == name)
                     return kvp.Key;
             return 0;
@@ -297,6 +297,20 @@ namespace XIVDB
                 }
                 i++;
             }
+            return false;
+        }
+
+        internal static bool TryGetZoneID(string ZoneName, out ushort ZoneID)
+        {
+            foreach (var line in Resources.TerritoryType.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3))
+            {
+                if (line.Split(',')[6].Trim('"').Equals(ZoneName, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    ZoneID = ushort.Parse(line.Split(',')[0]);
+                    return true;
+                }
+            }
+            ZoneID = 0;
             return false;
         }
 
