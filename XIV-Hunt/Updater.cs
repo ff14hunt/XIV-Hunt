@@ -85,7 +85,7 @@ namespace FFXIV_GameSense
         private static void DeleteOldVersions()
         {
             DirectoryInfo appDir = new DirectoryInfo(Assembly.GetExecutingAssembly().Location).Parent.Parent;
-            var olderDirs = appDir.EnumerateDirectories("app-*").OrderByDescending(x => x.Name).Skip(2);
+            var olderDirs = appDir.EnumerateDirectories("app-*").OrderByDescending(x => x.CreationTimeUtc).Skip(2);
             foreach (DirectoryInfo oldDir in olderDirs)
                 try
                 {

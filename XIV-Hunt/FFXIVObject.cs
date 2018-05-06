@@ -271,7 +271,7 @@ namespace FFXIV_GameSense
         [JsonIgnore]
         public DateTime EndTime => DateTimeOffset.FromUnixTimeSeconds(StartTimeEpoch + Duration).UtcDateTime;
         [JsonIgnore]
-        public TimeSpan TimeRemaining => (EndTime - Program.mem.GetServerUtcTime());//TODO: fix
+        public TimeSpan TimeRemaining => EndTime - Program.mem.GetServerUtcTime();//TODO: fix
         [JsonIgnore]
         public bool HasEnded => State == FATEState.Ended || State == FATEState.Failed;
         [JsonIgnore]
