@@ -67,7 +67,7 @@ namespace FFXIV_GameSense
         /// The rest is the message, including payloads.
         /// </summary>
         /// <param name="arr">Byte array should be longer than 10</param>
-        internal ChatMessage(byte[] arr, ushort wid)
+        internal ChatMessage(byte[] arr/*, ushort wid*/)
         {
             if (arr.Length < 10)
             {
@@ -76,7 +76,7 @@ namespace FFXIV_GameSense
             Timestamp = UnixTimeStampToDateTime(BitConverter.ToUInt32(arr.Take(4).ToArray(), 0));
             Channel = (ChatChannel)arr[4];
             Filter = (ChatFilter)arr[5];//hmm
-            Sender = new Sender(arr.Skip(9).Take(Array.FindIndex(arr.Skip(9).ToArray(), x => x == 0x3A)).ToArray(), wid);
+            Sender = new Sender(arr.Skip(9).Take(Array.FindIndex(arr.Skip(9).ToArray(), x => x == 0x3A)).ToArray()/*, wid*/);
             int pos = arr.Skip(9).ToList().IndexOf(0x3A) + 10;
             Message = arr.Skip(pos).ToArray();
         }
@@ -141,7 +141,7 @@ namespace FFXIV_GameSense
             if (Array.IndexOf(ItemHeader1And2, 0x00) > -1)
                 throw new ArgumentException("ItemHeader contains 0x00. Params: " + Item.Id, nameof(Item));
             cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(ItemHeader1And2).Concat(ItemHeader3).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(Item.Name)).Concat(end).ToArray();
-            cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).Concat(new byte[] { 0x00 }).ToArray();
+            cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).ToArray();
             return cm;
         }
 
@@ -177,9 +177,7 @@ namespace FFXIV_GameSense
 
             cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(pos).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(GameResources.GetZoneName(zoneId) + " ( " + Combatant.GetXReadable(x, zoneId).ToString("0.0").Replace(',', '.') + "  , " + Combatant.GetYReadable(y, zoneId).ToString("0.0").Replace(',', '.') + " )")).Concat(end).ToArray();
             if (!string.IsNullOrEmpty(postpend))
-                cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).Concat(new byte[] { 0x00 }).ToArray();
-            else
-                cm.Message = cm.Message.Concat(new byte[] { 0x00 }).ToArray();
+                cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).ToArray();
 
             return cm;
         }
@@ -215,12 +213,12 @@ namespace FFXIV_GameSense
     {
         [JsonProperty]
         public string Name { get; private set; }
-        [JsonProperty]
-        public ushort WorldID { get; private set; }
-        [JsonIgnore]
-        public string WorldName => GameResources.GetWorldName(WorldID);
-        [JsonIgnore]
-        private static readonly byte[] WorldSign = new byte[] { 0x02, 0x12, 0x02, 0x59, 0x03 };
+        //[JsonProperty]
+        //public ushort WorldID { get; private set; }
+        //[JsonIgnore]
+        //public string WorldName => GameResources.GetWorldName(WorldID);
+        //[JsonIgnore]
+        //private static readonly byte[] WorldSign = new byte[] { 0x02, 0x12, 0x02, 0x59, 0x03 };
         [JsonIgnore]
         private static readonly byte[] LinkStart = new byte[] { 0x02, 0x27 };
         [JsonIgnore]
@@ -228,17 +226,17 @@ namespace FFXIV_GameSense
         [JsonIgnore]
         private static readonly byte[] LinkStartTemplate = new byte[] { 0x02, 0x27, 0x00, 0x01, 0x1F, 0x01, 0x01, 0xFF, 0x0B, 0x00 };
 
-        public Sender(byte[] senderpart, ushort wid)
+        public Sender(byte[] senderpart/*, ushort wid*/)
         {
             if (senderpart.IndexOf(LinkStart) == 0)
             {
                 //first occurence is full name, second is display-as (full name / surabbr / forabbr / initials)
                 Name = Encoding.UTF8.GetString(senderpart.Skip(9).Take(senderpart[8] - 1).ToArray());
                 int nameend = senderpart.IndexOf(LinkEnd) + LinkEnd.Length;
-                if (nameend != senderpart.Length)
-                    WorldID = GameResources.GetWorldID(Encoding.UTF8.GetString(senderpart.Skip(nameend + WorldSign.Length).ToArray()));
-                else
-                    WorldID = wid;
+                //if (nameend != senderpart.Length)
+                //    WorldID = GameResources.GetWorldID(Encoding.UTF8.GetString(senderpart.Skip(nameend + WorldSign.Length).ToArray()));
+                //else
+                //    WorldID = wid;
             }
             else
                 Name = Encoding.UTF8.GetString(senderpart);
@@ -261,11 +259,11 @@ namespace FFXIV_GameSense
                 arr.AddRange(n);
                 arr.AddRange(LinkEnd);
             }
-            if (world)
-            {
-                arr.AddRange(WorldSign);
-                arr.AddRange(Encoding.UTF8.GetBytes(WorldName));
-            }
+            //if (world)
+            //{
+            //    arr.AddRange(WorldSign);
+            //    arr.AddRange(Encoding.UTF8.GetBytes(WorldName));
+            //}
             return arr.ToArray();
         }
     }

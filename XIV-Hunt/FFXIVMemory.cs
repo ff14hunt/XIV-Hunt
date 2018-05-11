@@ -414,14 +414,14 @@ namespace FFXIV_GameSense
             byte[] ws = GetByteArray(chatLogStartAddress, (uint)length);
             int currentStart = ws.Length;
             int currentEnd = ws.Length;
-            ushort wid = GetServerId();
+            //ushort wid = GetServerId();
             while (currentStart > 0 && count > 0)
             {
                 currentStart--;
                 if (ws[currentStart] == 0x00 && ws[currentStart - 1] == 0x00)
                 {
                     currentStart -= 7;
-                    ChatMessage cm = new ChatMessage(ws.Skip(currentStart).Take(currentEnd - currentStart).ToArray(), wid);
+                    ChatMessage cm = new ChatMessage(ws.Skip(currentStart).Take(currentEnd - currentStart).ToArray()/*, wid*/);
                     if (stopOn != null && stopOn.Invoke(cm))
                         break;
                     if(filter == null || filter.Invoke(cm))
