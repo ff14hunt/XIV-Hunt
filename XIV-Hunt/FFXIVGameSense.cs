@@ -28,10 +28,16 @@ namespace FFXIV_GameSense
                 if (ApplicationRunningHelper.AlreadyRunning())
                     return;
             }
-            if (Settings.Default.CallUpgrade)
+            try
             {
-                Updater.RestoreSettings();
-                Settings.Default.Reload();
+                if (Settings.Default.CallUpgrade)
+                {
+                    Updater.RestoreSettings();
+                    Settings.Default.Reload();
+                }
+            }catch(Exception e)
+            {
+                WriteExceptionToErrorFile(new Exception("Failed to restore previous settings.", e));
             }
 #if !DEBUG
             SquirrelAwareApp.HandleEvents(onAppUpdate: v => Updater.OnAppUpdate(), onFirstRun: () => Updater.OnFirstRun());
