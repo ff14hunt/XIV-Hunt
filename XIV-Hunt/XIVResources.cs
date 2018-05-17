@@ -19,7 +19,7 @@ namespace XIVDB
 
         public FATEInfo(string[] line)
         {
-            string fn = line[28].Trim('"');
+            string fn = line[28].Trim('"', ' ');
             ClassJobLevel = byte.Parse(line[4]);
             WithTags = fn;
             NoTags = Regex.Replace(fn, GameResources.HtmlTagsRegex, string.Empty);
