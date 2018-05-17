@@ -56,7 +56,7 @@ namespace FFXIV_GameSense.UI
             try
             {
                 authresult = PasswordBox.Password.Length > 7 && AuthenticateUser(EmailTextBox.Text, PasswordBox.Password, TwoFABox.Password, out receivedCookie, out twofaCookie);
-            }catch(WebException) { };
+            }catch(Exception) { };
             if (authresult)
             {
                 DialogResult = true;

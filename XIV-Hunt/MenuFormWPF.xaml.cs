@@ -185,7 +185,10 @@ namespace FFXIV_GameSense
                 if (ProcessComboBox.SelectedValue != null && FFXIVProcessHelper.GetFFXIVProcess((int)ProcessComboBox.SelectedValue) != null)
                 {
                     if (Program.mem != null)
+                    {
+                        Program.mem.OnNewCommand -= ProcessChatCommand;
                         Program.mem.Dispose();
+                    }
                     Program.mem = null;
                     Program.mem = new FFXIVMemory(FFXIVProcessHelper.GetFFXIVProcess((int)ProcessComboBox.SelectedValue));
                     Program.mem.OnNewCommand += ProcessChatCommand;
