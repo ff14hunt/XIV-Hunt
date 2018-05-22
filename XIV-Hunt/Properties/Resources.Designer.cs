@@ -94,9 +94,9 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54
-        ///#,,ContentIndicator,InstanceContent,,,,,ContentMemberType,,,,,,ClassJobLevel{Required},ClassJobLevel{Sync},ItemLevel{Required},ItemLevel{Sync},,,,,,,,,,,,,,,,,,,,Icon,,,,,,,,,,,,,,,,,,
-        ///int32,uint16,byte,InstanceContent,bit&amp;01,byte,uint32,byte,ContentMemberType,byte,byte,byte,uint32,uint16,byte,byte,uint16,uint16,bit&amp;02,bit&amp;04,bit&amp;08,bit&amp;10,bit&amp;20,bi [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77
+        ///#,,,,InstanceContent,,,,,,ContentMemberType,,,,,,ClassJobLevel{Required},ClassJobLevel{Sync},ItemLevel{Required},ItemLevel{Sync},,,,,,ContentIndicator,,,,,,,,,,,,,Icon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+        ///int32,str,uint16,byte,InstanceContent,bit&amp;01,byte,uint32,uint32,byte,Conte [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ContentFinderCondition {
             get {
@@ -170,9 +170,8 @@ namespace FFXIV_GameSense.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
-        ///#,,,,ClassJobLevel,ClassJobLevel{Max},EventItem,,,,,Icon{Objective},Icon{Map},,,,,,,,,,,,,,,,Name,Description,Objective,StatusText[0],StatusText[1],StatusText[2],
-        ///int32,byte,byte,uint32,byte,byte,EventItem,uint16,byte,byte,byte,Image,Image,uint32,int32,uint32,uint32,uint16,uint16,uint16,bit&amp;01,bit&amp;02,bit&amp;04,uint16,bit&amp;08,bit&amp;10,bit&amp;20,uint32,str,str,str,str,str,str,uint32
-        ///0,0,0,0,0,0,,0,0,0,0,&quot;ui/icon/000000/0 [rest of string was truncated]&quot;;.
+        ///#,EurekaFate,,Location,ClassJobLevel,ClassJobLevel{Max},EventItem,,,,,Icon{Objective},Icon{Map},,Music,,,,,,,,,,,,,,Name,Description,Objective,StatusText[0],StatusText[1],StatusText[2],ArrayIndex
+        ///int32,byte,byte,uint32,byte,byte,EventItem,uint16,byte,byte,byte,Image,Image,uint32,BGM,uint32,uint32,uint16,uint16,uint16,bit&amp;01,bit&amp;02,bit&amp;04,uint16,bit&amp;08,bit&amp;10,bit&amp;20,uint32,str,str,str,str,str,str,ArrayEventHandl [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Fate {
             get {
@@ -616,6 +615,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Perform directory was not found. Please specify one in XIV-Hunt settings.
+        /// </summary>
+        public static string PerformDirectoryNotExists {
+            get {
+                return ResourceManager.GetString("PerformDirectoryNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preparation state..
         /// </summary>
         public static string PreparationState {
@@ -680,10 +688,10 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
-        ///#,Name,Bg,,PlaceName{Region},PlaceName{Zone},PlaceName,Map,,,TerritoryIntendedUse,,,WeatherRate,,,,,,,,,,,Aetheryte,,,,,,,,,
-        ///int32,str,str,byte,PlaceName,PlaceName,PlaceName,Map,byte,byte,byte,uint16,bit&amp;01,byte,byte,bit&amp;02,bit&amp;04,bit&amp;08,bit&amp;10,uint16,int32,int32,uint32,uint16,Aetheryte,int32,uint16,sbyte,bit&amp;20,byte,byte,byte,byte,bit&amp;40
-        ///1,&quot;&quot;,&quot;&quot;,0,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,0,0,0,0,False,0,0,False,False,False,False,0,0,0,0,0,&quot; [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
+        ///#,Name,Bg,,PlaceName{Region},PlaceName{Zone},PlaceName,Map,,,TerritoryIntendedUse,,,WeatherRate,,,,,,,,,,ArrayEventHandler,,Aetheryte,,,,,,,,,
+        ///int32,str,str,byte,PlaceName,PlaceName,PlaceName,Map,byte,byte,byte,uint16,bit&amp;01,byte,bit&amp;02,byte,bit&amp;04,bit&amp;08,bit&amp;10,bit&amp;20,uint16,int32,int32,ArrayEventHandler,uint16,Aetheryte,int32,uint16,sbyte,bit&amp;40,byte,byte,byte,byte,bit&amp;80
+        ///1,&quot;&quot;,&quot;&quot;,0,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,0,0,0,0,False, [rest of string was truncated]&quot;;.
         /// </summary>
         public static string TerritoryType {
             get {

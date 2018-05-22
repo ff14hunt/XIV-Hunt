@@ -252,8 +252,13 @@ namespace FFXIV_GameSense
                     });
                 }
             }
-            else if (e.Command == Command.Perform && Directory.Exists(Settings.Default.PerformDirectory))
+            else if (e.Command == Command.Perform)
             {
+                if (!Directory.Exists(Settings.Default.PerformDirectory))
+                {
+                    _ = Program.mem.WriteChatMessage(new ChatMessage { MessageString = Properties.Resources.PerformDirectoryNotExists });
+                    return;
+                }
                 string nametxt = e.Parameter;
                 if (!nametxt.EndsWith(".txt"))
                     nametxt += ".txt";
