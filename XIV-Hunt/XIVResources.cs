@@ -16,6 +16,7 @@ namespace XIVDB
         public string WithTags { get; private set; }
         public string IconObjective { get; private set; }
         public string IconMap { get; private set; }
+        public bool EurekaFate { get; private set; }
 
         public FATEInfo(string[] line)
         {
@@ -25,6 +26,7 @@ namespace XIVDB
             NoTags = Regex.Replace(fn, GameResources.HtmlTagsRegex, string.Empty);
             IconObjective = line[11].Trim('"').Replace(".tex", ".png");
             IconMap = line[12].Trim('"').Replace(".tex", ".png");
+            EurekaFate = line[1].Trim('"') == "1";
         }
     }
     static class GameResources
@@ -41,7 +43,7 @@ namespace XIVDB
             string[] lines = Resources.ContentFinderCondition.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3).ToArray();
             if (id > 0 && id < lines.Length)
             {
-                return lines[id].Split(',')[3].Trim('"').FirstLetterToUpperCase();
+                return lines[id].Split(',')[4].Trim('"').FirstLetterToUpperCase();
             }
             return "Unknown duty " + id;
         }

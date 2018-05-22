@@ -6923,14 +6923,14 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 6919,"Stark Woad",0,"Stark Woad",0,0,1,1,1
 6920,"M'rahz Nunh",0,"M'rahz Nunh",0,0,1,0,1
 6921,"Bertliana",0,"Bertliana",0,0,1,1,0
-6922,"Hashmal le Grand Ordonnateur",0,"Hashmal, le Grand Ordonnateur",0,0,1,0,1
+6922,"Hashmal le Grand Ordonnateur",0,"Hashmal le Grand Ordonnateur",0,0,1,0,1
 6923,"golem de dalles",0,"golems de dalles",0,0,1,0,0
 6924,"tour de contrôle",0,"tours de contrôle",0,0,1,1,0
 6925,"Argath Thadalfus",0,"Argath Thadalfus",0,1,1,0,1
 6926,"Sans-cœur",0,"Sans-cœur",0,0,1,0,1
 6927,"ombre",0,"ombres",0,1,1,1,0
 6928,"cristal du néant",0,"cristaux du néant",0,0,1,0,0
-6929,"Mateus le Corrompu",0,"Mateus, le Corrompu",0,0,1,0,1
+6929,"Mateus le Corrompu",0,"Mateus le Corrompu",0,0,1,0,1
 6930,"aze de glace",0,"azes de glace",0,1,1,0,0
 6931,"déesse des glaces",0,"déesses des glaces",0,0,1,1,0
 6932,"bulle d'eau",0,"bulles d'eau",0,0,1,1,0
@@ -7071,7 +7071,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7067,"rinkhals",0,"rinkhals",0,0,1,0,0
 7068,"agrégat biologique",0,"agrégats biologiques",0,1,1,0,0
 7069,"brobinyak biologique",0,"brobinyaks biologiques",0,0,1,0,0
-7070,"",0,"",0,0,0,0,0
+7070,"Yiazmat",0,"Yiazmat",0,0,1,0,1
 7071,"minotaure biologique",0,"minotaures biologiques",0,0,1,0,0
 7072,"système de guidage vocal",0,"systèmes de guidage vocaux",0,0,1,0,0
 7073,"Mog choriste",0,"Mogs choristes",0,0,1,0,0
@@ -7101,7 +7101,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7097,"démon Chadarnouk",0,"démons Chadarnouk",0,0,1,0,0
 7098,"ombre maléfique",0,"ombres maléfiques",0,1,1,1,0
 7099,"esprit frappeur",0,"esprits frappeurs",0,1,1,0,0
-7100,"aiguille dorée",0,"aiguilles dorées",0,1,1,1,0
+7100,"cœur de Yiazmat",0,"cœurs de Yiazmat",0,0,1,0,0
 7101,"peinture du feu",0,"peintures du feu",0,0,1,1,0
 7102,"peinture du vent",0,"peintures du vent",0,0,1,1,0
 7103,"peinture de l'eau",0,"peintures de l'eau",0,0,1,1,0
@@ -7201,68 +7201,68 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7197,"craqulov massif",0,"craqulovs massifs",0,0,1,0,0
 7198,"arioch Anemos",0,"ariochs Anemos",0,1,1,0,0
 7199,"bitoso Anemos",0,"bitosos Anemos",0,0,1,0,0
-7200,"",0,"",0,0,0,0,0
-7201,"",0,"",0,0,0,0,0
-7202,"",0,"",0,0,0,0,0
-7203,"",0,"",0,0,0,0,0
-7204,"",0,"",0,0,0,0,0
-7205,"",0,"",0,0,0,0,0
-7206,"",0,"",0,0,0,0,0
-7207,"",0,"",0,0,0,0,0
-7208,"",0,"",0,0,0,0,0
-7209,"",0,"",0,0,0,0,0
-7210,"",0,"",0,0,0,0,0
-7211,"",0,"",0,0,0,0,0
-7212,"",0,"",0,0,0,0,0
-7213,"",0,"",0,0,0,0,0
-7214,"",0,"",0,0,0,0,0
-7215,"",0,"",0,0,0,0,0
-7216,"",0,"",0,0,0,0,0
-7217,"",0,"",0,0,0,0,0
-7218,"",0,"",0,0,0,0,0
-7219,"",0,"",0,0,0,0,0
-7220,"",0,"",0,0,0,0,0
+7200,"ô-tengu",0,"ô-tengu",0,1,1,0,0
+7201,"tengu-bi",0,"tengu-bi",0,0,1,0,0
+7202,"Daidarabotchi",0,"Daidarabotchi",0,0,1,0,1
+7203,"Qitian Dasheng",0,"Qitian Dasheng",0,0,1,0,1
+7204,"ombre de Qitian Dasheng",0,"ombres de Qitian Dasheng",0,1,1,1,0
+7205,"sbire de Qitian Dasheng",0,"sbires de Qitian Dasheng",0,0,1,0,0
+7206,"Sai Tai Sui",0,"Sai Tai Sui",0,0,1,0,1
+7207,"kiyofusa géomantique",0,"kiyofusa géomantiques",0,0,1,0,0
+7208,"apa géomantique",0,"apas géomantiques",0,1,1,1,0
+7209,"boule d'eau",0,"boules d'eau",0,0,1,1,0
+7210,"dhara géomantique",0,"dharas géomantiques",0,0,1,0,0
+7211,"anila géomantique",0,"anilas géomantiques",0,1,1,0,0
+7212,"unkiu de la Muni",0,"unkiu de la Muni",0,1,1,0,0
+7213,"jinmenju",0,"jinmenju",0,0,1,0,0
+7214,"hikagiri de la Muni",0,"hikagiri de la Muni",0,0,1,0,0
+7215,"raie de la Muni",0,"raies de la Muni",0,0,1,1,0
+7216,"scorpion de rivière",0,"scorpions de rivière",0,0,1,0,0
+7217,"bucorve de Dairyu",0,"bucorves de Dairyu",0,0,1,0,0
+7218,"bibao de Dairyu",0,"bibao de Dairyu",0,0,1,0,0
+7219,"babouin",0,"babouins",0,0,1,0,0
+7220,"furet de Dairyu",0,"furets de Dairyu",0,0,1,0,0
 7221,"",0,"",0,0,0,0,0
 7222,"squelette nocturne",0,"squelettes nocturnes",0,0,1,0,0
-7223,"",0,"",0,0,0,0,0
-7224,"",0,"",0,0,0,0,0
-7225,"",0,"",0,0,0,0,0
-7226,"",0,"",0,0,0,0,0
-7227,"",0,"",0,0,0,0,0
-7228,"",0,"",0,0,0,0,0
-7229,"",0,"",0,0,0,0,0
-7230,"",0,"",0,0,0,0,0
-7231,"",0,"",0,0,0,0,0
-7232,"",0,"",0,0,0,0,0
-7233,"",0,"",0,0,0,0,0
-7234,"",0,"",0,0,0,0,0
-7235,"",0,"",0,0,0,0,0
-7236,"",0,"",0,0,0,0,0
-7237,"",0,"",0,0,0,0,0
-7238,"",0,"",0,0,0,0,0
-7239,"",0,"",0,0,0,0,0
-7240,"",0,"",0,0,0,0,0
-7241,"",0,"",0,0,0,0,0
-7242,"",0,"",0,0,0,0,0
-7243,"",0,"",0,0,0,0,0
-7244,"",0,"",0,0,0,0,0
-7245,"",0,"",0,0,0,0,0
-7246,"",0,"",0,0,0,0,0
-7247,"",0,"",0,0,0,0,0
+7223,"Bélias le Titan",0,"Bélias le Titan",0,0,1,0,1
+7224,"serviteur de Bélias",0,"serviteurs de Bélias",0,0,1,0,0
+7225,"Tsukuyomi",0,"Tsukuyomi",0,0,1,1,1
+7226,"Yotsuyu",0,"Yotsuyu",0,0,1,1,1
+7227,"spectre du parâtre",0,"spectres du parâtre",0,0,1,0,0
+7228,"spectre de la marâtre",0,"spectres de la marâtre",0,0,1,0,0
+7229,"maiôgi",0,"maiôgi",0,0,1,0,0
+7230,"fumée noirâtre",0,"fumées noirâtres",0,0,1,1,0
+7231,"orbe d'éclat lunaire",0,"orbes d'éclat lunaire",0,1,1,1,0
+7232,"fragment de lune",0,"fragments de lune",0,0,1,0,0
+7233,"spectre de Domien",0,"spectres de Domiens",0,0,1,0,0
+7234,"spectre de soldat impérial",0,"spectres de soldats impériaux",0,0,1,0,0
+7235,"aze de vent",0,"azes de vent",0,1,1,0,0
+7236,"cyclone",0,"cyclones",0,0,1,0,0
+7237,"automate N°7",0,"automate N°7",0,1,1,0,0
+7238,"rouage",0,"rouages",0,0,1,0,0
+7239,"missile",0,"missiles",0,0,1,0,0
+7240,"Soroban",0,"Soroban",0,0,1,0,1
+7241,"colonne d'eau",0,"colonnes d'eau",0,0,1,1,0
+7242,"Tataru",0,"Tataru",0,0,1,1,1
+7243,"Carbuncle malachite",0,"Carbuncle malachite",0,0,1,0,1
+7244,"automate N°7 amélioré",0,"automates N°7 amélioré",0,1,1,0,0
+7245,"Famfrit le Nuage Ténébreux",0,"Famfrit le Nuage Ténébreux",0,0,1,0,1
+7246,"aiguière ténèbreuse",0,"aiguières ténèbreuses",0,1,1,1,0
+7247,"sphère d'eau ténébreuse",0,"sphères d'eau ténébreuses",0,0,1,1,0
 7248,"",0,"",0,0,0,0,0
-7249,"",0,"",0,0,0,0,0
-7250,"",0,"",0,0,0,0,0
-7251,"",0,"",0,0,0,0,0
-7252,"",0,"",0,0,0,0,0
-7253,"",0,"",0,0,0,0,0
-7254,"",0,"",0,0,0,0,0
-7255,"",0,"",0,0,0,0,0
-7256,"",0,"",0,0,0,0,0
-7257,"",0,"",0,0,0,0,0
-7258,"",0,"",0,0,0,0,0
-7259,"",0,"",0,0,0,0,0
-7260,"",0,"",0,0,0,0,0
-7261,"",0,"",0,0,0,0,0
+7249,"bulle d'énergie",0,"bulles d'énergie",0,0,1,1,0
+7250,"guerrier à la pistolame",0,"guerriers à la pistolame",0,0,1,0,0
+7251,"mage redoutable",0,"mages redoutables",0,0,1,0,0
+7252,"maître d'hast redoutable",0,"maîtres d'hast redoutables",0,0,1,1,0
+7253,"populares blessé",0,"populares blessés",0,0,1,0,0
+7254,"pilote populares",0,"pilotes populares",0,0,1,0,0
+7255,"Maxima",0,"Maxima",0,0,1,0,1
+7256,"commandant des assaillants",0,"commandants des assaillants",0,0,1,0,0
+7257,"armure aérienne",0,"armures aériennes",0,1,1,1,0
+7258,"bune",0,"bunes",0,0,1,0,0
+7259,"valmuh",0,"valmuh",0,0,1,0,0
+7260,"golem de fer",0,"golems de fer",0,0,1,0,0
+7261,"mécanisme antique",0,"mécanismes antiques",0,0,1,0,0
 7262,"",0,"",0,0,0,0,0
 7263,"",0,"",0,0,0,0,0
 7264,"",0,"",0,0,0,0,0
@@ -7400,10 +7400,10 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7396,"",0,"",0,0,0,0,0
 7397,"",0,"",0,0,0,0,0
 7398,"",0,"",0,0,0,0,0
-7399,"",0,"",0,0,0,0,0
-7400,"",0,"",0,0,0,0,0
-7401,"",0,"",0,0,0,0,0
-7402,"",0,"",0,0,0,0,0
+7399,"Montblanc",0,"Montblanc",0,0,1,0,1
+7400,"illusion protectrice",0,"illusions protectrices",0,1,1,1,0
+7401,"débris d'aéronef",0,"débris d'aéronef",0,0,1,0,0
+7402,"agresseur mystérieux",0,"agresseurs mystérieux",0,1,1,0,0
 7403,"",0,"",0,0,0,0,0
 7404,"",0,"",0,0,0,0,0
 7405,"",0,"",0,0,0,0,0
@@ -7477,8 +7477,8 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7473,"",0,"",0,0,0,0,0
 7474,"",0,"",0,0,0,0,0
 7475,"",0,"",0,0,0,0,0
-7476,"",0,"",0,0,0,0,0
-7477,"",0,"",0,0,0,0,0
+7476,"apparition d'Asahi",0,"apparitions d'Asahi",0,1,1,1,0
+7477,"apparition de Gosetsu",0,"apparitions de Gosetsu",0,1,1,1,0
 7478,"",0,"",0,0,0,0,0
 7479,"",0,"",0,0,0,0,0
 7480,"",0,"",0,0,0,0,0
@@ -7495,7 +7495,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7491,"",0,"",0,0,0,0,0
 7492,"",0,"",0,0,0,0,0
 7493,"",0,"",0,0,0,0,0
-7494,"",0,"",0,0,0,0,0
+7494,"prison de vent",0,"prisons de vent",0,0,1,1,0
 7495,"",0,"",0,0,0,0,0
 7496,"",0,"",0,0,0,0,0
 7497,"",0,"",0,0,0,0,0
@@ -7538,7 +7538,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7534,"",0,"",0,0,0,0,0
 7535,"",0,"",0,0,0,0,0
 7536,"",0,"",0,0,0,0,0
-7537,"",0,"",0,0,0,0,0
+7537,"spectre de Zenos",0,"spectres de Zenos",0,0,1,0,0
 7538,"",0,"",0,0,0,0,0
 7539,"",0,"",0,0,0,0,0
 7540,"",0,"",0,0,0,0,0

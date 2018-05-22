@@ -1488,7 +1488,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 1484,"Asclepius",3,"NONE",1,0,0,0,1
 1485,"Furchtritter",4,"Furchtritter",2,0,1,0,0
 1486,"Cid",3,"Cid",1,0,0,0,1
-1487,"Magitek-Kampfmaschine",3,"Magitek-Kampfmaschinen",1,0,1,1,0
+1487,"Magitek-Kampfmaschine",3,"Magitek-Kampf<SoftHyphen/>maschinen",1,0,1,1,0
 1488,"Gundobald",3,"Gundobald",1,0,0,0,1
 1489,"Wilred",3,"Wilred",1,0,0,0,1
 1490,"Golem-Seelenstein",4,"Golem-Seelensteine",2,0,1,0,0
@@ -2351,7 +2351,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 2347,"planar[a] Riss",2,"planar[a] Risse",2,0,1,0,0
 2348,"Soldat[p] des Klageregiments",6,"Soldaten[p] des Klageregiments",1,0,1,0,0
 2349,"Soldat[p] des Klageregiments",6,"Soldaten[p] des Klageregiments",1,0,1,0,0
-2350,"Proto-Kampfmaschine",3,"Proto-Kampfmaschinen",1,0,1,1,0
+2350,"Proto-Kampfmaschine",3,"Proto-Kampf<SoftHyphen/>maschinen",1,0,1,1,0
 2351,"garleisch[a] Techniker",4,"garleisch[a] Techniker",2,0,1,0,0
 2352,"Totoima",3,"Totoimas",1,0,1,1,0
 2353,"grausam[a] Keiler",4,"grausam[a] Keiler",2,0,1,0,0
@@ -7071,7 +7071,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7067,"Rinkhals",3,"Rinkhals",1,0,1,0,0
 7068,"Bio-Pellet",4,"Bio-Pellets",1,0,1,2,0
 7069,"Biotech-Brobinyak",4,"Biotech-Brobinyaks",1,0,1,0,0
-7070,"",0,"",0,0,0,0,0
+7070,"Yiasmat",3,"Yiasmat",1,0,0,0,1
 7071,"Biotech-Minotaurus",3,"Biotech-Minotauren",1,0,1,0,0
 7072,"Stimmleitsystem",4,"Stimmleitsysteme",2,0,1,2,0
 7073,"Mogry-Priester",4,"Mogry-Priester",2,0,1,0,0
@@ -7101,7 +7101,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7097,"gefallen[a] Chadarnook",3,"gefallen[a] Chadarnooks",1,0,1,0,0
 7098,"bös[a] Schatten",4,"bös[a] Schatten",1,0,1,0,0
 7099,"Poltergeist",4,"Poltergeister",2,0,1,0,0
-7100,"Goldnadel",3,"Goldnadeln",1,0,1,1,0
+7100,"Herz[p] des Drachen",7,"Herzen[p] des Drachen",1,0,1,2,0
 7101,"Feuergemälde",4,"Feuergemälde",2,0,1,2,0
 7102,"Windgemälde",4,"Windgemälde",2,0,1,2,0
 7103,"Wassergemälde",4,"Wassergemälde",2,0,1,2,0
@@ -7201,68 +7201,68 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7197,"mächtig[a] Kraklaw",4,"mächtig[a] Kraklaws",1,0,1,0,0
 7198,"Insel-Arioch",3,"Insel-Ariochs",1,0,1,0,0
 7199,"Insel-Bitoso",3,"Insel-Bitosos",1,0,1,0,0
-7200,"",0,"",0,0,0,0,0
-7201,"",0,"",0,0,0,0,0
-7202,"",0,"",0,0,0,0,0
-7203,"",0,"",0,0,0,0,0
-7204,"",0,"",0,0,0,0,0
-7205,"",0,"",0,0,0,0,0
-7206,"",0,"",0,0,0,0,0
-7207,"",0,"",0,0,0,0,0
-7208,"",0,"",0,0,0,0,0
-7209,"",0,"",0,0,0,0,0
-7210,"",0,"",0,0,0,0,0
-7211,"",0,"",0,0,0,0,0
-7212,"",0,"",0,0,0,0,0
-7213,"",0,"",0,0,0,0,0
-7214,"",0,"",0,0,0,0,0
-7215,"",0,"",0,0,0,0,0
-7216,"",0,"",0,0,0,0,0
-7217,"",0,"",0,0,0,0,0
-7218,"",0,"",0,0,0,0,0
-7219,"",0,"",0,0,0,0,0
-7220,"",0,"",0,0,0,0,0
+7200,"Otengu",3,"Otengu",1,0,0,0,1
+7201,"Tengu-Glut",3,"Tengu-Gluten",1,0,1,1,0
+7202,"Daidarabotchi",3,"Daidarabotchi",1,0,0,0,1
+7203,"Qitian Dasheng",3,"Qitian Dasheng",1,0,0,0,1
+7204,"Schatten[p] des Weisen",4,"Schatten[p] des Weisen",1,0,1,0,0
+7205,"Diener[p] des Weisen",4,"Diener[p] des Weisen",2,0,1,0,0
+7206,"Sai Taisui",3,"Sai Taisui",1,0,1,0,0
+7207,"geomantisch[a] Kiyofusa",3,"geomantisch[a] Kiyofusa",1,0,1,0,0
+7208,"geomantisch[a] Apa",3,"geomantisch[a] Apas",1,0,1,1,0
+7209,"Sturzbach",4,"Sturzbäche",2,0,1,0,0
+7210,"geomantisch[a] Dhara",3,"geomantisch[a] Dharas",1,0,1,0,0
+7211,"geomantisch[a] Anila",3,"geomantisch[a] Anilas",1,0,1,0,0
+7212,"Fluss-Unkiu",3,"Fluss-Unkiu",1,0,1,0,0
+7213,"Jinmenju",3,"Jinmenju",1,0,1,0,0
+7214,"Fluss-Hikagiri",3,"Fluss-Hikagiri",1,0,1,0,0
+7215,"Fluss-Rochen",4,"Fluss-Rochen",1,0,1,0,0
+7216,"Fluss-Skorpion",4,"Fluss-Skorpione",2,0,1,0,0
+7217,"Drachen-Hornrabe",8,"Drachen-Hornraben",1,0,1,0,0
+7218,"Drachen-Bibao",3,"Drachen-Bibao",1,0,1,0,0
+7219,"weiß[a] Pavian",4,"weiß[a] Paviane",2,0,1,0,0
+7220,"Drachen-Wiesel",4,"Drachen-Wiesel",2,0,1,2,0
 7221,"",0,"",0,0,0,0,0
 7222,"Dämmer-Skelett",4,"Dämmer-Skelette",2,0,1,2,0
-7223,"",0,"",0,0,0,0,0
-7224,"",0,"",0,0,0,0,0
-7225,"",0,"",0,0,0,0,0
-7226,"",0,"",0,0,0,0,0
-7227,"",0,"",0,0,0,0,0
-7228,"",0,"",0,0,0,0,0
-7229,"",0,"",0,0,0,0,0
-7230,"",0,"",0,0,0,0,0
-7231,"",0,"",0,0,0,0,0
-7232,"",0,"",0,0,0,0,0
-7233,"",0,"",0,0,0,0,0
-7234,"",0,"",0,0,0,0,0
-7235,"",0,"",0,0,0,0,0
-7236,"",0,"",0,0,0,0,0
-7237,"",0,"",0,0,0,0,0
-7238,"",0,"",0,0,0,0,0
-7239,"",0,"",0,0,0,0,0
-7240,"",0,"",0,0,0,0,0
-7241,"",0,"",0,0,0,0,0
-7242,"",0,"",0,0,0,0,0
-7243,"",0,"",0,0,0,0,0
-7244,"",0,"",0,0,0,0,0
-7245,"",0,"",0,0,0,0,0
-7246,"",0,"",0,0,0,0,0
-7247,"",0,"",0,0,0,0,0
+7223,"Dämonid Belias",3,"NONE",1,0,0,0,1
+7224,"Diener[p] von Belias",4,"Diener[p] von Belias",2,0,1,0,0
+7225,"Tsukuyomi",3,"Tsukuyomi",1,0,0,1,1
+7226,"Yotsuyu",3,"Yotsuyu",1,0,0,1,1
+7227,"Yotsuyus Ziehvater",3,"Yotsuyus Ziehväter",2,0,0,0,1
+7228,"Yotsuyus Ziehmutter",3,"Yotsuyus Ziehmütter",2,0,0,1,1
+7229,"tanzend[a] Fächer",4,"tanzend[a] Fächer",2,0,1,0,0
+7230,"Schwade[p] der Nacht",3,"Schwaden[p] der Nacht",1,0,1,1,0
+7231,"Mondlichtkugel",3,"Mondlichtkugeln",1,0,1,1,0
+7232,"Mondfragment",4,"Mondfragmente",2,0,1,2,0
+7233,"Domaner",4,"Domaner",2,0,1,0,0
+7234,"garleisch[a] Soldat",6,"garleisch[a] Soldaten",1,0,1,0,0
+7235,"Windseele",3,"Windseelen",1,0,1,1,0
+7236,"Zyklon",4,"Zyklone",2,0,1,0,0
+7237,"Automat[p] Nr. 7",6,"Automaten[p] Nr. 7",1,0,1,0,0
+7238,"los[a] Zahnrad",4,"los[a] Zahnräder",2,0,1,2,0
+7239,"Rakete",3,"Raketen",1,0,1,1,0
+7240,"Soroban",3,"Soroban",1,0,0,0,1
+7241,"Fontäne",3,"Fontänen",1,0,1,1,0
+7242,"Tataru",3,"Tataru",1,0,0,1,1
+7243,"Malachit-Karfunkel",4,"Malachit-Karfunkel",2,0,1,2,0
+7244,"verbessert[a] Automat[p] Nr. 7",6,"verbessert[a] Automaten[p] Nr. 7",1,0,1,0,0
+7245,"Dunkelfürst Famfrit",3,"NONE",1,0,0,0,1
+7246,"dunkl[a] Wasserkrug",4,"dunkl[a] Wasserkrüge",2,0,1,0,0
+7247,"dunkl[a] Regen",4,"dunkl[a] Regen",1,0,1,0,0
 7248,"",0,"",0,0,0,0,0
-7249,"",0,"",0,0,0,0,0
-7250,"",0,"",0,0,0,0,0
-7251,"",0,"",0,0,0,0,0
-7252,"",0,"",0,0,0,0,0
-7253,"",0,"",0,0,0,0,0
-7254,"",0,"",0,0,0,0,0
-7255,"",0,"",0,0,0,0,0
-7256,"",0,"",0,0,0,0,0
-7257,"",0,"",0,0,0,0,0
-7258,"",0,"",0,0,0,0,0
-7259,"",0,"",0,0,0,0,0
-7260,"",0,"",0,0,0,0,0
-7261,"",0,"",0,0,0,0,0
+7249,"Zaubersphäre",3,"Zaubersphären",1,0,1,1,0
+7250,"verwegen[a] Haudegen",4,"verwegen[a] Haudegen",1,0,1,0,0
+7251,"kampferprobt[a] Magier",4,"kampferprobt[a] Magier",2,0,1,0,0
+7252,"schneidig[a] Lanzenträger",4,"schneidig[a] Lanzenträger",2,0,1,0,0
+7253,"verletzt[a] Soldat",6,"verletzt[a] Soldaten",1,0,1,0,0
+7254,"Steuermann[p]",2,"Steuermänner[p]",2,0,1,0,0
+7255,"Maxima[p] [t] Reformator",3,"Maxima[p] [t] Reformator",1,0,0,0,1
+7256,"feindlich[a] Befehlshaber",4,"feindlich[a] Befehlshaber",2,0,1,0,0
+7257,"feindlich[a] Himmelspanzer",4,"feindlich[a] Himmelspanzer",2,0,1,0,0
+7258,"Bune",3,"Bunes",1,0,1,0,0
+7259,"Barmu",3,"Barmus",1,0,1,0,0
+7260,"Eisengolem",4,"Eisengolems",1,0,1,0,0
+7261,"altertümlich[a] Apparatur",3,"altertümlich[a] Apparaturen",1,0,1,1,0
 7262,"",0,"",0,0,0,0,0
 7263,"",0,"",0,0,0,0,0
 7264,"",0,"",0,0,0,0,0
@@ -7400,10 +7400,10 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7396,"",0,"",0,0,0,0,0
 7397,"",0,"",0,0,0,0,0
 7398,"",0,"",0,0,0,0,0
-7399,"",0,"",0,0,0,0,0
-7400,"",0,"",0,0,0,0,0
-7401,"",0,"",0,0,0,0,0
-7402,"",0,"",0,0,0,0,0
+7399,"Montblanc",3,"NONE",1,0,0,0,1
+7400,"Trugbild",4,"Trugbilder",2,0,1,2,0
+7401,"Wrackteil",4,"Wrackteile",2,0,1,2,0
+7402,"unbekannt[a] Angreifer",4,"unbekannt[a] Angreifer",2,0,1,0,0
 7403,"",0,"",0,0,0,0,0
 7404,"",0,"",0,0,0,0,0
 7405,"",0,"",0,0,0,0,0
@@ -7477,8 +7477,8 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7473,"",0,"",0,0,0,0,0
 7474,"",0,"",0,0,0,0,0
 7475,"",0,"",0,0,0,0,0
-7476,"",0,"",0,0,0,0,0
-7477,"",0,"",0,0,0,0,0
+7476,"Asahi",3,"Asahi",1,0,0,1,1
+7477,"Gosetsu",3,"Gosetsu",1,0,0,1,1
 7478,"",0,"",0,0,0,0,0
 7479,"",0,"",0,0,0,0,0
 7480,"",0,"",0,0,0,0,0
@@ -7495,7 +7495,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7491,"",0,"",0,0,0,0,0
 7492,"",0,"",0,0,0,0,0
 7493,"",0,"",0,0,0,0,0
-7494,"",0,"",0,0,0,0,0
+7494,"Windgefängnis",9,"Windgefängnisse",2,0,1,2,0
 7495,"",0,"",0,0,0,0,0
 7496,"",0,"",0,0,0,0,0
 7497,"",0,"",0,0,0,0,0
@@ -7538,7 +7538,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7534,"",0,"",0,0,0,0,0
 7535,"",0,"",0,0,0,0,0
 7536,"",0,"",0,0,0,0,0
-7537,"",0,"",0,0,0,0,0
+7537,"Zenos",3,"Zenos",1,0,0,0,1
 7538,"",0,"",0,0,0,0,0
 7539,"",0,"",0,0,0,0,0
 7540,"",0,"",0,0,0,0,0

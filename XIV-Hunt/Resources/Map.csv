@@ -464,9 +464,24 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 460,0,0,0,1,0,"z3o7/10",400,-216,-72,"Gyr Abania","Sigmascape V1.0","",-1,0,"z3o7",True,False
 461,0,0,0,1,314,"e3e7/00",400,0,0,"Othard","Kienkan","",-1,0,"e3e7",True,True
 462,0,0,0,1,319,"e3e8/00",400,-62,475,"Othard","Reisen Temple","",-1,0,"e3e8",True,True
-463,0,0,0,1,313,"e3ec/00",400,-60,-46,"Othard","Doman Enclave","",-1,0,"e3ec",True,True
-464,0,0,1,1,0,"e3d6/01",200,0,0,"Hingashi","The Swallow's Compass","",92,62,"",True,False
-465,0,0,2,1,0,"e3d6/02",200,0,0,"Hingashi","The Swallow's Compass","",92,960,"",True,False
-466,0,0,3,1,0,"e3d6/03",200,0,0,"Hingashi","The Swallow's Compass","",92,15360,"",True,False
-467,0,0,0,1,0,"z3fb/00",100,0,0,"???","","",-1,0,"",True,False
-468,0,0,0,0,0,"",100,0,0,"","","",-1,0,,True,False
+463,0,0,0,1,313,"e3ec/00",400,-60,-46,"Othard","Doman Enclave","",-1,0,"e3ec",True,False
+464,11,9,2,1,322,"e3d6/01",200,240,0,"Othard","The Swallow's Compass","The Swallow's Compass",92,62,"e3d6",True,False
+465,11,9,3,1,323,"e3d6/02",200,-240,0,"Othard","The Swallow's Compass","The One River",92,960,"e3d6",True,False
+466,11,9,1,1,324,"e3d6/03",200,-15,0,"Othard","The Swallow's Compass","The Dairyu Chain",92,15360,"e3d6",True,False
+467,0,0,0,1,326,"z3fb/00",100,0,0,"???","","",96,32766,"",True,False
+468,0,0,0,1,0,"e3fc/00",400,-100,-100,"Othard","","",-1,0,"",True,False
+469,0,0,0,1,0,"default/00",100,0,0,"Othard","Reisen Temple Road","",-1,0,"e0199",True,False
+470,13,3,1,1,327,"z3r2/01",200,202,-92,"???","The Ridorana Lighthouse","The Ridorana Cataract",95,14,"z3r2",True,False
+471,13,3,2,1,328,"z3r2/02",200,230,432,"???","The Ridorana Lighthouse","The Lower Lighthouse",95,48,"z3r2",True,False
+472,13,3,3,1,329,"z3r2/03",200,230,494,"???","The Ridorana Lighthouse","The Upper Lighthouse",95,448,"z3r2",True,False
+473,13,3,4,1,330,"z3r2/04",200,-800,144,"???","The Ridorana Lighthouse","The Clockwork City of Goug",95,65024,"z3r2",True,False
+474,0,0,0,1,331,"z3r2/05",200,-800,-800,"???","The Ridorana Lighthouse","The Station of Banishment",95,8192,"z3r2",True,False
+475,0,0,0,1,0,"w1fz/00",400,-100,-100,"???","","",-1,0,"",True,False
+476,0,0,0,1,0,"e3fd/00",400,-100,-100,"Othard","Castrum Fluminis","",-1,0,"e3fd",True,False
+477,0,0,0,1,0,"default/00",100,0,0,"Othard","Heaven-on-High","",-1,0,"",True,True
+478,0,0,0,1,0,"default/00",100,0,0,"Othard","The Burn","",-1,0,"ec009",True,False
+479,0,0,0,1,325,"e3ee/00",400,0,0,"Othard","Castrum Fluminis","",-1,0,"e3ee",True,True
+480,0,0,0,1,0,"e3d7/00",200,0,0,"Othard","The Burn","",-1,0,"",True,False
+481,0,0,1,1,0,"d2d9/01",200,40,6,"Dravania","","First Floor",-1,0,"",True,False
+482,0,0,2,1,0,"d2d9/02",200,55,-4,"Dravania","","The Underworks",-1,0,"",True,False
+483,0,0,0,1,0,"default/00",100,0,0,"???","The Ridorana Cataract","",-1,0,"z3r2_event",True,True
