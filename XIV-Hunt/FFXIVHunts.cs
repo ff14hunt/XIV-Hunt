@@ -308,7 +308,7 @@ namespace FFXIV_GameSense
             try
             {
                 if (hubConnection.State == ConnectionState.Connected && joined)
-                    return await hubProxy.Invoke<DateTime>(nameof(JoinDCZone), zoneid, DCInstance?.ID);
+                    return await hubProxy.Invoke<DateTime>(nameof(JoinDCZone), zoneid, DCInstance?.ID > 0 ? DCInstance?.ID : 0);
             }
             catch (Exception) { }
             return DateTime.MaxValue;
