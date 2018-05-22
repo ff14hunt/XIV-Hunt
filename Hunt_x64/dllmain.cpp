@@ -188,8 +188,7 @@ uintptr_t ResolvePointerPath(uintptr_t b, vector<unsigned int> offsets = { 0x0 }
 
 void CallPerformanceNote(char noteID)
 {
-	if (PerformanceNoteFuncAddress == NULL || PerformanceNoteP1Address == NULL ||
-		noteID < 0x18 || noteID > 0x3C) //game does not have these notes
+	if (PerformanceNoteFuncAddress == NULL || PerformanceNoteP1Address == NULL /*noteID < 0x18 || noteID > 0x3C*/) //game does not have these notes
 		return;
 	typedef char(__fastcall *pFunctionAddress)(uintptr_t, char);
 	pFunctionAddress PerformanceNoteFunctionPointer = (pFunctionAddress)(PerformanceNoteFuncAddress);

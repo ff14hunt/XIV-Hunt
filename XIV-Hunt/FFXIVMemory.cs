@@ -30,7 +30,7 @@ namespace FFXIV_GameSense
         private const string targetSignature32 = "750E85D2750AB9";
         private const string targetSignature64 = "41bc000000e041bd01000000493bc47555488d0d";
         private const string zoneIdSignature32 = "a802752f8b4f04560fb735";
-        private const string zoneIdSignature64 = "f64033020f85********83ff0175288b0d";
+        private const string zoneIdSignature64 = "f641****0f85********83fd0175288b0d";
         private const string serverTimeSignature32 = "c20400558bec83ec0c53568b35";
         private const string serverTimeSignature64 = "4833c448898424d0040000488be9c644243000488b0d";
         private const string chatLogStartSignature32 = "8b45fc83e0f983c809ff750850ff35********e8********8b0d";
@@ -39,18 +39,18 @@ namespace FFXIV_GameSense
         private const string fateListSignature64 = "be********488bcbe8********4881c3********4883ee**75**488b05";
         private const string contentFinderConditionSignature32 = "e8********5f5e5dc2****0fb646**b9";
         private const string contentFinderConditionSignature64 = "440fb643**488d51**488d0d";
-        private const string serverIdSignature32 = "e8********8d8e********e8********8d8e********e8********8d8e********e8********b9********e8********8d8e********e8********b9********e8********b9********e8********a1";
-        private const string serverIdSignature64 = "e8********488d8b********e8********488d8b********e8********488d8b********e8********488d0d********e8********488d8b********e8********488d0d********e8********488d0d********e8********488b15";
+        private const string serverIdSignature32 = "83f8**7c**83c8**5dc3890c85********ff05";
+        private const string serverIdSignature64 = "0f82********8b05********3905";
         private const string lastFailedCommandSignature32 = "83f9**7c**5b5fb8";
         private const string lastFailedCommandSignature64 = "4183f8**7c**488d05";
+        private const string currentContentFinderConditionSignature32 = "8983********8983********8983********8983********8983********8983********8983********8983********8983********0fb705";
+        private const string currentContentFinderConditionSignature64 = "c783****************6689bb********4889bb********4889bb********4889bb********4889bb********89bb********0fb70d";
         //private const int charmapOffset32 = 0;
         //private const int charmapOffset64 = 0;
         private const int targetOffset32 = 0x58;
-        private const int targetOffset64 = 0;
-        private const int contentFinderConditionOffset32 = 0xC4;
+        private const int targetOffset64 = 0x90;
+        private const int contentFinderConditionOffset32 = 0xC8;
         private const int contentFinderConditionOffset64 = 0xF4;
-        private const int currentContentFinderConditionOffset32 = 0x50;
-        private const int currentContentFinderConditionOffset64 = 0x50;
         private const int lastFailedCommandOffset32 = 0x1B2;
         private const int lastFailedCommandOffset64 = 0x1C2;
         private static readonly int[] serverTimeOffset32 = { 0x14C0, 0x4, 0x644 };
@@ -59,8 +59,8 @@ namespace FFXIV_GameSense
         private static readonly int[] chatLogStartOffset64 = { 0x30, 0x3D8, 0x0 };
         private static readonly int[] chatLogTailOffset32 = { 0x18, 0x2C4 };
         private static readonly int[] chatLogTailOffset64 = { 0x30, 0x3E0 };
-        private static readonly int[] serverIdOffset32 = { 0x29AC/*from ASM*/, 0x10, 0x174 };
-        private static readonly int[] serverIdOffset64 = { 0x2D10/*from ASM*/, 0x18, 0x288 };
+        private static readonly int[] serverIdOffset32 = { 0x270/*from ASM*/, 0x10, 0x174 };
+        private static readonly int[] serverIdOffset64 = { 0x374/*from ASM*/, 0x18, 0x288 };
         private static readonly int[] fateListOffset32 = { 0x13A8, 0x0 };
         private static readonly int[] fateListOffset64 = { 0x16F8, 0x0 };
         private FFXIVClientMode _mode;
@@ -203,6 +203,7 @@ namespace FFXIV_GameSense
             string contentFinderConditionSignature = (_mode == FFXIVClientMode.FFXIV_32) ? contentFinderConditionSignature32 : contentFinderConditionSignature64;
             string serverIdSignature = (_mode == FFXIVClientMode.FFXIV_32) ? serverIdSignature32 : serverIdSignature64;
             string lastFailedCommandSignature = (_mode == FFXIVClientMode.FFXIV_32) ? lastFailedCommandSignature32 : lastFailedCommandSignature64;
+            string currentContentFinderConditionSignature = (_mode == FFXIVClientMode.FFXIV_32) ? currentContentFinderConditionSignature32 : currentContentFinderConditionSignature64;
             int[] serverTimeOffset = (_mode == FFXIVClientMode.FFXIV_32) ? serverTimeOffset32 : serverTimeOffset64;
             int[] chatLogStartOffset = (_mode == FFXIVClientMode.FFXIV_32) ? chatLogStartOffset32 : chatLogStartOffset64;
             int[] chatLogTailOffset = (_mode == FFXIVClientMode.FFXIV_32) ? chatLogTailOffset32 : chatLogTailOffset64;
@@ -210,7 +211,6 @@ namespace FFXIV_GameSense
             int targetOffset = (_mode == FFXIVClientMode.FFXIV_32) ? targetOffset32 : targetOffset64;
             //int charmapOffset = (_mode == FFXIVClientMode.FFXIV_32) ? charmapOffset32 : charmapOffset64;
             int contentFinderConditionOffset = (_mode == FFXIVClientMode.FFXIV_32) ? contentFinderConditionOffset32 : contentFinderConditionOffset64;
-            int currentContentFinderConditionOffset = (_mode == FFXIVClientMode.FFXIV_32) ? currentContentFinderConditionOffset32 : currentContentFinderConditionOffset64;
             int lastFailedCommandOffset = (_mode == FFXIVClientMode.FFXIV_32) ? lastFailedCommandOffset32 : lastFailedCommandOffset64;
 
             List<string> fail = new List<string>();
@@ -312,7 +312,7 @@ namespace FFXIV_GameSense
                 fail.Add(nameof(fateListAddress));
             }
 
-            // SERVERID & CURRENTCONTENTFINDERCONDITION
+            // SERVERID
             list = SigScan(serverIdSignature, 0, bRIP);
             if (list == null || list.Count == 0)
             {
@@ -320,14 +320,26 @@ namespace FFXIV_GameSense
             }
             if (list.Count == 1)
             {
-                //Meh
-                var t = IntPtr.Add(list[0], serverIdOffset.First());
-                serverIdAddress = ResolvePointerPath(t, serverIdOffset.Skip(1).ToArray());
-                currentContentFinderConditionAddress = IntPtr.Add(t, currentContentFinderConditionOffset);
+                serverIdAddress = ResolvePointerPath(IntPtr.Add(list[0], serverIdOffset.First()), serverIdOffset.Skip(1).ToArray());
             }
             if (serverIdAddress == IntPtr.Zero)
             {
                 fail.Add(nameof(serverIdAddress));
+            }
+
+            // CURRENTCONTENFINDERCONDITION
+            list = SigScan(currentContentFinderConditionSignature, 0, bRIP);
+            if (list == null || list.Count == 0)
+            {
+                currentContentFinderConditionAddress = IntPtr.Zero;
+            }
+            if (list.Count == 1)
+            {
+                currentContentFinderConditionAddress = list[0];
+            }
+            if (currentContentFinderConditionAddress == IntPtr.Zero)
+            {
+                fail.Add(nameof(currentContentFinderConditionAddress));
             }
 
             // CONTENTFINDERCONDITION
@@ -741,7 +753,7 @@ namespace FFXIV_GameSense
                 {
                     //if(*(uint*)&p[0xE4]==2149253119)//necessary?
                     combatant.FateID = *(uint*)&p[0xE8];
-                    combatant.ContentID = (_mode == FFXIVClientMode.FFXIV_64) ? *(ushort*)&p[0x1694] : *(ushort*)&p[0x136C];
+                    combatant.ContentID = (_mode == FFXIVClientMode.FFXIV_64) ? *(ushort*)&p[0x16D8] : *(ushort*)&p[0x1380];
                 }
                 else
                     combatant.FateID = combatant.ContentID = 0;
@@ -755,21 +767,21 @@ namespace FFXIV_GameSense
 
                 if (combatant.Type == ObjectType.PC || combatant.Type == ObjectType.Monster)
                 {
-                    offset = (_mode == FFXIVClientMode.FFXIV_64) ? 0x16B0 : 0x1388;
-                    combatant.Job = (JobEnum)p[offset + 0x3E];
-                    combatant.Level = p[offset + 0x40];
+                    offset = (_mode == FFXIVClientMode.FFXIV_64) ? 0x16F8 : 0x13A0;
+                    combatant.Job = (JobEnum)p[offset + 0x40];
+                    combatant.Level = p[offset + 0x42];
                     combatant.CurrentHP = *(uint*)&p[offset + 0x8];
                     combatant.MaxHP = *(uint*)&p[offset + 0xC];
                     combatant.CurrentMP = *(uint*)&p[offset + 0x10];
                     combatant.MaxMP = *(uint*)&p[offset + 0x14];
                     combatant.CurrentTP = *(ushort*)&p[offset + 0x18];
                     combatant.MaxTP = 1000;
-                    combatant.CurrentGP = *(ushort*)&p[offset + 26];
-                    combatant.MaxGP = *(ushort*)&p[offset + 28];
-                    combatant.CurrentCP = *(ushort*)&p[offset + 30];
-                    combatant.MaxCP = *(ushort*)&p[offset + 32];
+                    combatant.CurrentGP = *(ushort*)&p[offset + 0x1A];
+                    combatant.MaxGP = *(ushort*)&p[offset + 0x1C];
+                    combatant.CurrentCP = *(ushort*)&p[offset + 0x1E];
+                    combatant.MaxCP = *(ushort*)&p[offset + 0x20];
 
-                    offset = (_mode == FFXIVClientMode.FFXIV_64) ? offset + 0xB8 : offset + 0x94;
+                    offset = (_mode == FFXIVClientMode.FFXIV_64) ? offset + 0xC0 : offset + 0xA4;
                     int countedStatusEffects = 0;
                     while (countedStatusEffects < 32)
                     {
@@ -815,23 +827,25 @@ namespace FFXIV_GameSense
             if (!PersistentNamedPipeServer.Instance.IsConnected)
                 await TryInject();
             List<Task> TaskOfTracks = new List<Task>();
-            foreach(var track in p.Tracks)
+            PipeMessage noteOff = new PipeMessage(Process.Id, PMCommand.PlayNote) { Parameter = 0 };
+            foreach (var track in p.Tracks)
             {
                 var trackTask = new Task(async () =>
                 {
                     TimeSpan ts = new TimeSpan(0);
-                    foreach (var note in track.notes)
+                    foreach (TextPlayer.Note note in track.notes)
                     {
                         TimeSpan w = note.TimeSpan - ts;
                         if (w.TotalMilliseconds > 0)
                         {
-                            await Task.Delay(w);
+                            await Task.Delay(w.Duration());
                         }
                         if (cts.IsCancellationRequested)
                             break;
-                        Debug.WriteLine("Playing: " + p.Tracks.IndexOf(track) + "/" + note.Type);
-                        PersistentNamedPipeServer.SendPipeMessage(new PipeMessage(Process.Id, PMCommand.PlayNote){ Parameter = note.GetStep() });
-                        ts = note.TimeSpan;
+                        PersistentNamedPipeServer.SendPipeMessage(new PipeMessage(Process.Id, PMCommand.PlayNote) { Parameter = note.GetStep() });
+                        await Task.Delay(note.Length);
+                        PersistentNamedPipeServer.SendPipeMessage(noteOff);
+                        ts = note.TimeSpan + note.Length;
                     }
                 });
                 trackTask.Start();

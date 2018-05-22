@@ -61,7 +61,7 @@ namespace FFXIV_GameSense
                 Marshal.Copy(ptr, bytes, 0, size);
                 // Release unmanaged memory.
                 Marshal.FreeHGlobal(ptr);
-                Debug.WriteLine("Sending: " + BitConverter.ToString(bytes));
+                //Debug.WriteLine("Sending: " + BitConverter.ToString(bytes));
                 Instance.Write(bytes, 0, bytes.Length);
                 Instance.WaitForPipeDrain();
                 return true;

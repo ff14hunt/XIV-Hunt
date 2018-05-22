@@ -304,13 +304,13 @@
     <Resource Include="Resources\SettingsIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Hunt.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MML\LICENSE.txt" />
+    <None Include="MML\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Hunt_x64.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hunt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
