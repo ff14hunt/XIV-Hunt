@@ -295,10 +295,7 @@ namespace FFXIV_GameSense
 
         public override bool Equals(System.Object obj)
         {
-            if (obj == null)
-                return false;
-            FATE f = obj as FATE;
-            if (f == null)
+            if (!(obj is FATE f) || obj == null)
                 return false;
             return (ID == f.ID);
         }
@@ -308,14 +305,9 @@ namespace FFXIV_GameSense
             return ID.GetHashCode();
         }
 
-        public bool IsDataCenterShared() => IsDataCenterShared(ID);
-
-        public static bool IsDataCenterShared(ushort ID)
+        public bool IsDataCenterShared()
         {
-            if ((ID > 962 && ID < 1101) || (ID > 1327 && ID < 1349 && ID != 1330))
-                return true;
-            else
-                return false;
+            return (ID > 962 && ID < 1101) || FATEInfo.EurekaFate;
         }
     }
 
@@ -394,7 +386,7 @@ namespace FFXIV_GameSense
 
         public bool IsDutyRouletteQueued()
         {
-            return (RouletteID > 0 && RouletteID < 10) || RouletteID == 15; //10-14 is The Feast and 2 empty entries
+            return (RouletteID > 0 && RouletteID < 10) || RouletteID == 15 || RouletteID == 17; //10-14 is The Feast and 2 empty entries
         }
     }
 
