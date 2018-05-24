@@ -10,15 +10,15 @@ namespace FFXIV_GameSense
     {
         private static readonly string pipename = Assembly.GetExecutingAssembly().GetName().Name;
         private static volatile NamedPipeServerStream NPS;
-        private static object NPSlock = new object();
+        private static readonly object NPSlock = new object();
 
         internal static NamedPipeServerStream Instance
         {
             get
             {
-                if(NPS==null)
+                if (NPS == null)
                 {
-                    lock(NPSlock)
+                    lock (NPSlock)
                     {
                         if (NPS == null)
                         {
@@ -38,9 +38,9 @@ namespace FFXIV_GameSense
 
         internal static void Restart()
         {
-            if(NPS!=null)
+            if (NPS != null)
             {
-                if(NPS.IsConnected)
+                if (NPS.IsConnected)
                     NPS.Disconnect();
                 NPS.Dispose();
             }
@@ -49,7 +49,7 @@ namespace FFXIV_GameSense
 
         internal static bool SendPipeMessage(PipeMessage pipeMessage)
         {
-            if(Instance.IsConnected)
+            if (Instance.IsConnected)
             {
                 int size = Marshal.SizeOf(pipeMessage);
                 // Both managed and unmanaged buffers required.

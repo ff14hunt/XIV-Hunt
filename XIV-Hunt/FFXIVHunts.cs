@@ -352,22 +352,32 @@ namespace FFXIV_GameSense
             await Program.mem.WriteChatMessage(cm);
         }
 
-        internal static async Task<Item> LookupItemXIVDB(string itemname)
+        internal static async Task<Item> LookupItemXIVDB(string itemname, bool detailed = false)
         {
             string e;
             int page = 1;
             string uri = "https://api.xivdb.com/search?string=" + WebUtility.UrlEncode(itemname) + "&one=items&strict=on&language=" + Thread.CurrentThread.CurrentUICulture.Name.Substring(0, 2) + "&page=";
             var results = new List<Item>();
+            HttpResponseMessage r;
             while (page == 1 ? true : results.Count != 0 && !results.Any(x => x.Name.Equals(itemname, StringComparison.CurrentCultureIgnoreCase)))
             {
-                var r = await http.GetAsync(uri + page++);
+                r = await http.GetAsync(uri + page++);
                 if (r.IsSuccessStatusCode)
                     e = await r.Content.ReadAsStringAsync();
                 else
                     return null;
                 results = JObject.Parse(e).SelectToken("items.results").ToObject<List<Item>>();
             }
-            return results.SingleOrDefault(x => x.Name.Equals(itemname, StringComparison.InvariantCultureIgnoreCase));
+            Item result = results.SingleOrDefault(x => x.Name.Equals(itemname, StringComparison.InvariantCultureIgnoreCase));
+            if (!detailed)
+                return result;
+            r = await http.GetAsync(result.Url_API);
+            if (r.IsSuccessStatusCode)
+                e = await r.Content.ReadAsStringAsync();
+            else
+                return null;
+            result.Can_be_HQ = JObject.Parse(e).ToObject<Item>().Can_be_HQ;
+            return result;
         }
 
         private async Task ReportFate(FATE f)

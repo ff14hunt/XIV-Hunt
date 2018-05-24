@@ -36,6 +36,7 @@ namespace FFXIV_GameSense
             { "<22/>",  new byte[] { 0x02, 0x16, 0x01, 0x03 } }
         };
         private static readonly byte[] arrow = new byte[] { 0xEE, 0x82, 0xBB, 0x02, 0x13, 0x02, 0xEC, 0x03 };
+        private static readonly byte[] HQChar = new byte[] { 0xEE, 0x80, 0xBC };
         private static readonly Dictionary<int, byte[]> RarityColors = new Dictionary<int, byte[]>
         {
             { 1, new byte[] { 0xF3, 0xF3, 0xF3 } },
@@ -111,22 +112,28 @@ namespace FFXIV_GameSense
             return msg;
         }
 
-        internal static ChatMessage MakeItemChatMessage(Item Item, string prepend = "", string postpend = "")
+        internal static ChatMessage MakeItemChatMessage(Item Item, string prepend = "", string postpend = "", bool HQ = false)
         {
-            var cm = new ChatMessage();
-            var idba = BitConverter.GetBytes(Item.Id);
-            Array.Reverse(idba);
-            var raritycolor = RarityColors.ContainsKey(Item.Rarity) ? RarityColors[Item.Rarity] : RarityColors.First().Value;
-            var ItemHeader1And2 = new byte[] { 0x02, 0x13, 0x06, 0xFE, 0xFF }.Concat(raritycolor).Concat(new byte[] { 0x03, 0x02, 0x27, 0x07, 0x03, 0xF2 }).ToArray();
-            var ItemHeader3 = new byte[] { 0x02, 0x01, 0x03 };
+            ChatMessage cm = new ChatMessage();
+            byte[] raritycolor = RarityColors.ContainsKey(Item.Rarity) ? RarityColors[Item.Rarity] : RarityColors.First().Value;
+            byte[] ItemHeader1And2 = new byte[] { 0x02, 0x13, 0x06, 0xFE, 0xFF }.Concat(raritycolor).Concat(new byte[] { 0x03, 0x02, 0x27, 0x07, 0x03, 0xF2 }).ToArray();
+            byte[] ItemHeaderEnd = new byte[] { 0x02, 0x01, 0x03 };
+            byte[] end = new byte[] { 0x02, 0x27, 0x07, 0xCF, 0x01, 0x01, 0x01, 0xFF, 0x01, 0x03, 0x02, 0x13, 0x02, 0xEC, 0x03 };
+            HQ = HQ && Item.Can_be_HQ;
+            if (HQ)
+            {
+                ItemHeader1And2[ItemHeader1And2.Length - 1] = 0xF6;
+                ItemHeader1And2[ItemHeader1And2.Length - 3]++;
+                end = HQChar.Concat(end).ToArray();
+                Item.Name += " ";
+            }
+            byte[] idba = BitConverter.GetBytes(HQ ? Item.Id + 1000000 : Item.Id).Reverse().SkipWhile(x=>x==0x00).ToArray();
             if (Item.Id <= byte.MaxValue)//Currencies
             {
                 ItemHeader1And2 = ItemHeader1And2.Take(ItemHeader1And2.Count() - 1).ToArray();
-                Array.Reverse(idba);
-                idba[0]++;
-                idba[1] = 0x02;
-                ItemHeader3 = ItemHeader3.Skip(1).ToArray();
-                ItemHeader1And2[11] = (byte)(ItemHeader1And2[11] - 2);
+                idba = new byte[] { ++idba[0], 0x02 };
+                ItemHeaderEnd = ItemHeaderEnd.Skip(1).ToArray();
+                ItemHeader1And2[11] -= 2;
             }
             else if (idba.Last() == 0x00)
             {
@@ -137,11 +144,10 @@ namespace FFXIV_GameSense
             ItemHeader1And2 = ItemHeader1And2.Concat(idba).ToArray();
             //                                            ?     ?     R     G     B
             var color = new byte[] { 0x02, 0x13, 0x06, 0xFE, 0xFF, 0xFF, 0x7B, 0x1A, 0x03 };
-            var end = new byte[] { 0x02, 0x27, 0x07, 0xCF, 0x01, 0x01, 0x01, 0xFF, 0x01, 0x03, 0x02, 0x13, 0x02, 0xEC, 0x03 };
             if (Array.IndexOf(ItemHeader1And2, 0x00) > -1)
                 throw new ArgumentException("ItemHeader contains 0x00. Params: " + Item.Id, nameof(Item));
-            cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(ItemHeader1And2).Concat(ItemHeader3).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(Item.Name)).Concat(end).ToArray();
-            cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).ToArray();
+            cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(ItemHeader1And2).Concat(ItemHeaderEnd).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(Item.Name)).Concat(end).ToArray();
+            cm.MessageString += postpend;
             return cm;
         }
 
@@ -177,7 +183,7 @@ namespace FFXIV_GameSense
 
             cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(pos).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(GameResources.GetZoneName(zoneId) + " ( " + Combatant.GetXReadable(x, zoneId).ToString("0.0").Replace(',', '.') + "  , " + Combatant.GetYReadable(y, zoneId).ToString("0.0").Replace(',', '.') + " )")).Concat(end).ToArray();
             if (!string.IsNullOrEmpty(postpend))
-                cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).ToArray();
+                cm.MessageString += postpend;
 
             return cm;
         }

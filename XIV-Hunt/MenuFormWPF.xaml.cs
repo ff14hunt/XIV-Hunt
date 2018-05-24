@@ -243,11 +243,13 @@ namespace FFXIV_GameSense
                 }
                 else
                 {
-                    FFXIVHunts.LookupItemXIVDB(e.Parameter).ContinueWith(t =>
+                    string[] pwords = e.Parameter.Split(' ');
+                    bool hqprefer = pwords.Last().Equals("HQ", StringComparison.InvariantCultureIgnoreCase);
+                    FFXIVHunts.LookupItemXIVDB(hqprefer ? string.Join(" ", pwords.Take(pwords.Count()-1)): e.Parameter, hqprefer).ContinueWith(t =>
                     {
                         if (t.Result != null)
                         {
-                            _ = Program.mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result));
+                            _ = Program.mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result, HQ: hqprefer));
                         }
                     });
                 }
