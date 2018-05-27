@@ -421,7 +421,6 @@ namespace FFXIV_GameSense
         {
             if (hubConnection.State != ConnectionState.Disconnected)
                 return;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             await TryConnect();
         }
 
@@ -488,15 +487,11 @@ namespace FFXIV_GameSense
 
         private CookieContainer Login(ushort sid)
         {
-            try
+            var lif = new UI.LogInForm(sid);
+            if ((bool)lif.ShowDialog() && lif.receivedCookies.Count > 0)
             {
-                var lif = new UI.LogInForm(sid);
-                if ((bool)lif.ShowDialog() && lif.receivedCookies.Count > 0)
-                {
-                    return lif.receivedCookies;
-                }
+                return lif.receivedCookies;
             }
-            catch (Exception) { }
             return null;
         }
 
