@@ -255,7 +255,7 @@ namespace FFXIV_GameSense
         public ushort ID { get; set; }
         [JsonIgnore]
         public string ReadName { get; set; }
-        public string Name(bool stripTags=false) => GameResources.GetFateName(ID, stripTags);
+        public string Name(bool stripTags = false) => stripTags ? FATEInfo.Name : FATEInfo.NameWithTags;
         public byte Progress { get; set; }
         [JsonProperty("x")]
         public float PosX { get; set; }

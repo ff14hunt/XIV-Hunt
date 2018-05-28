@@ -9,7 +9,7 @@ namespace FFXIV_GameSense.UI
         public ushort ID { get; private set; }
         public byte ClassJobLevel => GameResources.GetFATEInfo(ID).ClassJobLevel;
         public string Icon => FFXIVHunts.baseUrl + "images/" + GameResources.GetFATEInfo(ID).IconMap;
-        public string Name => GameResources.GetFATEInfo(ID).NoTags;
+        public string Name => GameResources.GetFATEInfo(ID).Name;
         private string zones;
         public string Zones
         {

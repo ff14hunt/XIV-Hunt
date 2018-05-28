@@ -12,8 +12,8 @@ namespace XIVDB
     public class FATEInfo
     {
         public byte ClassJobLevel { get; private set; }
-        public string NoTags { get; private set; }
-        public string WithTags { get; private set; }
+        public string Name { get; private set; }
+        public string NameWithTags { get; private set; }
         public string IconObjective { get; private set; }
         public string IconMap { get; private set; }
         public bool EurekaFate { get; private set; }
@@ -22,8 +22,8 @@ namespace XIVDB
         {
             string fn = line[28].Trim('"', ' ');
             ClassJobLevel = byte.Parse(line[4]);
-            WithTags = fn;
-            NoTags = Regex.Replace(fn, GameResources.HtmlTagsRegex, string.Empty);
+            NameWithTags = fn;
+            Name = Regex.Replace(fn, GameResources.HtmlTagsRegex, string.Empty);
             IconObjective = line[11].Trim('"').Replace(".tex", ".png");
             IconMap = line[12].Trim('"').Replace(".tex", ".png");
             EurekaFate = line[1].Trim('"') == "1";
@@ -64,13 +64,6 @@ namespace XIVDB
             return li;
         }
 
-        internal static string GetFateName(ushort iD, bool stripTags = true)
-        {
-            if (FATENames.TryGetValue(iD, out FATEInfo name))
-                return stripTags ? name.NoTags : name.WithTags;
-            return "Unknown FATE: " + iD;
-        }
-
         internal static FATEInfo GetFATEInfo(ushort iD)
         {
             if (FATENames.TryGetValue(iD, out FATEInfo fi))
@@ -81,7 +74,7 @@ namespace XIVDB
         internal static ushort GetFateId(string name, bool ignoreCase = false)
         {
             foreach (KeyValuePair<ushort, FATEInfo> f in FATENames)
-                if (f.Value.NoTags.Equals(name, ignoreCase ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture))
+                if (f.Value.Name.Equals(name, ignoreCase ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture))
                     return f.Key;
             return 0;
         }

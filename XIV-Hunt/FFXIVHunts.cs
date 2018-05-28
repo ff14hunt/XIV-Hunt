@@ -413,7 +413,7 @@ namespace FFXIV_GameSense
         private static bool FateNotifyCheck(ushort id)
         {
             //Get first ID for the FATE with this name
-            id = GameResources.GetFateId(GameResources.GetFateName(id, true));
+            id = GameResources.GetFateId(GameResources.GetFATEInfo(id).Name);
             return Settings.Default.FATEs.Contains(id.ToString());
         }
 
