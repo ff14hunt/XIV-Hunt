@@ -671,14 +671,13 @@ namespace FFXIV_GameSense
 
     public class ViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<FATEListViewItem> FATEs;
         private bool GotFATEZones = false;
         private bool IsFetchingZones = false;
         public ViewModel()
         {
-            FATEs = new ObservableCollection<FATEListViewItem>();
+            FATEEntries = new ObservableCollection<FATEListViewItem>();
             foreach (FATE f in GameResources.GetFates().DistinctBy(x => x.Name()))
-                FATEs.Add(new FATEListViewItem(f));
+                FATEEntries.Add(new FATEListViewItem(f));
         }
 
         public void Refresh()
@@ -689,8 +688,9 @@ namespace FFXIV_GameSense
         }
 
         public ObservableCollection<Process> ProcessEntries => new ObservableCollection<Process>(FFXIVProcessHelper.GetFFXIVProcessList());
-        public ObservableCollection<FATEListViewItem> FATEEntries => FATEs;
-        public bool FATEsAny => FATEs.Any(x => x.Announce);
+        public ObservableCollection<FATEListViewItem> FATEEntries { get; }
+
+        public bool FATEsAny => FATEEntries.Any(x => x.Announce);
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -705,7 +705,7 @@ namespace FFXIV_GameSense
                 var fateidzoneid = JsonConvert.DeserializeObject<Dictionary<ushort, ushort[]>>(e);
                 await Task.Run(() =>
                 {
-                    foreach (FATEListViewItem i in FATEs.Where(x => fateidzoneid.ContainsKey(x.ID)))
+                    foreach (FATEListViewItem i in FATEEntries.Where(x => fateidzoneid.ContainsKey(x.ID)))
                     {
                         i.Zones = string.Join(", ", fateidzoneid[i.ID].Distinct().Select(x => GameResources.GetZoneName(x)).Distinct());
                     }
