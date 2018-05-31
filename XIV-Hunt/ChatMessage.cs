@@ -85,8 +85,7 @@ namespace FFXIV_GameSense
         private static DateTime UnixTimeStampToDateTime(uint unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
-            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            return dtDateTime.AddSeconds(unixTimeStamp);
+            return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimeStamp);
         }
 
         internal byte[] ToArray()
@@ -147,7 +146,8 @@ namespace FFXIV_GameSense
             if (Array.IndexOf(ItemHeader1And2, 0x00) > -1)
                 throw new ArgumentException("ItemHeader contains 0x00. Params: " + Item.Id, nameof(Item));
             cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(ItemHeader1And2).Concat(ItemHeaderEnd).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(Item.Name)).Concat(end).ToArray();
-            cm.MessageString += postpend;
+            if (!string.IsNullOrEmpty(postpend))
+                cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).ToArray();
             return cm;
         }
 
@@ -183,7 +183,7 @@ namespace FFXIV_GameSense
 
             cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(pos).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(GameResources.GetZoneName(zoneId) + " ( " + Combatant.GetXReadable(x, zoneId).ToString("0.0").Replace(',', '.') + "  , " + Combatant.GetYReadable(y, zoneId).ToString("0.0").Replace(',', '.') + " )")).Concat(end).ToArray();
             if (!string.IsNullOrEmpty(postpend))
-                cm.MessageString += postpend;
+                cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).ToArray();
 
             return cm;
         }
