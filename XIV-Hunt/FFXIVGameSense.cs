@@ -12,7 +12,6 @@ namespace FFXIV_GameSense
     class Program
     {
         internal static FFXIVMemory mem;
-        internal static Window1 w1;
         internal static AssemblyName AssemblyName = Assembly.GetExecutingAssembly().GetName();
 
         [STAThread]
@@ -50,9 +49,9 @@ namespace FFXIV_GameSense
             }
 #endif
 
-            Application app = new Application() { MainWindow = w1 = new Window1() };
+            Application app = new Application() { MainWindow = new Window1() };
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            app.Run(w1);
+            app.Run(app.MainWindow);
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

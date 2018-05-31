@@ -203,7 +203,7 @@ namespace FFXIV_GameSense
             else
             {
                 if (hunts == null && Program.mem != null && Program.mem.ValidateProcess())
-                    hunts = new FFXIVHunts();
+                    hunts = new FFXIVHunts(this);
                 _ = hunts.Connect();
                 HuntNotifyGroupBox.IsEnabled = true;
             }

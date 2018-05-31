@@ -67,6 +67,7 @@ namespace FFXIV_GameSense
         private static DateTime ServerTimeUtc;
         private static DateTime LastShoutChatSync;
         private static DataCenterInstanceMatchInfo DCInstance;
+        private readonly Window1 w1;
 
         internal async Task LeaveGroup()
         {
@@ -78,8 +79,9 @@ namespace FFXIV_GameSense
             joined = false;
         }
 
-        internal FFXIVHunts()
+        internal FFXIVHunts(Window1 pw1)
         {
+            w1 = pw1;
             //4.0
             for (ushort i = 6002; i < 6014; i++)
                 hunts.Add(new Hunt(i, HuntRank.B));
@@ -139,7 +141,7 @@ namespace FFXIV_GameSense
             });
             hubProxy.On<int>("ConnectedCount", connected =>
             {
-                Program.w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => Program.w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedToCount, GameResources.GetWorldName(Program.mem.GetServerId()), connected - 1)));
+                w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedToCount, GameResources.GetWorldName(Program.mem.GetServerId()), connected - 1)));
             });
             _ = ConnectToGSHunt();
         }
@@ -449,7 +451,7 @@ namespace FFXIV_GameSense
             joined = false;
             if (obj.NewState != ConnectionState.Connected)
             {
-                Program.w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => Program.w1.HuntConnectionTextBlock.Text = obj.NewState.ToString()));
+                w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = obj.NewState.ToString()));
             }
             else if (obj.NewState == ConnectionState.Connected)
             {
@@ -462,18 +464,18 @@ namespace FFXIV_GameSense
             if (joined && hubConnection.State == ConnectionState.Connected || joining)
                 return;
             joining = true;
-            Program.w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => Program.w1.HuntConnectionTextBlock.Text = Resources.FormReadingSID));
+            w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = Resources.FormReadingSID));
             ushort sid = Program.mem.GetServerId();
             Reporter r = new Reporter { WorldID = sid, Name = Program.mem.GetSelfCombatant().Name };
             Debug.WriteLine("Joining " + GameResources.GetWorldName(sid));
             if (!await hubProxy.Invoke<bool>("JoinGroup", r))
-                Program.w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() =>
+                w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() =>
                 {
-                    Program.w1.HuntConnectionTextBlock.Inlines.Clear();
-                    Program.w1.HuntConnectionTextBlock.Inlines.Add(string.Format(Resources.FormFailedToJoin, $"{r.Name} ({GameResources.GetWorldName(sid)})").Replace(UI.LogInForm.XIVHuntNet, string.Empty));
+                    w1.HuntConnectionTextBlock.Inlines.Clear();
+                    w1.HuntConnectionTextBlock.Inlines.Add(string.Format(Resources.FormFailedToJoin, $"{r.Name} ({GameResources.GetWorldName(sid)})").Replace(UI.LogInForm.XIVHuntNet, string.Empty));
                     var link = new Hyperlink(new Run(UI.LogInForm.XIVHuntNet)) { NavigateUri = new Uri(VerifiedCharactersUrl) };
                     link.RequestNavigate += UI.LogInForm.Link_RequestNavigate;
-                    Program.w1.HuntConnectionTextBlock.Inlines.Add(link);
+                    w1.HuntConnectionTextBlock.Inlines.Add(link);
                 }));
             joining = false;
             joined = true;
@@ -557,13 +559,13 @@ namespace FFXIV_GameSense
             try
             {
                 if (r == HuntRank.S && Settings.Default.SPlaySound && Settings.Default.SBell != Resources.NoSoundAlert)
-                    Program.w1.Ssp.Play();
+                    w1.Ssp.Play();
                 else if (r == HuntRank.A && Settings.Default.APlaySound && Settings.Default.ABell != Resources.NoSoundAlert)
-                    Program.w1.Asp.Play();
+                    w1.Asp.Play();
                 else if (r == HuntRank.B && Settings.Default.BPlaySound && Settings.Default.BBell != Resources.NoSoundAlert)
-                    Program.w1.Bsp.Play();
+                    w1.Bsp.Play();
                 else if (r == HuntRank.FATE && Settings.Default.FATEPlaySound && Settings.Default.FATEBell != Resources.NoSoundAlert)
-                    Program.w1.FATEsp.Play();
+                    w1.FATEsp.Play();
             }
             catch (Exception ex) { Program.WriteExceptionToErrorFile(ex); }
         }
