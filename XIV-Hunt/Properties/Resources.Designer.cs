@@ -261,6 +261,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connected to {0} with {1} other users.
+        /// </summary>
+        public static string FormConnectedToCount {
+            get {
+                return ResourceManager.GetString("FormConnectedToCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duty Roulette results.
         /// </summary>
         public static string FormDutyRoulette {

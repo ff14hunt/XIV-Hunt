@@ -342,4 +342,7 @@
   <data name="PerformDirectoryNotExists" xml:space="preserve">
     <value>Perform directory was not found. Please specify one in XIV-Hunt settings</value>
   </data>
+  <data name="FormConnectedToCount" xml:space="preserve">
+    <value>Connected to {0} with {1} other users</value>
+  </data>
 </root>

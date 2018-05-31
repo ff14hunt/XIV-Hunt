@@ -14,7 +14,7 @@
                 <Image Source="Resources/SettingsIcon.png" MaxHeight="26" />
             </StackPanel>
         </Button>
-        <TextBlock MouseLeftButtonUp="HuntConnectionTextBlock_MouseLeftButtonUp" x:Name="HuntConnectionTextBlock" Margin="10,43,0,0" Text="ConnectionStringDammy" Height="45" VerticalAlignment="Top"/>
+        <TextBlock MouseLeftButtonUp="HuntConnectionTextBlock_MouseLeftButtonUp" x:Name="HuntConnectionTextBlock" Margin="10,37,0,0" Text="ConnectionStringDammy" Height="50" VerticalAlignment="Top"/>
         <GroupBox IsHitTestVisible="True" x:Name="HuntNotifyGroupBox" Margin="10,68,10,10" Header="{x:Static properties:Resources.GroupBoxHeader}" IsEnabled="False">
             <Grid Margin="5,4,-2,0" IsHitTestVisible="True" x:Name="Grid">
                 <Grid.RowDefinitions>

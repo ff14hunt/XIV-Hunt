@@ -137,6 +137,10 @@ namespace FFXIV_GameSense
                 ChatMessage cm = new ChatMessage { MessageString = Program.AssemblyName.Name + ": Instance matched. Tracked for " + (ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0") + " minutes. " + baseUrl + "DCInstance/" + instance.ID };
                 _ = Program.mem.WriteChatMessage(cm);
             });
+            hubProxy.On<int>("ConnectedCount", connected =>
+            {
+                Program.w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => Program.w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedToCount, GameResources.GetWorldName(Program.mem.GetServerId()), connected - 1)));
+            });
             _ = ConnectToGSHunt();
         }
 
@@ -462,9 +466,7 @@ namespace FFXIV_GameSense
             ushort sid = Program.mem.GetServerId();
             Reporter r = new Reporter { WorldID = sid, Name = Program.mem.GetSelfCombatant().Name };
             Debug.WriteLine("Joining " + GameResources.GetWorldName(sid));
-            if (await hubProxy.Invoke<bool>("JoinGroup", r))
-                Program.w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => Program.w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedTo, GameResources.GetWorldName(sid))));
-            else
+            if (!await hubProxy.Invoke<bool>("JoinGroup", r))
                 Program.w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() =>
                 {
                     Program.w1.HuntConnectionTextBlock.Inlines.Clear();
