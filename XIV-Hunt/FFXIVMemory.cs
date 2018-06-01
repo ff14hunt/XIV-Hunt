@@ -20,7 +20,6 @@ namespace FFXIV_GameSense
 
         private Thread _thread;
         private CancellationTokenSource cts;
-        internal static PersistentNamedPipeServer PNPS;
         internal List<Combatant> Combatants { get; private set; }
         internal object CombatantsLock => new object();
         internal event EventHandler<CommandEventArgs> OnNewCommand = delegate {};
@@ -30,7 +29,7 @@ namespace FFXIV_GameSense
         private const string targetSignature32 = "750E85D2750AB9";
         private const string targetSignature64 = "41bc000000e041bd01000000493bc47555488d0d";
         private const string zoneIdSignature32 = "a802752f8b4f04560fb735";
-        private const string zoneIdSignature64 = "f641****0f85********83fd0175288b0d";
+        private const string zoneIdSignature64 = "e8********f30f108d********4c8d85********0fb705";
         private const string serverTimeSignature32 = "c20400558bec83ec0c53568b35";
         private const string serverTimeSignature64 = "4833c448898424d0040000488be9c644243000488b0d";
         private const string chatLogStartSignature32 = "8b45fc83e0f983c809ff750850ff35********e8********8b0d";
@@ -63,7 +62,7 @@ namespace FFXIV_GameSense
         private static readonly int[] serverIdOffset64 = { 0x374/*from ASM*/, 0x18, 0x288 };
         private static readonly int[] fateListOffset32 = { 0x13A8, 0x0 };
         private static readonly int[] fateListOffset64 = { 0x16F8, 0x0 };
-        private FFXIVClientMode _mode;
+        private readonly FFXIVClientMode _mode;
 
         private IntPtr charmapAddress = IntPtr.Zero;
         private IntPtr targetAddress = IntPtr.Zero;
@@ -110,8 +109,6 @@ namespace FFXIV_GameSense
                 IsBackground = true
             };
             _thread.Start();
-            if (PNPS == null)
-                PNPS = new PersistentNamedPipeServer();
         }
 
         public void Dispose()
@@ -826,11 +823,10 @@ namespace FFXIV_GameSense
             p.Play();
             if (!PersistentNamedPipeServer.Instance.IsConnected)
                 await TryInject();
-            List<Task> TaskOfTracks = new List<Task>();
             PipeMessage noteOff = new PipeMessage(Process.Id, PMCommand.PlayNote) { Parameter = 0 };
             foreach (var track in p.Tracks)
             {
-                var trackTask = new Task(async () =>
+                new Thread(() =>
                 {
                     TimeSpan ts = new TimeSpan(0);
                     foreach (TextPlayer.Note note in track.notes)
@@ -838,20 +834,21 @@ namespace FFXIV_GameSense
                         TimeSpan w = note.TimeSpan - ts;
                         if (w.TotalMilliseconds > 0)
                         {
-                            await Task.Delay(w.Duration());
+                            Thread.Sleep(w);
                         }
                         if (cts.IsCancellationRequested)
-                            break;
+                            return;
                         PersistentNamedPipeServer.SendPipeMessage(new PipeMessage(Process.Id, PMCommand.PlayNote) { Parameter = note.GetStep() });
-                        await Task.Delay(note.Length);
+                        Thread.Sleep(note.Length);
                         PersistentNamedPipeServer.SendPipeMessage(noteOff);
                         ts = note.TimeSpan + note.Length;
                     }
-                });
-                trackTask.Start();
-                TaskOfTracks.Add(trackTask);
+                })
+                {
+                    Priority = ThreadPriority.Highest,
+                    IsBackground = true
+                }.Start();
             }
-            Task.WaitAll(TaskOfTracks.ToArray(), cts);
         }
 
         private static string GetStringFromBytes(byte[] source, int offset = 0, int size = 256)
