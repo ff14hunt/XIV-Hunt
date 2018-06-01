@@ -29,14 +29,23 @@ namespace XIVDB
             EurekaFate = line[1].Trim('"') == "1";
         }
     }
+
     static class GameResources
     {
         private const string SquareBrauquetsRegex = @"\[(.*?)\]";
         private static readonly string[] lineEnding = new string[] { Environment.NewLine };
         internal const string HtmlTagsRegex = "<.*?>";
-        private static Dictionary<ushort, FATEInfo> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort result)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => new FATEInfo(line));
+        private static Dictionary<ushort, FATEInfo> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort _)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => new FATEInfo(line));
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
-        private readonly static Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort result)).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
+        private readonly static Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(ValidWorld).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
+
+        private static bool ValidWorld(string s)
+        {
+            string[] col = s.Split(',');
+            return ushort.TryParse(col[0], out ushort _) && col[4] == "True" && col[3].Trim('"') != "INVALID";
+        }
+
+        internal static bool IsValidWorldID(ushort id) => WorldNames.ContainsKey(id);
 
         internal static string GetContentFinderName(ushort id)
         {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using XIVDB;
 
 namespace FFXIV_GameSense
 {
@@ -590,11 +591,7 @@ namespace FFXIV_GameSense
             return ret;
         }
 
-        internal bool IsValidServerId()
-        {
-            ushort id = GetServerId();
-            return id > 22 && id < 100;
-        }
+        private bool IsValidServerId() => GameResources.IsValidWorldID(GetServerId());
 
         internal ushort GetServerId() => BitConverter.ToUInt16(GetByteArray(serverIdAddress, 2), 0);
 
