@@ -674,7 +674,7 @@ int32,str,str,byte,PlaceName,PlaceName,PlaceName,Map,byte,byte,byte,uint16,bit&0
 774,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
 775,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
 776,"z3r2","ex2/05_zon_z3/rad/z3r2/level/z3r2",1,"???","","Le Phare de Ridorana","z3r2/01",1,2,8,550,False,0,False,0,True,False,False,False,1001,122010,124750,"ArrayEventHandler#853820",0,"",-1,0,-1,False,2,0,0,0,False
-777,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
+777,"w1fz","ffxiv/wil_w1/fld/w1fz/level/w1fz",1,"???","","Fantasmagorie d'Ultima","w1fz/00",1,2,17,539,False,26,False,0,True,False,False,False,1001,122010,124751,,0,"",-1,292,-1,False,2,0,0,0,False
 778,"e3fd","ex2/02_est_e3/fld/e3fd/level/e3fd",1,"Othard","Othard","Castrum Fluminis","e3fd/00",10,2,10,537,False,0,False,0,True,False,False,False,1001,122024,124860,,0,"",-1,284,-1,False,2,0,0,0,False
 779,"e3fd_2","ex2/02_est_e3/fld/e3fd/level/e3fd",1,"Othard","Othard","Castrum Fluminis","e3fd/00",10,2,10,538,False,0,False,0,True,False,False,False,1001,122024,124861,,0,"",-1,283,-1,False,2,0,0,0,False
 780,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False

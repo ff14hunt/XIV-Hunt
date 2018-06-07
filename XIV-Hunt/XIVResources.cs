@@ -54,7 +54,7 @@ namespace XIVDB
             {
                 return lines[id].Split(',')[4].Trim('"').FirstLetterToUpperCase();
             }
-            return "Unknown duty " + id;
+            return "Unknown duty: " + id;
         }
 
         internal static ushort GetWorldID(string name)
