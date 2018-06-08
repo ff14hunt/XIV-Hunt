@@ -72,7 +72,7 @@ namespace FFXIV_GameSense.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7
-        ///#,Singular,,Plural,,,,,
+        ///#,Singular,,Plural,,StartsWithVowel,,,
         ///int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
         ///0,&quot;&quot;,0,&quot;&quot;,0,0,1,0,0
         ///1,&quot;&quot;,0,&quot;&quot;,0,0,0,0,0
@@ -85,7 +85,7 @@ namespace FFXIV_GameSense.Properties {
         ///8,&quot;ked&quot;,0,&quot;keds&quot;,0,0,1,0,0
         ///9,&quot;miteling&quot;,0,&quot;mitelings&quot;,0,0,1,0,0
         ///10,&quot;diremite&quot;,0,&quot;diremites&quot;,0,0,1,0,0
-        ///11,&quot;banemite&quot;,0,&quot;b [rest of string was truncated]&quot;;.
+        ///11, [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BNpcName {
             get {
@@ -583,6 +583,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Log Viewer.
+        /// </summary>
+        public static string OpenLogToolTip {
+            get {
+                return ResourceManager.GetString("OpenLogToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Settings.
         /// </summary>
         public static string OpenSettingsToolTip {
@@ -669,16 +678,6 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap SettingsIcon {
-            get {
-                object obj = ResourceManager.GetObject("SettingsIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Start minimized.
         /// </summary>
         public static string StartMinimized {
@@ -710,27 +709,23 @@ namespace FFXIV_GameSense.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to key,0,1,2,3
-        ///#,,,,
-        ///int32,str,byte,byte,bit&amp;01
-        ///0,&quot;crossworld&quot;,0,0,False
-        ///1,&quot;c-funereus&quot;,0,2,False
-        ///2,&quot;c-contents&quot;,0,0,False
-        ///3,&quot;c-whiteae&quot;,0,1,False
-        ///4,&quot;c-baudinii&quot;,0,0,False
-        ///5,&quot;c-contents2&quot;,0,2,False
-        ///16,&quot;konconv&quot;,0,0,False
-        ///23,&quot;Asura&quot;,1,3,True
-        ///24,&quot;Belias&quot;,1,3,True
-        ///25,&quot;Chaos&quot;,1,0,True
-        ///26,&quot;Hecatoncheir&quot;,1,0,True
-        ///27,&quot;Moomba&quot;,1,0,True
-        ///28,&quot;Pandaemonium&quot;,1,3,True
-        ///29,&quot;Shinryu&quot;,1,3,True
-        ///30,&quot;Unicorn&quot;,1,1,True
-        ///31,&quot;Yojimbo&quot;,1,2,True
-        ///32,&quot;Zeromus&quot;,1,2,True
-        ///33,&quot;Twintania&quot;,5,0,False
-        ///34,&quot;Brynhildr&quot;,3,5,True        /// [rest of string was truncated]&quot;;.
+        ///#,,,DataCenter,
+        ///int32,str,byte,WorldDCGroupType,bit&amp;01
+        ///0,&quot;crossworld&quot;,0,&quot;INVALID&quot;,False
+        ///1,&quot;c-funereus&quot;,0,&quot;Gaia&quot;,False
+        ///2,&quot;c-contents&quot;,0,&quot;INVALID&quot;,False
+        ///3,&quot;c-whiteae&quot;,0,&quot;Elemental&quot;,False
+        ///4,&quot;c-baudinii&quot;,0,&quot;INVALID&quot;,False
+        ///5,&quot;c-contents2&quot;,0,&quot;Gaia&quot;,False
+        ///16,&quot;konconv&quot;,0,&quot;INVALID&quot;,False
+        ///23,&quot;Asura&quot;,1,&quot;Mana&quot;,True
+        ///24,&quot;Belias&quot;,1,&quot;Mana&quot;,True
+        ///25,&quot;Chaos&quot;,1,&quot;INVALID&quot;,True
+        ///26,&quot;Hecatoncheir&quot;,1,&quot;INVALID&quot;,True
+        ///27,&quot;Moomba&quot;,1,&quot;INVALID&quot;,True
+        ///28,&quot;Pandaemonium&quot;,1,&quot;Mana&quot;,True
+        ///29,&quot;Shinryu&quot;,1,&quot;Mana&quot;,True
+        ///3 [rest of string was truncated]&quot;;.
         /// </summary>
         public static string World {
             get {

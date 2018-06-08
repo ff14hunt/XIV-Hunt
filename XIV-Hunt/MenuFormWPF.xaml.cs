@@ -3,6 +3,7 @@ using FFXIV_GameSense.Properties;
 using FFXIV_GameSense.UI;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Splat;
 using Squirrel;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace FFXIV_GameSense
         private System.Windows.Forms.NotifyIcon ni;
         private ViewModel vm;
         private static SettingsForm SettingsWindow;
+        internal static LogView LogView = new LogView();
         private CancellationTokenSource cts;
         private static bool WroteDRPop = false;
         private static bool IconIsFlashing = false;
@@ -46,6 +48,8 @@ namespace FFXIV_GameSense
             Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.Default.LanguageCI);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.LanguageCI);
             InitializeComponent();
+            Logger logger = new Logger(LogView);
+            Locator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
             Title = Program.AssemblyName.Name + " " + Program.AssemblyName.Version.ToString(3) + " - " + (Environment.Is64BitProcess ? "64" : "32") + "-Bit";
             vm = new ViewModel();
             Closed += MenuForm_FormClosed;
@@ -155,9 +159,9 @@ namespace FFXIV_GameSense
                 ProcessComboBox.IsEnabled = false;
             }
 #if DEBUG
-            if (AnyProblems())
-                return;
-            HuntAndCFCheck();
+                        if (AnyProblems())
+                            return;
+                        HuntAndCFCheck();
 #else
             try
             {
@@ -170,9 +174,13 @@ namespace FFXIV_GameSense
             {
                 if (ex is FFXIVMemory.MemoryScanException && dispatcherTimer1s.Interval.TotalSeconds < 5)
                     dispatcherTimer1s.Interval = TimeSpan.FromSeconds(dispatcherTimer1s.Interval.TotalSeconds + 1);
-                else if(!(ex is FFXIVMemory.MemoryScanException))
-                    Program.WriteExceptionToErrorFile(ex);
-                Debug.WriteLine("Interval: " + dispatcherTimer1s.Interval.TotalSeconds + "s");
+                if (ex is FFXIVMemory.MemoryScanException)
+                    LogHost.Default.InfoException(nameof(FFXIVMemory.MemoryScanException), ex);
+                else
+                {
+                    LogHost.Default.WarnException("Unknown exception", ex);
+                    //Program.WriteExceptionToErrorFile(ex);
+                }
             }
 #endif
         }
@@ -188,14 +196,14 @@ namespace FFXIV_GameSense
                     {
                         Program.mem.OnNewCommand -= ProcessChatCommand;
                         Program.mem.Dispose();
+                        hunts?.LeaveGroup();
                     }
                     Program.mem = null;
                     Program.mem = new FFXIVMemory(FFXIVProcessHelper.GetFFXIVProcess((int)ProcessComboBox.SelectedValue));
                     Program.mem.OnNewCommand += ProcessChatCommand;
                     PersistentNamedPipeServer.Restart();
                 }
-                if (hunts != null)
-                    AsyncHelper.RunSync(hunts.LeaveGroup);
+                hunts?.LeaveGroup();
 
                 HuntNotifyGroupBox.IsEnabled = false;
                 return true;
@@ -212,7 +220,7 @@ namespace FFXIV_GameSense
 
         private void ProcessChatCommand(object sender, CommandEventArgs e)
         {
-            Debug.WriteLine($"[{nameof(ProcessChatCommand)}] New command: {e.Command.ToString()} {e.Parameter}");
+            LogHost.Default.Info($"[{nameof(ProcessChatCommand)}] New command: {e.Command.ToString()} {e.Parameter}");
             if (e.Command == Command.Hunt)
             {
                 if (GameResources.TryGetDailyHuntInfo(e.Parameter, out Tuple<ushort, ushort, float, float> hi))
@@ -650,7 +658,14 @@ namespace FFXIV_GameSense
                 SettingsWindow = new SettingsForm();
                 SettingsWindow.Show();
             }
+        }
 
+        private void OpenLogViewer(object sender, RoutedEventArgs e)
+        {
+            if (LogView.IsVisible)
+                LogView.Activate();
+            else
+                LogView.Show();
         }
 
         private void FATEBell_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -714,14 +729,5 @@ namespace FFXIV_GameSense
             }
             IsFetchingZones = false;
         }
-    }
-
-    internal static class AsyncHelper
-    {
-        private static readonly TaskFactory _myTaskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
-
-        public static TResult RunSync<TResult>(Func<Task<TResult>> func) => _myTaskFactory.StartNew(func).Unwrap().GetAwaiter().GetResult();
-
-        public static void RunSync(Func<Task> func) => _myTaskFactory.StartNew(func).Unwrap().GetAwaiter().GetResult();
     }
 }

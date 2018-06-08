@@ -1,4 +1,5 @@
 ﻿using AlphaOmega.Debug;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -92,7 +93,7 @@ namespace FFXIV_GameSense
 
             if (Injector == null)
             {
-                Debug.WriteLine("Injector Error!");
+                LogHost.Default.Error("Injector Error!");
                 // return failed 
                 return;
             }
@@ -103,7 +104,7 @@ namespace FFXIV_GameSense
             if (hThread == null)
             {
                 //incorrect thread handle ... return failed 
-                Debug.WriteLine("hThread [ 1 ] Error!");
+                LogHost.Default.Error("hThread [ 1 ] Error!");
                 return;
             }
             // Time-out is 10 seconds... 
@@ -112,7 +113,7 @@ namespace FFXIV_GameSense
             if (Result == 0x00000080L || Result == 0x00000102L || Result == 0xFFFFFFFF)
             {
                 /* Thread timed out... */
-                Debug.WriteLine("hThread [ 2 ] Error!");
+                LogHost.Default.Error("hThread [ 2 ] Error!");
                 // Make sure thread handle is valid before closing... prevents crashes. 
                 if (hThread != null)
                 {

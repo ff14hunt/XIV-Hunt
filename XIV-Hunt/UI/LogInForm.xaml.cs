@@ -9,6 +9,7 @@ using System.IO;
 using System.Windows.Documents;
 using System.Windows.Navigation;
 using System.Diagnostics;
+using Splat;
 
 namespace FFXIV_GameSense.UI
 {
@@ -56,7 +57,7 @@ namespace FFXIV_GameSense.UI
             try
             {
                 authresult = PasswordBox.Password.Length > 7 && AuthenticateUser(EmailTextBox.Text, PasswordBox.Password, TwoFABox.Password, out receivedCookie, out twofaCookie);
-            }catch(Exception) { };
+            }catch(Exception ex) { LogHost.Default.InfoException("An exception occured while trying to log in", ex); };
             if (authresult)
             {
                 DialogResult = true;

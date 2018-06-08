@@ -518,5 +518,17 @@ namespace FFXIV_GameSense.Properties {
                 return ((global::System.TimeSpan)(this["MMLMaxDuration"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public byte LogLevel {
+            get {
+                return ((byte)(this["LogLevel"]));
+            }
+            set {
+                this["LogLevel"] = value;
+            }
+        }
     }
 }

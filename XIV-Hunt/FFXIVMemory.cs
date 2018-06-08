@@ -1,4 +1,5 @@
 ﻿using FFXIV_GameSense.MML;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -231,7 +232,7 @@ namespace FFXIV_GameSense
             }
             Combatant c = GetSelfCombatant();
             if (c == null)//No need scan for the remaining signatures
-                throw new MemoryScanException(string.Format(Properties.Resources.FailedToSigScan, string.Join(",", fail)));
+                throw new MemoryScanException(string.Format(Properties.Resources.FailedToSigScan, nameof(charmapAddress)));
 
             // TARGET
             list = SigScan(targetSignature, 0, bRIP);
@@ -471,7 +472,7 @@ namespace FFXIV_GameSense
                 {
                     File.WriteAllBytes(dllfile, ba);
                 }
-                catch (Exception) { }
+                catch (Exception e) { LogHost.Default.InfoException(nameof(TryInject), e); }
             }
             if (!PersistentNamedPipeServer.Instance.IsConnected)
             {

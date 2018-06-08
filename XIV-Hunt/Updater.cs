@@ -1,4 +1,6 @@
 ﻿using FFXIV_GameSense.Properties;
+using FFXIV_GameSense.UI;
+using Splat;
 using Squirrel;
 using System;
 using System.Configuration;
@@ -133,6 +135,19 @@ namespace FFXIV_GameSense
                 File.Delete(sourceFile);
             }
             catch (Exception) { }
+        }
+    }
+
+    public class Logger : ILogger
+    {
+        public LogLevel Level { get; set; } = LogLevel.Info;
+        private readonly LogView LogView;
+
+        public Logger(LogView lv) => LogView = lv;
+
+        public void Write(string message, LogLevel level)
+        {
+            LogView.AddLogLine(message, level);
         }
     }
 }

@@ -2,7 +2,6 @@
 using Squirrel;
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -18,8 +17,7 @@ namespace FFXIV_GameSense
         public static void Main(string[] args)
         {
 #if !DEBUG
-            //if (args.Length != 0 && args.Any(x=>x.Equals("werror", StringComparison.CurrentCultureIgnoreCase)))
-                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 #endif
             if (ApplicationRunningHelper.AlreadyRunning())
             {
