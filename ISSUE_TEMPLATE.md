@@ -18,13 +18,19 @@
 
 ?
 
+### Is there anything in the log view that might be help identify the issue?
+
+---
+
+?
+
 ### Steps to reliably reproduce the behaviour?
 
 ---
 
 ?
 
-### If it concerns a hunt or F.A.T.E. report, on which world and time(incl. timezone) would the report have been made?
+### If it concerns a hunt or F.A.T.E. report, on which world and time (including timezone) would the report have been made?
 
 ---
 
