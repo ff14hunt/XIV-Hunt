@@ -137,7 +137,7 @@ namespace FFXIV_GameSense
             {
                 LogHost.Default.Info("DCInstanceMatch: " + instance.ID);
                 DCInstance = instance;
-                ChatMessage cm = new ChatMessage { MessageString = Program.AssemblyName.Name + ": Instance matched. Tracked for " + (ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0") + " minutes. " + baseUrl + "DCInstance/" + instance.ID };
+                ChatMessage cm = new ChatMessage { MessageString = $"{Program.AssemblyName.Name}: Instance matched. Tracked for {(ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0")} minutes. {baseUrl}DCInstance/{instance.ID}" };
                 _ = Program.mem.WriteChatMessage(cm);
             });
             hubProxy.On<int>("ConnectedCount", connected =>
@@ -414,7 +414,7 @@ namespace FFXIV_GameSense
                 if (hubConnection.State == ConnectionState.Connected && joined)
                     await hubProxy.Invoke(nameof(ReportFate), fates[idx]);
             }
-            catch (Exception e) { LogHost.Default.WarnException(nameof(ReportFate), e); }
+            catch (Exception e) { /*LogHost.Default.WarnException(nameof(ReportFate), e);*/ }
         }
 
         private static bool FateNotifyCheck(ushort id)

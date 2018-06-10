@@ -50,7 +50,7 @@ namespace FFXIV_GameSense
             InitializeComponent();
             Logger logger = new Logger(LogView);
             Locator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
-            Title = Program.AssemblyName.Name + " " + Program.AssemblyName.Version.ToString(3) + " - " + (Environment.Is64BitProcess ? "64" : "32") + "-Bit";
+            Title = Program.AssemblyName.Name + " " + Program.AssemblyName.Version.ToString(3) + " - " + (Environment.Is64BitProcess ? 64 : 32) + "-Bit";
             vm = new ViewModel();
             Closed += MenuForm_FormClosed;
             dispatcherTimer1s = new DispatcherTimer
@@ -266,6 +266,7 @@ namespace FFXIV_GameSense
             {
                 if (!Directory.Exists(Settings.Default.PerformDirectory))
                 {
+                    LogHost.Default.Error(Properties.Resources.PerformDirectoryNotExists);
                     _ = Program.mem.WriteChatMessage(new ChatMessage { MessageString = Properties.Resources.PerformDirectoryNotExists });
                     return;
                 }
@@ -291,6 +292,8 @@ namespace FFXIV_GameSense
                     StopPerformance();
                     TryMML(pathnamemml);
                 }
+                else
+                    LogHost.Default.Error("Neither of these files were found:" + Environment.NewLine + pathnametxt + Environment.NewLine + pathnamemml);
             }
             else if (e.Command == Command.PerformStop && cts != null)
             {

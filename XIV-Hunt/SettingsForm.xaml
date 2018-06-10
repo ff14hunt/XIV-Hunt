@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:properties="clr-namespace:FFXIV_GameSense.Properties"
         mc:Ignorable="d"
-        Title="{x:Static properties:Resources.SettingsForm}" Height="448.63" Width="358.352" Icon="Resources/SettingsIcon.png" ResizeMode="NoResize">
+        Title="{x:Static properties:Resources.SettingsForm}" Height="448.63" Width="358.352" ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.496,0.426">
         <CheckBox x:Name="MinimizeToTrayCB" Content="{x:Static properties:Resources.FormMinimizeToTray}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=MinimizeToTray, Mode=TwoWay}" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto"/>
         <CheckBox x:Name="StartMinimizedCB" Content="{x:Static properties:Resources.StartMinimized}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=StartMinimized, Mode=TwoWay}" Margin="10,31,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto"/>

@@ -592,7 +592,16 @@ namespace FFXIV_GameSense
             return ret;
         }
 
-        private bool IsValidServerId() => GameResources.IsValidWorldID(GetServerId());
+        private bool IsValidServerId()
+        {
+            ushort id = GetServerId();
+            if (!GameResources.IsValidWorldID(id))
+            {
+                LogHost.Default.Warn(id + " is not a valid server id");
+                return false;
+            }
+            return true;
+        }
 
         internal ushort GetServerId() => BitConverter.ToUInt16(GetByteArray(serverIdAddress, 2), 0);
 

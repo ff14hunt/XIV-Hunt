@@ -147,7 +147,7 @@ namespace FFXIV_GameSense
 
         public void Write(string message, LogLevel level)
         {
-            LogView.AddLogLine(message, level);
+            LogView.AddLogLine(message.Remove(0, nameof(LogHost).Length), level);
         }
     }
 }
