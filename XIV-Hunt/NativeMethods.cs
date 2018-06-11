@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace FFXIV_GameSense
@@ -17,13 +16,14 @@ namespace FFXIV_GameSense
         internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, IntPtr nSize, ref IntPtr lpNumberOfBytesRead);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        internal static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
+        internal static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, IntPtr nSize, out uint lpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll")]
         internal static extern int CloseHandle(IntPtr hProcess);
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
-        internal static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
+
+        internal static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
@@ -40,7 +40,7 @@ namespace FFXIV_GameSense
 
         // CreateRemoteThread, since ThreadProc is in remote process, we must use a raw function-pointer.
         [DllImport("kernel32.dll")]
-        internal static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize,
+        internal static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, IntPtr dwStackSize,
           IntPtr lpStartAddress, // raw Pointer into remote process
           IntPtr lpParameter,
           uint dwCreationFlags,
@@ -70,7 +70,7 @@ namespace FFXIV_GameSense
         {
             IntPtr hProcess = Process.Handle;
             // Length of string containing the DLL file name +1 byte padding 
-            uint LenWrite = (uint)DLLName.Length + 1;
+            IntPtr LenWrite = new IntPtr(DLLName.Length + 1);
             // Allocate memory within the virtual address space of the target process 
             IntPtr AllocMem = VirtualAllocEx(hProcess, (IntPtr)null, LenWrite, AllocationType.Commit, MemoryProtection.ExecuteReadWrite); //allocation pour WriteProcessMemory 
             
@@ -99,7 +99,7 @@ namespace FFXIV_GameSense
             }
 
             // Create thread in target process, and store handle in hThread 
-            IntPtr hThread = CreateRemoteThread(hProcess, (IntPtr)null, 0, Injector, AllocMem, 0, out bytesout);
+            IntPtr hThread = CreateRemoteThread(hProcess, (IntPtr)null, IntPtr.Zero, Injector, AllocMem, 0, out bytesout);
             // Make sure thread handle is valid 
             if (hThread == null)
             {

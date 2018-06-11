@@ -115,10 +115,20 @@ namespace FFXIV_GameSense
 
         public void Dispose()
         {
-            cts.Cancel();
-            while (_thread.IsAlive)
-                Task.Delay(5);
+            Dispose(true);
             Debug.WriteLine("FFXIVMemory Instance disposed");
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                cts.Cancel();
+                cts.Dispose();
+                while (_thread.IsAlive)
+                    Thread.Sleep(5);
+            }
         }
 
         private void ScanMemoryLoop()
@@ -400,7 +410,7 @@ namespace FFXIV_GameSense
             if (len > 62)
                 len = 62;
             byte[] arr = new byte[len];
-            NativeMethods.WriteProcessMemory(Process.Handle, lastFailedCommandAddress, arr, (uint)arr.Length, out uint lpNumberOfBytesWritten);
+            NativeMethods.WriteProcessMemory(Process.Handle, lastFailedCommandAddress, arr, new IntPtr(arr.Length), out uint lpNumberOfBytesWritten);
         }
 
         private string GetLastFailedCommand() => GetStringFromBytes(GetByteArray(lastFailedCommandAddress, 70), 0, 70);
@@ -451,11 +461,11 @@ namespace FFXIV_GameSense
             if (msg.Last() != 0x00)
                 msg = msg.Concat(new byte[] { 0x00 }).ToArray();
             ulong tail = (_mode == FFXIVClientMode.FFXIV_64) ? GetUInt64(chatLogTailAddress) : GetUInt32(chatLogTailAddress);
-            NativeMethods.WriteProcessMemory(Process.Handle, (IntPtr)tail, msg, Convert.ToUInt32(msg.Length), out uint written);
+            NativeMethods.WriteProcessMemory(Process.Handle, (IntPtr)tail, msg, new IntPtr(msg.Length), out uint written);
             if (_mode == FFXIVClientMode.FFXIV_64)
-                NativeMethods.WriteProcessMemory(Process.Handle, chatLogTailAddress, BitConverter.GetBytes(tail + Convert.ToUInt64(msg.Length)), sizeof(ulong), out written);
+                NativeMethods.WriteProcessMemory(Process.Handle, chatLogTailAddress, BitConverter.GetBytes(tail + Convert.ToUInt64(msg.Length)), new IntPtr(sizeof(ulong)), out written);
             else
-                NativeMethods.WriteProcessMemory(Process.Handle, chatLogTailAddress, BitConverter.GetBytes(tail + Convert.ToUInt32(msg.Length)), sizeof(uint), out written);
+                NativeMethods.WriteProcessMemory(Process.Handle, chatLogTailAddress, BitConverter.GetBytes(tail + Convert.ToUInt32(msg.Length)), new IntPtr(sizeof(uint)), out written);
             var SlashInstanceCommand = new PipeMessage(Process.Id, PMCommand.SlashInstance);
             PersistentNamedPipeServer.SendPipeMessage(SlashInstanceCommand);
         }
@@ -927,7 +937,6 @@ namespace FFXIV_GameSense
         /// <returns>the pointer addresses</returns>
         private List<IntPtr> SigScan(string pattern, int offset = 0, bool bRIP = false)
         {
-            IntPtr arg_05_0 = IntPtr.Zero;
             if (pattern == null || pattern.Length % 2 != 0)
             {
                 return new List<IntPtr>();
@@ -948,9 +957,8 @@ namespace FFXIV_GameSense
             }
 
             int num = 65536;
-            int moduleMemorySize = Process.MainModule.ModuleMemorySize;
             IntPtr baseAddress = Process.MainModule.BaseAddress;
-            IntPtr intPtr = IntPtr.Add(baseAddress, moduleMemorySize);
+            IntPtr intPtr = IntPtr.Add(baseAddress, Process.MainModule.ModuleMemorySize);
             IntPtr intPtr2 = baseAddress;
             byte[] array2 = new byte[num];
             List<IntPtr> list = new List<IntPtr>();
