@@ -18,7 +18,7 @@
 
 ?
 
-### Is there anything in the log view that might be help identify the issue?
+### Is there anything in the log view that might help identify the issue?
 
 ---
 
