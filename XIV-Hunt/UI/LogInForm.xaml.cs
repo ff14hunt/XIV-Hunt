@@ -30,7 +30,7 @@ namespace FFXIV_GameSense.UI
         public LogInForm(ushort wid)
         {
             InitializeComponent();
-            var text = string.Format($"A verified {XIVHuntNet} account, with a verified character on {{0}}, is required for this world.", XIVDB.GameResources.GetWorldName(wid));
+            var text = string.Format($"A {XIVHuntNet} account, with a verified character on {{0}}, is required.", XIVDB.GameResources.GetWorldName(wid));
             var link = new Hyperlink(new Run(XIVHuntNet))
             {
                 NavigateUri = new Uri(AccountLoginUrl),
@@ -75,7 +75,7 @@ namespace FFXIV_GameSense.UI
 
         private static bool AuthenticateUser(string user, string password, string twofa, out Cookie authCookie, out Cookie twofaCookie)
         {
-            var request = WebRequest.Create(RemoteLoginUrl) as HttpWebRequest;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(RemoteLoginUrl);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             request.CookieContainer = new CookieContainer();
@@ -91,7 +91,7 @@ namespace FFXIV_GameSense.UI
             {
                 requestStream.Write(bytes, 0, bytes.Length);
             }
-            using (var response = request.GetResponse() as HttpWebResponse)
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
                 authCookie = response.Cookies[IdentityCookieName];
                 if (authCookie == null && !string.IsNullOrWhiteSpace(twofa) && response.Cookies[TwoFactorUserIdCookieName] != null)
@@ -101,14 +101,7 @@ namespace FFXIV_GameSense.UI
                 else
                     twofaCookie = null;
             }
-            if (authCookie != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return authCookie != null;
         }
 
         private static bool TwoFA(string twofa, Cookie twofauseridcookie, out Cookie authCookie, out Cookie twofaCookie)
@@ -132,14 +125,7 @@ namespace FFXIV_GameSense.UI
                 authCookie = response.Cookies[IdentityCookieName];
                 twofaCookie = response.Cookies[TwoFactorRememberMeCookieName];
             }
-            if (authCookie != null && twofaCookie != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return authCookie != null && twofaCookie != null;
         }
 
         private static byte[] ObjectToByteArray(Object obj)

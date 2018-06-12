@@ -35,7 +35,7 @@ namespace FFXIV_GameSense
         internal SoundPlayer Bsp;
         internal SoundPlayer FATEsp;
         private CheckBox currentCMPlacement;
-        private System.Windows.Forms.NotifyIcon ni;
+        private System.Windows.Forms.NotifyIcon trayIcon;
         private ViewModel vm;
         private static SettingsForm SettingsWindow;
         internal static LogView LogView = new LogView();
@@ -60,18 +60,18 @@ namespace FFXIV_GameSense
             dispatcherTimer1s.Tick += DispatcherTimer1s_Tick;
             dispatcherTimer1s.Start();
             CheckSoundStartup();
-            ni = new System.Windows.Forms.NotifyIcon()
+            trayIcon = new System.Windows.Forms.NotifyIcon()
             {
                 Icon = Properties.Resources.enemy,
                 Visible = false,
                 Text = Title
             };
-            ni.Click += delegate (object sender, EventArgs args)
+            trayIcon.Click += delegate (object sender, EventArgs args)
                 {
                     Show();
                     Visibility = Visibility.Visible;
                     WindowState = WindowState.Normal;
-                    ni.Visible = false;
+                    trayIcon.Visible = false;
                 };
             DataContext = vm;
             LanguageComboBox.SelectionChanged += LanguageComboBox_SelectionChanged;
@@ -80,20 +80,26 @@ namespace FFXIV_GameSense
                 WindowState = WindowState.Minimized;
                 if (Settings.Default.MinimizeToTray)
                 {
-                    Visibility = Visibility.Hidden;
-                    OnStateChanged(EventArgs.Empty);
+                    HideWindowAndShowTrayIcon();
+                    base.OnStateChanged(EventArgs.Empty);
                 }
             }
         }
 
         protected override void OnStateChanged(EventArgs e)
         {
+            HideWindowAndShowTrayIcon();
+            base.OnStateChanged(e);
+        }
+
+        private void HideWindowAndShowTrayIcon()
+        {
             if (WindowState == WindowState.Minimized && Settings.Default.MinimizeToTray)
             {
-                ni.Visible = true;
-                Hide();
+                trayIcon.Visible = true;
+                Visibility = Visibility.Hidden;
+                Hide();//necessary?
             }
-            base.OnStateChanged(e);
         }
 
         private void CheckSoundStartup()
@@ -159,9 +165,9 @@ namespace FFXIV_GameSense
                 ProcessComboBox.IsEnabled = false;
             }
 #if DEBUG
-                        if (AnyProblems())
-                            return;
-                        HuntAndCFCheck();
+            if (AnyProblems())
+                return;
+            HuntAndCFCheck();
 #else
             try
             {
@@ -204,7 +210,6 @@ namespace FFXIV_GameSense
                     PersistentNamedPipeServer.Restart();
                 }
                 hunts?.LeaveGroup();
-
                 HuntNotifyGroupBox.IsEnabled = false;
                 return true;
             }
@@ -212,7 +217,6 @@ namespace FFXIV_GameSense
             {
                 if (hunts == null && Program.mem != null && Program.mem.ValidateProcess())
                     hunts = new FFXIVHunts(this);
-                _ = hunts.Connect();
                 HuntNotifyGroupBox.IsEnabled = true;
             }
             return false;
@@ -253,13 +257,13 @@ namespace FFXIV_GameSense
                 {
                     string[] pwords = e.Parameter.Split(' ');
                     bool hqprefer = pwords.Last().Equals("HQ", StringComparison.InvariantCultureIgnoreCase);
-                    FFXIVHunts.LookupItemXIVDB(hqprefer ? string.Join(" ", pwords.Take(pwords.Count()-1)): e.Parameter, hqprefer).ContinueWith(t =>
-                    {
-                        if (t.Result != null)
-                        {
-                            _ = Program.mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result, HQ: hqprefer));
-                        }
-                    });
+                    FFXIVHunts.LookupItemXIVDB(hqprefer ? string.Join(" ", pwords.Take(pwords.Count() - 1)) : e.Parameter, hqprefer).ContinueWith(t =>
+                       {
+                           if (t.Result != null)
+                           {
+                               _ = Program.mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result, HQ: hqprefer));
+                           }
+                       });
                 }
             }
             else if (e.Command == Command.Perform)
@@ -382,40 +386,49 @@ namespace FFXIV_GameSense
 
         private void MenuForm_FormClosed(object sender, EventArgs e)
         {
-            dispatcherTimer1s.Stop();
-            ni.Dispose();
-            if (hunts != null)
-            {
-                FFXIVHunts.http.Dispose();
-                hunts.Dispose();
-            }
-            if (Program.mem != null)
-                Program.mem.Dispose();
-            if (PersistentNamedPipeServer.Instance.IsConnected)
-                PersistentNamedPipeServer.Instance.Disconnect();
-            PersistentNamedPipeServer.Instance.Dispose();
-            Settings.Default.Save();
+            Dispose();
             Environment.Exit(0);
-        }
-
-        private void HuntConnectionTextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (((TextBlock)sender).Text.Contains("Disconnected"))
-                _ = hunts.Connect();
         }
 
         public void Dispose()
         {
-            if (Ssp != null)
-                Ssp.Dispose();
-            if (Asp != null)
-                Asp.Dispose();
-            if (Bsp != null)
-                Bsp.Dispose();
-            if (FATEsp != null)
-                FATEsp.Dispose();
-            if (hunts != null)
-                hunts.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                if (Ssp != null)
+                    Ssp.Dispose();
+                if (Asp != null)
+                    Asp.Dispose();
+                if (Bsp != null)
+                    Bsp.Dispose();
+                if (FATEsp != null)
+                    FATEsp.Dispose();
+                if (hunts != null)
+                    hunts.Dispose();
+                Ssp = Asp = Bsp = FATEsp = null;
+                if(cts!=null)
+                    cts.Dispose();
+                cts = null;
+
+                dispatcherTimer1s.Stop();
+                trayIcon.Dispose();
+                if (hunts != null)
+                {
+                    FFXIVHunts.Http.Dispose();
+                    hunts.Dispose();
+                }
+                if (Program.mem != null)
+                    Program.mem.Dispose();
+                if (PersistentNamedPipeServer.Instance.IsConnected)
+                    PersistentNamedPipeServer.Instance.Disconnect();
+                PersistentNamedPipeServer.Instance.Dispose();
+                Settings.Default.Save();
+            }
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -701,7 +714,7 @@ namespace FFXIV_GameSense
         public void Refresh()
         {
             OnPropertyChanged("ProcessEntries");
-            if (FFXIVHunts.joined && !GotFATEZones && !IsFetchingZones)
+            if (FFXIVHunts.Joined && !GotFATEZones && !IsFetchingZones)
                 _ = GetFATEZones();
         }
 
@@ -716,7 +729,7 @@ namespace FFXIV_GameSense
         {
             IsFetchingZones = true;
             string e;
-            var r = await FFXIVHunts.http.GetAsync(FFXIVHunts.baseUrl + "api/worlds/FATEIDZoneID/");
+            var r = await FFXIVHunts.Http.GetAsync(FFXIVHunts.baseUrl + "api/worlds/FATEIDZoneID/");
             if (r.IsSuccessStatusCode)
             {
                 e = await r.Content.ReadAsStringAsync();

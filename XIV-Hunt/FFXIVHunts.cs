@@ -7,10 +7,8 @@ using System.Diagnostics;
 using FFXIV_GameSense.Properties;
 using System.Threading.Tasks;
 using XIVDB;
-using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 using System.Net.Http;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Documents;
 using Newtonsoft.Json.Linq;
 using System.Threading;
@@ -56,15 +54,14 @@ namespace FFXIV_GameSense
         private static List<FATEReport> fates = GameResources.GetFates().Select(x => new FATEReport(x)).ToList();
         private static List<uint> HuntsPutInChat = new List<uint>();
         private static readonly uint[] DCZones = new uint[] { 630, 656, 732 };
-        private static HubConnection hubConnection;
-        private static IHubProxy hubProxy;
-        internal static HttpClient http = new HttpClient();
-        internal static bool joined = false;
+        private static HuntsHubConnection hubConnection;
+        internal static HttpClient Http { get; private set; } = new HttpClient();
+        internal static bool Joined { get; private set; } = false;
         private static bool joining = false;
         private static ushort lastJoined, lastZone;
-        internal const string baseUrl = "https://xivhunt.net/";//private const string baseUrl = "https://xivhunt.net/SignalR/HuntsHub";
-        //internal const string baseUrl = "http://localhost:5000/";//private const string baseUrl = "http://localhost:5000/SignalR/HuntsHub";
-        private const string VerifiedCharactersUrl = baseUrl + "Manage/VerifiedCharacters";
+        internal const string baseUrl = "https://xivhunt.net/";
+        //internal const string baseUrl = "http://localhost:5000/";
+        internal const string VerifiedCharactersUrl = baseUrl + "Manage/VerifiedCharacters";
         private static DateTime ServerTimeUtc;
         private static DateTime LastShoutChatSync;
         private static DataCenterInstanceMatchInfo DCInstance;
@@ -72,12 +69,12 @@ namespace FFXIV_GameSense
 
         internal async Task LeaveGroup()
         {
-            if (!joined)
+            if (!Joined)
                 return;
             await LeaveDCZone();
-            await hubProxy.Invoke(nameof(LeaveGroup), lastJoined);
+            await hubConnection.Connection.InvokeAsync(nameof(LeaveGroup), lastJoined);
             LogHost.Default.Info("Left " + GameResources.GetWorldName(lastJoined));
-            joined = false;
+            Joined = false;
         }
 
         internal FFXIVHunts(Window1 pw1)
@@ -107,18 +104,21 @@ namespace FFXIV_GameSense
                 hunts.Add(new Hunt(i, HuntRank.A));
             for (ushort i = 2953; i < 2970; i++)
                 hunts.Add(new Hunt(i, HuntRank.S));
+            CreateConnection();
+        }
 
+        private void CreateConnection()
+        {
             if (hubConnection == null)
-                hubConnection = new HubConnection(baseUrl);
-            if (!string.IsNullOrWhiteSpace(Settings.Default.Cookies))
             {
-                hubConnection.CookieContainer = (CookieContainer)ByteArrayToObject(Convert.FromBase64String(Settings.Default.Cookies));
+                hubConnection = new HuntsHubConnection();
+                RegisterHubMethods();
             }
+        }
 
-            if (hubProxy == null)
-                hubProxy = hubConnection.CreateHubProxy("HuntsHub");
-            hubConnection.StateChanged += HubConnection_StateChangedAsync;
-            hubProxy.On<Hunt>("ReceiveHunt", hunt =>
+        private void RegisterHubMethods()
+        {
+            hubConnection.Connection.On<Hunt>("ReceiveHunt", hunt =>
             {
                 LogHost.Default.Debug(string.Format(Resources.ReportReceived, GameResources.GetWorldName(hunt.WorldId), hunt.Name));
                 if (PutInChat(hunt) && Settings.Default.FlashTaskbarIconOnHuntAndFATEs)
@@ -127,24 +127,30 @@ namespace FFXIV_GameSense
                     else
                         NativeMethods.StopFlashWindowEx(Program.mem.Process);
             });
-            hubProxy.On<FATEReport>("ReceiveFATE", fate =>
+            hubConnection.Connection.On<FATEReport>("ReceiveFATE", fate =>
             {
                 //LogHost.Default.Debug(string.Format(Resources.FATEReportReceived, GameResources.GetWorldName(fate.WorldId), fate.Name(true), fate.Progress));
                 if (PutInChat(fate) && Settings.Default.FlashTaskbarIconOnHuntAndFATEs)
                     NativeMethods.FlashTaskbarIcon(Program.mem.Process);
             });
-            hubProxy.On<DataCenterInstanceMatchInfo>("DCInstanceMatch", instance =>
+            hubConnection.Connection.On<DataCenterInstanceMatchInfo>("DCInstanceMatch", instance =>
             {
                 LogHost.Default.Info("DCInstanceMatch: " + instance.ID);
                 DCInstance = instance;
                 ChatMessage cm = new ChatMessage { MessageString = $"{Program.AssemblyName.Name}: Instance matched. Tracked for {(ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0")} minutes. {baseUrl}DCInstance/{instance.ID}" };
                 _ = Program.mem.WriteChatMessage(cm);
             });
-            hubProxy.On<int>("ConnectedCount", connected =>
+            hubConnection.Connection.On<int>("ConnectedCount", connectedCount =>
             {
-                w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedToCount, GameResources.GetWorldName(Program.mem.GetServerId()), connected - 1)));
+                w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedToCount, GameResources.GetWorldName(Program.mem.GetServerId()), connectedCount - 1)));
             });
-            _ = ConnectToGSHunt();
+            hubConnection.Connection.Closed += Connection_Closed;
+        }
+
+        private Task Connection_Closed(Exception arg)
+        {
+            Joined = joining = false;
+            return Task.CompletedTask;
         }
 
         internal HuntRank HuntRankFor(ushort HuntID)
@@ -156,9 +162,10 @@ namespace FFXIV_GameSense
 
         internal async Task Connect()
         {
-            if (hubConnection.State == ConnectionState.Disconnected)
-                await ConnectToGSHunt();
-            else if (!joined && hubConnection.State == ConnectionState.Connected)
+            CreateConnection();
+            if (await hubConnection.Connect(w1))
+                RegisterHubMethods();
+            if (!Joined && hubConnection.Connected)
                 await JoinServerGroup();
         }
 
@@ -200,7 +207,7 @@ namespace FFXIV_GameSense
         {
             World world;
             string e;
-            var r = await http.GetAsync(baseUrl + "api/worlds/" + Program.mem.GetServerId().ToString());
+            var r = await Http.GetAsync(baseUrl + "api/worlds/" + Program.mem.GetServerId().ToString());
             if (r.IsSuccessStatusCode)
                 e = await r.Content.ReadAsStringAsync();
             else
@@ -238,9 +245,9 @@ namespace FFXIV_GameSense
 
         internal async Task LastKnownInfoForFATE(ushort id)
         {
-            if (hubConnection.State != ConnectionState.Connected || !joined)
+            if (!hubConnection.Connected || !Joined)
                 return;
-            FATE result = await hubProxy.Invoke<FATEReport>("QueryFATE", id);
+            FATE result = await hubConnection.Connection.InvokeAsync<FATEReport>("QueryFATE", id);
             if (result == null)
                 return;
             var timeSinceLastReport = ServerTimeUtc.Subtract(result.LastReported);
@@ -258,15 +265,15 @@ namespace FFXIV_GameSense
 
         internal async void Check(FFXIVMemory mem)
         {
-            if (hubConnection.State == ConnectionState.Disconnected)
+            if (!hubConnection.Connected)
                 await Connect();
-            if (lastJoined != mem.GetServerId() && joined && !joining)
+            if (!hubConnection.Connected)
+                return;
+            if (lastJoined != mem.GetServerId() && Joined && !joining || !Joined )
             {
                 await LeaveGroup();
                 await JoinServerGroup();
             }
-            if (!joined)
-                return;
             ServerTimeUtc = mem.GetServerUtcTime();
             ushort thisZone = mem.GetZoneId();
             if (thisZone != lastZone && Settings.Default.OncePerHunt && Settings.Default.ForgetOnZoneChange)
@@ -303,8 +310,8 @@ namespace FFXIV_GameSense
         {
             try
             {
-                if (hubConnection.State == ConnectionState.Connected && joined)
-                    await hubProxy.Invoke(nameof(LeaveDCZone));
+                if (hubConnection.Connected && Joined)
+                    await hubConnection.Connection.InvokeAsync(nameof(LeaveDCZone));
             }
             catch (Exception e) { LogHost.Default.WarnException(nameof(LeaveDCZone), e); }
         }
@@ -314,8 +321,8 @@ namespace FFXIV_GameSense
             Debug.WriteLine(nameof(JoinDCZone));
             try
             {
-                if (hubConnection.State == ConnectionState.Connected && joined)
-                    return await hubProxy.Invoke<DateTime>(nameof(JoinDCZone), zoneid, DCInstance?.ID > 0 ? DCInstance?.ID : 0);
+                if (hubConnection.Connected && Joined)
+                    return await hubConnection.Connection.InvokeAsync<DateTime>(nameof(JoinDCZone), zoneid, DCInstance?.ID > 0 ? DCInstance?.ID : 0);
             }
             catch (Exception e) { LogHost.Default.WarnException(nameof(JoinDCZone), e); }
             return DateTime.MaxValue;
@@ -323,11 +330,11 @@ namespace FFXIV_GameSense
 
         private async Task ReportDCShoutChat(List<ChatMessage> recentShoutChat)
         {
-            if (recentShoutChat.Any() && hubConnection.State == ConnectionState.Connected && joined)
+            if (recentShoutChat.Any() && hubConnection.Connected && Joined)
             {
                 try
                 {
-                    await hubProxy.Invoke(nameof(ReportDCShoutChat), recentShoutChat);
+                    await hubConnection.Connection.InvokeAsync(nameof(ReportDCShoutChat), recentShoutChat);
                     LastShoutChatSync = recentShoutChat.Max(x => x.Timestamp);
                 }
                 catch (Exception e) { LogHost.Default.WarnException(nameof(ReportDCShoutChat), e); }
@@ -338,7 +345,7 @@ namespace FFXIV_GameSense
         {
             EnemyObject Enemy;
             string e;
-            var r = await http.GetAsync("https://api.xivdb.com/enemy/" + bnpcid);
+            var r = await Http.GetAsync("https://api.xivdb.com/enemy/" + bnpcid);
             if (r.IsSuccessStatusCode)
                 e = await r.Content.ReadAsStringAsync();
             else
@@ -368,7 +375,7 @@ namespace FFXIV_GameSense
             HttpResponseMessage r;
             while (page == 1 ? true : results.Count != 0 && !results.Any(x => x.Name.Equals(itemname, StringComparison.CurrentCultureIgnoreCase)))
             {
-                r = await http.GetAsync(uri + page++);
+                r = await Http.GetAsync(uri + page++);
                 if (r.IsSuccessStatusCode)
                     e = await r.Content.ReadAsStringAsync();
                 else
@@ -378,7 +385,7 @@ namespace FFXIV_GameSense
             Item result = results.SingleOrDefault(x => x.Name.Equals(itemname, StringComparison.InvariantCultureIgnoreCase));
             if (!detailed)
                 return result;
-            r = await http.GetAsync(result.Url_API);
+            r = await Http.GetAsync(result.Url_API);
             if (r.IsSuccessStatusCode)
                 e = await r.Content.ReadAsStringAsync();
             else
@@ -390,11 +397,7 @@ namespace FFXIV_GameSense
         private async Task ReportFate(FATE f)
         {
             int idx = fates.FindIndex(h => h.ID == f.ID);
-            if (idx < 0)
-                return;
-            else if (fates[idx].Progress != 100 && f.Progress > 99)
-                ;
-            else if (fates[idx].LastReported > ServerTimeUtc.AddSeconds(-5))
+            if (idx < 0 || (fates[idx].LastReported > ServerTimeUtc.AddSeconds(-5) && !(fates[idx].Progress != 100 && f.Progress > 99)))
                 return;
 
             fates[idx].LastReported = ServerTimeUtc;
@@ -411,10 +414,10 @@ namespace FFXIV_GameSense
 
             try
             {
-                if (hubConnection.State == ConnectionState.Connected && joined)
-                    await hubProxy.Invoke(nameof(ReportFate), fates[idx]);
+                if (hubConnection.Connected && Joined)
+                    await hubConnection.Connection.InvokeAsync(nameof(ReportFate), fates[idx]);
             }
-            catch (Exception e) { /*LogHost.Default.WarnException(nameof(ReportFate), e);*/ }
+            catch (Exception e) { LogHost.Default.WarnException(nameof(ReportFate), e); }
         }
 
         private static bool FateNotifyCheck(ushort id)
@@ -424,52 +427,16 @@ namespace FFXIV_GameSense
             return Settings.Default.FATEs.Contains(id.ToString());
         }
 
-        private async Task ConnectToGSHunt()
-        {
-            if (hubConnection.State != ConnectionState.Disconnected)
-                return;
-            await TryConnect();
-        }
-
-        private async Task TryConnect()
-        {
-            if (hubConnection.CookieContainer == null || hubConnection.CookieContainer.Count == 0)
-                hubConnection.CookieContainer = Login(Program.mem.GetServerId());
-            try
-            {
-                hubConnection.Stop();
-                await hubConnection.Start();
-            }
-            catch (HttpClientException e)
-            {
-                if (e.Message.Contains("Unauthorized"))
-                    hubConnection.CookieContainer = null;
-            }
-        }
-
-        private async void HubConnection_StateChangedAsync(StateChange obj)
-        {
-            joined = false;
-            if (obj.NewState != ConnectionState.Connected)
-            {
-                w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = obj.NewState.ToString()));
-            }
-            else if (obj.NewState == ConnectionState.Connected)
-            {
-                await JoinServerGroup();
-            }
-        }
-
         private async Task JoinServerGroup()
         {
-            if (joined && hubConnection.State == ConnectionState.Connected || joining)
+            if (Joined && hubConnection.Connected || joining)
                 return;
             joining = true;
             w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = Resources.FormReadingSID));
             ushort sid = Program.mem.GetServerId();
             Reporter r = new Reporter { WorldID = sid, Name = Program.mem.GetSelfCombatant().Name };
             LogHost.Default.Info("Joining " + GameResources.GetWorldName(sid));
-            if (!await hubProxy.Invoke<bool>("JoinGroup", r))
+            if (!await hubConnection.Connection.InvokeAsync<bool>("JoinGroup", r))
                 w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() =>
                 {
                     w1.HuntConnectionTextBlock.Inlines.Clear();
@@ -479,7 +446,7 @@ namespace FFXIV_GameSense
                     w1.HuntConnectionTextBlock.Inlines.Add(link);
                 }));
             joining = false;
-            joined = true;
+            Joined = true;
             lastJoined = sid;
             foreach (Hunt h in hunts)
                 h.WorldId = sid;
@@ -488,16 +455,6 @@ namespace FFXIV_GameSense
             var zid = Program.mem.GetZoneId();
             if (Array.IndexOf(DCZones, zid) > -1)
                 await JoinDCZone(zid);
-        }
-
-        private CookieContainer Login(ushort sid)
-        {
-            var lif = new UI.LogInForm(sid);
-            if ((bool)lif.ShowDialog() && lif.receivedCookies.Count > 0)
-            {
-                return lif.receivedCookies;
-            }
-            return null;
         }
 
         private bool PutInChat(Hunt hunt)
@@ -587,8 +544,8 @@ namespace FFXIV_GameSense
 
             try
             {
-                if (hubConnection.State == ConnectionState.Connected && joined)
-                    await hubProxy.Invoke(nameof(ReportHunt), hunts[idx]);
+                if (Joined)
+                    await hubConnection.Connection.InvokeAsync(nameof(ReportHunt), hunts[idx]);
             }
             catch (Exception e) { LogHost.Default.WarnException(nameof(ReportHunt), e); }
         }
@@ -596,21 +553,10 @@ namespace FFXIV_GameSense
         public void Dispose()
         {
             _ = LeaveGroup();
-            hubConnection.StateChanged -= HubConnection_StateChangedAsync;
-            hubConnection.Dispose();
+            hubConnection.Connection.DisposeAsync();
         }
 
-        private static object ByteArrayToObject(byte[] arrBytes)
-        {
-            using (var memStream = new MemoryStream())
-            {
-                var binForm = new BinaryFormatter();
-                memStream.Write(arrBytes, 0, arrBytes.Length);
-                memStream.Seek(0, SeekOrigin.Begin);
-                var obj = binForm.Deserialize(memStream);
-                return obj;
-            }
-        }
+        
     }
 
     [JsonObject]
