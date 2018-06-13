@@ -280,9 +280,9 @@ namespace FFXIV_GameSense
             {
                 HuntsPutInChat.Clear();
             }
-            if (Array.IndexOf(DCZones, thisZone) > -1 && Array.IndexOf(DCZones, lastZone) == -1)
+            if (Array.IndexOf(DCZones, thisZone) > -1 && Array.IndexOf(DCZones, lastZone) == -1 && Joined)
             {
-                LastShoutChatSync = await JoinDCZone(thisZone);
+                LastShoutChatSync = (await JoinDCZone(thisZone)).ToUniversalTime();
             }
             else if (Array.IndexOf(DCZones, lastZone) > -1 && Array.IndexOf(DCZones, thisZone) == -1)
             {
@@ -295,8 +295,7 @@ namespace FFXIV_GameSense
             }
             if (Array.IndexOf(DCZones, thisZone) > -1 && LastShoutChatSync != null)
             {
-                List<ChatMessage> recentShoutChat = mem.ReadChatLogBackwards(filter: x => x.Channel == ChatChannel.Shout, stopOn: x => x.Timestamp <= LastShoutChatSync).OrderByDescending(x => x.Timestamp).Take(10).ToList();
-                await ReportDCShoutChat(recentShoutChat);
+                await ReportDCShoutChat(mem.ReadChatLogBackwards(filter: x => x.Channel == ChatChannel.Shout, stopOn: x => x.Timestamp <= LastShoutChatSync).OrderByDescending(x => x.Timestamp).Take(10));
             }
             foreach (FATE f in mem.GetFateList().Where(f => f.ZoneID == thisZone))
             {
@@ -328,7 +327,7 @@ namespace FFXIV_GameSense
             return DateTime.MaxValue;
         }
 
-        private async Task ReportDCShoutChat(List<ChatMessage> recentShoutChat)
+        private async Task ReportDCShoutChat(IEnumerable<ChatMessage> recentShoutChat)
         {
             if (recentShoutChat.Any() && hubConnection.Connected && Joined)
             {
