@@ -47,7 +47,7 @@ namespace FFXIV_GameSense
             }
 #endif
 
-            Application app = new Application() { MainWindow = new Window1() };
+            Application app = new Application { MainWindow = new Window1() };
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
             app.Run(app.MainWindow);
         }

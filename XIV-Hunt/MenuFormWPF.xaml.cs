@@ -519,30 +519,30 @@ namespace FFXIV_GameSense
             else if (((CheckBox)sender).Opacity == 0.25)
             {
                 ContextMenu cm = new ContextMenu();
-                var mi1 = new MenuItem() { Header = Properties.Resources.FormSFCMNewAlert };
+                var mi1 = new MenuItem { Header = Properties.Resources.FormSFCMNewAlert };
                 mi1.Click += MenuItemClickCallCheckBox;
                 cm.Items.Add(mi1);
                 if (Settings.Default.SBell != Properties.Resources.NoSoundAlert /*&& Ssp.IsLoadCompleted*/)
                 {
-                    var miS = new MenuItem() { Header = Settings.Default.SBell };
+                    var miS = new MenuItem { Header = Settings.Default.SBell };
                     miS.Click += MenuItemSoundSelected;
                     cm.Items.Add(miS);
                 }
                 if (Settings.Default.ABell != Properties.Resources.NoSoundAlert /*&& Asp.IsLoadCompleted*/)
                 {
-                    var miA = new MenuItem() { Header = Settings.Default.ABell };
+                    var miA = new MenuItem { Header = Settings.Default.ABell };
                     miA.Click += MenuItemSoundSelected;
                     cm.Items.Add(miA);
                 }
                 if (Settings.Default.BBell != Properties.Resources.NoSoundAlert /*&& Bsp.IsLoadCompleted*/)
                 {
-                    var miB = new MenuItem() { Header = Settings.Default.BBell };
+                    var miB = new MenuItem { Header = Settings.Default.BBell };
                     miB.Click += MenuItemSoundSelected;
                     cm.Items.Add(miB);
                 }
                 if (Settings.Default.FATEBell != Properties.Resources.NoSoundAlert /*&& FATEsp.IsLoadCompleted*/)
                 {
-                    var miFATE = new MenuItem() { Header = Settings.Default.FATEBell };
+                    var miFATE = new MenuItem { Header = Settings.Default.FATEBell };
                     miFATE.Click += MenuItemSoundSelected;
                     cm.Items.Add(miFATE);
                 }

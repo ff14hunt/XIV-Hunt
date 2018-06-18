@@ -47,14 +47,11 @@ namespace FFXIV_GameSense
         };
         
         /// <summary>
-        /// Default constructor. Sets timestamp to now and channel to Echo, message=null;
+        /// Default constructor. Sets timestamp to now and channel to Echo;
         /// </summary>
         internal ChatMessage()
         {
-            if (Program.mem != null)
-                Timestamp = Program.mem.GetServerUtcTime();
-            else
-                Timestamp = DateTime.UtcNow;
+            Timestamp = DateTime.UtcNow;
             Channel = ChatChannel.Echo;
             Filter = ChatFilter.Unknown;
             Message = null;

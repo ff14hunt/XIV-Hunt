@@ -224,7 +224,7 @@ namespace FFXIV_GameSense
 
             List<string> fail = new List<string>();
 
-            bool bRIP = (_mode == FFXIVClientMode.FFXIV_32) ? false : true;
+            bool bRIP = _mode == FFXIVClientMode.FFXIV_64;
 
             // CHARMAP
             List<IntPtr> list = SigScan(charmapSignature, 0, bRIP);
@@ -799,7 +799,7 @@ namespace FFXIV_GameSense
                     int countedStatusEffects = 0;
                     while (countedStatusEffects < 32)
                     {
-                        Status status = new Status() { ID = *(short*)&p[offset] };
+                        Status status = new Status { ID = *(short*)&p[offset] };
                         if (status.ID != 00)
                         {
                             status.Value = *(short*)&p[offset + 2];
@@ -918,9 +918,9 @@ namespace FFXIV_GameSense
             return ret;
         }
 
-        private unsafe uint GetUInt16(IntPtr address, int offset = 0)
+        private unsafe ushort GetUInt16(IntPtr address, int offset = 0)
         {
-            uint ret;
+            ushort ret;
             var value = new byte[2];
             Peek(IntPtr.Add(address, offset), value);
             fixed (byte* p = &value[0]) ret = *(ushort*)p;
@@ -1020,68 +1020,6 @@ namespace FFXIV_GameSense
         }
 
         public ushort GetZoneId() => BitConverter.ToUInt16(GetByteArray(zoneIdAddress, 2), 0);
-
-        public static int FindPattern(byte[] source, byte[] pattern)
-        {
-            bool found = false;
-            for (int i = 0; i < source.Length - pattern.Length; i++)
-            {
-                //see if it has pattern
-                found = true;
-                for (int j = 0; j < pattern.Length; j++)
-                {
-                    if (source[i + j] != pattern[j])
-                    {
-                        found = false;
-                        break;
-                    }
-                }
-                if (found)
-                    return i;
-            }
-
-            return -1;
-        }
-
-        internal static IntPtr SigScan(byte[] toFind, Process p)
-        {
-            //Assuming this regionSize is big enough
-            return SigScan(toFind, p, 0x7fff, 0x10000000);
-        }
-
-        internal static IntPtr SigScan(byte[] toFind, Process osup, int regionSize, int scanSize)
-        {
-            IntPtr startAddress = osup.MainModule.BaseAddress;
-            IntPtr endAddress = startAddress + scanSize;
-
-            IntPtr currentAddress = startAddress;
-            int region = regionSize;
-
-            byte[] buffer = new byte[region];
-
-            while (currentAddress.ToInt64() < endAddress.ToInt64())
-            {
-                buffer = ReadBytes(osup, currentAddress, (IntPtr)region + toFind.Length);
-                int index = FindPattern(buffer, toFind);
-                if (index != -1)
-                    return currentAddress + index;
-                currentAddress += region;
-            }
-            return IntPtr.Zero;
-        }
-
-        public static byte[] ReadBytes(Process p, IntPtr address, IntPtr size)
-        {
-            byte[] ret = new byte[65536];
-            IntPtr zero = IntPtr.Zero;
-            NativeMethods.ReadProcessMemory(p.Handle, address, ret, size, ref zero);
-            return ret;
-        }
-
-        static bool ByteArrayCompare(byte[] a1, byte[] a2)
-        {
-            return System.Collections.StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
-        }
     }
 
     internal class CommandEventArgs : EventArgs
