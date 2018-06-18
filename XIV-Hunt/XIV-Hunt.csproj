@@ -282,14 +282,17 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\BNpcName.zh.csv" />
     <None Include="Resources\BNpcName.csv" />
     <None Include="Resources\BNpcName.de.csv" />
     <None Include="Resources\BNpcName.fr.csv" />
     <None Include="Resources\BNpcName.jp.csv" />
+    <None Include="Resources\ContentFinderCondition.zh.csv" />
     <None Include="Resources\ContentFinderCondition.csv" />
     <None Include="Resources\ContentFinderCondition.de.csv" />
     <None Include="Resources\ContentFinderCondition.fr.csv" />
     <None Include="Resources\ContentFinderCondition.jp.csv" />
+    <None Include="Resources\Fate.zh.csv" />
     <None Include="Resources\Fate.csv" />
     <None Include="Resources\Fate.de.csv" />
     <None Include="Resources\Fate.fr.csv" />
@@ -317,6 +320,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
@@ -332,6 +338,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Perform.csv" />
+    <None Include="Resources\TerritoryType.zh.csv" />
     <None Include="Resources\TerritoryType.csv" />
     <None Include="Resources\TerritoryType.de.csv" />
     <None Include="Resources\TerritoryType.fr.csv" />

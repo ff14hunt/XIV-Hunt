@@ -177,6 +177,7 @@
             <ComboBoxItem Content="Français" Tag="fr-FR" />
             <ComboBoxItem Content="Deutsch" Tag="de-DE" />
             <ComboBoxItem Content="日本語" Tag="ja-JP" />
+            <ComboBoxItem Content="中文" Tag="zh-CN" />
         </ComboBox>
     </Grid>
 </Window>
