@@ -25,6 +25,7 @@ namespace FFXIV_GameSense
         internal List<Combatant> Combatants { get; private set; }
         internal object CombatantsLock => new object();
         internal event EventHandler<CommandEventArgs> OnNewCommand = delegate {};
+        private bool Is64Bit => _mode == FFXIVClientMode.FFXIV_64;
 
         private const string charmapSignature32 = "81f9ffff0000741781f958010000730f8b0c8d";
         private const string charmapSignature64 = "488b420848c1e8033da701000077248bc0488d0d";
@@ -44,8 +45,8 @@ namespace FFXIV_GameSense
         private const string serverIdSignature64 = "0f82********8b05********3905";
         private const string lastFailedCommandSignature32 = "83f9**7c**5b5fb8";
         private const string lastFailedCommandSignature64 = "4183f8**7c**488d05";
-        private const string currentContentFinderConditionSignature32 = "8983********8983********8983********8983********8983********8983********8983********8983********8983********0fb705";
-        private const string currentContentFinderConditionSignature64 = "c783****************6689bb********4889bb********4889bb********4889bb********4889bb********89bb********0fb70d";
+        private const string currentContentFinderConditionSignature32 = "8985********83f8**75**803d";
+        private const string currentContentFinderConditionSignature64 = "f30f7f4424**83f8**75**803d";
         //private const int charmapOffset32 = 0;
         //private const int charmapOffset64 = 0;
         private const int targetOffset32 = 0x58;
@@ -54,6 +55,7 @@ namespace FFXIV_GameSense
         private const int contentFinderConditionOffset64 = 0xF4;
         private const int lastFailedCommandOffset32 = 0x1B2;
         private const int lastFailedCommandOffset64 = 0x1C2;
+        private const int currentContentFinderConditionOffset = 0x8;
         private static readonly int[] serverTimeOffset32 = { 0x14C0, 0x4, 0x644 };
         private static readonly int[] serverTimeOffset64 = { 0x1710, 0x8, 0x7D4 };
         private static readonly int[] chatLogStartOffset32 = { 0x18, 0x2C0, 0x0 };
@@ -203,28 +205,28 @@ namespace FFXIV_GameSense
 
         private bool GetPointerAddress()
         {
-            string charmapSignature = (_mode == FFXIVClientMode.FFXIV_32) ? charmapSignature32 : charmapSignature64;
-            string targetSignature = (_mode == FFXIVClientMode.FFXIV_32) ? targetSignature32 : targetSignature64;
-            string zoneIdSignature = (_mode == FFXIVClientMode.FFXIV_32) ? zoneIdSignature32 : zoneIdSignature64;
-            string serverTimeSignature = (_mode == FFXIVClientMode.FFXIV_32) ? serverTimeSignature32 : serverTimeSignature64;
-            string chatLogStartSignature = (_mode == FFXIVClientMode.FFXIV_32) ? chatLogStartSignature32 : chatLogStartSignature64;
-            string fateListSignature = (_mode == FFXIVClientMode.FFXIV_32) ? fateListSignature32 : fateListSignature64;
-            string contentFinderConditionSignature = (_mode == FFXIVClientMode.FFXIV_32) ? contentFinderConditionSignature32 : contentFinderConditionSignature64;
-            string serverIdSignature = (_mode == FFXIVClientMode.FFXIV_32) ? serverIdSignature32 : serverIdSignature64;
-            string lastFailedCommandSignature = (_mode == FFXIVClientMode.FFXIV_32) ? lastFailedCommandSignature32 : lastFailedCommandSignature64;
-            string currentContentFinderConditionSignature = (_mode == FFXIVClientMode.FFXIV_32) ? currentContentFinderConditionSignature32 : currentContentFinderConditionSignature64;
-            int[] serverTimeOffset = (_mode == FFXIVClientMode.FFXIV_32) ? serverTimeOffset32 : serverTimeOffset64;
-            int[] chatLogStartOffset = (_mode == FFXIVClientMode.FFXIV_32) ? chatLogStartOffset32 : chatLogStartOffset64;
-            int[] chatLogTailOffset = (_mode == FFXIVClientMode.FFXIV_32) ? chatLogTailOffset32 : chatLogTailOffset64;
-            int[] serverIdOffset = (_mode == FFXIVClientMode.FFXIV_32) ? serverIdOffset32 : serverIdOffset64;
-            int targetOffset = (_mode == FFXIVClientMode.FFXIV_32) ? targetOffset32 : targetOffset64;
-            //int charmapOffset = (_mode == FFXIVClientMode.FFXIV_32) ? charmapOffset32 : charmapOffset64;
-            int contentFinderConditionOffset = (_mode == FFXIVClientMode.FFXIV_32) ? contentFinderConditionOffset32 : contentFinderConditionOffset64;
-            int lastFailedCommandOffset = (_mode == FFXIVClientMode.FFXIV_32) ? lastFailedCommandOffset32 : lastFailedCommandOffset64;
+            string charmapSignature = !Is64Bit ? charmapSignature32 : charmapSignature64;
+            string targetSignature = !Is64Bit ? targetSignature32 : targetSignature64;
+            string zoneIdSignature = !Is64Bit ? zoneIdSignature32 : zoneIdSignature64;
+            string serverTimeSignature = !Is64Bit ? serverTimeSignature32 : serverTimeSignature64;
+            string chatLogStartSignature = !Is64Bit ? chatLogStartSignature32 : chatLogStartSignature64;
+            string fateListSignature = !Is64Bit ? fateListSignature32 : fateListSignature64;
+            string contentFinderConditionSignature = !Is64Bit ? contentFinderConditionSignature32 : contentFinderConditionSignature64;
+            string serverIdSignature = !Is64Bit ? serverIdSignature32 : serverIdSignature64;
+            string lastFailedCommandSignature = !Is64Bit ? lastFailedCommandSignature32 : lastFailedCommandSignature64;
+            string currentContentFinderConditionSignature = !Is64Bit ? currentContentFinderConditionSignature32 : currentContentFinderConditionSignature64;
+            int[] serverTimeOffset = !Is64Bit ? serverTimeOffset32 : serverTimeOffset64;
+            int[] chatLogStartOffset = !Is64Bit ? chatLogStartOffset32 : chatLogStartOffset64;
+            int[] chatLogTailOffset = !Is64Bit ? chatLogTailOffset32 : chatLogTailOffset64;
+            int[] serverIdOffset = !Is64Bit ? serverIdOffset32 : serverIdOffset64;
+            int targetOffset = !Is64Bit ? targetOffset32 : targetOffset64;
+            //int charmapOffset = !Is64Bit ? charmapOffset32 : charmapOffset64;
+            int contentFinderConditionOffset = !Is64Bit ? contentFinderConditionOffset32 : contentFinderConditionOffset64;
+            int lastFailedCommandOffset = !Is64Bit ? lastFailedCommandOffset32 : lastFailedCommandOffset64;
 
             List<string> fail = new List<string>();
 
-            bool bRIP = _mode == FFXIVClientMode.FFXIV_64;
+            bool bRIP = Is64Bit;
 
             // CHARMAP
             List<IntPtr> list = SigScan(charmapSignature, 0, bRIP);
@@ -344,7 +346,7 @@ namespace FFXIV_GameSense
             }
             if (list.Count == 1)
             {
-                currentContentFinderConditionAddress = list[0];
+                currentContentFinderConditionAddress = list[0] + currentContentFinderConditionOffset;
             }
             if (currentContentFinderConditionAddress == IntPtr.Zero)
             {
@@ -423,15 +425,15 @@ namespace FFXIV_GameSense
             return new ContentFinder
             {
                 ContentFinderConditionID = BitConverter.ToUInt16(ba, 0),
-                State = (ContentFinderState)ba[_mode == FFXIVClientMode.FFXIV_64 ? 0x71 : 0x69],
-                RouletteID = ba[_mode == FFXIVClientMode.FFXIV_64 ? 0x76 : 0x6E],
+                State = (ContentFinderState)ba[Is64Bit ? 0x71 : 0x69],
+                RouletteID = ba[Is64Bit ? 0x76 : 0x6E],
             };
         }
 
         internal List<ChatMessage> ReadChatLogBackwards(uint count = 1000, Predicate<ChatMessage> filter = null, Predicate<ChatMessage> stopOn = null)
         {
             var ChatLog = new List<ChatMessage>();
-            ulong length = ((_mode == FFXIVClientMode.FFXIV_64) ? GetUInt64(chatLogTailAddress) : GetUInt32(chatLogTailAddress)) - (ulong)chatLogStartAddress.ToInt64();
+            ulong length = (Is64Bit ? GetUInt64(chatLogTailAddress) : GetUInt32(chatLogTailAddress)) - (ulong)chatLogStartAddress.ToInt64();
             byte[] ws = GetByteArray(chatLogStartAddress, (uint)length);
             int currentStart = ws.Length;
             int currentEnd = ws.Length;
@@ -460,9 +462,9 @@ namespace FFXIV_GameSense
             await TryInject();
             if (msg.Last() != 0x00)
                 msg = msg.Concat(new byte[] { 0x00 }).ToArray();
-            ulong tail = (_mode == FFXIVClientMode.FFXIV_64) ? GetUInt64(chatLogTailAddress) : GetUInt32(chatLogTailAddress);
+            ulong tail = Is64Bit ? GetUInt64(chatLogTailAddress) : GetUInt32(chatLogTailAddress);
             NativeMethods.WriteProcessMemory(Process.Handle, (IntPtr)tail, msg, new IntPtr(msg.Length), out uint written);
-            if (_mode == FFXIVClientMode.FFXIV_64)
+            if (Is64Bit)
                 NativeMethods.WriteProcessMemory(Process.Handle, chatLogTailAddress, BitConverter.GetBytes(tail + Convert.ToUInt64(msg.Length)), new IntPtr(sizeof(ulong)), out written);
             else
                 NativeMethods.WriteProcessMemory(Process.Handle, chatLogTailAddress, BitConverter.GetBytes(tail + Convert.ToUInt32(msg.Length)), new IntPtr(sizeof(uint)), out written);
@@ -473,8 +475,8 @@ namespace FFXIV_GameSense
         //Something in here throws, on Win10, it gets "caught" but ... ?
         private async Task TryInject()
         {
-            string dllfile = (_mode == FFXIVClientMode.FFXIV_32) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Hunt.dll") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Hunt_x64.dll");
-            byte[] ba = (_mode == FFXIVClientMode.FFXIV_32) ? Properties.Resources.Hunt : Properties.Resources.Hunt_x64;
+            string dllfile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, !Is64Bit ? "Hunt.dll" : "Hunt_x64.dll");
+            byte[] ba = !Is64Bit ? Properties.Resources.Hunt : Properties.Resources.Hunt_x64;
             //not written already, or old version
             if (!File.Exists(dllfile) || !File.ReadAllBytes(dllfile).SequenceEqual(ba))
             {
@@ -486,7 +488,7 @@ namespace FFXIV_GameSense
             }
             if (!PersistentNamedPipeServer.Instance.IsConnected)
             {
-                await NativeMethods.InjectDLL(Process, dllfile, _mode==FFXIVClientMode.FFXIV_32);
+                await NativeMethods.InjectDLL(Process, dllfile, !Is64Bit);
                 for(int w = 0; !PersistentNamedPipeServer.Instance.IsConnected && w < 1000; w += 100)
                 {
                     await Task.Delay(100);
@@ -539,11 +541,11 @@ namespace FFXIV_GameSense
         /// <returns>Final address</returns>
         private IntPtr ResolvePointerPath(IntPtr address, int[] offsets)
         {
-            ulong bytes = (_mode == FFXIVClientMode.FFXIV_64) ? GetUInt64(address) : GetUInt32(address);
+            ulong bytes = Is64Bit ? GetUInt64(address) : GetUInt32(address);
             foreach (int offset in offsets)
             {
                 address = IntPtr.Add((IntPtr)bytes, offset);
-                bytes = (_mode == FFXIVClientMode.FFXIV_64) ? GetUInt64(address) : GetUInt32(address);
+                bytes = Is64Bit ? GetUInt64(address) : GetUInt32(address);
             }
             return address;
         }
@@ -562,7 +564,7 @@ namespace FFXIV_GameSense
             byte[] source = GetByteArray(targetAddress, 128);
             unsafe
             {
-                if (_mode == FFXIVClientMode.FFXIV_64)
+                if (Is64Bit)
                 {
                     fixed (byte* p = source) address = new IntPtr(*(long*)p);
                 }
@@ -584,7 +586,7 @@ namespace FFXIV_GameSense
         public Combatant GetSelfCombatant()
         {
             Combatant self = null;
-            IntPtr address = (_mode == FFXIVClientMode.FFXIV_64) ? (IntPtr)GetUInt64(charmapAddress) : (IntPtr)GetUInt32(charmapAddress);
+            IntPtr address = Is64Bit ? (IntPtr)GetUInt64(charmapAddress) : (IntPtr)GetUInt32(charmapAddress);
             if (address.ToInt64() > 0)
             {
                 byte[] source = GetByteArray(address, 0x3F40);
@@ -656,19 +658,19 @@ namespace FFXIV_GameSense
 
         internal List<FATE> GetFateList()
         {
-            IntPtr liststart = ResolvePointerPath(fateListAddress, (_mode == FFXIVClientMode.FFXIV_64) ? fateListOffset64 : fateListOffset32);
+            IntPtr liststart = ResolvePointerPath(fateListAddress, Is64Bit ? fateListOffset64 : fateListOffset32);
             const byte maxFATEs = 8;
             List<IntPtr> fatePtrs = new List<IntPtr>(maxFATEs);
             List<FATE> fates = new List<FATE>(maxFATEs);
-            var size = (_mode == FFXIVClientMode.FFXIV_64) ? 8 * maxFATEs : 4 * maxFATEs;
+            var size = Is64Bit ? 8 * maxFATEs : 4 * maxFATEs;
 
             for (int i = 0; i < size;)
             {
-                IntPtr ptr = (_mode == FFXIVClientMode.FFXIV_64) ? (IntPtr)GetUInt64(liststart, i) : (IntPtr)GetUInt32(liststart, i);
+                IntPtr ptr = Is64Bit ? (IntPtr)GetUInt64(liststart, i) : (IntPtr)GetUInt32(liststart, i);
                 if (ptr.Equals(IntPtr.Zero))
                     break;
                 fatePtrs.Add(ptr);
-                i += (_mode == FFXIVClientMode.FFXIV_64) ? 8 : 4;
+                i += Is64Bit ? 8 : 4;
             }
 
             var currentZone = GetZoneId();
@@ -692,13 +694,13 @@ namespace FFXIV_GameSense
                 ID = BitConverter.ToUInt16(ba, 0x18),
                 StartTimeEpoch = BitConverter.ToUInt32(ba, 0x20),
                 Duration = BitConverter.ToUInt16(ba, 0x28),
-                ReadName = GetStringFromBytes(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0xE2 : 0xAA),
-                State = (FATEState)ba[(_mode == FFXIVClientMode.FFXIV_64) ? 0x3AC : 0x2F4],
-                Progress = ba[(_mode == FFXIVClientMode.FFXIV_64) ? 0x3B3 : 0x2FB],
-                PosX = BitConverter.ToSingle(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x400 : 0x340),
-                PosZ = BitConverter.ToSingle(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x404 : 0x344),
-                PosY = BitConverter.ToSingle(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x408 : 0x348),
-                ZoneID = BitConverter.ToUInt16(ba, (_mode == FFXIVClientMode.FFXIV_64) ? 0x624 : 0x4F4)
+                ReadName = GetStringFromBytes(ba, Is64Bit ? 0xE2 : 0xAA),
+                State = (FATEState)ba[Is64Bit ? 0x3AC : 0x2F4],
+                Progress = ba[Is64Bit ? 0x3B3 : 0x2FB],
+                PosX = BitConverter.ToSingle(ba, Is64Bit ? 0x400 : 0x340),
+                PosZ = BitConverter.ToSingle(ba, Is64Bit ? 0x404 : 0x344),
+                PosY = BitConverter.ToSingle(ba, Is64Bit ? 0x408 : 0x348),
+                ZoneID = BitConverter.ToUInt16(ba, Is64Bit ? 0x624 : 0x4F4)
             };
             if (f.ID == 0 || f.Progress < 0 || f.Progress > 100 || !f.PosX.IsWithin(-1024, 1024) || !f.PosY.IsWithin(-1024,1024))
                 return null;
@@ -711,14 +713,14 @@ namespace FFXIV_GameSense
             uint num = 344;
             List<Combatant> result = new List<Combatant>();
 
-            uint sz = (_mode == FFXIVClientMode.FFXIV_64) ? (uint)8 : 4;
+            uint sz = Is64Bit ? (uint)8 : 4;
             byte[] source = GetByteArray(charmapAddress, sz * num);
             if (source == null || source.Length == 0) { return result; }
 
             for (int i = 0; i < num; i++)
             {
                 IntPtr p;
-                if (_mode == FFXIVClientMode.FFXIV_64)
+                if (Is64Bit)
                     fixed (byte* bp = source) p = new IntPtr(*(long*)&bp[i * sz]);
                 else
                     fixed (byte* bp = source) p = new IntPtr(*(int*)&bp[i * sz]);
@@ -767,21 +769,21 @@ namespace FFXIV_GameSense
                 {
                     //if(*(uint*)&p[0xE4]==2149253119)//necessary?
                     combatant.FateID = *(uint*)&p[0xE8];
-                    combatant.ContentID = (_mode == FFXIVClientMode.FFXIV_64) ? *(ushort*)&p[0x16D8] : *(ushort*)&p[0x1380];
+                    combatant.ContentID = Is64Bit ? *(ushort*)&p[0x16D8] : *(ushort*)&p[0x1380];
                 }
                 else
                     combatant.FateID = combatant.ContentID = 0;
 
-                offset = (_mode == FFXIVClientMode.FFXIV_64) ? 0x1D8 : 0x1C8;
+                offset = Is64Bit ? 0x1D8 : 0x1C8;
                 combatant.TargetID = *(uint*)&p[offset];
                 if (combatant.TargetID == 3758096384u)
                 {
-                    combatant.TargetID = (_mode == FFXIVClientMode.FFXIV_64) ? *(uint*)&p[0x990] : *(uint*)&p[0x9D8];
+                    combatant.TargetID = Is64Bit ? *(uint*)&p[0x990] : *(uint*)&p[0x9D8];
                 }
 
                 if (combatant.Type == ObjectType.PC || combatant.Type == ObjectType.Monster)
                 {
-                    offset = (_mode == FFXIVClientMode.FFXIV_64) ? 0x16F8 : 0x13A0;
+                    offset = Is64Bit ? 0x16F8 : 0x13A0;
                     combatant.Job = (JobEnum)p[offset + 0x40];
                     combatant.Level = p[offset + 0x42];
                     combatant.CurrentHP = *(uint*)&p[offset + 0x8];
@@ -795,7 +797,7 @@ namespace FFXIV_GameSense
                     combatant.CurrentCP = *(ushort*)&p[offset + 0x1E];
                     combatant.MaxCP = *(ushort*)&p[offset + 0x20];
 
-                    offset = (_mode == FFXIVClientMode.FFXIV_64) ? offset + 0xC0 : offset + 0xA4;
+                    offset = Is64Bit ? offset + 0xC0 : offset + 0xA4;
                     int countedStatusEffects = 0;
                     while (countedStatusEffects < 32)
                     {
@@ -999,7 +1001,7 @@ namespace FFXIV_GameSense
                                 item = new IntPtr(BitConverter.ToInt32(array2, num2 + array.Length + offset));
                                 item = new IntPtr(intPtr2.ToInt64() + num2 + array.Length + 4L + item.ToInt64());
                             }
-                            else if (_mode == FFXIVClientMode.FFXIV_64)
+                            else if (Is64Bit)
                             {
                                 item = new IntPtr(BitConverter.ToInt64(array2, num2 + array.Length + offset));
                                 item = new IntPtr(item.ToInt64());

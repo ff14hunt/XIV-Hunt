@@ -34,6 +34,7 @@ namespace XIVDB
     {
         private const string SquareBrauquetsRegex = @"\[(.*?)\]";
         private static readonly string[] lineEnding = new string[] { Environment.NewLine };
+        private static readonly ushort[] cnWorlds = new ushort[] { 1044, 1106, 1167, 1169 };
         internal const string HtmlTagsRegex = "<.*?>";
         private static Dictionary<ushort, FATEInfo> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort _)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => new FATEInfo(line));
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
@@ -42,7 +43,9 @@ namespace XIVDB
         private static bool ValidWorld(string s)
         {
             string[] col = s.Split(',');
-            return ushort.TryParse(col[0], out ushort _) && col[4] == "True" && col[3].Trim('"') != "INVALID";
+            if (!ushort.TryParse(col[0], out ushort id))
+                return false;
+            return cnWorlds.Contains(id) || (col[4] == "True" && col[3].Trim('"') != "INVALID");
         }
 
         internal static bool IsValidWorldID(ushort id) => WorldNames.ContainsKey(id);
@@ -107,9 +110,9 @@ namespace XIVDB
                 return string.Empty;
             else
             {
-                //JP does not have plural form
-                bool jp = Thread.CurrentThread.CurrentUICulture.Name == "ja-JP";
-                string result = lines[id].Split(',')[plural && !jp ? 3 : 1].Trim('"');
+                //JP && CN does not have plural form
+                plural = plural && !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN");
+                string result = lines[id].Split(',')[plural ? 3 : 1].Trim('"');
                 //DE has [a], [p] tags... gramatical stuff; discard them
                 if (Thread.CurrentThread.CurrentUICulture.Name == "de-DE")
                     result = Regex.Replace(result, SquareBrauquetsRegex, string.Empty);
@@ -121,8 +124,8 @@ namespace XIVDB
         {
             int i = 0;
             string[] lines = Resources.BNpcName.Split(lineEnding, StringSplitOptions.None).Skip(3).ToArray();
-            //JP does not have plural form
-            bool jp = Thread.CurrentThread.CurrentUICulture.Name == "ja-JP";
+            //JP & CN does not have plural form
+            bool noPlural = !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN");
             while (i < lines.Length - 1)
             {
                 string singular = lines[i].Split(',')[1].Trim('"');
@@ -134,7 +137,7 @@ namespace XIVDB
                     plural = Regex.Replace(plural, SquareBrauquetsRegex, string.Empty);
                 }
                 //FR and DE plural forms seem to have a lot of <SoftHyphen/> tags that need to be discarded
-                if (!jp)
+                if (!noPlural)
                     plural = plural.Replace("<SoftHyphen/>", string.Empty);
                 if (singular.Equals(Name, StringComparison.CurrentCultureIgnoreCase) || plural.Equals(Name, StringComparison.CurrentCultureIgnoreCase))
                 {

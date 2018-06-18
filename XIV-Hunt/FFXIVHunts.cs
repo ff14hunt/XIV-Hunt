@@ -280,6 +280,7 @@ namespace FFXIV_GameSense
             {
                 HuntsPutInChat.Clear();
             }
+            //use currentContentFinderCondition instead?
             if (Array.IndexOf(DCZones, thisZone) > -1 && Array.IndexOf(DCZones, lastZone) == -1 && Joined)
             {
                 LastShoutChatSync = (await JoinDCZone(thisZone)).ToUniversalTime();
