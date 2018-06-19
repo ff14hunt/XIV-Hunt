@@ -245,10 +245,10 @@ int32,str,byte,WorldDCGroupType,bit&01
 1025,"test2",0,"INVALID",False
 1040,"DiPingGuan",0,"INVALID",False
 1041,"MiWuShiDi",0,"INVALID",False
-1042,"LaNuoXiYa",0,"INVALID",False
-1043,"ZiShuiZhanQiao",0,"INVALID",False
-1044,"HuanYingQunDao",0,"INVALID",False
-1045,"MoDuNa",0,"INVALID",False
+1042,"拉诺西亚",0,"China",False
+1043,"紫水栈桥",0,"China",False
+1044,"幻影群岛",0,"China",False
+1045,"摩杜纳",0,"China",False
 1046,"MoShouLingYu",0,"INVALID",False
 1047,"FengMoDong",0,"INVALID",False
 1048,"TaiyangHaiAn",0,"INVALID",False
@@ -263,7 +263,7 @@ int32,str,byte,WorldDCGroupType,bit&01
 1057,"YiXiuJiaDe",0,"INVALID",False
 1058,"XueSongYuan",0,"INVALID",False
 1059,"YaoJingLing",0,"INVALID",False
-1060,"MengYaChi",0,"INVALID",False
+1060,"萌芽池",0,"China",False
 1061,"ZhiZhangXiaGu",0,"INVALID",False
 1062,"MiYueZhiTa",0,"INVALID",False
 1063,"MoLaBiWan",0,"INVALID",False
@@ -284,7 +284,7 @@ int32,str,byte,WorldDCGroupType,bit&01
 1078,"LongXiPuBu",0,"INVALID",False
 1079,"ShiWeiTa",0,"INVALID",False
 1080,"TongLingTongShan",0,"INVALID",False
-1081,"ShenYiZhiDi",0,"INVALID",False
+1081,"神意之地",0,"China",False
 1082,"ShiJiuDaQiao",0,"INVALID",False
 1083,"YongHengChuan",0,"INVALID",False
 1084,"HaiWuShaTan",0,"INVALID",False
@@ -309,7 +309,7 @@ int32,str,byte,WorldDCGroupType,bit&01
 1103,"YuanLingYouShu",0,"INVALID",False
 1104,"ShaZhongLuTing",0,"INVALID",False
 1105,"JieMeiQiu",0,"INVALID",False
-1106,"JingYuZhuangYuan",0,"INVALID",False
+1106,"静语庄园",0,"China",False
 1107,"ZuJiGu",0,"INVALID",False
 1108,"ShanHuTa",0,"INVALID",False
 1109,"HengDuanYa",0,"INVALID",False
@@ -370,9 +370,9 @@ int32,str,byte,WorldDCGroupType,bit&01
 1164,"Shenshengcaipansuo",0,"INVALID",False
 1165,"Bingtiangong",0,"INVALID",False
 1166,"Longchaoshendian",0,"INVALID",False
-1167,"HongYuHai",0,"INVALID",False
+1167,"红玉海",0,"China",False
 1168,"HuangJinGang",0,"INVALID",False
-1169,"YanXia",0,"INVALID",False
+1169,"延夏",0,"China",False
 1536,"contentstest1",0,"INVALID",False
 1537,"contentstest2",0,"INVALID",False
 1552,"sdocontents1",0,"INVALID",False

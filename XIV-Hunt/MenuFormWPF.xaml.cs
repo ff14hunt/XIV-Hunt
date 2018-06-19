@@ -167,6 +167,11 @@ namespace FFXIV_GameSense
 #if DEBUG
             if (AnyProblems())
                 return;
+            //var s = Program.mem.GetSelfCombatant();
+            //Debug.WriteLine($"{s.Name} ContentID: {s.ContentID} Job: {s.Job} Level: {s.Level} CurrentHP: {s.CurrentHP}");
+            //var t = Program.mem.GetTargetCombatant();
+            //if(t != null)
+            //    Debug.WriteLine($"{t.Name} ContentID: {t.ContentID} Job: {t.Job} Level: {t.Level} CurrentHP: {t.CurrentHP}");
             HuntAndCFCheck();
 #else
             try

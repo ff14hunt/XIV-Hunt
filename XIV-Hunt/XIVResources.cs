@@ -34,7 +34,6 @@ namespace XIVDB
     {
         private const string SquareBrauquetsRegex = @"\[(.*?)\]";
         private static readonly string[] lineEnding = new string[] { Environment.NewLine };
-        private static readonly ushort[] cnWorlds = new ushort[] { 1044, 1106, 1167, 1169 };
         internal const string HtmlTagsRegex = "<.*?>";
         private static Dictionary<ushort, FATEInfo> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort _)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => new FATEInfo(line));
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
@@ -43,12 +42,12 @@ namespace XIVDB
         private static bool ValidWorld(string s)
         {
             string[] col = s.Split(',');
-            if (!ushort.TryParse(col[0], out ushort id))
-                return false;
-            return cnWorlds.Contains(id) || (col[4] == "True" && col[3].Trim('"') != "INVALID");
+            return ushort.TryParse(col[0], out ushort _) && (col[4] == "True" && col[3].Trim('"') != "INVALID" || col[3].Trim('"') == "China");
         }
 
         internal static bool IsValidWorldID(ushort id) => WorldNames.ContainsKey(id);
+
+        internal static bool IsChineseWorld(ushort id) => id > 1023 && id < 1170;
 
         internal static string GetContentFinderName(ushort id)
         {

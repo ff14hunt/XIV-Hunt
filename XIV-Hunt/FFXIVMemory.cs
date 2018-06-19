@@ -67,6 +67,7 @@ namespace FFXIV_GameSense
         private static readonly int[] fateListOffset32 = { 0x13A8, 0x0 };
         private static readonly int[] fateListOffset64 = { 0x16F8, 0x0 };
         private readonly FFXIVClientMode _mode;
+        private CombatantOffsets combatantOffsets;
 
         private IntPtr charmapAddress = IntPtr.Zero;
         private IntPtr targetAddress = IntPtr.Zero;
@@ -242,9 +243,6 @@ namespace FFXIV_GameSense
             {
                 fail.Add(nameof(charmapAddress));
             }
-            Combatant c = GetSelfCombatant();
-            if (c == null)//No need scan for the remaining signatures
-                throw new MemoryScanException(string.Format(Properties.Resources.FailedToSigScan, nameof(charmapAddress)));
 
             // TARGET
             list = SigScan(targetSignature, 0, bRIP);
@@ -395,10 +393,13 @@ namespace FFXIV_GameSense
             Debug.WriteLine(nameof(currentContentFinderConditionAddress) + ": 0x{0:X}", currentContentFinderConditionAddress.ToInt64());
             Debug.WriteLine(nameof(lastFailedCommandAddress) + ": 0x{0:X}", lastFailedCommandAddress.ToInt64());
 
-            if (c != null)
-            {
+            combatantOffsets = new CombatantOffsets(Is64Bit, GameResources.IsChineseWorld(GetServerId()));
+
+            Combatant c = GetSelfCombatant();
+            if (c == null)
+                throw new MemoryScanException(string.Format(Properties.Resources.FailedToSigScan, nameof(charmapAddress)));
+            else
                 Debug.WriteLine("MyCharacter: '{0}' ({1})", c.Name, c.ID);
-            }
 
             if (fail.Any())
             {
@@ -748,56 +749,53 @@ namespace FFXIV_GameSense
             Combatant combatant = new Combatant();
             fixed (byte* p = source)
             {
-                combatant.Name = GetStringFromBytes(source, 0x30);
-                combatant.ID = *(uint*)&p[0x74];
-                combatant.OwnerID = *(uint*)&p[0x84];
+                combatant.Name = GetStringFromBytes(source, combatantOffsets.Name);
+                combatant.ID = *(uint*)&p[combatantOffsets.ID];
+                combatant.OwnerID = *(uint*)&p[combatantOffsets.OwnerID];
                 if (combatant.OwnerID == 3758096384u)
                 {
                     combatant.OwnerID = 0u;
                 }
-                combatant.Type = (ObjectType)p[0x8C];//0x8A
-                combatant.EffectiveDistance = p[0x92];
+                combatant.Type = (ObjectType)p[combatantOffsets.Type];
+                combatant.EffectiveDistance = p[combatantOffsets.EffectiveDistance];
 
-                offset = 0xA0;
-                combatant.PosX = *(float*)&p[offset];
-                combatant.PosZ = *(float*)&p[offset + 4];
-                combatant.PosY = *(float*)&p[offset + 8];
-                combatant.Heading = *(float*)&p[offset + 16];
+                combatant.PosX = *(float*)&p[combatantOffsets.PosX];
+                combatant.PosZ = *(float*)&p[combatantOffsets.PosZ];
+                combatant.PosY = *(float*)&p[combatantOffsets.PosY];
+                combatant.Heading = *(float*)&p[combatantOffsets.Heading];
 
 
                 if (combatant.Type == ObjectType.Monster)
                 {
                     //if(*(uint*)&p[0xE4]==2149253119)//necessary?
-                    combatant.FateID = *(uint*)&p[0xE8];
-                    combatant.ContentID = Is64Bit ? *(ushort*)&p[0x16D8] : *(ushort*)&p[0x1380];
+                    combatant.FateID = *(uint*)&p[combatantOffsets.FateID];
+                    combatant.ContentID = *(ushort*)&p[combatantOffsets.ContentID];
                 }
                 else
                     combatant.FateID = combatant.ContentID = 0;
 
-                offset = Is64Bit ? 0x1D8 : 0x1C8;
-                combatant.TargetID = *(uint*)&p[offset];
+                combatant.TargetID = *(uint*)&p[combatantOffsets.TargetID];
                 if (combatant.TargetID == 3758096384u)
                 {
-                    combatant.TargetID = Is64Bit ? *(uint*)&p[0x990] : *(uint*)&p[0x9D8];
+                    combatant.TargetID = *(uint*)&p[combatantOffsets.TargetID2];
                 }
 
                 if (combatant.Type == ObjectType.PC || combatant.Type == ObjectType.Monster)
                 {
-                    offset = Is64Bit ? 0x16F8 : 0x13A0;
-                    combatant.Job = (JobEnum)p[offset + 0x40];
-                    combatant.Level = p[offset + 0x42];
-                    combatant.CurrentHP = *(uint*)&p[offset + 0x8];
-                    combatant.MaxHP = *(uint*)&p[offset + 0xC];
-                    combatant.CurrentMP = *(uint*)&p[offset + 0x10];
-                    combatant.MaxMP = *(uint*)&p[offset + 0x14];
-                    combatant.CurrentTP = *(ushort*)&p[offset + 0x18];
+                    combatant.Job = (JobEnum)p[combatantOffsets.Job];
+                    combatant.Level = p[combatantOffsets.Level];
+                    combatant.CurrentHP = *(uint*)&p[combatantOffsets.CurrentHP];
+                    combatant.MaxHP = *(uint*)&p[combatantOffsets.MaxHP];
+                    combatant.CurrentMP = *(uint*)&p[combatantOffsets.CurrentMP];
+                    combatant.MaxMP = *(uint*)&p[combatantOffsets.MaxMP];
+                    combatant.CurrentTP = *(ushort*)&p[combatantOffsets.CurrentTP];
                     combatant.MaxTP = 1000;
-                    combatant.CurrentGP = *(ushort*)&p[offset + 0x1A];
-                    combatant.MaxGP = *(ushort*)&p[offset + 0x1C];
-                    combatant.CurrentCP = *(ushort*)&p[offset + 0x1E];
-                    combatant.MaxCP = *(ushort*)&p[offset + 0x20];
+                    combatant.CurrentGP = *(ushort*)&p[combatantOffsets.CurrentGP];
+                    combatant.MaxGP = *(ushort*)&p[combatantOffsets.MaxGP];
+                    combatant.CurrentCP = *(ushort*)&p[combatantOffsets.CurrentCP];
+                    combatant.MaxCP = *(ushort*)&p[combatantOffsets.MaxCP];
 
-                    offset = Is64Bit ? offset + 0xC0 : offset + 0xA4;
+                    offset = combatantOffsets.StatusEffectsStart;
                     int countedStatusEffects = 0;
                     while (countedStatusEffects < 32)
                     {
@@ -1022,6 +1020,79 @@ namespace FFXIV_GameSense
         }
 
         public ushort GetZoneId() => BitConverter.ToUInt16(GetByteArray(zoneIdAddress, 2), 0);
+    }
+
+    internal class CombatantOffsets
+    {
+        internal int Name { get; private set; }
+        internal int ID { get; private set; }
+        internal int OwnerID { get; private set; }
+        internal int Type { get; private set; }
+        internal int EffectiveDistance { get; private set; }
+        internal int PosX { get; private set; }
+        internal int PosZ { get; private set; }
+        internal int PosY { get; private set; }
+        internal int Heading { get; private set; }
+        internal int FateID { get; private set; }
+        internal int ContentID { get; private set; }
+        internal int TargetID { get; private set; }
+        internal int TargetID2 { get; private set; }
+        internal int Job { get; private set; }
+        internal int Level { get; private set; }
+        internal int CurrentHP { get; private set; }
+        internal int MaxHP { get; private set; }
+        internal int CurrentMP { get; private set; }
+        internal int MaxMP { get; private set; }
+        internal int CurrentTP { get; private set; }
+        internal int CurrentGP { get; private set; }
+        internal int MaxGP { get; private set; }
+        internal int CurrentCP { get; private set; }
+        internal int MaxCP { get; private set; }
+        internal int StatusEffectsStart { get; private set; }
+
+        public CombatantOffsets(bool Is64Bit, bool CN = false, bool KR = false)
+        {
+            Name = 0x30;
+            ID = 0x74;
+            OwnerID = 0x84;
+            Type = 0x8C;
+            EffectiveDistance = 0x92;
+            PosX = 0xA0;
+            PosZ = PosX + 0x4;
+            PosY = PosZ + 0x4;
+            Heading = PosZ + 0x8;
+            FateID = 0xE8;
+            TargetID = Is64Bit ? 0x1D8 : 0x1C8;
+            TargetID2 = Is64Bit ? 0x990 : 0x9D8;
+            int offset;
+            if (CN)
+            {
+                ContentID = Is64Bit ? 0x1694 : 0x136C;
+                offset = Is64Bit ? 0x16B0 : 0x1388;
+                Job = offset + 0x3E;
+                Level = offset + 0x40;
+            }
+            else
+            {
+                ContentID = Is64Bit ? 0x16D8 : 0x1380;
+                offset = Is64Bit ? 0x16F8 : 0x13A0;
+                Job = offset + 0x40;
+                Level = offset + 0x42;
+            }            
+            CurrentHP = offset + 0x8;
+            MaxHP = offset + 0xC;
+            CurrentMP = offset + 0x10;
+            MaxMP = offset + 0x14;
+            CurrentTP = offset + 0x18;
+            CurrentGP = offset + 0x1A;
+            MaxGP = offset + 0x1C;
+            CurrentCP = offset + 0x1E;
+            MaxCP = offset + 0x20;
+            if (CN)
+                StatusEffectsStart = Is64Bit ? offset + 0xB8 : offset + 0x94;
+            else
+                StatusEffectsStart = Is64Bit ? offset + 0xC0 : offset + 0xA4;
+        }
     }
 
     internal class CommandEventArgs : EventArgs

@@ -30,7 +30,11 @@ namespace FFXIV_GameSense.UI
         public LogInForm(ushort wid)
         {
             InitializeComponent();
-            var text = string.Format($"A {XIVHuntNet} account, with a verified character on {{0}}, is required.", XIVDB.GameResources.GetWorldName(wid));
+            string text;
+            if (XIVDB.GameResources.IsChineseWorld(wid))
+                text = string.Format($"A {XIVHuntNet} account, is required.", XIVDB.GameResources.GetWorldName(wid));
+            else
+                text = string.Format($"A {XIVHuntNet} account, with a verified character on {{0}}, is required.", XIVDB.GameResources.GetWorldName(wid));
             var link = new Hyperlink(new Run(XIVHuntNet))
             {
                 NavigateUri = new Uri(AccountLoginUrl),
