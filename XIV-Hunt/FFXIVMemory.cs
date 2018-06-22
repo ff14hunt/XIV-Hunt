@@ -240,10 +240,27 @@ namespace FFXIV_GameSense
             {
                 fail.Add(nameof(serverIdAddress));
             }
-            if(GameResources.IsKoreanWorld(GetServerId()))
+
+            string regionpostpend = " game detected.";
+            if (GameResources.IsChineseWorld(GetServerId()))
             {
+                LogHost.Default.Info(GameRegion.Chinese.ToString() + regionpostpend);
+                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Chinese);
+                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Chinese);
+            }
+            else if (GameResources.IsKoreanWorld(GetServerId()))
+            {
+                LogHost.Default.Info(GameRegion.Korean.ToString() + regionpostpend);
                 serverTimeOffset[2] = Is64Bit ? 0x684 : 0x52C ;
                 contentFinderConditionOffset -= Is64Bit ? 0x8 : 0xC;
+                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Korean);
+                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Korean);
+            }
+            else
+            {
+                LogHost.Default.Info(GameRegion.Global.ToString() + regionpostpend);
+                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Global);
+                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Global);
             }
 
             // CHARMAP
@@ -394,22 +411,6 @@ namespace FFXIV_GameSense
             Debug.WriteLine(nameof(contentFinderConditionAddress) + ": 0x{0:X}", contentFinderConditionAddress.ToInt64());
             Debug.WriteLine(nameof(currentContentFinderConditionAddress) + ": 0x{0:X}", currentContentFinderConditionAddress.ToInt64());
             Debug.WriteLine(nameof(lastFailedCommandAddress) + ": 0x{0:X}", lastFailedCommandAddress.ToInt64());
-
-            if (GameResources.IsChineseWorld(GetServerId()))
-            {
-                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Chinese);
-                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Chinese);
-            }
-            else if (GameResources.IsKoreanWorld(GetServerId()))
-            {
-                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Korean);
-                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Korean);
-            }
-            else
-            {
-                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Global);
-                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Global);
-            }
 
             Combatant c = GetSelfCombatant();
             if (c == null)
