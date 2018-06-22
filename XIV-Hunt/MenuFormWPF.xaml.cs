@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Threading;
 using XIVDB;
 
@@ -167,11 +166,6 @@ namespace FFXIV_GameSense
 #if DEBUG
             if (AnyProblems())
                 return;
-            //var s = Program.mem.GetSelfCombatant();
-            //Debug.WriteLine($"{s.Name} ContentID: {s.ContentID} Job: {s.Job} Level: {s.Level} CurrentHP: {s.CurrentHP}");
-            //var t = Program.mem.GetTargetCombatant();
-            //if(t != null)
-            //    Debug.WriteLine($"{t.Name} ContentID: {t.ContentID} Job: {t.Job} Level: {t.Level} CurrentHP: {t.CurrentHP}");
             HuntAndCFCheck();
 #else
             try

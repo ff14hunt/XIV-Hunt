@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FailedToSigScan" xml:space="preserve">
+    <value>Failed to signature scan ({0}).</value>
+  </data>
+  <data name="FATEReportReceived" xml:space="preserve">
+    <value>[{0}] Report received: {1} - {2}%</value>
+  </data>
+  <data name="NoSoundAlert" xml:space="preserve">
+    <value>No sound alert</value>
+  </data>
+  <data name="ReportReceived" xml:space="preserve">
+    <value>[{0}] Report received: {1}</value>
+  </data>
+  <data name="FATEMsgInstance" xml:space="preserve">
+    <value> {0} Instance: {1}</value>
+  </data>
+  <data name="FATEPrcTimeRemaining" xml:space="preserve">
+    <value>{0}% with {1}:{2} remaining</value>
+    <comment>Time remaining</comment>
+  </data>
+  <data name="FormConnectedTo" xml:space="preserve">
+    <value>Connected to {0}</value>
+  </data>
+  <data name="HuntInstance" xml:space="preserve">
+    <value> Instance {0}</value>
+  </data>
+  <data name="HuntMsg" xml:space="preserve">
+    <value>Rank {0}: {1} @ &lt;pos&gt;</value>
+  </data>
+  <data name="HuntMsgKilled" xml:space="preserve">
+    <value> was just killed.</value>
+  </data>
+  <data name="LKIHours" xml:space="preserve">
+    <value> {0} hours ago</value>
+  </data>
+  <data name="LKIHoursMinutes" xml:space="preserve">
+    <value> {0} hours and {1} minutes ago</value>
+  </data>
+  <data name="LKIHuntKilled" xml:space="preserve">
+    <value>{0} was killed </value>
+  </data>
+  <data name="LKIHuntNotReported" xml:space="preserve">
+    <value>{0} has not been reported yet.</value>
+  </data>
+  <data name="LKILastSeenAt" xml:space="preserve">
+    <value>{0} was last seen at </value>
+  </data>
+  <data name="LKIMinutes" xml:space="preserve">
+    <value> {0} minutes ago</value>
+  </data>
+  <data name="PreparationState" xml:space="preserve">
+    <value>Preparation state.</value>
+  </data>
+  <data name="FATEMsg" xml:space="preserve">
+    <value>FATE: {0} @</value>
+  </data>
+  <data name="FormFATEPlural" xml:space="preserve">
+    <value>{0} FATEs selected</value>
+  </data>
+  <data name="FormFATESingle" xml:space="preserve">
+    <value>{0} FATE selected</value>
+  </data>
+  <data name="FormNoProcess" xml:space="preserve">
+    <value>Could not find process or world. Please start {0} and log into a character.</value>
+  </data>
+  <data name="FormReadingSID" xml:space="preserve">
+    <value>Reading Server ID</value>
+  </data>
+  <data name="LKICanBeFoundAt" xml:space="preserve">
+    <value>{0} can be found at </value>
+  </data>
+  <data name="GroupBoxHeader" xml:space="preserve">
+    <value>Report the following in the chatbox</value>
+  </data>
+  <data name="RestartForChanges" xml:space="preserve">
+    <value>Restart required for changes to take effect</value>
+  </data>
+  <data name="FormSRanks" xml:space="preserve">
+    <value>Rank S</value>
+  </data>
+  <data name="FormARanks" xml:space="preserve">
+    <value>Rank A</value>
+  </data>
+  <data name="FormBRanks" xml:space="preserve">
+    <value>Rank B</value>
+  </data>
+  <data name="FormMinimizeToTray" xml:space="preserve">
+    <value>Minimize to tray</value>
+  </data>
+  <data name="BNpcName" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BNpcName.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="FormARRAbrv" xml:space="preserve">
+    <value>ARR</value>
+  </data>
+  <data name="FormHWAbrv" xml:space="preserve">
+    <value>HW</value>
+  </data>
+  <data name="FormSBAbrv" xml:space="preserve">
+    <value>SB</value>
+  </data>
+  <data name="TerritoryType" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TerritoryType.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="FormSFDialogTitle" xml:space="preserve">
+    <value>Choose a sound file to be played when a report is written to chat</value>
+  </data>
+  <data name="FormSFDialogFilter" xml:space="preserve">
+    <value>Sound files</value>
+  </data>
+  <data name="FormSFCMNewAlert" xml:space="preserve">
+    <value>Choose new alert...</value>
+  </data>
+  <data name="FormFATEs" xml:space="preserve">
+    <value>FATEs:</value>
+  </data>
+  <data name="StartWithWindows" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="OpenSettingsToolTip" xml:space="preserve">
+    <value>Open Settings</value>
+  </data>
+  <data name="SettingsForm" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="StartMinimized" xml:space="preserve">
+    <value>Start minimized</value>
+  </data>
+  <data name="LKIFATE" xml:space="preserve">
+    <value>{0} was last reported {1} hours and {2} minutes ago at</value>
+  </data>
+  <data name="LKIFATEDays" xml:space="preserve">
+    <value>{0} was last reported {1} days ago.</value>
+  </data>
+  <data name="FormTrackFATEAfterQuery" xml:space="preserve">
+    <value>/hunt FATEName enables announcements of said FATE</value>
+  </data>
+  <data name="FormDutyRoulette" xml:space="preserve">
+    <value>Duty Roulette results</value>
+  </data>
+  <data name="DutyRouletteResult" xml:space="preserve">
+    <value>Duty Roulette result: {0}</value>
+  </data>
+  <data name="FormFailedToJoin" xml:space="preserve">
+    <value>Could not join world. Ensure that {0} is verified on XIVHunt.net</value>
+  </data>
+  <data name="FormAnnounceOncePerHunt" xml:space="preserve">
+    <value>Only once; when found and dead</value>
+  </data>
+  <data name="FormForgetOnZoneChange" xml:space="preserve">
+    <value>Forget on zone change</value>
+  </data>
+  <data name="FormNoAnnouncementsInContent" xml:space="preserve">
+    <value>Do not announce while in content (DF)</value>
+  </data>
+  <data name="PerformDirectoryNotExists" xml:space="preserve">
+    <value>Perform directory was not found. Please specify one in XIV-Hunt settings</value>
+  </data>
+  <data name="FormConnectedToCount" xml:space="preserve">
+    <value>Connected to {0} with {1} other users</value>
+  </data>
+  <data name="OpenLogToolTip" xml:space="preserve">
+    <value>Open Log Viewer</value>
+  </data>
+  <data name="FATEListViewName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FATEListViewAnnounce" xml:space="preserve">
+    <value>Announce</value>
+  </data>
+  <data name="FATEListViewLevel" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="FATEListViewIcon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="FATEListViewZones" xml:space="preserve">
+    <value>Zones</value>
+  </data>
+</root>

@@ -522,10 +522,10 @@ int32,str,byte,WorldDCGroupType,bit&01
 2072,"KrNewPublic3",0,"INVALID",False
 2073,"KrNewPublic4",0,"INVALID",False
 2074,"KrNewPublic5",0,"INVALID",False
-2075,"KrCarbuncle",0,"INVALID",False
-2076,"KrChocobo",0,"INVALID",False
-2077,"KrMoogle",0,"INVALID",False
-2078,"KrTonberry",0,"INVALID",False
+2075,"카벙클",0,"Korea",False
+2076,"초코보",0,"Korea",False
+2077,"모그리",0,"Korea",False
+2078,"톤베리",0,"Korea",False
 2079,"KrCaitsith",0,"INVALID",False
 2560,"koreacontents1",0,"INVALID",False
 2561,"koreacontents2",0,"INVALID",False

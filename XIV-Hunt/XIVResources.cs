@@ -42,12 +42,14 @@ namespace XIVDB
         private static bool ValidWorld(string s)
         {
             string[] col = s.Split(',');
-            return ushort.TryParse(col[0], out ushort _) && (col[4] == "True" && col[3].Trim('"') != "INVALID" || col[3].Trim('"') == "China");
+            return ushort.TryParse(col[0], out ushort _) && (col[4] == "True" && col[3].Trim('"') != "INVALID" || col[3].Trim('"') == "China" || col[3].Trim('"') == "Korea");
         }
 
         internal static bool IsValidWorldID(ushort id) => WorldNames.ContainsKey(id);
 
         internal static bool IsChineseWorld(ushort id) => id > 1023 && id < 1170;
+
+        internal static bool IsKoreanWorld(ushort id) => id > 2074 && id < 2079;
 
         internal static string GetContentFinderName(ushort id)
         {
@@ -110,7 +112,7 @@ namespace XIVDB
             else
             {
                 //JP && CN does not have plural form
-                plural = plural && !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN");
+                plural = plural && !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN" || Thread.CurrentThread.CurrentUICulture.Name == "ko-KR");
                 string result = lines[id].Split(',')[plural ? 3 : 1].Trim('"');
                 //DE has [a], [p] tags... gramatical stuff; discard them
                 if (Thread.CurrentThread.CurrentUICulture.Name == "de-DE")
@@ -124,7 +126,7 @@ namespace XIVDB
             int i = 0;
             string[] lines = Resources.BNpcName.Split(lineEnding, StringSplitOptions.None).Skip(3).ToArray();
             //JP & CN does not have plural form
-            bool noPlural = !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN");
+            bool noPlural = !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN" || Thread.CurrentThread.CurrentUICulture.Name == "ko-KR");
             while (i < lines.Length - 1)
             {
                 string singular = lines[i].Split(',')[1].Trim('"');
