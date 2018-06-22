@@ -107,7 +107,7 @@
                 <GridView ColumnHeaderContainerStyle="{StaticResource headercells}">
                     <GridViewColumn>
                         <GridViewColumn.Header>
-                            <GridViewColumnHeader Content="Announce" Tag="Announce"/>
+                            <GridViewColumnHeader Content="{x:Static properties:Resources.FATEListViewAnnounce}" Tag="Announce"/>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -117,7 +117,7 @@
                     </GridViewColumn>
                     <GridViewColumn>
                         <GridViewColumn.Header>
-                            <GridViewColumnHeader Content="Level" Tag="ClassJobLevel"/>
+                            <GridViewColumnHeader Content="{x:Static properties:Resources.FATEListViewLevel}" Tag="ClassJobLevel"/>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -127,7 +127,7 @@
                     </GridViewColumn>
                     <GridViewColumn>
                         <GridViewColumn.Header>
-                            <GridViewColumnHeader Content="Icon" Tag="Icon"/>
+                            <GridViewColumnHeader Content="{x:Static properties:Resources.FATEListViewIcon}" Tag="Icon"/>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -137,7 +137,7 @@
                     </GridViewColumn>
                     <GridViewColumn>
                         <GridViewColumn.Header>
-                            <GridViewColumnHeader Content="Name" Tag="Name"/>
+                            <GridViewColumnHeader Content="{x:Static properties:Resources.FATEListViewName}" Tag="Name"/>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -147,7 +147,7 @@
                     </GridViewColumn>
                     <GridViewColumn Width="170">
                         <GridViewColumn.Header>
-                            <GridViewColumnHeader Content="Zones" Tag="Zones"/>
+                            <GridViewColumnHeader Content="{x:Static properties:Resources.FATEListViewZones}" Tag="Zones"/>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

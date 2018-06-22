@@ -180,6 +180,51 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Announce.
+        /// </summary>
+        public static string FATEListViewAnnounce {
+            get {
+                return ResourceManager.GetString("FATEListViewAnnounce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icon.
+        /// </summary>
+        public static string FATEListViewIcon {
+            get {
+                return ResourceManager.GetString("FATEListViewIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string FATEListViewLevel {
+            get {
+                return ResourceManager.GetString("FATEListViewLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string FATEListViewName {
+            get {
+                return ResourceManager.GetString("FATEListViewName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zones.
+        /// </summary>
+        public static string FATEListViewZones {
+            get {
+                return ResourceManager.GetString("FATEListViewZones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FATE: {0} @.
         /// </summary>
         public static string FATEMsg {

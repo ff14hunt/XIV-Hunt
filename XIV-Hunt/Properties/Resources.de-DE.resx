@@ -286,4 +286,19 @@
   <data name="OpenLogToolTip" xml:space="preserve">
     <value>Open Log Viewer</value>
   </data>
+  <data name="FATEListViewName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FATEListViewAnnounce" xml:space="preserve">
+    <value>Announce</value>
+  </data>
+  <data name="FATEListViewLevel" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="FATEListViewIcon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="FATEListViewZones" xml:space="preserve">
+    <value>Zones</value>
+  </data>
 </root>
