@@ -46,17 +46,17 @@ namespace FFXIV_GameSense
             if (IsConnecting)
                 return false;
             IsConnecting = true;
-            while(!Connected)
+            while (!Connected)
             {
                 try
                 {
-                    w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = "Connecting..." ));
+                    w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = "Connecting...");
                     await Connection.StartAsync();
                     Connected = true;
                 }
                 catch (Exception e)
                 {
-                    if(e is HttpRequestException && e.Message.Contains("401"))
+                    if (e is HttpRequestException && e.Message.Contains("401"))
                     {
                         LogHost.Default.WarnException("Failed to connect.", e);
                         await Connection.DisposeAsync();
@@ -78,11 +78,11 @@ namespace FFXIV_GameSense
                         LogHost.Default.InfoException(string.Format(msg, 5), e);
                         while (wtime > 0)
                         {
-                            w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = string.Format(msg, wtime / 1000)));
+                            w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = string.Format(msg, wtime / 1000));
                             await Task.Delay(1000);
                             wtime -= 1000;
                         }
-                    }            
+                    }
                 }
             }
             IsConnecting = false;
@@ -94,7 +94,7 @@ namespace FFXIV_GameSense
             CookieContainer cc = null;
             if (!string.IsNullOrWhiteSpace(Settings.Default.Cookies))
                 cc = (CookieContainer)ByteArrayToObject(Convert.FromBase64String(Settings.Default.Cookies));
-            while(!TestCC(cc))
+            while (!TestCC(cc))
             {
                 var lif = new UI.LogInForm(sid);
                 if ((bool)lif.ShowDialog() && lif.receivedCookies.Count > 0)
@@ -115,7 +115,8 @@ namespace FFXIV_GameSense
             {
                 using (var response = (HttpWebResponse)request.GetResponse())
                     result = response.StatusCode == HttpStatusCode.OK;
-            } catch (WebException we)
+            }
+            catch (WebException we)
             {
                 using (var response = (HttpWebResponse)we.Response)
                     result = response.StatusCode == HttpStatusCode.OK;

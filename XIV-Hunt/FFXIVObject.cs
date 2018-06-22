@@ -394,6 +394,8 @@ namespace FFXIV_GameSense
     {
         NotQueued = 0,
         Queued = 1,
-        Popped = 2
+        Popped = 2,
+        Entering = 3,
+        In = 4
     }
 }

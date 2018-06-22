@@ -135,14 +135,15 @@ namespace FFXIV_GameSense
             });
             hubConnection.Connection.On<DataCenterInstanceMatchInfo>("DCInstanceMatch", instance =>
             {
-                LogHost.Default.Info("DCInstanceMatch: " + instance.ID);
+                string s = $"{Program.AssemblyName.Name}: Instance matched. Tracked for {(ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0")} minutes. {baseUrl}DCInstance/{instance.ID}";
+                LogHost.Default.Info("DCInstanceMatch: " + s);
                 DCInstance = instance;
-                ChatMessage cm = new ChatMessage { MessageString = $"{Program.AssemblyName.Name}: Instance matched. Tracked for {(ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0")} minutes. {baseUrl}DCInstance/{instance.ID}" };
+                ChatMessage cm = new ChatMessage { MessageString = s };
                 _ = Program.mem.WriteChatMessage(cm);
             });
             hubConnection.Connection.On<int>("ConnectedCount", connectedCount =>
             {
-                w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedToCount, GameResources.GetWorldName(Program.mem.GetServerId()), connectedCount - 1)));
+                w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedToCount, GameResources.GetWorldName(Program.mem.GetServerId()), connectedCount - 1));
             });
             hubConnection.Connection.Closed += Connection_Closed;
         }
@@ -156,7 +157,7 @@ namespace FFXIV_GameSense
         internal HuntRank HuntRankFor(ushort HuntID)
         {
             if (hunts.Any(x => x.Id == HuntID))
-                return hunts.Single(x=>x.Id==HuntID).Rank;
+                return hunts.Single(x => x.Id == HuntID).Rank;
             throw new ArgumentException("Unknown hunt", nameof(HuntID));
         }
 
@@ -269,7 +270,7 @@ namespace FFXIV_GameSense
                 await Connect();
             if (!hubConnection.Connected)
                 return;
-            if (lastJoined != mem.GetServerId() && Joined && !joining || !Joined )
+            if (lastJoined != mem.GetServerId() && Joined && !joining || !Joined)
             {
                 await LeaveGroup();
                 await JoinServerGroup();
@@ -283,7 +284,7 @@ namespace FFXIV_GameSense
             //use currentContentFinderCondition instead?
             if (Array.IndexOf(DCZones, thisZone) > -1 && Array.IndexOf(DCZones, lastZone) == -1 && Joined)
             {
-                LastShoutChatSync = (await JoinDCZone(thisZone)).ToUniversalTime();
+                LastShoutChatSync = await JoinDCZone(thisZone);
             }
             else if (Array.IndexOf(DCZones, lastZone) > -1 && Array.IndexOf(DCZones, thisZone) == -1)
             {
@@ -432,19 +433,19 @@ namespace FFXIV_GameSense
             if (Joined && hubConnection.Connected || joining)
                 return;
             joining = true;
-            w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() => w1.HuntConnectionTextBlock.Text = Resources.FormReadingSID));
+            w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = Resources.FormReadingSID);
             ushort sid = Program.mem.GetServerId();
             Reporter r = new Reporter { WorldID = sid, Name = Program.mem.GetSelfCombatant().Name };
             LogHost.Default.Info("Joining " + GameResources.GetWorldName(sid));
             if (!await hubConnection.Connection.InvokeAsync<bool>("JoinGroup", r))
-                w1.HuntConnectionTextBlock.Dispatcher.Invoke(new Action(() =>
+                w1.HuntConnectionTextBlock.Dispatcher.Invoke(() =>
                 {
                     w1.HuntConnectionTextBlock.Inlines.Clear();
                     w1.HuntConnectionTextBlock.Inlines.Add(string.Format(Resources.FormFailedToJoin, $"{r.Name} ({GameResources.GetWorldName(sid)})").Replace(UI.LogInForm.XIVHuntNet, string.Empty));
                     var link = new Hyperlink(new Run(UI.LogInForm.XIVHuntNet)) { NavigateUri = new Uri(VerifiedCharactersUrl) };
                     link.RequestNavigate += UI.LogInForm.Link_RequestNavigate;
                     w1.HuntConnectionTextBlock.Inlines.Add(link);
-                }));
+                });
             joining = false;
             Joined = true;
             lastJoined = sid;
@@ -555,8 +556,6 @@ namespace FFXIV_GameSense
             _ = LeaveGroup();
             hubConnection.Connection.DisposeAsync();
         }
-
-        
     }
 
     [JsonObject]

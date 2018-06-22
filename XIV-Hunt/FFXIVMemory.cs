@@ -21,7 +21,7 @@ namespace FFXIV_GameSense
         }
 
         private Thread _thread;
-        private CancellationTokenSource cts;
+        private readonly CancellationTokenSource cts;
         internal List<Combatant> Combatants { get; private set; }
         internal object CombatantsLock => new object();
         internal event EventHandler<CommandEventArgs> OnNewCommand = delegate {};
@@ -29,8 +29,8 @@ namespace FFXIV_GameSense
 
         private const string charmapSignature32 = "81f9ffff0000741781f958010000730f8b0c8d";
         private const string charmapSignature64 = "488b420848c1e8033da701000077248bc0488d0d";
-        private const string targetSignature32 = "750E85D2750AB9";
-        private const string targetSignature64 = "41bc000000e041bd01000000493bc47555488d0d";
+        private const string targetSignature32 = "75**5fc746**********5ec3833d**********75**833d";
+        private const string targetSignature64 = "5fc3483935********75**483935";
         private const string zoneIdSignature32 = "a802752f8b4f04560fb735";
         private const string zoneIdSignature64 = "e8********f30f108d********4c8d85********0fb705";
         private const string serverTimeSignature32 = "c20400558bec83ec0c53568b35";
@@ -41,33 +41,31 @@ namespace FFXIV_GameSense
         private const string fateListSignature64 = "be********488bcbe8********4881c3********4883ee**75**488b05";
         private const string contentFinderConditionSignature32 = "e8********5f5e5dc2****0fb646**b9";
         private const string contentFinderConditionSignature64 = "440fb643**488d51**488d0d";
-        private const string serverIdSignature32 = "83f8**7c**83c8**5dc3890c85********ff05";
-        private const string serverIdSignature64 = "0f82********8b05********3905";
+        private const string serverIdSignature32 = "8b15********85d274**8b028bcaff50**8b0d";
+        private const string serverIdSignature64 = "e8********488bbc24********488b7424**488b0d";
         private const string lastFailedCommandSignature32 = "83f9**7c**5b5fb8";
         private const string lastFailedCommandSignature64 = "4183f8**7c**488d05";
-        private const string currentContentFinderConditionSignature32 = "8985********83f8**75**803d";
-        private const string currentContentFinderConditionSignature64 = "f30f7f4424**83f8**75**803d";
-        //private const int charmapOffset32 = 0;
-        //private const int charmapOffset64 = 0;
-        private const int targetOffset32 = 0x58;
-        private const int targetOffset64 = 0x90;
+        private const string currentContentFinderConditionSignature32 = "6a**b9********e8********393d";
+        private const string currentContentFinderConditionSignature64 = "75**33d2488d0d********e8********48393d";
         private const int contentFinderConditionOffset32 = 0xC8;
         private const int contentFinderConditionOffset64 = 0xF4;
         private const int lastFailedCommandOffset32 = 0x1B2;
         private const int lastFailedCommandOffset64 = 0x1C2;
-        private const int currentContentFinderConditionOffset = 0x8;
+        private const int currentContentFinderConditionOffset32 = 0x8;
+        private const int currentContentFinderConditionOffset64 = 0xC;
         private static readonly int[] serverTimeOffset32 = { 0x14C0, 0x4, 0x644 };
         private static readonly int[] serverTimeOffset64 = { 0x1710, 0x8, 0x7D4 };
         private static readonly int[] chatLogStartOffset32 = { 0x18, 0x2C0, 0x0 };
         private static readonly int[] chatLogStartOffset64 = { 0x30, 0x3D8, 0x0 };
         private static readonly int[] chatLogTailOffset32 = { 0x18, 0x2C4 };
         private static readonly int[] chatLogTailOffset64 = { 0x30, 0x3E0 };
-        private static readonly int[] serverIdOffset32 = { 0x270/*from ASM*/, 0x10, 0x174 };
-        private static readonly int[] serverIdOffset64 = { 0x374/*from ASM*/, 0x18, 0x288 };
+        private static readonly int[] serverIdOffset32 = { 0x20, 0x174 };
+        private static readonly int[] serverIdOffset64 = { 0x28, 0x288 };
         private static readonly int[] fateListOffset32 = { 0x13A8, 0x0 };
         private static readonly int[] fateListOffset64 = { 0x16F8, 0x0 };
         private readonly FFXIVClientMode _mode;
         private CombatantOffsets combatantOffsets;
+        private ContentFinderOffsets contentFinderOffsets;
 
         private IntPtr charmapAddress = IntPtr.Zero;
         private IntPtr targetAddress = IntPtr.Zero;
@@ -136,7 +134,7 @@ namespace FFXIV_GameSense
 
         private void ScanMemoryLoop()
         {
-            const int interval = 50;
+            int interval = 50;
             uint cnt = uint.MinValue;
             while(!cts.IsCancellationRequested)
             {
@@ -220,24 +218,43 @@ namespace FFXIV_GameSense
             int[] chatLogStartOffset = !Is64Bit ? chatLogStartOffset32 : chatLogStartOffset64;
             int[] chatLogTailOffset = !Is64Bit ? chatLogTailOffset32 : chatLogTailOffset64;
             int[] serverIdOffset = !Is64Bit ? serverIdOffset32 : serverIdOffset64;
-            int targetOffset = !Is64Bit ? targetOffset32 : targetOffset64;
-            //int charmapOffset = !Is64Bit ? charmapOffset32 : charmapOffset64;
             int contentFinderConditionOffset = !Is64Bit ? contentFinderConditionOffset32 : contentFinderConditionOffset64;
+            int currentContentFinderConditionOffset = !Is64Bit ? currentContentFinderConditionOffset32 : currentContentFinderConditionOffset64;
             int lastFailedCommandOffset = !Is64Bit ? lastFailedCommandOffset32 : lastFailedCommandOffset64;
 
             List<string> fail = new List<string>();
 
             bool bRIP = Is64Bit;
 
+            // SERVERID
+            List<IntPtr> list = SigScan(serverIdSignature, 0, bRIP);
+            if (list == null || list.Count == 0)
+            {
+                serverIdAddress = IntPtr.Zero;
+            }
+            if (list.Count == 1)
+            {
+                serverIdAddress = ResolvePointerPath(list[0], serverIdOffset);
+            }
+            if (serverIdAddress == IntPtr.Zero)
+            {
+                fail.Add(nameof(serverIdAddress));
+            }
+            if(GameResources.IsKoreanWorld(GetServerId()))
+            {
+                serverTimeOffset[2] = Is64Bit ? 0x684 : 0x52C ;
+                contentFinderConditionOffset -= Is64Bit ? 0x8 : 0xC;
+            }
+
             // CHARMAP
-            List<IntPtr> list = SigScan(charmapSignature, 0, bRIP);
+            list = SigScan(charmapSignature, 0, bRIP);
             if (list == null || list.Count == 0)
             {
                 charmapAddress = IntPtr.Zero;
             }
             if (list.Count == 1)
             {
-                charmapAddress = list[0] /*+ charmapOffset*/;
+                charmapAddress = list[0];
             }
             if (charmapAddress == IntPtr.Zero)
             {
@@ -252,7 +269,7 @@ namespace FFXIV_GameSense
             }
             if (list.Count == 1)
             {
-                targetAddress = list[0] + targetOffset;
+                targetAddress = list[0];
             }
             if (targetAddress == IntPtr.Zero)
             {
@@ -320,22 +337,7 @@ namespace FFXIV_GameSense
             {
                 fail.Add(nameof(fateListAddress));
             }
-
-            // SERVERID
-            list = SigScan(serverIdSignature, 0, bRIP);
-            if (list == null || list.Count == 0)
-            {
-                serverIdAddress = IntPtr.Zero;
-            }
-            if (list.Count == 1)
-            {
-                serverIdAddress = ResolvePointerPath(IntPtr.Add(list[0], serverIdOffset.First()), serverIdOffset.Skip(1).ToArray());
-            }
-            if (serverIdAddress == IntPtr.Zero)
-            {
-                fail.Add(nameof(serverIdAddress));
-            }
-
+            
             // CURRENTCONTENFINDERCONDITION
             list = SigScan(currentContentFinderConditionSignature, 0, bRIP);
             if (list == null || list.Count == 0)
@@ -393,7 +395,21 @@ namespace FFXIV_GameSense
             Debug.WriteLine(nameof(currentContentFinderConditionAddress) + ": 0x{0:X}", currentContentFinderConditionAddress.ToInt64());
             Debug.WriteLine(nameof(lastFailedCommandAddress) + ": 0x{0:X}", lastFailedCommandAddress.ToInt64());
 
-            combatantOffsets = new CombatantOffsets(Is64Bit, GameResources.IsChineseWorld(GetServerId()));
+            if (GameResources.IsChineseWorld(GetServerId()))
+            {
+                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Chinese);
+                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Chinese);
+            }
+            else if (GameResources.IsKoreanWorld(GetServerId()))
+            {
+                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Korean);
+                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Korean);
+            }
+            else
+            {
+                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Global);
+                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Global);
+            }
 
             Combatant c = GetSelfCombatant();
             if (c == null)
@@ -426,8 +442,8 @@ namespace FFXIV_GameSense
             return new ContentFinder
             {
                 ContentFinderConditionID = BitConverter.ToUInt16(ba, 0),
-                State = (ContentFinderState)ba[Is64Bit ? 0x71 : 0x69],
-                RouletteID = ba[Is64Bit ? 0x76 : 0x6E],
+                State = (ContentFinderState)ba[contentFinderOffsets.StateOffset],
+                RouletteID = ba[contentFinderOffsets.RouletteIdOffset]
             };
         }
 
@@ -1022,6 +1038,33 @@ namespace FFXIV_GameSense
         public ushort GetZoneId() => BitConverter.ToUInt16(GetByteArray(zoneIdAddress, 2), 0);
     }
 
+    internal class ContentFinderOffsets
+    {
+        internal int StateOffset { get; private set; }
+        internal int RouletteIdOffset { get; private set; }
+
+        public ContentFinderOffsets(bool Is64Bit, GameRegion region)
+        {
+            if (region == GameRegion.Korean)
+            {
+                StateOffset = Is64Bit ? 0x6D : 0x65;
+                RouletteIdOffset = Is64Bit ? 0x72 : 0x6A;
+            }
+            else
+            {
+                StateOffset = Is64Bit ? 0x71 : 0x69;
+                RouletteIdOffset = Is64Bit ? 0x76 : 0x6E;
+            }
+        }
+    }
+
+    internal enum GameRegion
+    {
+        Global,
+        Chinese,
+        Korean
+    }
+
     internal class CombatantOffsets
     {
         internal int Name { get; private set; }
@@ -1050,7 +1093,7 @@ namespace FFXIV_GameSense
         internal int MaxCP { get; private set; }
         internal int StatusEffectsStart { get; private set; }
 
-        public CombatantOffsets(bool Is64Bit, bool CN = false, bool KR = false)
+        public CombatantOffsets(bool Is64Bit, GameRegion region)
         {
             Name = 0x30;
             ID = 0x74;
@@ -1065,10 +1108,17 @@ namespace FFXIV_GameSense
             TargetID = Is64Bit ? 0x1D8 : 0x1C8;
             TargetID2 = Is64Bit ? 0x990 : 0x9D8;
             int offset;
-            if (CN)
+            if (region == GameRegion.Chinese)
             {
                 ContentID = Is64Bit ? 0x1694 : 0x136C;
                 offset = Is64Bit ? 0x16B0 : 0x1388;
+                Job = offset + 0x3E;
+                Level = offset + 0x40;
+            }
+            else if(region == GameRegion.Korean)
+            {
+                ContentID = Is64Bit ? 0x1684 : 0x1354;
+                offset = Is64Bit ? 0x16A0 : 0x1370;
                 Job = offset + 0x3E;
                 Level = offset + 0x40;
             }
@@ -1088,7 +1138,7 @@ namespace FFXIV_GameSense
             MaxGP = offset + 0x1C;
             CurrentCP = offset + 0x1E;
             MaxCP = offset + 0x20;
-            if (CN)
+            if (region == GameRegion.Chinese || region == GameRegion.Korean)
                 StatusEffectsStart = Is64Bit ? offset + 0xB8 : offset + 0x94;
             else
                 StatusEffectsStart = Is64Bit ? offset + 0xC0 : offset + 0xA4;
