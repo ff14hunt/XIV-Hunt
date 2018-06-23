@@ -20,10 +20,9 @@ namespace XIVDB
 
         public FATEInfo(string[] line)
         {
-            string fn = line[28].Trim('"', ' ');
+            NameWithTags = line[28].Trim('"', ' ');
             ClassJobLevel = byte.Parse(line[4]);
-            NameWithTags = fn;
-            Name = Regex.Replace(fn, GameResources.HtmlTagsRegex, string.Empty);
+            Name = Regex.Replace(NameWithTags, GameResources.HtmlTagsRegex, string.Empty);
             IconObjective = line[11].Trim('"').Replace(".tex", ".png");
             IconMap = line[12].Trim('"').Replace(".tex", ".png");
             EurekaFate = line[1].Trim('"') == "1";
@@ -35,9 +34,17 @@ namespace XIVDB
         private const string SquareBrauquetsRegex = @"\[(.*?)\]";
         private static readonly string[] lineEnding = new string[] { Environment.NewLine };
         internal const string HtmlTagsRegex = "<.*?>";
-        private static Dictionary<ushort, FATEInfo> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort _)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => new FATEInfo(line));
+        private static readonly Dictionary<ushort, FATEInfo> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort _)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => new FATEInfo(line));
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
-        private readonly static Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(ValidWorld).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
+        private static readonly Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(ValidWorld).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
+        private static readonly Dictionary<ushort, string> ContentFinderCondition = IndexContentFinderCondition();
+
+        private static Dictionary<ushort, string> IndexContentFinderCondition()
+        {
+            string[] lines = Resources.ContentFinderCondition.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries);
+            int namepos = Array.IndexOf(lines[1].Split(','), "InstanceContent");
+            return lines.Skip(4).Select(x => x.Split(',')).Where(x => !string.IsNullOrWhiteSpace(x[namepos].Trim('"'))).ToDictionary(x => ushort.Parse(x[0]), x => x[namepos].Trim('"').FirstLetterToUpperCase());
+        }
 
         private static bool ValidWorld(string s)
         {
@@ -53,21 +60,18 @@ namespace XIVDB
 
         internal static string GetContentFinderName(ushort id)
         {
-            string[] lines = Resources.ContentFinderCondition.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3).ToArray();
-            if (id > 0 && id < lines.Length)
-            {
-                return lines[id].Split(',')[4].Trim('"').FirstLetterToUpperCase();
-            }
+            if (ContentFinderCondition.TryGetValue(id, out string name))
+                return name;
             return "Unknown duty: " + id;
         }
 
-        internal static ushort GetWorldID(string name)
-        {
-            foreach (var kvp in WorldNames)
-                if (kvp.Value == name)
-                    return kvp.Key;
-            return 0;
-        }
+        //internal static ushort GetWorldID(string name)
+        //{
+        //    foreach (var kvp in WorldNames)
+        //        if (kvp.Value == name)
+        //            return kvp.Key;
+        //    return 0;
+        //}
 
         private static string[] GetFateLine(string line)
         {
