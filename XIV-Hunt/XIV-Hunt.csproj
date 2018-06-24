@@ -277,7 +277,6 @@
     <None Include="Resources\ContentFinderCondition.de.csv" />
     <None Include="Resources\ContentFinderCondition.fr.csv" />
     <None Include="Resources\ContentFinderCondition.jp.csv" />
-    <None Include="Resources\ContentFinderCondition.zh.csv" />
     <None Include="Resources\Fate.zh.csv" />
     <None Include="Resources\Fate.csv" />
     <None Include="Resources\Fate.de.csv" />
