@@ -11,21 +11,21 @@ namespace XIVDB
 {
     public class FATEInfo
     {
-        private const string HtmlTagsRegex = "<.*?>";
         public byte ClassJobLevel { get; private set; }
         public string Name { get; private set; }
         public string NameWithTags { get; private set; }
+        public string IconObjective { get; private set; }
         public string IconMap { get; private set; }
-        public bool EurekaFate { get; private set; } = false;
+        public bool EurekaFate { get; private set; }
 
-        public FATEInfo(CsvParser csv)
+        public FATEInfo(string[] line)
         {
-            NameWithTags = csv[nameof(Name)].Trim('"', ' ');
-            ClassJobLevel = byte.Parse(csv[nameof(ClassJobLevel)]);
-            Name = Regex.Replace(NameWithTags, HtmlTagsRegex, string.Empty);
-            IconMap = csv["Icon{Map}"].Trim('"').Replace(".tex", ".png");
-            if (csv.HasColum(nameof(EurekaFate)))
-                EurekaFate = csv[nameof(EurekaFate)].Trim('"') == "1";
+            NameWithTags = line[28].Trim('"', ' ');
+            ClassJobLevel = byte.Parse(line[4]);
+            Name = Regex.Replace(NameWithTags, GameResources.HtmlTagsRegex, string.Empty);
+            IconObjective = line[11].Trim('"').Replace(".tex", ".png");
+            IconMap = line[12].Trim('"').Replace(".tex", ".png");
+            EurekaFate = line[1].Trim('"') == "1";
         }
     }
 
@@ -33,7 +33,8 @@ namespace XIVDB
     {
         private const string SquareBrauquetsRegex = @"\[(.*?)\]";
         private static readonly string[] lineEnding = new string[] { Environment.NewLine };
-        private static readonly Dictionary<ushort, FATEInfo> Fate = IndexFates();
+        internal const string HtmlTagsRegex = "<.*?>";
+        private static readonly Dictionary<ushort, FATEInfo> FATENames = Resources.Fate.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(x => ushort.TryParse(x.Split(',')[0], out ushort _)).Select(line => GetFateLine(line)).Where(line => !string.IsNullOrWhiteSpace(line[28].Trim('"'))).ToDictionary(line => ushort.Parse(line[0]), line => new FATEInfo(line));
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
         private static readonly Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(ValidWorld).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
         private static readonly Dictionary<ushort, string> ContentFinderCondition = IndexContentFinderCondition();
@@ -43,18 +44,6 @@ namespace XIVDB
             string[] lines = Resources.ContentFinderCondition.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries);
             int namepos = Array.IndexOf(lines[1].Split(','), "InstanceContent");
             return lines.Skip(4).Select(x => x.Split(',')).Where(x => !string.IsNullOrWhiteSpace(x[namepos].Trim('"'))).ToDictionary(x => ushort.Parse(x[0]), x => x[namepos].Trim('"').FirstLetterToUpperCase());
-        }
-
-        private static Dictionary<ushort, FATEInfo> IndexFates()
-        {
-            Dictionary<ushort, FATEInfo> d = new Dictionary<ushort, FATEInfo>();
-            CsvParser csv = new CsvParser(Resources.Fate);
-            while (csv.Advance())
-            {
-                if (!string.IsNullOrWhiteSpace(csv["Name"].Trim('"')))
-                    d.Add(ushort.Parse(csv["#"]), new FATEInfo(csv));
-            }
-            return d;
         }
 
         private static bool ValidWorld(string s)
@@ -76,16 +65,32 @@ namespace XIVDB
             return "Unknown duty: " + id;
         }
 
+        //internal static ushort GetWorldID(string name)
+        //{
+        //    foreach (var kvp in WorldNames)
+        //        if (kvp.Value == name)
+        //            return kvp.Key;
+        //    return 0;
+        //}
+
+        private static string[] GetFateLine(string line)
+        {
+            string[] li = line.Replace(", ", "##COMMA##").Split(',');
+            for (int i = 0; i < li.Length; i++)
+                li[i] = li[i].Replace("##COMMA##", ", ");
+            return li;
+        }
+
         internal static FATEInfo GetFATEInfo(ushort iD)
         {
-            if (Fate.TryGetValue(iD, out FATEInfo fi))
+            if (FATENames.TryGetValue(iD, out FATEInfo fi))
                 return fi;
             return null;
         }
 
         internal static ushort GetFateId(string name, bool ignoreCase = false)
         {
-            foreach (KeyValuePair<ushort, FATEInfo> f in Fate)
+            foreach (KeyValuePair<ushort, FATEInfo> f in FATENames)
                 if (f.Value.Name.Equals(name, ignoreCase ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture))
                     return f.Key;
             return 0;
@@ -94,7 +99,7 @@ namespace XIVDB
         public static List<FATE> GetFates()
         {
             List<FATE> l = new List<FATE>();
-            foreach (KeyValuePair<ushort, FATEInfo> f in Fate)
+            foreach (KeyValuePair<ushort, FATEInfo> f in FATENames)
             {
                 if (f.Key == 122 || f.Key == 145 || f.Key == 151 || f.Key == 130 || f.Key == 173 || f.Key == 182)
                     continue;
@@ -331,63 +336,5 @@ namespace XIVDB
             }
             return l;
         }
-    }
-
-    public class CsvParser
-    {
-        private const string LineSep = "\r\n";
-        private readonly int colCount;
-        private readonly Dictionary<string, int> columns = new Dictionary<string, int>();
-        private List<string[]> Records;
-        private int recordIterator = 0;
-        public CsvParser(string csvstring)
-        {
-            string[] header = csvstring.Split(new string[] { LineSep }, StringSplitOptions.RemoveEmptyEntries)[1].Split(',');
-            int i;
-            for (i = 0; i < header.Length; i++)
-                if (!string.IsNullOrWhiteSpace(header[i]))
-                    columns.Add(header[i], i);
-            colCount = i;
-            Records = SplitRecords(csvstring.Substring(csvstring.IndexOfNth(LineSep, 0, 3) + LineSep.Length));
-        }
-
-        private List<string[]> SplitRecords(string recordsStr)
-        {
-            List<string[]> records = new List<string[]>();
-            for (int valuestart = 0; valuestart < recordsStr.Length; valuestart++)
-            {
-                bool inQuote = false;
-                string[] record = new string[colCount];
-                int col = 0;
-                for (int chariterator = valuestart + 1; chariterator < recordsStr.Length; chariterator++)
-                {
-                    if (!inQuote && recordsStr[chariterator] == '"')
-                        inQuote = true;
-                    else if (inQuote && (recordsStr.Substring(chariterator, 2) == "\"," || recordsStr.Substring(chariterator, 3) == "\"" + LineSep))
-                        inQuote = false;
-                    if (!inQuote && (recordsStr[chariterator] == ',' || recordsStr.Substring(chariterator, LineSep.Length) == LineSep))
-                    {
-                        record[col] = recordsStr.Substring(valuestart, chariterator - valuestart);
-                        valuestart = chariterator + 1;
-                        col++;
-                        if (col == colCount)
-                            break;
-                        if (recordsStr.Substring(valuestart, LineSep.Length) == LineSep)
-                        {
-                            valuestart++;
-                            break;
-                        }
-                    }
-                }
-                records.Add(record);
-            }
-            return records;
-        }
-
-        public bool Advance() => ++recordIterator < Records.Count;
-
-        public string this[string colname] => Records.ElementAt(recordIterator)[columns[colname]];
-
-        public bool HasColum(string colname) => columns.ContainsKey(colname);
     }
 }

@@ -220,9 +220,6 @@
   <data name="TerritoryType" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TerritoryType.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Fate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fate.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="FormSFDialogTitle" xml:space="preserve">
     <value>Choose a sound file to be played when a report is written to chat</value>
   </data>

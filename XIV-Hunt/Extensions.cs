@@ -7,18 +7,6 @@ namespace FFXIV_GameSense
 {
     internal static class Extensions
     {
-        public static int IndexOfNth(this string input, string value, int startIndex, int nth)
-        {
-            if (nth < 1)
-                throw new NotSupportedException("Param 'nth' must be greater than 0!");
-            if (nth == 1)
-                return input.IndexOf(value, startIndex);
-            var idx = input.IndexOf(value, startIndex);
-            if (idx == -1)
-                return -1;
-            return input.IndexOfNth(value, idx + 1, --nth);
-        }
-
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             HashSet<TKey> seenKeys = new HashSet<TKey>();
