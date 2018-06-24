@@ -11,6 +11,7 @@ namespace XIVDB
 {
     public class FATEInfo
     {
+        private const string HtmlTagsRegex = "<.*?>";
         public byte ClassJobLevel { get; private set; }
         public string Name { get; private set; }
         public string NameWithTags { get; private set; }
@@ -21,7 +22,7 @@ namespace XIVDB
         {
             NameWithTags = csv[nameof(Name)].Trim('"', ' ');
             ClassJobLevel = byte.Parse(csv[nameof(ClassJobLevel)]);
-            Name = Regex.Replace(NameWithTags, "<.*?>", string.Empty);
+            Name = Regex.Replace(NameWithTags, HtmlTagsRegex, string.Empty);
             IconMap = csv["Icon{Map}"].Trim('"').Replace(".tex", ".png");
             if (csv.HasColum(nameof(EurekaFate)))
                 EurekaFate = csv[nameof(EurekaFate)].Trim('"') == "1";
