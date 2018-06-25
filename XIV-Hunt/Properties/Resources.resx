@@ -360,4 +360,28 @@
   <data name="FATEListViewZones" xml:space="preserve">
     <value>Zones</value>
   </data>
+  <data name="FormSearchCoverText" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="FormFlashTaskbarIconDF" xml:space="preserve">
+    <value>Flash FFXIV taskbar icon on DF pops</value>
+  </data>
+  <data name="FormFlashTaskbarIconHuntFate" xml:space="preserve">
+    <value>Flash FFXIV taskbar icon on hunt and FATE announcements</value>
+  </data>
+  <data name="FormPerformDirectory" xml:space="preserve">
+    <value>Directory to look for perform tracks:</value>
+  </data>
+  <data name="FormMinutesBetweenHuntAnnouncements" xml:space="preserve">
+    <value>Minutes between announcements for the same hunt:</value>
+  </data>
+  <data name="FormMinutesBetweenFateAnnouncements" xml:space="preserve">
+    <value>Minutes between announcements for the same FATE:</value>
+  </data>
+  <data name="FormAnnounceFateEveryPercentage" xml:space="preserve">
+    <value>Announce FATE once every</value>
+  </data>
+  <data name="FormDoNotAnnounceFateIfMinutesRemaining" xml:space="preserve">
+    <value>Do not announce FATE if minutes remaining is below:</value>
+  </data>
 </root>

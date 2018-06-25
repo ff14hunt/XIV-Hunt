@@ -261,6 +261,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Announce FATE once every.
+        /// </summary>
+        public static string FormAnnounceFateEveryPercentage {
+            get {
+                return ResourceManager.GetString("FormAnnounceFateEveryPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only once; when found and dead.
         /// </summary>
         public static string FormAnnounceOncePerHunt {
@@ -315,6 +324,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not announce FATE if minutes remaining is below:.
+        /// </summary>
+        public static string FormDoNotAnnounceFateIfMinutesRemaining {
+            get {
+                return ResourceManager.GetString("FormDoNotAnnounceFateIfMinutesRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duty Roulette results.
         /// </summary>
         public static string FormDutyRoulette {
@@ -360,6 +378,24 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flash FFXIV taskbar icon on DF pops.
+        /// </summary>
+        public static string FormFlashTaskbarIconDF {
+            get {
+                return ResourceManager.GetString("FormFlashTaskbarIconDF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flash FFXIV taskbar icon on hunt and FATE announcements.
+        /// </summary>
+        public static string FormFlashTaskbarIconHuntFate {
+            get {
+                return ResourceManager.GetString("FormFlashTaskbarIconHuntFate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forget on zone change.
         /// </summary>
         public static string FormForgetOnZoneChange {
@@ -387,6 +423,24 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minutes between announcements for the same FATE:.
+        /// </summary>
+        public static string FormMinutesBetweenFateAnnouncements {
+            get {
+                return ResourceManager.GetString("FormMinutesBetweenFateAnnouncements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minutes between announcements for the same hunt:.
+        /// </summary>
+        public static string FormMinutesBetweenHuntAnnouncements {
+            get {
+                return ResourceManager.GetString("FormMinutesBetweenHuntAnnouncements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not announce while in content (DF).
         /// </summary>
         public static string FormNoAnnouncementsInContent {
@@ -405,6 +459,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Directory to look for perform tracks:.
+        /// </summary>
+        public static string FormPerformDirectory {
+            get {
+                return ResourceManager.GetString("FormPerformDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reading Server ID.
         /// </summary>
         public static string FormReadingSID {
@@ -419,6 +482,15 @@ namespace FFXIV_GameSense.Properties {
         public static string FormSBAbrv {
             get {
                 return ResourceManager.GetString("FormSBAbrv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        public static string FormSearchCoverText {
+            get {
+                return ResourceManager.GetString("FormSearchCoverText", resourceCulture);
             }
         }
         

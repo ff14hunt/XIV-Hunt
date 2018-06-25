@@ -124,7 +124,7 @@
     <value>[{0}] Report received: {1} - {2}%</value>
   </data>
   <data name="NoSoundAlert" xml:space="preserve">
-    <value>No sound alert</value>
+    <value>소리 알람 없음</value>
   </data>
   <data name="ReportReceived" xml:space="preserve">
     <value>[{0}] Report received: {1}</value>
@@ -143,7 +143,7 @@
     <value> Instance {0}</value>
   </data>
   <data name="HuntMsg" xml:space="preserve">
-    <value>Rank {0}: {1} @ &lt;pos&gt;</value>
+    <value>{0} 등급: {1} @ &lt;pos&gt;</value>
   </data>
   <data name="HuntMsgKilled" xml:space="preserve">
     <value> was just killed.</value>
@@ -170,7 +170,7 @@
     <value>Preparation state.</value>
   </data>
   <data name="FATEMsg" xml:space="preserve">
-    <value>FATE: {0} @</value>
+    <value>돌발: {0} @</value>
   </data>
   <data name="FormFATEPlural" xml:space="preserve">
     <value>{0} FATEs selected</value>
@@ -188,34 +188,34 @@
     <value>{0} can be found at </value>
   </data>
   <data name="GroupBoxHeader" xml:space="preserve">
-    <value>Report the following in the chatbox</value>
+    <value>채팅창에 다음을 제보</value>
   </data>
   <data name="RestartForChanges" xml:space="preserve">
-    <value>Restart required for changes to take effect</value>
+    <value>변경사항이 있을 시 재시작 필요</value>
   </data>
   <data name="FormSRanks" xml:space="preserve">
-    <value>Rank S</value>
+    <value>S 등급</value>
   </data>
   <data name="FormARanks" xml:space="preserve">
-    <value>Rank A</value>
+    <value>A 등급</value>
   </data>
   <data name="FormBRanks" xml:space="preserve">
-    <value>Rank B</value>
+    <value>B 등급</value>
   </data>
   <data name="FormMinimizeToTray" xml:space="preserve">
-    <value>Minimize to tray</value>
+    <value>트레이로 최소화</value>
   </data>
   <data name="BNpcName" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BNpcName.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="FormARRAbrv" xml:space="preserve">
-    <value>ARR</value>
+    <value>신생</value>
   </data>
   <data name="FormHWAbrv" xml:space="preserve">
-    <value>HW</value>
+    <value>창천</value>
   </data>
   <data name="FormSBAbrv" xml:space="preserve">
-    <value>SB</value>
+    <value>홍련</value>
   </data>
   <data name="TerritoryType" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TerritoryType.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
@@ -236,16 +236,16 @@
     <value>FATEs:</value>
   </data>
   <data name="StartWithWindows" xml:space="preserve">
-    <value>Start with Windows</value>
+    <value>윈도우 실행 시 시작</value>
   </data>
   <data name="OpenSettingsToolTip" xml:space="preserve">
-    <value>Open Settings</value>
+    <value>설정 열기</value>
   </data>
   <data name="SettingsForm" xml:space="preserve">
-    <value>Settings</value>
+    <value>설정</value>
   </data>
   <data name="StartMinimized" xml:space="preserve">
-    <value>Start minimized</value>
+    <value>최소화로 실행</value>
   </data>
   <data name="LKIFATE" xml:space="preserve">
     <value>{0} was last reported {1} hours and {2} minutes ago at</value>
@@ -254,7 +254,7 @@
     <value>{0} was last reported {1} days ago.</value>
   </data>
   <data name="FormTrackFATEAfterQuery" xml:space="preserve">
-    <value>/hunt FATEName enables announcements of said FATE</value>
+    <value>/hunt 돌발명 의 명령어가 돌발 알림을 활성화 시키기</value>
   </data>
   <data name="FormDutyRoulette" xml:space="preserve">
     <value>Duty Roulette results</value>
@@ -269,36 +269,60 @@
     <value>Could not join world. Ensure that {0} is verified on XIVHunt.net</value>
   </data>
   <data name="FormAnnounceOncePerHunt" xml:space="preserve">
-    <value>Only once; when found and dead</value>
+    <value>발견 및 사망 때만 알림</value>
   </data>
   <data name="FormForgetOnZoneChange" xml:space="preserve">
-    <value>Forget on zone change</value>
+    <value>지역 이동 후 동일 마물 재발견 시 알림</value>
   </data>
   <data name="FormNoAnnouncementsInContent" xml:space="preserve">
-    <value>Do not announce while in content (DF)</value>
+    <value>던전 안에 있을 시 알리지 않기</value>
   </data>
   <data name="PerformDirectoryNotExists" xml:space="preserve">
     <value>Perform directory was not found. Please specify one in XIV-Hunt settings</value>
   </data>
   <data name="FormConnectedToCount" xml:space="preserve">
-    <value>Connected to {0} with {1} other users</value>
+    <value>{1} 명의 유저와 {0} 서버에 연결 됨</value>
   </data>
   <data name="OpenLogToolTip" xml:space="preserve">
-    <value>Open Log Viewer</value>
+    <value>로그 뷰어 열기</value>
   </data>
   <data name="FATEListViewName" xml:space="preserve">
-    <value>Name</value>
+    <value>이름</value>
   </data>
   <data name="FATEListViewAnnounce" xml:space="preserve">
-    <value>Announce</value>
+    <value>알림</value>
   </data>
   <data name="FATEListViewLevel" xml:space="preserve">
-    <value>Level</value>
+    <value>레벨</value>
   </data>
   <data name="FATEListViewIcon" xml:space="preserve">
-    <value>Icon</value>
+    <value>유형</value>
   </data>
   <data name="FATEListViewZones" xml:space="preserve">
-    <value>Zones</value>
+    <value>지역</value>
+  </data>
+  <data name="FormSearchCoverText" xml:space="preserve">
+    <value>찾는중</value>
+  </data>
+  <data name="FormFlashTaskbarIconDF" xml:space="preserve">
+    <value>매칭이 될 시 작업표시줄의 파이널판타지14 깜빡이기</value>
+  </data>
+  <data name="FormFlashTaskbarIconHuntFate" xml:space="preserve">
+    <value>마물 및 던전 알림 시 작업표시줄의 파이널판타지14 깜빡이기</value>
+  </data>
+  <data name="FormPerformDirectory" xml:space="preserve">
+    <value>연주 트랙 경로:</value>
+  </data>
+  <data name="FormMinutesBetweenHuntAnnouncements" xml:space="preserve">
+    <value>동일 마물 알림 간격 (단위: 분)</value>
+  </data>
+  <data name="FormMinutesBetweenFateAnnouncements" xml:space="preserve">
+    <value>동일 돌발 알림 간격 (단위: 분)</value>
+  </data>
+  <data name="FormAnnounceFateEveryPercentage" xml:space="preserve">
+    <value>돌발이 진행된 퍼센트마다 알림</value>
+  </data>
+  <data name="FormDoNotAnnounceFateIfMinutesRemaining" xml:space="preserve">
+    <value>돌발의 남은 시간이 다음 이하면 알리지 않음 (단위: 분)</value>
   </data>
 </root>

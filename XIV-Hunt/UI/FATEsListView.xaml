@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="500">
     <Grid FrameworkElement.SizeChanged="Grid_SizeChanged">
         <TextBox x:Name="FilterTextBox" Foreground="#FFEEEEEE" Background="#FF313131" MinHeight="25" Height="25" Width="350" VerticalAlignment="Top" GotFocus="FilterTextBox_GotFocus" LostFocus="FilterTextBox_LostFocus" TextChanged="FilterTextBox_TextChanged" HorizontalAlignment="Left" Panel.ZIndex="0"/>
-        <TextBlock x:Name="FilterCoverTextBlock" Text="Search..." Margin="5,5,0,0" IsHitTestVisible="False" Foreground="#FFEEEEEE" Background="Transparent" Width="{Binding Path=ActualWidth, ElementName=FilterTextBox}" VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Panel.ZIndex="1"/>
+        <TextBlock x:Name="FilterCoverTextBlock" Text="{x:Static properties:Resources.FormSearchCoverText}" Margin="5,5,0,0" IsHitTestVisible="False" Foreground="#FFEEEEEE" Background="Transparent" Width="{Binding Path=ActualWidth, ElementName=FilterTextBox}" VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Panel.ZIndex="1"/>
         <TextBlock x:Name="SelectedFateCountTextBlock" Text="{x:Static properties:Resources.FormFATESingle}" FrameworkElement.SizeChanged="SelectedFateCountTextBlock_SizeChanged"  Margin="0,5,5,0" Width="Auto" HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="-1"/>
         <ListView x:Name="ListView" ItemsSource="{Binding}" HorizontalContentAlignment="Left" Background="#FF313131" SelectionMode="Extended" GridViewColumnHeader.Click="FATEsListView_GridViewColumnHeaderClick" Margin="0,30,0,0">
             <ListView.ItemContainerStyle>
