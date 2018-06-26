@@ -263,7 +263,7 @@
     <value>..\Resources\ContentFinderCondition.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="DutyRouletteResult" xml:space="preserve">
-    <value>Duty Roulette result: {0}</value>
+    <value>매칭된 던전명 알림: {0}</value>
   </data>
   <data name="FormFailedToJoin" xml:space="preserve">
     <value>접속 불가. XIVHunt.net 에서 {0} 인증 확인 필요</value>
