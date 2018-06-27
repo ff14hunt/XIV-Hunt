@@ -179,13 +179,13 @@
     <value>{0} 개의 돌발 선택</value>
   </data>
   <data name="FormNoProcess" xml:space="preserve">
-    <value>Could not find process or world. Please start {0} and log into a character.</value>
+    <value>프로세스나 서버를 발견할 수 없습니다. {0} 을(를) 실행하여 로그인해주세요.</value>
   </data>
   <data name="FormReadingSID" xml:space="preserve">
-    <value>Reading Server ID</value>
+    <value>서버 ID 읽는 중</value>
   </data>
   <data name="LKICanBeFoundAt" xml:space="preserve">
-    <value>{0} can be found at </value>
+    <value>{0} 은(는) 다음에서 발견 가능 : </value>
   </data>
   <data name="GroupBoxHeader" xml:space="preserve">
     <value>채팅창에 다음을 제보</value>
@@ -224,13 +224,13 @@
     <value>..\Resources\Fate.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="FormSFDialogTitle" xml:space="preserve">
-    <value>Choose a sound file to be played when a report is written to chat</value>
+    <value>채팅에 알람이 표시될 때 재생될 소리 파일을 고르세요.</value>
   </data>
   <data name="FormSFDialogFilter" xml:space="preserve">
-    <value>Sound files</value>
+    <value>소리 파일</value>
   </data>
   <data name="FormSFCMNewAlert" xml:space="preserve">
-    <value>Choose new alert...</value>
+    <value>다른 알람 ...</value>
   </data>
   <data name="FormFATEs" xml:space="preserve">
     <value>돌발:</value>
@@ -278,7 +278,7 @@
     <value>던전 안에 있을 시 알리지 않기</value>
   </data>
   <data name="PerformDirectoryNotExists" xml:space="preserve">
-    <value>Perform directory was not found. Please specify one in XIV-Hunt settings</value>
+    <value>연주 경로 찾을 수 없음. 설정에서 경로를 확인해주세요.</value>
   </data>
   <data name="FormConnectedToCount" xml:space="preserve">
     <value>{1} 명의 유저와 {0} 서버에 연결 됨</value>
