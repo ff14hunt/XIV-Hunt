@@ -124,7 +124,7 @@ namespace XIVDB
         {
             int i = 0;
             string[] lines = Resources.BNpcName.Split(lineEnding, StringSplitOptions.None).Skip(3).ToArray();
-            //JP & CN does not have plural form
+            //JP & CN & KR does not have plural form
             bool noPlural = !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN" || Thread.CurrentThread.CurrentUICulture.Name == "ko-KR");
             while (i < lines.Length - 1)
             {
@@ -139,7 +139,7 @@ namespace XIVDB
                 //FR and DE plural forms seem to have a lot of <SoftHyphen/> tags that need to be discarded
                 if (!noPlural)
                     plural = plural.Replace("<SoftHyphen/>", string.Empty);
-                if (singular.Equals(Name, StringComparison.CurrentCultureIgnoreCase) || plural.Equals(Name, StringComparison.CurrentCultureIgnoreCase))
+                if (singular.Equals(Name, StringComparison.OrdinalIgnoreCase) || plural.Equals(Name, StringComparison.OrdinalIgnoreCase))
                 {
                     if (ushort.TryParse(lines[i].Split(',')[0], out ushort _id))
                     {
