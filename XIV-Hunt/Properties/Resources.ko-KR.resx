@@ -149,22 +149,22 @@
     <value> 방금 잡힘</value>
   </data>
   <data name="LKIHours" xml:space="preserve">
-    <value> {0} hours ago</value>
+    <value> {0} 시간 전</value>
   </data>
   <data name="LKIHoursMinutes" xml:space="preserve">
-    <value> {0} hours and {1} minutes ago</value>
+    <value> {0} 시간 {1} 분 전</value>
   </data>
   <data name="LKIHuntKilled" xml:space="preserve">
-    <value>{0} was killed </value>
+    <value>{0} 잡힘 </value>
   </data>
   <data name="LKIHuntNotReported" xml:space="preserve">
-    <value>{0} has not been reported yet.</value>
+    <value>{0} 아직 제보 없음</value>
   </data>
   <data name="LKILastSeenAt" xml:space="preserve">
-    <value>{0} was last seen at </value>
+    <value>{0} 마지막 발견된 곳 </value>
   </data>
   <data name="LKIMinutes" xml:space="preserve">
-    <value> {0} minutes ago</value>
+    <value> {0} 분 전</value>
   </data>
   <data name="PreparationState" xml:space="preserve">
     <value>활성화 대기 중</value>
@@ -173,10 +173,10 @@
     <value>돌발: {0} @</value>
   </data>
   <data name="FormFATEPlural" xml:space="preserve">
-    <value>{0} 개의 돌발 선택</value>
+    <value>{0} 개 돌발 선택</value>
   </data>
   <data name="FormFATESingle" xml:space="preserve">
-    <value>{0} 개의 돌발 선택</value>
+    <value>{0} 개 돌발 선택</value>
   </data>
   <data name="FormNoProcess" xml:space="preserve">
     <value>프로세스나 서버를 발견할 수 없습니다. {0} 을(를) 실행하여 로그인해주세요.</value>
@@ -185,7 +185,7 @@
     <value>서버 ID 읽는 중</value>
   </data>
   <data name="LKICanBeFoundAt" xml:space="preserve">
-    <value>{0} 은(는) 다음에서 발견 가능 : </value>
+    <value>{0} 발견 지역 </value>
   </data>
   <data name="GroupBoxHeader" xml:space="preserve">
     <value>채팅창에 다음을 제보</value>
@@ -248,7 +248,7 @@
     <value>최소화로 실행</value>
   </data>
   <data name="LKIFATE" xml:space="preserve">
-    <value>{0} 은 {1} 시간 {2} 분전에 발견됨 </value>
+    <value>{0} {1} 시간 {2} 분 전 발견 </value>
   </data>
   <data name="LKIFATEDays" xml:space="preserve">
     <value>{0} 마지막 보고일 : {1} 일 전</value>
