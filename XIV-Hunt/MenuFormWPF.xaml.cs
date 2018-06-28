@@ -230,9 +230,9 @@ namespace FFXIV_GameSense
                 {
                     _ = Program.mem.WriteChatMessage(ChatMessage.MakePosChatMessage(string.Format(Properties.Resources.LKICanBeFoundAt, GameResources.GetEnemyName(hi.Item1, true)), hi.Item2, hi.Item3, hi.Item4));
                 }
-                else if (hunts.hunts.Exists(x => x.Name.Equals(e.Parameter, StringComparison.CurrentCultureIgnoreCase)))
+                else if (hunts.hunts.Exists(x => x.Name.Equals(e.Parameter, StringComparison.OrdinalIgnoreCase)))
                 {
-                    _ = hunts.LastKnownInfoForHunt(hunts.hunts.First(x => x.Name.Equals(e.Parameter, StringComparison.CurrentCultureIgnoreCase)).Id);
+                    _ = hunts.LastKnownInfoForHunt(hunts.hunts.First(x => x.Name.Equals(e.Parameter, StringComparison.OrdinalIgnoreCase)).Id);
                 }
                 else if (GameResources.GetEnemyId(e.Parameter, out ushort bnpcid))
                 {

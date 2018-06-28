@@ -86,7 +86,7 @@ namespace XIVDB
         internal static ushort GetFateId(string name, bool ignoreCase = false)
         {
             foreach (KeyValuePair<ushort, FATEInfo> f in Fate)
-                if (f.Value.Name.Equals(name, ignoreCase ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture))
+                if (f.Value.Name.Equals(name, ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
                     return f.Key;
             return 0;
         }
@@ -110,7 +110,7 @@ namespace XIVDB
                 return string.Empty;
             else
             {
-                //JP && CN does not have plural form
+                //JP, CN & KR does not have plural form
                 plural = plural && !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN" || Thread.CurrentThread.CurrentUICulture.Name == "ko-KR");
                 string result = lines[id].Split(',')[plural ? 3 : 1].Trim('"');
                 //DE has [a], [p] tags... gramatical stuff; discard them
@@ -124,7 +124,7 @@ namespace XIVDB
         {
             int i = 0;
             string[] lines = Resources.BNpcName.Split(lineEnding, StringSplitOptions.None).Skip(3).ToArray();
-            //JP & CN & KR does not have plural form
+            //JP, CN & KR does not have plural form
             bool noPlural = !(Thread.CurrentThread.CurrentUICulture.Name == "ja-JP" || Thread.CurrentThread.CurrentUICulture.Name == "zh-CN" || Thread.CurrentThread.CurrentUICulture.Name == "ko-KR");
             while (i < lines.Length - 1)
             {
@@ -277,7 +277,7 @@ namespace XIVDB
             string[] lines = Resources.BNpcName.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries);
             while (i < lines.Length)
             {
-                if (lines[i].Split(',')[1].Trim('"').Equals(huntSearchTerm, StringComparison.CurrentCultureIgnoreCase) && ushort.TryParse(lines[i].Split(',')[0], out ushort id))
+                if (lines[i].Split(',')[1].Trim('"').Equals(huntSearchTerm, StringComparison.OrdinalIgnoreCase) && ushort.TryParse(lines[i].Split(',')[0], out ushort id))
                 {
                     return id;
                 }
@@ -311,7 +311,7 @@ namespace XIVDB
         {
             foreach (var line in Resources.TerritoryType.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3))
             {
-                if (line.Split(',')[6].Trim('"').Equals(ZoneName, StringComparison.CurrentCultureIgnoreCase))
+                if (line.Split(',')[6].Trim('"').Equals(ZoneName, StringComparison.OrdinalIgnoreCase))
                 {
                     ZoneID = ushort.Parse(line.Split(',')[0]);
                     return true;

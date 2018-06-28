@@ -251,7 +251,7 @@ namespace FFXIV_GameSense
             else if (GameResources.IsKoreanWorld(GetServerId()))
             {
                 LogHost.Default.Info(GameRegion.Korean.ToString() + regionpostpend);
-                serverTimeOffset[2] = Is64Bit ? 0x684 : 0x52C ;
+                serverTimeOffset[2] = Is64Bit ? 0x684 : 0x52C;
                 contentFinderConditionOffset -= Is64Bit ? 0x8 : 0xC;
                 contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Korean);
                 combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Korean);
