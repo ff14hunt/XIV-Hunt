@@ -133,20 +133,20 @@
     <value> {0} Instance: {1}</value>
   </data>
   <data name="FATEPrcTimeRemaining" xml:space="preserve">
-    <value>{0}% with {1}:{2} remaining</value>
+    <value>진행도{0}% / {1}:{2} 남음</value>
     <comment>Time remaining</comment>
   </data>
   <data name="FormConnectedTo" xml:space="preserve">
     <value>Connected to {0}</value>
   </data>
   <data name="HuntInstance" xml:space="preserve">
-    <value> Instance {0}</value>
+    <value> 인스턴스 {0}</value>
   </data>
   <data name="HuntMsg" xml:space="preserve">
     <value>{0} 등급: {1} @ &lt;pos&gt;</value>
   </data>
   <data name="HuntMsgKilled" xml:space="preserve">
-    <value> 방금 잡힘.</value>
+    <value> 방금 잡힘</value>
   </data>
   <data name="LKIHours" xml:space="preserve">
     <value> {0} hours ago</value>
@@ -167,7 +167,7 @@
     <value> {0} minutes ago</value>
   </data>
   <data name="PreparationState" xml:space="preserve">
-    <value>Preparation state.</value>
+    <value>활성화 대기 중</value>
   </data>
   <data name="FATEMsg" xml:space="preserve">
     <value>돌발: {0} @</value>
@@ -230,7 +230,7 @@
     <value>소리 파일</value>
   </data>
   <data name="FormSFCMNewAlert" xml:space="preserve">
-    <value>다른 알람 ...</value>
+    <value>다른 파일 선택</value>
   </data>
   <data name="FormFATEs" xml:space="preserve">
     <value>돌발:</value>
