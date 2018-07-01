@@ -14,7 +14,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Media;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,7 +36,7 @@ namespace FFXIV_GameSense
         private System.Windows.Forms.NotifyIcon trayIcon;
         private ViewModel vm;
         private static SettingsForm SettingsWindow;
-        internal static LogView LogView = new LogView();
+        private static LogView LogView = new LogView();
         private CancellationTokenSource cts;
         private static bool WroteDRPop = false;
         private static bool IconIsFlashing = false;
@@ -221,7 +220,7 @@ namespace FFXIV_GameSense
             return false;
         }
 
-        private void ProcessChatCommand(object sender, CommandEventArgs e)
+        internal void ProcessChatCommand(object sender, CommandEventArgs e)
         {
             LogHost.Default.Info($"[{nameof(ProcessChatCommand)}] New command: {e.Command.ToString()} {e.Parameter}");
             if (e.Command == Command.Hunt)
@@ -356,31 +355,10 @@ namespace FFXIV_GameSense
             var mml = new ImplementedPlayer();
             var mmls = File.ReadAllLines(pathname);
             for (int i = 0; i < mmls.Length; i++)
-                mmls[i] = RemoveLineComments(mmls[i]);
-            var fmml = RemoveBlockComments(string.Join(string.Empty, mmls));
+                mmls[i] = mmls[i].RemoveLineComments();
+            var fmml = string.Join(string.Empty, mmls).RemoveBlockComments();
             mml.Load(fmml);
             _ = Program.mem.PlayMML(mml, cts.Token);
-        }
-
-        private static string RemoveLineComments(string i)
-        {
-            string lineComments = "//";
-            var p = i.IndexOf(lineComments);
-            if (p > -1)
-                return i.Substring(0, p);
-            else
-                return i;
-        }
-
-        private static string RemoveBlockComments(string i)
-        {
-            var blockComments = @"/\*(.*?)\*/";
-            return Regex.Replace(i, blockComments, me =>
-            {
-                if (me.Value.StartsWith("/*") || me.Value.StartsWith("//"))
-                    return me.Value.StartsWith("//") ? Environment.NewLine : "";
-                return me.Value;
-            }, RegexOptions.Singleline);
         }
 
         private void MenuForm_FormClosed(object sender, EventArgs e)

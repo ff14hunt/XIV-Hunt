@@ -2,11 +2,33 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace FFXIV_GameSense
 {
     internal static class Extensions
     {
+        public static string RemoveLineComments(this string i)
+        {
+            string lineComments = "//";
+            var p = i.IndexOf(lineComments);
+            if (p > -1)
+                return i.Substring(0, p);
+            else
+                return i;
+        }
+
+        public static string RemoveBlockComments(this string i)
+        {
+            var blockComments = @"/\*(.*?)\*/";
+            return Regex.Replace(i, blockComments, me =>
+            {
+                if (me.Value.StartsWith("/*") || me.Value.StartsWith("//"))
+                    return me.Value.StartsWith("//") ? Environment.NewLine : "";
+                return me.Value;
+            }, RegexOptions.Singleline);
+        }
+
         public static int IndexOfNth(this string input, string value, int startIndex, int nth)
         {
             if (nth < 1)
