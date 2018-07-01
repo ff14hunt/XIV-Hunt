@@ -234,15 +234,6 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  {0} Instance: {1}.
-        /// </summary>
-        public static string FATEMsgInstance {
-            get {
-                return ResourceManager.GetString("FATEMsgInstance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}% with {1}:{2} remaining.
         /// </summary>
         public static string FATEPrcTimeRemaining {
@@ -410,6 +401,24 @@ namespace FFXIV_GameSense.Properties {
         public static string FormHWAbrv {
             get {
                 return ResourceManager.GetString("FormHWAbrv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A {0} account, with a verified character on {1}, is required..
+        /// </summary>
+        public static string FormLogin {
+            get {
+                return ResourceManager.GetString("FormLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A {0} account is required..
+        /// </summary>
+        public static string FormLoginKRCN {
+            get {
+                return ResourceManager.GetString("FormLoginKRCN", resourceCulture);
             }
         }
         
@@ -755,6 +764,24 @@ namespace FFXIV_GameSense.Properties {
         public static string PerformDirectoryNotExists {
             get {
                 return ResourceManager.GetString("PerformDirectoryNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last modified.
+        /// </summary>
+        public static string PerformListViewLastModified {
+            get {
+                return ResourceManager.GetString("PerformListViewLastModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string PerformListViewName {
+            get {
+                return ResourceManager.GetString("PerformListViewName", resourceCulture);
             }
         }
         

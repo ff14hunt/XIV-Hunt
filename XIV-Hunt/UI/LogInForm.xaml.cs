@@ -33,9 +33,9 @@ namespace FFXIV_GameSense.UI
             InitializeComponent();
             string text;
             if (GameResources.IsChineseWorld(wid) || GameResources.IsKoreanWorld(wid))
-                text = string.Format($"A {XIVHuntNet} account is required.", GameResources.GetWorldName(wid));
+                text = string.Format(Properties.Resources.FormLoginKRCN, XIVHuntNet);
             else
-                text = string.Format($"A {XIVHuntNet} account, with a verified character on {{0}}, is required.", GameResources.GetWorldName(wid));
+                text = string.Format(Properties.Resources.FormLogin, XIVHuntNet,GameResources.GetWorldName(wid));
             var link = new Hyperlink(new Run(XIVHuntNet))
             {
                 NavigateUri = new Uri(AccountLoginUrl),

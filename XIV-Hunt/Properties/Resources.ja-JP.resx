@@ -129,9 +129,6 @@
   <data name="ReportReceived" xml:space="preserve">
     <value>[{0}] 報告をいただきました: {1}</value>
   </data>
-  <data name="FATEMsgInstance" xml:space="preserve">
-    <value>{0} インスタンス{1}</value>
-  </data>
   <data name="FATEPrcTimeRemaining" xml:space="preserve">
     <value>{0}%完成しています、後{1}:{2}分</value>
     <comment>Time remaining</comment>
@@ -324,5 +321,17 @@
   </data>
   <data name="FormDoNotAnnounceFateIfMinutesRemaining" xml:space="preserve">
     <value>Do not announce FATE if minutes remaining is below:</value>
+  </data>
+  <data name="PerformListViewName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PerformListViewLastModified" xml:space="preserve">
+    <value>Last modified</value>
+  </data>
+  <data name="FormLogin" xml:space="preserve">
+    <value>A {0} account, with a verified character on {1}, is required.</value>
+  </data>
+  <data name="FormLoginKRCN" xml:space="preserve">
+    <value>A {0} account is required.</value>
   </data>
 </root>

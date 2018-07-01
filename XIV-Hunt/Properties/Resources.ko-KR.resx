@@ -129,9 +129,6 @@
   <data name="ReportReceived" xml:space="preserve">
     <value>[{0}] Report received: {1}</value>
   </data>
-  <data name="FATEMsgInstance" xml:space="preserve">
-    <value> {0} Instance: {1}</value>
-  </data>
   <data name="FATEPrcTimeRemaining" xml:space="preserve">
     <value>진행도{0}% / {1}:{2} 남음</value>
     <comment>Time remaining</comment>
@@ -324,5 +321,17 @@
   </data>
   <data name="FormDoNotAnnounceFateIfMinutesRemaining" xml:space="preserve">
     <value>돌발의 남은 시간이 다음 이하면 알리지 않음 (단위: 분)</value>
+  </data>
+  <data name="PerformListViewName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PerformListViewLastModified" xml:space="preserve">
+    <value>Last modified</value>
+  </data>
+  <data name="FormLogin" xml:space="preserve">
+    <value>A {0} account, with a verified character on {1}, is required.</value>
+  </data>
+  <data name="FormLoginKRCN" xml:space="preserve">
+    <value>A {0} account is required.</value>
   </data>
 </root>
