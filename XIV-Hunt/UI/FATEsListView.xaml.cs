@@ -15,7 +15,7 @@ namespace FFXIV_GameSense.UI
     {
         private GridViewColumnHeader _lastHeaderClicked = null;
         private ListSortDirection _lastDirection = ListSortDirection.Ascending;
-        bool filterApplied = false;
+        private bool filterApplied = false;
 
         public FATEsListView()
         {
@@ -30,8 +30,8 @@ namespace FFXIV_GameSense.UI
             else
             {
                 FATEListViewItem item = (FATEListViewItem)obj;
-                return (item.Name.IndexOf(FilterTextBox.Text, StringComparison.CurrentCultureIgnoreCase) >= 0)
-                    || (item.Zones.IndexOf(FilterTextBox.Text, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                return (item.Name.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                    || (item.Zones.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     || (item.ID.ToString() == FilterTextBox.Text);
             }
         }
