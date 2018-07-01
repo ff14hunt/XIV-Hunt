@@ -3,6 +3,7 @@ using Splat;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -65,6 +66,11 @@ namespace FFXIV_GameSense
         private static extern IntPtr CreateToolhelp32Snapshot(SnapshotFlags dwFlags, uint th32ProcessID);
         [DllImport("kernel32.dll")]
         private static extern bool Module32Next(IntPtr hSnapshot, ref MODULEENTRY32 lpme);
+
+        [DllImport("kernel32.dll")]
+        private static extern uint GetSystemDefaultLCID();
+
+        internal static CultureInfo GetSystemDefaultCultureInfo() => new CultureInfo((int)GetSystemDefaultLCID(), true);
 
         internal static async Task InjectDLL(Process Process, string DLLName, bool x86proc)
         {

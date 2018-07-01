@@ -1,4 +1,5 @@
 ﻿using FFXIV_GameSense.Properties;
+using System;
 using System.ComponentModel;
 using XIVDB;
 
@@ -13,7 +14,7 @@ namespace FFXIV_GameSense.UI
         private string zones;
         public string Zones
         {
-            get { return zones ?? string.Empty; }
+            get => zones ?? string.Empty;
             set
             {
                 if (zones != value)
@@ -52,5 +53,12 @@ namespace FFXIV_GameSense.UI
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+    }
+
+    public class PerformanceListViewItem
+    {
+        public string RelativePath { get; set; }
+        //public string FileName => Path.GetFileName(RelativePath);
+        public DateTime LastModified { get; set; }
     }
 }

@@ -239,6 +239,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="UI\PerformanceFileListView.xaml.cs">
+      <DependentUpon>PerformanceFileListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\FATEsListView.xaml.cs">
       <DependentUpon>FATEsListView.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,7 @@
     <Compile Include="UI\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SystemDateTimeFormatConverter.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="XIVResources.cs" />
     <Compile Include="XIVDBObjects.cs" />
@@ -337,6 +341,10 @@
     <Page Include="MenuFormWPF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\PerformanceFileListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\FATEsListView.xaml">
       <SubType>Designer</SubType>
