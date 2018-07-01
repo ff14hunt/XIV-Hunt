@@ -105,7 +105,7 @@ namespace FFXIV_GameSense
             var slist = new List<string> { Settings.Default.SBell, Settings.Default.ABell, Settings.Default.BBell, Settings.Default.FATEBell };
             for (int i = 0; i < 4; i++)
             {
-                if (!string.IsNullOrEmpty(slist[i]) && !slist[i].Equals(Properties.Resources.NoSoundAlert) && File.Exists(slist[i]) && Path.GetExtension(slist[i]).ToLower().Equals(".wav"))
+                if (!string.IsNullOrEmpty(slist[i]) && !slist[i].Equals(Properties.Resources.NoSoundAlert) && File.Exists(slist[i]) && Path.GetExtension(slist[i]).Equals(".wav", StringComparison.OrdinalIgnoreCase))
                 {
                     switch (i)
                     {
@@ -254,7 +254,7 @@ namespace FFXIV_GameSense
                 else
                 {
                     string[] pwords = e.Parameter.Split(' ');
-                    bool hqprefer = pwords.Last().Equals("HQ", StringComparison.InvariantCultureIgnoreCase);
+                    bool hqprefer = pwords.Last().Equals("HQ", StringComparison.OrdinalIgnoreCase);
                     FFXIVHunts.LookupItemXIVDB(hqprefer ? string.Join(" ", pwords.Take(pwords.Count() - 1)) : e.Parameter, hqprefer).ContinueWith(t =>
                        {
                            if (t.Result != null)

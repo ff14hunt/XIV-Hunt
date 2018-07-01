@@ -149,7 +149,7 @@ namespace FFXIV_GameSense
                     ScanCombatants();
 
                 if (cnt >= uint.MaxValue - 5)
-                    cnt = 0;
+                    cnt = uint.MinValue;
                 else
                     cnt++;
             }
@@ -844,14 +844,14 @@ namespace FFXIV_GameSense
             return combatant;
         }
 
-        internal async Task PlayPerformance(Performance p, CancellationToken cts)
+        internal async Task PlayPerformance(Performance p, CancellationToken performCancelationToken)
         {
             if (!PersistentNamedPipeServer.Instance.IsConnected)
                 await TryInject();
-            await p.PlayAsync(Process.Id, cts);
+            await p.PlayAsync(Process.Id, performCancelationToken);
         }
 
-        internal async Task PlayMML(ImplementedPlayer p, CancellationToken cts)
+        internal async Task PlayMML(ImplementedPlayer p, CancellationToken performCancelationToken)
         {
             p.Unmute();
             p.Play();
@@ -870,7 +870,7 @@ namespace FFXIV_GameSense
                         {
                             Thread.Sleep(w);
                         }
-                        if (cts.IsCancellationRequested)
+                        if (performCancelationToken.IsCancellationRequested)
                             return;
                         PersistentNamedPipeServer.SendPipeMessage(new PipeMessage(Process.Id, PMCommand.PlayNote) { Parameter = note.GetStep() });
                         Thread.Sleep(note.Length);

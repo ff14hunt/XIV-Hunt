@@ -374,7 +374,7 @@ namespace FFXIV_GameSense
             string uri = "https://api.xivdb.com/search?string=" + WebUtility.UrlEncode(itemname) + "&one=items&strict=on&language=" + Thread.CurrentThread.CurrentUICulture.Name.Substring(0, 2) + "&page=";
             var results = new List<Item>();
             HttpResponseMessage r;
-            while (page == 1 ? true : results.Count != 0 && !results.Any(x => x.Name.Equals(itemname, StringComparison.CurrentCultureIgnoreCase)))
+            while (page == 1 ? true : results.Count != 0 && !results.Any(x => x.Name.Equals(itemname, StringComparison.OrdinalIgnoreCase)))
             {
                 r = await Http.GetAsync(uri + page++);
                 if (r.IsSuccessStatusCode)
@@ -383,7 +383,7 @@ namespace FFXIV_GameSense
                     return null;
                 results = JObject.Parse(e).SelectToken("items.results").ToObject<List<Item>>();
             }
-            Item result = results.SingleOrDefault(x => x.Name.Equals(itemname, StringComparison.InvariantCultureIgnoreCase));
+            Item result = results.SingleOrDefault(x => x.Name.Equals(itemname, StringComparison.OrdinalIgnoreCase));
             if (!detailed)
                 return result;
             r = await Http.GetAsync(result.Url_API);
