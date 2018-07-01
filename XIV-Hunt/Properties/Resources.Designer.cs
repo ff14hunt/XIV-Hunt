@@ -540,6 +540,24 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        public static string FormTabCtrlNotifications {
+            get {
+                return ResourceManager.GetString("FormTabCtrlNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Performance.
+        /// </summary>
+        public static string FormTabCtrlPerformance {
+            get {
+                return ResourceManager.GetString("FormTabCtrlPerformance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /hunt FATEName enables announcements of said FATE.
         /// </summary>
         public static string FormTrackFATEAfterQuery {

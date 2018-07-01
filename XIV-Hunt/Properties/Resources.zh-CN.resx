@@ -331,4 +331,10 @@
   <data name="FormLoginKRCN" xml:space="preserve">
     <value>A {0} account is required.</value>
   </data>
+  <data name="FormTabCtrlNotifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="FormTabCtrlPerformance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
 </root>
