@@ -840,6 +840,24 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string SettingsLogOut {
+            get {
+                return ResourceManager.GetString("SettingsLogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In case you need to log in as a different user: .
+        /// </summary>
+        public static string SettingsNeedToLoginAsADifferentUser {
+            get {
+                return ResourceManager.GetString("SettingsNeedToLoginAsADifferentUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start minimized.
         /// </summary>
         public static string StartMinimized {

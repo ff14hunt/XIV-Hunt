@@ -1,5 +1,6 @@
 ﻿using FFXIV_GameSense.Properties;
 using Microsoft.Win32;
+using Squirrel;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -48,9 +49,9 @@ namespace FFXIV_GameSense
             if (int.TryParse(textbox.Text, out int value))
             {
                 if (value > 100)
-                    textbox.Text = "100";
+                    textbox.Text = 100.ToString();
                 else if (value < 0)
-                    textbox.Text = "0";
+                    textbox.Text = 0.ToString();
             }
         }
 
@@ -63,10 +64,16 @@ namespace FFXIV_GameSense
             }
         }
 
-        //private void ClearCookiesButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Settings.Default.Cookies = string.Empty;
-        //    Settings.Default.Save();
-        //}
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.Cookies = string.Empty;
+            Settings.Default.Save();
+#if DEBUG
+            System.Windows.Forms.Application.Restart();
+            Application.Current.Shutdown();
+#else
+            UpdateManager.RestartApp();
+#endif
+        }
     }
 }

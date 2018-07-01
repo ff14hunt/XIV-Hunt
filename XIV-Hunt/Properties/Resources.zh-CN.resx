@@ -337,4 +337,10 @@
   <data name="FormTabCtrlPerformance" xml:space="preserve">
     <value>Performance</value>
   </data>
+  <data name="SettingsNeedToLoginAsADifferentUser" xml:space="preserve">
+    <value>In case you need to log in as a different user: </value>
+  </data>
+  <data name="SettingsLogOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
 </root>

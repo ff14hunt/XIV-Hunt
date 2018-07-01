@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:properties="clr-namespace:FFXIV_GameSense.Properties"
         mc:Ignorable="d"
-        Title="{x:Static properties:Resources.SettingsForm}" Height="450" Width="365" ResizeMode="NoResize">
+        Title="{x:Static properties:Resources.SettingsForm}" Height="500" Width="365" ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.496,0.426">
         <CheckBox x:Name="MinimizeToTrayCB" Content="{x:Static properties:Resources.FormMinimizeToTray}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=MinimizeToTray, Mode=TwoWay}" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto"/>
         <CheckBox x:Name="StartMinimizedCB" Content="{x:Static properties:Resources.StartMinimized}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=StartMinimized, Mode=TwoWay}" Margin="10,31,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto"/>
@@ -28,6 +28,8 @@
         <CheckBox x:Name="FlashTaskbarIconOnHuntsAndFATEsCB" Content="{x:Static properties:Resources.FormFlashTaskbarIconHuntFate}" IsChecked="{Binding FlashTaskbarIconOnHuntAndFATEs, Mode=TwoWay, Source={x:Static properties:Settings.Default}}" Margin="10,136,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" Text="{x:Static properties:Resources.FormPerformDirectory}" VerticalAlignment="Top"/>
         <TextBox x:Name="PerformDirectoryTextBox" Height="23" Margin="10,178,10,0" TextWrapping="Wrap" Text="{Binding PerformDirectory, Mode=TwoWay, Source={x:Static properties:Settings.Default}}" ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}" IsReadOnly="True"  PreviewMouseUp="PerformDirectoryTextBox_PreviewMouseUp" VerticalAlignment="Top"/>
-        <!--<Button Name="ClearCookiesButton" Content="Clear Cookies" Margin="10,203,229,1" Click="ClearCookiesButton_Click"></Button>-->
+        <TextBlock Text="{x:Static properties:Resources.SettingsNeedToLoginAsADifferentUser}" Margin="0,435,97,0" VerticalAlignment="Top" Width="Auto" HorizontalAlignment="Right" />
+        <Button Name="LogOutButton" Content="{x:Static properties:Resources.SettingsLogOut}" Margin="266,431,0,0" Click="LogOutButton_Click" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="83" />
+        <Separator Margin="0,417,0,0" Height="9" VerticalAlignment="Top"/>
     </Grid>
 </Window>
