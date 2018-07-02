@@ -24,7 +24,7 @@ namespace FFXIV_GameSense.UI
         private const string AccountLoginUrl = FFXIVHunts.baseUrl + "Account/Login";
         private const string IdentityCookieName = ".AspNetCore.Identity.Application";
         private const string TwoFactorUserIdCookieName = "Identity.TwoFactorUserId";
-        private const string TwoFactorRememberMeCookieName = "Identity.TwoFactorRememberMe";
+        internal const string TwoFactorRememberMeCookieName = "Identity.TwoFactorRememberMe";
         internal const string XIVHuntNet = "XIVHunt.net";
         internal CookieContainer receivedCookies = new CookieContainer(2);
 

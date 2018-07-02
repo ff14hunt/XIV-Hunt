@@ -107,6 +107,12 @@ namespace FFXIV_GameSense
 
         private bool TestCC(CookieContainer cc)
         {
+            if (cc == null)
+                return false;
+            CookieCollection ccs = cc.GetCookies(new Uri(FFXIVHunts.baseUrl));
+            for (int i = 0; i < ccs.Count; i++)
+                if (ccs[i].Name == UI.LogInForm.TwoFactorRememberMeCookieName)
+                    return true;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(FFXIVHunts.VerifiedCharactersUrl);
             request.CookieContainer = cc;
             request.AllowAutoRedirect = false;
