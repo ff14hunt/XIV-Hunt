@@ -329,10 +329,10 @@
     <value>최종 수정일</value>
   </data>
   <data name="FormLogin" xml:space="preserve">
-    <value>A {0} account, with a verified character on {1}, is required.</value>
+    <value> {1} 서버로 인증된 {0} 계정 </value>
   </data>
   <data name="FormLoginKRCN" xml:space="preserve">
-    <value>A {0} account is required.</value>
+    <value> {0} 계정 필요</value>
   </data>
   <data name="FormTabCtrlNotifications" xml:space="preserve">
     <value>알림</value>
@@ -347,24 +347,24 @@
     <value>로그 아웃</value>
   </data>
   <data name="FormLoginEmail" xml:space="preserve">
-    <value>E-Mail:</value>
+    <value>E-Mail :</value>
   </data>
   <data name="FormLoginPassword" xml:space="preserve">
-    <value>Password:</value>
+    <value>비밀번호 :</value>
   </data>
   <data name="FormLogin2FA" xml:space="preserve">
-    <value>2FA code if applicable:</value>
+    <value>2차 비밀번호 (글로벌서버) :</value>
   </data>
   <data name="FormLoginLogin" xml:space="preserve">
-    <value>Login</value>
+    <value>로그인</value>
   </data>
   <data name="FormLoginFailed" xml:space="preserve">
-    <value>Login failed</value>
+    <value>로그인 실패</value>
   </data>
   <data name="FormConnecting" xml:space="preserve">
-    <value>Connecting...</value>
+    <value>연결 중...</value>
   </data>
   <data name="FormConnectingRetrying" xml:space="preserve">
-    <value>Failed to connect. Retrying in {0} seconds.</value>
+    <value>연결 실패. {0} 초 후 재시도</value>
   </data>
 </root>
