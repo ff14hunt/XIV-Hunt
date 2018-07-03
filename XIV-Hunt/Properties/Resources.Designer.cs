@@ -315,6 +315,24 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connecting....
+        /// </summary>
+        public static string FormConnecting {
+            get {
+                return ResourceManager.GetString("FormConnecting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to connect. Retrying in {0} seconds..
+        /// </summary>
+        public static string FormConnectingRetrying {
+            get {
+                return ResourceManager.GetString("FormConnectingRetrying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not announce FATE if minutes remaining is below:.
         /// </summary>
         public static string FormDoNotAnnounceFateIfMinutesRemaining {
@@ -414,11 +432,56 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 2FA code if applicable:.
+        /// </summary>
+        public static string FormLogin2FA {
+            get {
+                return ResourceManager.GetString("FormLogin2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-Mail:.
+        /// </summary>
+        public static string FormLoginEmail {
+            get {
+                return ResourceManager.GetString("FormLoginEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login failed.
+        /// </summary>
+        public static string FormLoginFailed {
+            get {
+                return ResourceManager.GetString("FormLoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A {0} account is required..
         /// </summary>
         public static string FormLoginKRCN {
             get {
                 return ResourceManager.GetString("FormLoginKRCN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string FormLoginLogin {
+            get {
+                return ResourceManager.GetString("FormLoginLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password:.
+        /// </summary>
+        public static string FormLoginPassword {
+            get {
+                return ResourceManager.GetString("FormLoginPassword", resourceCulture);
             }
         }
         

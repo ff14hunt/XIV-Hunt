@@ -343,4 +343,25 @@
   <data name="SettingsLogOut" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="FormLoginEmail" xml:space="preserve">
+    <value>E-Mail:</value>
+  </data>
+  <data name="FormLoginPassword" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="FormLogin2FA" xml:space="preserve">
+    <value>2FA code if applicable:</value>
+  </data>
+  <data name="FormLoginLogin" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="FormLoginFailed" xml:space="preserve">
+    <value>Login failed</value>
+  </data>
+  <data name="FormConnecting" xml:space="preserve">
+    <value>Connecting...</value>
+  </data>
+  <data name="FormConnectingRetrying" xml:space="preserve">
+    <value>Failed to connect. Retrying in {0} seconds.</value>
+  </data>
 </root>

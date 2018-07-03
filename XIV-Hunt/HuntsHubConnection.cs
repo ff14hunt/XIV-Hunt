@@ -50,7 +50,7 @@ namespace FFXIV_GameSense
             {
                 try
                 {
-                    w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = "Connecting...");
+                    w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = Resources.FormConnecting);
                     await Connection.StartAsync();
                     Connected = true;
                 }
@@ -73,12 +73,11 @@ namespace FFXIV_GameSense
                     }
                     else
                     {
-                        string msg = "Failed to connect. Retrying in {0} seconds.";
                         int wtime = 5000;
-                        LogHost.Default.InfoException(string.Format(msg, 5), e);
+                        LogHost.Default.InfoException(string.Format(Resources.FormConnectingRetrying, 5), e);
                         while (wtime > 0)
                         {
-                            w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = string.Format(msg, wtime / 1000));
+                            w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectingRetrying, wtime / 1000));
                             await Task.Delay(1000);
                             wtime -= 1000;
                         }

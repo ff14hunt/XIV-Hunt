@@ -19,14 +19,14 @@
                 <ColumnDefinition Width="25*" />
                 <ColumnDefinition Width="93*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="E-Mail:" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBlock Text="{x:Static properties:Resources.FormLoginEmail}" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Center"/>
             <TextBox x:Name="EmailTextBox" Text="{Binding Source={x:Static properties:Settings.Default}, Path=LastEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
-            <TextBlock Text="Password:" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBlock Text="{x:Static properties:Resources.FormLoginPassword}" FontWeight="Bold" Grid.Row="1" VerticalAlignment="Center"/>
             <PasswordBox x:Name="PasswordBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" MaxLength="100"/>
-            <TextBlock VerticalAlignment="Center" FontStyle="Italic" Grid.Row="2">2FA code:<LineBreak/>If applicable</TextBlock>
+            <TextBlock VerticalAlignment="Center" Grid.Row="2" Text="{x:Static properties:Resources.FormLogin2FA}" FontStyle="Italic" TextWrapping="Wrap"/>
             <PasswordBox x:Name="TwoFABox" MaxLength="6" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
-            <Button x:Name="LoginButton" IsDefault="True" Click="Button_Click" Grid.Row="3" Grid.Column="1">Login</Button>
-            <TextBlock x:Name="LoginFailedTextBlock" VerticalAlignment="Center" ToolTip="If applicable" FontStyle="Italic" Grid.Row="3" Foreground="Red" HorizontalAlignment="Center" Visibility="Hidden">Failed</TextBlock>
+            <Button x:Name="LoginButton" IsDefault="True" Click="Button_Click" Grid.Row="3" Grid.Column="1" Content="{x:Static properties:Resources.FormLoginLogin}"/>
+            <TextBlock x:Name="LoginFailedTextBlock" VerticalAlignment="Center" FontStyle="Italic" Grid.Row="3" Foreground="Red" HorizontalAlignment="Center" Visibility="Hidden" Text="{x:Static properties:Resources.FormLoginFailed}"/>
         </Grid>
     </Grid>
 </Window>
