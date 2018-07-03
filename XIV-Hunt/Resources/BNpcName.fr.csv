@@ -6174,7 +6174,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 6170,"hoplomachus domien",0,"hoplomachi domiens",0,1,1,0,0
 6171,"laquearius domien",0,"laquearii domiens",0,0,1,0,0
 6172,"signifer domien",0,"signiferi domiens",0,0,1,0,0
-6173,"Galura",0,"Galura",0,0,1,0,1
+6173,"Garula",0,"Garula",0,0,1,0,1
 6174,"mouton de la steppe",0,"moutons de la steppe",0,0,1,0,0
 6175,"yamaas de la steppe",0,"yamaa de la steppe",0,0,1,0,0
 6176,"coeurl de la steppe",0,"coeurls de la steppe",0,0,1,0,0
@@ -7263,143 +7263,143 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7259,"valmuh",0,"valmuh",0,0,1,0,0
 7260,"golem de fer",0,"golems de fer",0,0,1,0,0
 7261,"mécanisme antique",0,"mécanismes antiques",0,0,1,0,0
-7262,"",0,"",0,0,0,0,0
-7263,"",0,"",0,0,0,0,0
-7264,"",0,"",0,0,0,0,0
-7265,"",0,"",0,0,0,0,0
-7266,"",0,"",0,0,0,0,0
-7267,"",0,"",0,0,0,0,0
-7268,"",0,"",0,0,0,0,0
-7269,"",0,"",0,0,0,0,0
-7270,"",0,"",0,0,0,0,0
-7271,"",0,"",0,0,0,0,0
-7272,"",0,"",0,0,0,0,0
-7273,"",0,"",0,0,0,0,0
-7274,"",0,"",0,0,0,0,0
-7275,"",0,"",0,0,0,0,0
-7276,"",0,"",0,0,0,0,0
-7277,"",0,"",0,0,0,0,0
-7278,"",0,"",0,0,0,0,0
-7279,"",0,"",0,0,0,0,0
-7280,"",0,"",0,0,0,0,0
-7281,"",0,"",0,0,0,0,0
-7282,"",0,"",0,0,0,0,0
-7283,"",0,"",0,0,0,0,0
-7284,"",0,"",0,0,0,0,0
-7285,"",0,"",0,0,0,0,0
-7286,"",0,"",0,0,0,0,0
-7287,"",0,"",0,0,0,0,0
-7288,"",0,"",0,0,0,0,0
-7289,"",0,"",0,0,0,0,0
-7290,"",0,"",0,0,0,0,0
-7291,"",0,"",0,0,0,0,0
-7292,"",0,"",0,0,0,0,0
-7293,"",0,"",0,0,0,0,0
-7294,"",0,"",0,0,0,0,0
-7295,"",0,"",0,0,0,0,0
-7296,"",0,"",0,0,0,0,0
-7297,"",0,"",0,0,0,0,0
-7298,"",0,"",0,0,0,0,0
-7299,"",0,"",0,0,0,0,0
-7300,"",0,"",0,0,0,0,0
-7301,"",0,"",0,0,0,0,0
-7302,"",0,"",0,0,0,0,0
-7303,"",0,"",0,0,0,0,0
-7304,"",0,"",0,0,0,0,0
-7305,"",0,"",0,0,0,0,0
-7306,"",0,"",0,0,0,0,0
-7307,"",0,"",0,0,0,0,0
-7308,"",0,"",0,0,0,0,0
-7309,"",0,"",0,0,0,0,0
-7310,"",0,"",0,0,0,0,0
-7311,"",0,"",0,0,0,0,0
-7312,"",0,"",0,0,0,0,0
-7313,"",0,"",0,0,0,0,0
-7314,"",0,"",0,0,0,0,0
-7315,"",0,"",0,0,0,0,0
-7316,"",0,"",0,0,0,0,0
-7317,"",0,"",0,0,0,0,0
-7318,"",0,"",0,0,0,0,0
-7319,"",0,"",0,0,0,0,0
-7320,"",0,"",0,0,0,0,0
-7321,"",0,"",0,0,0,0,0
-7322,"",0,"",0,0,0,0,0
-7323,"",0,"",0,0,0,0,0
-7324,"",0,"",0,0,0,0,0
-7325,"",0,"",0,0,0,0,0
-7326,"",0,"",0,0,0,0,0
-7327,"",0,"",0,0,0,0,0
-7328,"",0,"",0,0,0,0,0
-7329,"",0,"",0,0,0,0,0
-7330,"",0,"",0,0,0,0,0
-7331,"",0,"",0,0,0,0,0
-7332,"",0,"",0,0,0,0,0
-7333,"",0,"",0,0,0,0,0
-7334,"",0,"",0,0,0,0,0
-7335,"",0,"",0,0,0,0,0
-7336,"",0,"",0,0,0,0,0
-7337,"",0,"",0,0,0,0,0
-7338,"",0,"",0,0,0,0,0
-7339,"",0,"",0,0,0,0,0
-7340,"",0,"",0,0,0,0,0
-7341,"",0,"",0,0,0,0,0
-7342,"",0,"",0,0,0,0,0
-7343,"",0,"",0,0,0,0,0
-7344,"",0,"",0,0,0,0,0
-7345,"",0,"",0,0,0,0,0
-7346,"",0,"",0,0,0,0,0
-7347,"",0,"",0,0,0,0,0
-7348,"",0,"",0,0,0,0,0
-7349,"",0,"",0,0,0,0,0
-7350,"",0,"",0,0,0,0,0
-7351,"",0,"",0,0,0,0,0
-7352,"",0,"",0,0,0,0,0
-7353,"",0,"",0,0,0,0,0
-7354,"",0,"",0,0,0,0,0
-7355,"",0,"",0,0,0,0,0
-7356,"",0,"",0,0,0,0,0
-7357,"",0,"",0,0,0,0,0
-7358,"",0,"",0,0,0,0,0
-7359,"",0,"",0,0,0,0,0
-7360,"",0,"",0,0,0,0,0
-7361,"",0,"",0,0,0,0,0
-7362,"",0,"",0,0,0,0,0
-7363,"",0,"",0,0,0,0,0
-7364,"",0,"",0,0,0,0,0
-7365,"",0,"",0,0,0,0,0
-7366,"",0,"",0,0,0,0,0
-7367,"",0,"",0,0,0,0,0
-7368,"",0,"",0,0,0,0,0
-7369,"",0,"",0,0,0,0,0
-7370,"",0,"",0,0,0,0,0
-7371,"",0,"",0,0,0,0,0
-7372,"",0,"",0,0,0,0,0
-7373,"",0,"",0,0,0,0,0
-7374,"",0,"",0,0,0,0,0
-7375,"",0,"",0,0,0,0,0
-7376,"",0,"",0,0,0,0,0
-7377,"",0,"",0,0,0,0,0
-7378,"",0,"",0,0,0,0,0
-7379,"",0,"",0,0,0,0,0
-7380,"",0,"",0,0,0,0,0
-7381,"",0,"",0,0,0,0,0
-7382,"",0,"",0,0,0,0,0
-7383,"",0,"",0,0,0,0,0
-7384,"",0,"",0,0,0,0,0
-7385,"",0,"",0,0,0,0,0
-7386,"",0,"",0,0,0,0,0
-7387,"",0,"",0,0,0,0,0
-7388,"",0,"",0,0,0,0,0
-7389,"",0,"",0,0,0,0,0
-7390,"",0,"",0,0,0,0,0
-7391,"",0,"",0,0,0,0,0
-7392,"",0,"",0,0,0,0,0
-7393,"",0,"",0,0,0,0,0
-7394,"",0,"",0,0,0,0,0
-7395,"",0,"",0,0,0,0,0
-7396,"",0,"",0,0,0,0,0
-7397,"",0,"",0,0,0,0,0
-7398,"",0,"",0,0,0,0,0
+7262,"yumemi nu des Cieux",0,"yumemi nus des Cieux",0,0,1,0,0
+7263,"mutsu des Cieux",0,"mutsu des Cieux",0,0,1,0,0
+7264,"poisson-bombo des Cieux",0,"poissons-bombos des Cieux",0,0,1,0,0
+7265,"onryô des Cieux",0,"onryô des Cieux",0,1,1,0,0
+7266,"coquorail des Cieux",0,"coquoraux des Cieux",0,0,1,0,0
+7267,"gyuki des Cieux",0,"gyuki des Cieux",0,0,1,0,0
+7268,"uwabami des Cieux",0,"uwabami des Cieux",0,1,1,0,0
+7269,"chauve-kraken des Cieux",0,"chauves-krakens des Cieux",0,0,1,0,0
+7270,"ango des Cieux",0,"ango des Cieux",0,1,1,0,0
+7271,"matamata des Cieux",0,"matamata des Cieux",0,0,1,0,0
+7272,"requin volant des Cieux",0,"requins volants des Cieux",0,0,1,0,0
+7273,"Amikiri des Cieux",0,"Amikiri des Cieux",0,1,1,0,0
+7274,"yumemi des Cieux",0,"yumemi des Cieux",0,0,1,0,0
+7275,"korpokkur des Cieux",0,"korpokkur des Cieux",0,0,1,0,0
+7276,"shizuku des Cieux",0,"shizuku des Cieux",0,0,1,0,0
+7277,"shiomushi des Cieux",0,"shiomushi des Cieux",0,0,1,0,0
+7278,"hikagiri des Cieux",0,"hikagiri des Cieux",0,0,1,0,0
+7279,"unkiu des Cieux",0,"unkiu des Cieux",0,1,1,0,0
+7280,"apa des Cieux",0,"apas des Cieux",0,1,1,1,0
+7281,"ô-tokage des Cieux",0,"ô-tokage des Cieux",0,1,1,0,0
+7282,"tatsunoko des Cieux",0,"tatsunoko des Cieux",0,0,1,0,0
+7283,"shioname des Cieux",0,"shioname des Cieux",0,0,1,0,0
+7284,"amagoi des Cieux",0,"amagoi des Cieux",0,1,1,0,0
+7285,"Namazu des Cieux",0,"Namazu des Cieux",0,0,1,0,0
+7286,"main droite des Cieux",0,"mains droites des Cieux",0,0,1,1,0
+7287,"aomino des Cieux",0,"aomino des Cieux",0,1,1,0,0
+7288,"onibi des Cieux",0,"onibi des Cieux",0,1,1,0,0
+7289,"halgai des Cieux",0,"halgai des Cieux",0,0,1,0,0
+7290,"dhruva des Cieux",0,"dhruvas des Cieux",0,0,1,0,0
+7291,"sai tai sui des Cieux",0,"sai tai sui des Cieux",0,0,1,0,0
+7292,"hatamoto des Cieux",0,"hatamoto des Cieux",0,0,1,0,0
+7293,"tenaga des Cieux",0,"tenaga des Cieux",0,0,1,0,0
+7294,"keukegen des Cieux",0,"keukegen des Cieux",0,0,1,0,0
+7295,"yûki des Cieux",0,"yûki des Cieux",0,0,1,0,0
+7296,"tengu des Cieux",0,"tengu des Cieux",0,0,1,0,0
+7297,"koja des Cieux",0,"koja des Cieux",0,0,1,0,0
+7298,"katasharin des Cieux",0,"katasharin des Cieux",0,0,1,0,0
+7299,"menreiki des Cieux",0,"menreiki des Cieux",0,0,1,0,0
+7300,"wanyûdô des Cieux",0,"wanyûdô des Cieux",0,0,1,0,0
+7301,"gedan des Cieux",0,"gedans des Cieux",0,0,1,0,0
+7302,"bucorve des Cieux",0,"bucorves des Cieux",0,0,1,0,0
+7303,"hannya des canaux",0,"hannya des canaux",0,0,1,0,0
+7304,"hara-kiri des Cieux",0,"hara-kiri des Cieux",0,0,1,0,0
+7305,"onmitsu des Cieux",0,"onmitsu des Cieux",0,1,1,0,0
+7306,"môko des Cieux",0,"môko des Cieux",0,0,1,0,0
+7307,"môkin des Cieux",0,"môkin des Cieux",0,0,1,0,0
+7308,"kiyofusa des Cieux",0,"kiyofusa des Cieux",0,0,1,0,0
+7309,"ashigaru des Cieux",0,"ashigaru des Cieux",0,1,1,0,0
+7310,"lion des enfers",0,"lions des enfers",0,0,1,0,0
+7311,"onmitsu des Cieux",0,"onmitsu des Cieux",0,1,1,0,0
+7312,"vanara des Cieux",0,"vanaras des Cieux",0,0,1,0,0
+7313,"dogû des Cieux",0,"dogû des Cieux",0,0,1,0,0
+7314,"saikoro des Cieux",0,"saikoro des Cieux",0,0,1,0,0
+7315,"ganseki des Cieux",0,"ganseki des Cieux",0,0,1,0,0
+7316,"dhara des Cieux",0,"dharas des Cieux",0,0,1,0,0
+7317,"sekizô des Cieux",0,"sekizô des Cieux",0,0,1,0,0
+7318,"sekiban des Cieux",0,"sekiban des Cieux",0,0,1,0,0
+7319,"saikoro des Cieux",0,"saikoro des Cieux",0,0,1,0,0
+7320,"iseki des Cieux",0,"iseki des Cieux",0,1,1,0,0
+7321,"aka-ishi des Cieux",0,"aka-ishi des Cieux",0,1,1,0,0
+7322,"mono-iwa des Cieux",0,"mono-iwa des Cieux",0,0,1,0,0
+7323,"iseki des Cieux",0,"iseki des Cieux",0,1,1,0,0
+7324,"kuro-usagi des Cieux",0,"kuro-usagi des Cieux",0,0,1,0,0
+7325,"sekizô des Cieux",0,"sekizô des Cieux",0,0,1,0,0
+7326,"mizumimizu des Cieux",0,"mizumimizu des Cieux",0,0,1,0,0
+7327,"kamanari des Cieux",0,"kamanari des Cieux",0,0,1,0,0
+7328,"kamakiri des Cieux",0,"kamakiri des Cieux",0,0,1,0,0
+7329,"tokagekiba des Cieux",0,"tokagekiba des Cieux",0,0,1,0,0
+7330,"kongôrei des Cieux",0,"kongôrei des Cieux",0,0,1,0,0
+7331,"tessô des Cieux",0,"tessô des Cieux",0,0,1,0,0
+7332,"maru-ishi des Cieux",0,"maru-ishi des Cieux",0,0,1,0,0
+7333,"karakuri des Cieux",0,"karakuri des Cieux",0,0,1,0,0
+7334,"chaouabti des Cieux",0,"chaouabtis des Cieux",0,0,1,0,0
+7335,"gôwan des Cieux",0,"gôwan des Cieux",0,0,1,0,0
+7336,"rachimonai des Cieux",0,"rachimonai des Cieux",0,0,1,0,0
+7337,"naga des Cieux",0,"nagas des Cieux",0,0,1,0,0
+7338,"tetsu-kyojin des Cieux",0,"tetsu-kyojin des Cieux",0,0,1,0,0
+7339,"dokyu des Cieux",0,"dokyu des Cieux",0,0,1,0,0
+7340,"wakakusa des Cieux",0,"wakakusa des Cieux",0,0,1,0,0
+7341,"mannensô des Cieux",0,"mannensô des Cieux",0,0,1,0,0
+7342,"iwa-mushi des Cieux",0,"iwa-mushi des Cieux",0,0,1,0,0
+7343,"méduse côtière des Cieux",0,"méduse côtière des Cieux",0,0,1,0,0
+7344,"doguzeri des Cieux",0,"doguzeri des Cieux",0,0,1,0,0
+7345,"kosodegai des Cieux",0,"kosodegai des Cieux",0,0,1,0,0
+7346,"shitaibana des Cieux",0,"shitaibana des Cieux",0,0,1,1,0
+7347,"hashidokoro des Cieux",0,"hashidokoro des Cieux",0,0,1,0,0
+7348,"penghou des Cieux",0,"penghou des Cieux",0,0,1,0,0
+7349,"jubokko des Cieux",0,"jubokko des Cieux",0,0,1,0,0
+7350,"morbol des Cieux",0,"morbols des Cieux",0,0,1,0,0
+7351,"chizakura des Cieux",0,"chizakura des Cieux",0,0,1,0,0
+7352,"shikubi des Cieux",0,"shikubi des Cieux",0,0,1,0,0
+7353,"ichijama des Cieux",0,"ichijama des Cieux",0,1,1,0,0
+7354,"noyagi des Cieux",0,"noyagi des Cieux",0,0,1,0,0
+7355,"ôkami des Cieux",0,"ôkami des Cieux",0,1,1,0,0
+7356,"yuki-tokage des Cieux",0,"yuki-tokage des Cieux",0,0,1,0,0
+7357,"mammouth des Cieux",0,"mammouths des Cieux",0,0,1,0,0
+7358,"tôfu des Cieux",0,"tôfus des Cieux",0,0,1,0,0
+7359,"jujishi des Cieux",0,"jujishi des Cieux",0,0,1,0,0
+7360,"yuki-otoko des Cieux",0,"yuki-otoko des Cieux",0,0,1,0,0
+7361,"yak des Cieux",0,"yaks des Cieux",0,0,1,0,0
+7362,"hyôga des Cieux",0,"hyôga des Cieux",0,0,1,0,0
+7363,"hyôzan des Cieux",0,"hyôzan des Cieux",0,0,1,0,0
+7364,"shirojishi des Cieux",0,"shirojishi des Cieux",0,0,1,0,0
+7365,"mukai-inu des Cieux",0,"mukai-inu des Cieux",0,0,1,0,0
+7366,"rôen des Cieux",0,"rôen des Cieux",0,0,1,0,0
+7367,"matanga des Cieux",0,"matangas des Cieux",0,0,1,0,0
+7368,"gozu des Cieux",0,"gozu des Cieux",0,0,1,0,0
+7369,"ryûkotsu des Cieux",0,"ryûkotsu des Cieux",0,0,1,0,0
+7370,"ryûjin des Cieux",0,"ryûjin des Cieux",0,0,1,0,0
+7371,"hitotsume des Cieux",0,"hitotsume des Cieux",0,0,1,0,0
+7372,"enkô des Cieux",0,"enkô des Cieux",0,1,1,0,0
+7373,"araragi des Cieux",0,"araragi des Cieux",0,1,1,0,0
+7374,"kôki des Cieux",0,"kôki des Cieux",0,0,1,0,0
+7375,"garula des Cieux",0,"garula des Cieux",0,0,1,0,1
+7376,"shinzei des Cieux",0,"shinzei des Cieux",0,0,1,0,0
+7377,"rakshasa des Cieux",0,"rakshasa des Cieux",0,0,1,0,0
+7378,"nuppeppo des Cieux",0,"nuppeppo des Cieux",0,0,1,0,0
+7379,"nuppeppo des Cieux",0,"nuppeppo des Cieux",0,0,1,0,0
+7380,"nuppeppo des Cieux",0,"nuppeppo des Cieux",0,0,1,0,0
+7381,"mifune des Cieux",0,"mifune des Cieux",0,0,1,0,0
+7382,"jaki des Cieux",0,"jaki des Cieux",0,0,1,0,0
+7383,"tokagemusha des Cieux",0,"tokagemusha des Cieux",0,0,1,0,0
+7384,"kyôzô des Cieux",0,"kyôzô des Cieux",0,0,1,0,0
+7385,"kuro-kishi des Cieux",0,"kuro-kishi des Cieux",0,0,1,0,0
+7386,"chaouabti des Cieux",0,"chaouabtis des Cieux",0,0,1,0,0
+7387,"zenki des Cieux",0,"zenki des Cieux",0,0,1,0,0
+7388,"gozu des Cieux",0,"gozu des Cieux",0,0,1,0,0
+7389,"kubinashi des Cieux",0,"kubinashi des Cieux",0,0,1,0,0
+7390,"tenma des Cieux",0,"tenma des Cieux",0,0,1,0,0
+7391,"dodo des Cieux",0,"dodos des Cieux",0,0,1,0,0
+7392,"coffre gigotant",0,"coffres gigotants",0,0,1,0,0
+7393,"coffre gigotant",0,"coffres gigotants",0,0,1,0,0
+7394,"coffre gigotant",0,"coffres gigotants",0,0,1,0,0
+7395,"piège",0,"pièges",0,0,1,0,0
+7396,"Komainu",0,"Komainu",0,0,1,0,1
+7397,"Inugami",0,"Inugami",0,0,1,0,1
+7398,"Senri",0,"Senri",0,0,1,0,1
 7399,"Montblanc",0,"Montblanc",0,0,1,0,1
 7400,"illusion protectrice",0,"illusions protectrices",0,1,1,1,0
 7401,"débris d'aéronef",0,"débris d'aéronef",0,0,1,0,0
@@ -7479,22 +7479,22 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7475,"",0,"",0,0,0,0,0
 7476,"apparition d'Asahi",0,"apparitions d'Asahi",0,1,1,1,0
 7477,"apparition de Gosetsu",0,"apparitions de Gosetsu",0,1,1,1,0
-7478,"",0,"",0,0,0,0,0
-7479,"",0,"",0,0,0,0,0
-7480,"",0,"",0,0,0,0,0
-7481,"",0,"",0,0,0,0,0
-7482,"",0,"",0,0,0,0,0
-7483,"",0,"",0,0,0,0,0
-7484,"",0,"",0,0,0,0,0
-7485,"",0,"",0,0,0,0,0
-7486,"",0,"",0,0,0,0,0
-7487,"",0,"",0,0,0,0,0
-7488,"",0,"",0,0,0,0,0
-7489,"",0,"",0,0,0,0,0
-7490,"",0,"",0,0,0,0,0
-7491,"",0,"",0,0,0,0,0
-7492,"",0,"",0,0,0,0,0
-7493,"",0,"",0,0,0,0,0
+7478,"Hiruko",0,"Hiruko",0,0,1,0,1
+7479,"Raiun",0,"Raiun",0,0,1,0,1
+7480,"Môjabune",0,"Môjabune",0,0,1,0,1
+7481,"Becchô",0,"Becchô",0,0,1,0,1
+7482,"Chôkeshin",0,"Chôkeshin",0,0,1,0,1
+7483,"Bhima",0,"Bhima",0,0,1,0,1
+7484,"tourbillon",0,"tourbillons",0,0,1,0,0
+7485,"Gozu",0,"Gozu",0,0,1,0,1
+7486,"sphère lugubre",0,"sphères lugubres",0,0,1,1,0
+7487,"Suikazura",0,"Suikazura",0,0,1,0,1
+7488,"canne maudite",0,"cannes maudites",0,0,1,1,0
+7489,"Kenko",0,"Kenko",0,0,1,0,1
+7490,"Kajigakaka",0,"Kajigakaka",0,0,1,0,1
+7491,"amas de glace",0,"amas de glace",0,1,1,0,0
+7492,"pilier de glace",0,"piliers de glace",0,0,1,0,0
+7493,"Onra",0,"Onra",0,0,1,0,1
 7494,"prison de vent",0,"prisons de vent",0,0,1,1,0
 7495,"",0,"",0,0,0,0,0
 7496,"",0,"",0,0,0,0,0
@@ -7539,35 +7539,35 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7535,"",0,"",0,0,0,0,0
 7536,"",0,"",0,0,0,0,0
 7537,"spectre de Zenos",0,"spectres de Zenos",0,0,1,0,0
-7538,"",0,"",0,0,0,0,0
-7539,"",0,"",0,0,0,0,0
-7540,"",0,"",0,0,0,0,0
-7541,"",0,"",0,0,0,0,0
-7542,"",0,"",0,0,0,0,0
-7543,"",0,"",0,0,0,0,0
-7544,"",0,"",0,0,0,0,0
-7545,"",0,"",0,0,0,0,0
-7546,"",0,"",0,0,0,0,0
-7547,"",0,"",0,0,0,0,0
-7548,"",0,"",0,0,0,0,0
-7549,"",0,"",0,0,0,0,0
-7550,"",0,"",0,0,0,0,0
-7551,"",0,"",0,0,0,0,0
-7552,"",0,"",0,0,0,0,0
-7553,"",0,"",0,0,0,0,0
-7554,"",0,"",0,0,0,0,0
-7555,"",0,"",0,0,0,0,0
-7556,"",0,"",0,0,0,0,0
-7557,"",0,"",0,0,0,0,0
-7558,"",0,"",0,0,0,0,0
-7559,"",0,"",0,0,0,0,0
-7560,"",0,"",0,0,0,0,0
-7561,"",0,"",0,0,0,0,0
-7562,"",0,"",0,0,0,0,0
-7563,"",0,"",0,0,0,0,0
-7564,"",0,"",0,0,0,0,0
-7565,"",0,"",0,0,0,0,0
-7566,"",0,"",0,0,0,0,0
+7538,"Benandonner",0,"Benandonner",0,0,1,0,1
+7539,"esclave du néant profond",0,"esclaves du néant profond",0,1,1,0,0
+7540,"torche du néant profond",0,"torches du néant profond",0,0,1,1,0
+7541,"pudding du néant profond",0,"puddings du néant profond",0,0,1,0,0
+7542,"gelato du néant profond",0,"gelati du néant profond",0,0,1,0,0
+7543,"bavarois du néant profond",0,"bavarois du néant profond",0,0,1,0,0
+7544,"flan du néant profond",0,"flans du néant profond",0,0,1,0,0
+7545,"avant-garde bricolée lourde",0,"avant-gardes bricolées lourdes",0,1,1,1,0
+7546,"avant-garde bricolée",0,"avant-gardes bricolées",0,1,1,1,0
+7547,"colosse bricolé prototype",0,"colosses bricolés prototypes",0,0,1,0,0
+7548,"colosse bricolé",0,"colosses bricolés",0,0,1,0,0
+7549,"decurio agresseur",0,"decuriones agresseurs",0,0,1,0,0
+7550,"bestiarius agresseur",0,"bestiarius agresseurs",0,0,1,0,0
+7551,"funditor agresseur",0,"funditores agresseurs",0,0,1,0,0
+7552,"imaginifer agresseur",0,"imaginiferi agresseurs",0,1,1,0,0
+7553,"medicus agresseur",0,"medici agresseurs",0,0,1,0,0
+7554,"canon des Immortels",0,"canons des Immortels",0,0,1,0,0
+7555,"gardien du néant profond",0,"gardiens du néant profond",0,0,1,0,0
+7556,"œil nébuleux",0,"yeux nébuleux",0,1,1,0,0
+7557,"boucher du néant profond",0,"bouchers du néant profond",0,0,1,0,0
+7558,"guerrier du néant profond",0,"guerriers du néant profond",0,0,1,0,0
+7559,"âme du néant profond",0,"âmes du néant profond",0,1,1,1,0
+7560,"Swift Ryder",0,"Swift Ryder",0,0,1,0,1
+7561,"officier du personnel des Immortels",0,"officiers du personnel des Immortels",0,1,1,0,0
+7562,"officier de la logistique des Immortels",0,"officiers de la logistique des Immortels",0,1,1,1,0
+7563,"soldat des Immortels",0,"soldats des Immortels",0,0,1,0,0
+7564,"soldate des Immortels",0,"soldates des Immortels",0,0,1,1,0
+7565,"aventurier aguerri",0,"aventuriers aguerris",0,1,1,0,0
+7566,"aventurière aguerrie",0,"aven<SoftHyphen/>tu<SoftHyphen/>rières aguerries",0,1,1,1,0
 7567,"",0,"",0,0,0,0,0
 7568,"",0,"",0,0,0,0,0
 7569,"",0,"",0,0,0,0,0
@@ -7583,9 +7583,9 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7579,"",0,"",0,0,0,0,0
 7580,"",0,"",0,0,0,0,0
 7581,"",0,"",0,0,0,0,0
-7582,"",0,"",0,0,0,0,0
-7583,"",0,"",0,0,0,0,0
-7584,"",0,"",0,0,0,0,0
+7582,"Onra",0,"Onra",0,0,1,0,1
+7583,"sphère de sable",0,"sphères de sable",0,0,1,1,0
+7584,"jinba des Cieux",0,"jinba des Cieux",0,0,1,0,0
 7585,"",0,"",0,0,0,0,0
 7586,"",0,"",0,0,0,0,0
 7587,"",0,"",0,0,0,0,0
@@ -7611,7 +7611,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7607,"",0,"",0,0,0,0,0
 7608,"",0,"",0,0,0,0,0
 7609,"",0,"",0,0,0,0,0
-7610,"",0,"",0,0,0,0,0
+7610,"korrigan",0,"korrigans",0,0,1,0,0
 7611,"",0,"",0,0,0,0,0
 7612,"",0,"",0,0,0,0,0
 7613,"",0,"",0,0,0,0,0

@@ -1422,19 +1422,33 @@ Pour les aider, demandez au membre de la B.A.B. de vous prêter un elbst, afin d
 1367,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
 1368,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
 1369,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1370,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1371,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1372,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1373,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1374,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1375,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1376,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1377,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1378,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1379,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1380,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1381,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1382,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1383,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1384,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
-1385,0,0,0,0,0,,0,0,0,0,"ui/icon/000000/000000.tex","ui/icon/000000/000000.tex",0,"",0,0,0,0,0,False,False,False,0,False,False,False,0,"","","","","","",
+1370,0,1,7541192,50,50,,0,0,0,0,"ui/icon/060000/060722.tex","ui/icon/060000/060502.tex",0,"music/ffxiv/BGM_Fate_Mid.scd",0,0,33,34,35,True,False,True,0,False,False,False,0,"Anéantissement du néant<Indent/>: rouge taureau","Dans ce scénario, une énorme créature du nom de Benandonner s'est frayé un chemin jusqu'à ce monde au travers d'un portail d'invasion interdimensionnel. Renvoyez-la dans le néant qui l'a vue naître.","","","","",
+1371,0,1,7541193,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"Anéantissement du néant<Indent/>: ogres barbares","Dans ce scénario, d'effrayantes créatures à l'apparence d'ogre se sont frayé un chemin jusqu'à ce monde au travers d'un portail d'invasion interdimensionnel. Renvoyez ces esclaves démoniaques dans le néant qui les a vus naître.","","","","",
+1372,0,1,7541194,50,50,,0,0,0,0,"ui/icon/060000/060722.tex","ui/icon/060000/060502.tex",0,"music/ffxiv/BGM_Fate_Mid.scd",0,0,33,34,35,True,False,True,0,False,False,False,0,"Anéantissement du néant<Indent/>: casse-bonbons","Dans ce scénario, un trio de créatures élastiques s'est frayé un chemin jusqu'à ce monde au travers d'un portail d'invasion interdimensionnel. Renvoyez ces horreurs sucrées dans le néant qui les a vues naître.","","","","",
+1373,0,1,7541195,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"Conflit urbain<Indent/>: double accrochage","Dans ce scénario, les combattants garlemaldais et les créatures du néant ont lancé un assaut coordonné au cœur même de la cité des sables. Terrassez vos agresseurs jusqu'au dernier.","","","","",
+1374,0,1,7541196,50,50,,0,0,0,0,"ui/icon/060000/060722.tex","ui/icon/060000/060502.tex",0,"music/ffxiv/BGM_Fate_Mid.scd",0,0,33,34,35,True,False,True,0,False,False,False,0,"Choc des armées<Indent/>: l'odeur de la tôle froissée","Dans ce scénario, des machines de guerre magitek ont enfoncé les murs d'enceinte de la cité et sèment le chaos dans ses avenues. Contre-attaquez de toutes vos forces<Indent/>!","","","","",
+1375,0,1,7541197,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"Choc des armées<Indent/>: fantassins contre spadassins","Dans ce scénario, un bataillon militaire garlemaldais (en réalité des Immortels déguisés) a enfoncé les murs d'enceinte de la cité et sème le chaos dans ses avenues. Contre-attaquez de toutes vos forces<Indent/>!","","","","",
+1376,0,1,7541198,50,50,,0,0,0,0,"ui/icon/060000/060722.tex","ui/icon/060000/060502.tex",0,"music/ffxiv/BGM_Fate_Mid.scd",0,0,33,34,35,True,False,True,0,False,False,False,0,"Choc des armées<Indent/>: faire ployer le colosse","Dans ce scénario, une gigantesque arme expérimentale garlemaldaise a enfoncé les murs d'enceinte de la cité et sème le chaos dans ses avenues. Quelques boulets de canons bien placés devraient vous aider à vous en défaire<Indent/>!","","","","",
+1377,0,1,7541199,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"Choc des armées<Indent/>: halte à la section d'assaut","Dans ce scénario, une unité d'assaut garlemaldaise (en réalité des Immortels déguisés) a enfoncé les murs d'enceinte de la cité et sème le chaos dans ses avenues. Contre-attaquez de toutes vos forces<Indent/>!","","","","",
+1378,0,1,7544486,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"Anéantissement du néant<Indent/>: mauvais yeux","Dans ce scénario, des créatures de la famille des ahrimans se sont frayé un chemin jusqu'à ce monde au travers d'un portail d'invasion interdimensionnel. Renvoyez-les dans le néant qui les a vues naître.","","","","",
+1379,0,1,7544488,50,50,,0,0,0,0,"ui/icon/060000/060722.tex","ui/icon/060000/060502.tex",0,"music/ffxiv/BGM_Fate_Mid.scd",0,0,33,34,35,True,False,True,0,False,False,False,0,"対妖異演習「グルームアイ出現」","転送網による妖異侵攻を想定し
+捕獲された大型妖異が解き放たれた
+暗闇の眼「グルームアイ」を倒せ","","","","",
+1380,0,1,7544489,50,50,,0,0,0,0,"ui/icon/060000/060722.tex","ui/icon/060000/060502.tex",0,"music/ffxiv/BGM_Fate_Mid.scd",0,0,33,34,35,True,False,True,0,False,False,False,0,"対妖異演習「ブッチャー乱撃」","転送網による妖異侵攻を想定し
+捕獲されたガーゴイル型妖異が解き放たれた
+ディープヴォイド・ブッチャーを倒せ","","","","",
+1381,0,1,7544490,50,50,,0,0,0,0,"ui/icon/060000/060722.tex","ui/icon/060000/060502.tex",0,"music/ffxiv/BGM_Fate_Mid.scd",0,0,33,34,35,True,False,True,0,False,False,False,0,"対妖異演習「ブッチャー封鎖」","転送網による妖異侵攻を想定し
+捕獲されたガーゴイル型妖異が解き放たれた
+ディープヴォイド・ブッチャーを倒せ","","","","",
+1382,0,1,7544491,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"対妖異演習「アンデッド掃討」","転送網による妖異侵攻を想定し
+捕獲されたアンデッドが解き放たれた
+アンデッドの大群を倒せ","","","","",
+1383,0,1,7544492,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"合同演習「アンデッド迎撃」","不滅隊と冒険者たちの
+連携強化のため合同演習が開始された
+力を合わせて、アンデッドの大群を倒せ","","","","",
+1384,0,1,7544493,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"対妖異演習「ソウル浄化」","転送網による妖異侵攻を想定し
+捕獲されたゴーストが解き放たれた
+ディープヴォイド・ソウルを倒せ","","","","",
+1385,0,1,7544494,50,50,,0,0,0,0,"ui/icon/060000/060721.tex","ui/icon/060000/060501.tex",0,"",0,0,33,34,35,True,False,True,0,False,False,False,0,"対妖異演習「ディープヴォイド総力戦」","転送網による妖異侵攻を想定し
+捕獲された大量の妖異が解き放たれた
+迫りくる妖異を片っ端から倒せ","","","","",

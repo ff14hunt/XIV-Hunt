@@ -42,20 +42,26 @@ namespace FFXIV_GameSense.UI
                 DisposePerformDirWatcher();
                 new Thread(() =>
                 {
-                    foreach (string s in Directory.EnumerateFiles(nd, "*.*", SearchOption.AllDirectories).Where(fn => fileTypes.Contains(Path.GetExtension(fn))))
+                    try
                     {
-                        if (HasNotes(s))
+                        foreach (string s in Directory.EnumerateFiles(nd, "*.*", SearchOption.AllDirectories).Where(fn => fileTypes.Contains(Path.GetExtension(fn))))
                         {
-                            Dispatcher.Invoke(() =>
+                            if (HasNotes(s))
                             {
-                                collection.Add(
-                                    new PerformanceListViewItem
-                                    {
-                                        RelativePath = s.Substring(nd.Length + 1),
-                                        LastModified = File.GetLastWriteTime(s)
-                                    });
-                            });
+                                Dispatcher.Invoke(() =>
+                                {
+                                    collection.Add(
+                                        new PerformanceListViewItem
+                                        {
+                                            RelativePath = s.Substring(nd.Length + 1),
+                                            LastModified = File.GetLastWriteTime(s)
+                                        });
+                                });
+                            }
                         }
+                    }catch(Exception e)
+                    {
+                        LogHost.Default.WarnException($"[{nameof(IndexPerformances)}] Could not index files/performances.", e);
                     }
                 }).Start();
                 MakePerformDirWatcher(nd);
