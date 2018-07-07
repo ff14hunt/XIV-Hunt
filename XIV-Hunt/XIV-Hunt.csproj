@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FFXIV_GameSense</RootNamespace>
     <AssemblyName>XIV-Hunt</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -142,11 +142,17 @@
     <Reference Include="NuGet.Squirrel, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\squirrel.windows.1.8.0\lib\Net45\NuGet.Squirrel.dll</HintPath>
     </Reference>
+    <Reference Include="Overlay.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Overlay.NET.1.0.2\lib\Overlay.NET.dll</HintPath>
+    </Reference>
     <Reference Include="PEReader">
       <HintPath>..\..\PEReader-master\PEReader\bin\Release\PEReader.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Process.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Overlay.NET.1.0.2\lib\Process.NET.dll</HintPath>
+    </Reference>
     <Reference Include="SharpCompress, Version=0.21.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpCompress.0.21.1\lib\net45\SharpCompress.dll</HintPath>
     </Reference>
@@ -222,6 +228,9 @@
     <Compile Include="MML\ValidationSettings.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="FFXIVGameSense.cs" />
+    <Compile Include="Overlay\EntityOverlayControl.xaml.cs">
+      <DependentUpon>EntityOverlayControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Performance.cs" />
     <Compile Include="PersistentNamedPipeServer.cs" />
     <Compile Include="PipeMessage.cs" />
@@ -238,6 +247,10 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RadarOverlay.cs" />
+    <Compile Include="UI\OverlayView.xaml.cs">
+      <DependentUpon>OverlayView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PerformanceFileListView.xaml.cs">
       <DependentUpon>PerformanceFileListView.xaml</DependentUpon>
@@ -342,6 +355,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Overlay\EntityOverlayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OverlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\PerformanceFileListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -394,6 +415,39 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\LogIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060354.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060355.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060356.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060443.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060453.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060905.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060906.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060907.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ui\icon\060000\060908.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\NPC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Banded.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">

@@ -222,12 +222,15 @@ namespace FFXIV_GameSense
 
         internal void ProcessChatCommand(object sender, CommandEventArgs e)
         {
-            LogHost.Default.Info($"[{nameof(ProcessChatCommand)}] New command: {e.Command.ToString()} {e.Parameter}");
+            LogHost.Default.Info($"[{nameof(ProcessChatCommand)}] New command: {e?.ToString()}");
+            FFXIVMemory mem = sender is FFXIVMemory ? sender as FFXIVMemory : Program.mem;
+            if (mem == null)
+                return;
             if (e.Command == Command.Hunt)
             {
                 if (GameResources.TryGetDailyHuntInfo(e.Parameter, out Tuple<ushort, ushort, float, float> hi))
                 {
-                    _ = Program.mem.WriteChatMessage(ChatMessage.MakePosChatMessage(string.Format(Properties.Resources.LKICanBeFoundAt, GameResources.GetEnemyName(hi.Item1, true)), hi.Item2, hi.Item3, hi.Item4));
+                    _ = mem.WriteChatMessage(ChatMessage.MakePosChatMessage(string.Format(Properties.Resources.LKICanBeFoundAt, GameResources.GetEnemyName(hi.Item1, true)), hi.Item2, hi.Item3, hi.Item4));
                 }
                 else if (hunts.hunts.Exists(x => x.Name.Equals(e.Parameter, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -259,7 +262,7 @@ namespace FFXIV_GameSense
                        {
                            if (t.Result != null)
                            {
-                               _ = Program.mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result, HQ: hqprefer));
+                               _ = mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result, HQ: hqprefer));
                            }
                        });
                 }
@@ -269,7 +272,7 @@ namespace FFXIV_GameSense
                 if (!Directory.Exists(Settings.Default.PerformDirectory))
                 {
                     LogHost.Default.Error(Properties.Resources.PerformDirectoryNotExists);
-                    _ = Program.mem.WriteChatMessage(new ChatMessage { MessageString = Properties.Resources.PerformDirectoryNotExists });
+                    _ = mem.WriteChatMessage(new ChatMessage { MessageString = Properties.Resources.PerformDirectoryNotExists });
                     return;
                 }
                 string nametxt = e.Parameter;
@@ -285,7 +288,7 @@ namespace FFXIV_GameSense
                     StopPerformance();
                     var p = new Performance(string.Join(",", File.ReadAllLines(pathnametxt)));
                     if (p.Sheet.Count > 0)
-                        _ = Program.mem.PlayPerformance(p, cts.Token);
+                        _ = mem.PlayPerformance(p, cts.Token);
                     else
                         TryMML(pathnametxt);
                 }
@@ -310,7 +313,7 @@ namespace FFXIV_GameSense
                     float x = Combatant.GetCoordFromReadable(xR, zid);
                     float y = Combatant.GetCoordFromReadable(yR, zid);
                     var cm = ChatMessage.MakePosChatMessage(string.Empty, zid, x, y);
-                    _ = Program.mem.WriteChatMessage(cm);
+                    _ = mem.WriteChatMessage(cm);
                 }
             }
         }
@@ -695,7 +698,7 @@ namespace FFXIV_GameSense
                 _ = GetFATEZones();
         }
 
-        public ObservableCollection<Process> ProcessEntries => new ObservableCollection<Process>(FFXIVProcessHelper.GetFFXIVProcessList());
+        public ObservableCollection<System.Diagnostics.Process> ProcessEntries => new ObservableCollection<System.Diagnostics.Process>(FFXIVProcessHelper.GetFFXIVProcessList());
         public ObservableCollection<FATEListViewItem> FATEEntries { get; }
 
         public bool FATEsAny => FATEEntries.Any(x => x.Announce);

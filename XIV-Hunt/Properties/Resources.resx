@@ -155,17 +155,9 @@
   <data name="FailedToSigScan" xml:space="preserve">
     <value>Failed to signature scan ({0}).</value>
   </data>
-  <data name="FATEReportReceived" xml:space="preserve">
-    <value>[{0}] Report received: {1} - {2}%</value>
-    <comment>English example: [Sargatanas] Report received: A Horse Outside - 99%</comment>
-  </data>
   <data name="NoSoundAlert" xml:space="preserve">
     <value>No sound alert</value>
     <comment>English: No sound alert</comment>
-  </data>
-  <data name="ReportReceived" xml:space="preserve">
-    <value>[{0}] Report received: {1}</value>
-    <comment>English example: [Sargatanas] Report received: Salt And Light</comment>
   </data>
   <data name="FATEPrcTimeRemaining" xml:space="preserve">
     <value>{0}% with {1}:{2} remaining</value>
@@ -424,5 +416,74 @@
   </data>
   <data name="FormConnectingRetrying" xml:space="preserve">
     <value>Failed to connect. Retrying in {0} seconds.</value>
+  </data>
+  <data name="_060354_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060354.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_060355_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060355.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_060356_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060356.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_060443_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060443.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_060453_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060453.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_060905_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060905.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_060906_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060906.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_060907_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060907.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_060908_tex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ui\icon\060000\060908.tex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FormTabCtrlRadar" xml:space="preserve">
+    <value>2D Radar</value>
+  </data>
+  <data name="FormRadarDisplaySelf" xml:space="preserve">
+    <value>Own player character (self)</value>
+  </data>
+  <data name="FormRadarDisplayOtherPCs" xml:space="preserve">
+    <value>Other players characters</value>
+  </data>
+  <data name="FormRadarDisplayMonsters" xml:space="preserve">
+    <value>Monsters</value>
+  </data>
+  <data name="FormRadarDisplayTreasureCoffers" xml:space="preserve">
+    <value>Treasure Coffers</value>
+  </data>
+  <data name="FormRadarDisplayTreasureCoffersSilver" xml:space="preserve">
+    <value>Treasure Coffers (Silver)</value>
+  </data>
+  <data name="FormRadarDisplayTreasureCoffersGold" xml:space="preserve">
+    <value>Treasure Coffers (Gold)</value>
+  </data>
+  <data name="FormRadarDisplayExtraDeepDungeon" xml:space="preserve">
+    <value>Banded coffers, hoards, cairns (Passage/Return)</value>
+  </data>
+  <data name="FormRadarDisplayGBH" xml:space="preserve">
+    <value>Only display the following</value>
+  </data>
+  <data name="FormRadarMaxFPS" xml:space="preserve">
+    <value>Max. Framerate:</value>
+  </data>
+  <data name="FormRadarLockOverlay" xml:space="preserve">
+    <value>Lock overlay</value>
+  </data>
+  <data name="FormRadarEnableClickthru" xml:space="preserve">
+    <value>Enable clickthru</value>
+  </data>
+  <data name="FormToggleButtonOn" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="FormToggleButtonOff" xml:space="preserve">
+    <value>Off</value>
   </data>
 </root>

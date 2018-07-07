@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Interop;
 
 namespace FFXIV_GameSense
 {
@@ -151,6 +153,18 @@ namespace FFXIV_GameSense
             if (index == 0)
                 return -1;
             return index;
+        }
+
+        public static void MakeWindowUntransparent(this Window wnd)
+        {
+            if (!wnd.IsInitialized)
+                throw new Exception("The extension method MakeWindowUntransparent can not be called prior to the window being initialized.");
+            const int GwlExstyle = -20;
+            const uint WsExLayered = 0x00080000;
+            const int WsExTransparent = 0x00000020;
+            IntPtr hwnd = new WindowInteropHelper(wnd).Handle;
+            IntPtr ex_style = NativeMethods.GetWindowLongPtr3264(hwnd, GwlExstyle);
+            NativeMethods.SetWindowLongPtr(hwnd, GwlExstyle, Convert.ToUInt32(ex_style.ToInt32() & ~WsExLayered & ~WsExTransparent));
         }
     }
 }

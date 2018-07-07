@@ -530,5 +530,149 @@ namespace FFXIV_GameSense.Properties {
                 this["LogLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displayCairns {
+            get {
+                return ((bool)(this["displayCairns"]));
+            }
+            set {
+                this["displayCairns"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displayGoldTreasureCoffers {
+            get {
+                return ((bool)(this["displayGoldTreasureCoffers"]));
+            }
+            set {
+                this["displayGoldTreasureCoffers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displayMonsters {
+            get {
+                return ((bool)(this["displayMonsters"]));
+            }
+            set {
+                this["displayMonsters"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displayOtherPCs {
+            get {
+                return ((bool)(this["displayOtherPCs"]));
+            }
+            set {
+                this["displayOtherPCs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displaySelf {
+            get {
+                return ((bool)(this["displaySelf"]));
+            }
+            set {
+                this["displaySelf"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displaySilverTreasureCoffers {
+            get {
+                return ((bool)(this["displaySilverTreasureCoffers"]));
+            }
+            set {
+                this["displaySilverTreasureCoffers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displayTreasureCoffers {
+            get {
+                return ((bool)(this["displayTreasureCoffers"]));
+            }
+            set {
+                this["displayTreasureCoffers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RadarEnableClickthru {
+            get {
+                return ((bool)(this["RadarEnableClickthru"]));
+            }
+            set {
+                this["RadarEnableClickthru"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point RadarWindowOffset {
+            get {
+                return ((global::System.Drawing.Point)(this["RadarWindowOffset"]));
+            }
+            set {
+                this["RadarWindowOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size RadarWindowSize {
+            get {
+                return ((global::System.Drawing.Size)(this["RadarWindowSize"]));
+            }
+            set {
+                this["RadarWindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RadarDisableResize {
+            get {
+                return ((bool)(this["RadarDisableResize"]));
+            }
+            set {
+                this["RadarDisableResize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public byte RadarMaxFrameRate {
+            get {
+                return ((byte)(this["RadarMaxFrameRate"]));
+            }
+            set {
+                this["RadarMaxFrameRate"] = value;
+            }
+        }
     }
 }

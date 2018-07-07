@@ -120,14 +120,8 @@
   <data name="FailedToSigScan" xml:space="preserve">
     <value>Failed to signature scan ({0}).</value>
   </data>
-  <data name="FATEReportReceived" xml:space="preserve">
-    <value>[{0}] Report received: {1} - {2}%</value>
-  </data>
   <data name="NoSoundAlert" xml:space="preserve">
     <value>소리 알림 없음</value>
-  </data>
-  <data name="ReportReceived" xml:space="preserve">
-    <value>[{0}] Report received: {1}</value>
   </data>
   <data name="FATEPrcTimeRemaining" xml:space="preserve">
     <value>진행도 {0}% / {1}:{2} 남음</value>
@@ -366,5 +360,47 @@
   </data>
   <data name="FormConnectingRetrying" xml:space="preserve">
     <value>Failed to connect. Retrying in {0} seconds.</value>
+  </data>
+  <data name="FormTabCtrlRadar" xml:space="preserve">
+    <value>2D Radar</value>
+  </data>
+  <data name="FormRadarDisplaySelf" xml:space="preserve">
+    <value>Own player character (self)</value>
+  </data>
+  <data name="FormRadarDisplayOtherPCs" xml:space="preserve">
+    <value>Other players characters</value>
+  </data>
+  <data name="FormRadarDisplayMonsters" xml:space="preserve">
+    <value>Monsters</value>
+  </data>
+  <data name="FormRadarDisplayTreasureCoffers" xml:space="preserve">
+    <value>Treasure Coffers</value>
+  </data>
+  <data name="FormRadarDisplayTreasureCoffersGold" xml:space="preserve">
+    <value>Treasure Coffers (Gold)</value>
+  </data>
+  <data name="FormRadarDisplayTreasureCoffersSilver" xml:space="preserve">
+    <value>Treasure Coffers (Silver)</value>
+  </data>
+  <data name="FormRadarDisplayExtraDeepDungeon" xml:space="preserve">
+    <value>Banded coffers, hoards, cairns (Passage/Return)</value>
+  </data>
+  <data name="FormRadarDisplayGBH" xml:space="preserve">
+    <value>Only display the following</value>
+  </data>
+  <data name="FormRadarMaxFPS" xml:space="preserve">
+    <value>Max. Framerate:</value>
+  </data>
+  <data name="FormRadarLockOverlay" xml:space="preserve">
+    <value>Lock overlay</value>
+  </data>
+  <data name="FormRadarEnableClickthru" xml:space="preserve">
+    <value>Enable clickthru</value>
+  </data>
+  <data name="FormToggleButtonOn" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="FormToggleButtonOff" xml:space="preserve">
+    <value>Off</value>
   </data>
 </root>

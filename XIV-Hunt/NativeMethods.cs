@@ -67,12 +67,50 @@ namespace FFXIV_GameSense
         [DllImport("kernel32.dll")]
         private static extern bool Module32Next(IntPtr hSnapshot, ref MODULEENTRY32 lpme);
 
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
         [DllImport("kernel32.dll")]
         private static extern uint GetSystemDefaultLCID();
 
         internal static CultureInfo GetSystemDefaultCultureInfo() => new CultureInfo((int)GetSystemDefaultLCID(), true);
 
-        internal static async Task InjectDLL(Process Process, string DLLName, bool x86proc)
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
+
+        internal static IntPtr GetWindowLongPtr3264(IntPtr hWnd, int nIndex)
+        {
+            if (Environment.Is64BitOperatingSystem)
+                return GetWindowLongPtr(hWnd, nIndex);
+            else
+                return GetWindowLong(hWnd, nIndex);
+        }
+
+        [DllImport("user32.dll")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        internal static IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, long dwNewLong)
+        {
+            if (Environment.Is64BitOperatingSystem)
+                return SetWindowLongPtr(hWnd, nIndex, new IntPtr(dwNewLong));
+            else
+                return new IntPtr(SetWindowLong(hWnd, nIndex, (int)dwNewLong));
+        }        
+
+        internal static async Task InjectDLL(System.Diagnostics.Process Process, string DLLName, bool x86proc)
         {
             IntPtr hProcess = Process.Handle;
             // Length of string containing the DLL file name +1 byte padding 
@@ -206,6 +244,19 @@ namespace FFXIV_GameSense
         }
 
         [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            ///<summary>x position of upper-left corner</summary>
+            public int Left;
+            ///<summary>y position of upper-left corner</summary>
+            public int Top;
+            ///<summary>x position of lower-right corner</summary>
+            public int Right;
+            ///<summary>y position of lower-right corner</summary>
+            public int Bottom;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
         private struct FLASHWINFO
         {
             /// <summary>
@@ -254,11 +305,11 @@ namespace FFXIV_GameSense
         private const uint FLASHW_TIMER = 4;// Flash continuously, until the FLASHW_STOP flag is set.
         private const uint FLASHW_TIMERNOFG = 12;// Flash continuously until the window comes to the foreground.
 
-        internal static bool FlashTaskbarIcon(Process process, uint duration, bool stopOnFocus = false) => FlashWindowEx(process, duration, stopOnFocus ? FLASHW_TASKBAR | FLASHW_TIMERNOFG : FLASHW_TASKBAR);
-        internal static bool FlashTaskbarIcon(Process process) => FlashWindowEx(process, uint.MaxValue, FLASHW_TASKBAR | FLASHW_TIMERNOFG);
-        internal static bool StopFlashWindowEx(Process process) => FlashWindowEx(process, 0, FLASHW_STOP);
+        internal static bool FlashTaskbarIcon(System.Diagnostics.Process process, uint duration, bool stopOnFocus = false) => FlashWindowEx(process, duration, stopOnFocus ? FLASHW_TASKBAR | FLASHW_TIMERNOFG : FLASHW_TASKBAR);
+        internal static bool FlashTaskbarIcon(System.Diagnostics.Process process) => FlashWindowEx(process, uint.MaxValue, FLASHW_TASKBAR | FLASHW_TIMERNOFG);
+        internal static bool StopFlashWindowEx(System.Diagnostics.Process process) => FlashWindowEx(process, 0, FLASHW_STOP);
 
-        private static bool FlashWindowEx(Process process, uint duration, uint flags)
+        private static bool FlashWindowEx(System.Diagnostics.Process process, uint duration, uint flags)
         {
             var pwfi = new FLASHWINFO();
             pwfi.cbSize = Convert.ToUInt32(Marshal.SizeOf(pwfi));
@@ -277,8 +328,8 @@ namespace FFXIV_GameSense
             try
             {
                 const int swRestore = 9;
-                var me = Process.GetCurrentProcess();
-                var arrProcesses = Process.GetProcessesByName(me.ProcessName);
+                var me = System.Diagnostics.Process.GetCurrentProcess();
+                var arrProcesses = System.Diagnostics.Process.GetProcessesByName(me.ProcessName);
                 for (int i = 0; i < arrProcesses.Length; i++)
                 {
                     if (arrProcesses[i].MainModule.FileName == me.MainModule.FileName && arrProcesses[i].Id != me.Id)

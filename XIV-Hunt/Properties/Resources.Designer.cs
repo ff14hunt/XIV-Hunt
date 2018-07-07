@@ -63,6 +63,96 @@ namespace FFXIV_GameSense.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap _060354_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060354_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _060355_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060355_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _060356_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060356_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _060443_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060443_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _060453_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060453_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _060905_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060905_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _060906_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060906_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _060907_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060907_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _060908_tex {
+            get {
+                object obj = ResourceManager.GetObject("_060908_tex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap bell_alarm_icon {
             get {
                 object obj = ResourceManager.GetObject("bell_alarm_icon", resourceCulture);
@@ -239,15 +329,6 @@ namespace FFXIV_GameSense.Properties {
         public static string FATEPrcTimeRemaining {
             get {
                 return ResourceManager.GetString("FATEPrcTimeRemaining", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [{0}] Report received: {1} - {2}%.
-        /// </summary>
-        public static string FATEReportReceived {
-            get {
-                return ResourceManager.GetString("FATEReportReceived", resourceCulture);
             }
         }
         
@@ -540,6 +621,105 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Banded coffers, hoards, cairns (Passage/Return).
+        /// </summary>
+        public static string FormRadarDisplayExtraDeepDungeon {
+            get {
+                return ResourceManager.GetString("FormRadarDisplayExtraDeepDungeon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only display the following.
+        /// </summary>
+        public static string FormRadarDisplayGBH {
+            get {
+                return ResourceManager.GetString("FormRadarDisplayGBH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monsters.
+        /// </summary>
+        public static string FormRadarDisplayMonsters {
+            get {
+                return ResourceManager.GetString("FormRadarDisplayMonsters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other players characters.
+        /// </summary>
+        public static string FormRadarDisplayOtherPCs {
+            get {
+                return ResourceManager.GetString("FormRadarDisplayOtherPCs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Own player character (self).
+        /// </summary>
+        public static string FormRadarDisplaySelf {
+            get {
+                return ResourceManager.GetString("FormRadarDisplaySelf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Treasure Coffers.
+        /// </summary>
+        public static string FormRadarDisplayTreasureCoffers {
+            get {
+                return ResourceManager.GetString("FormRadarDisplayTreasureCoffers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Treasure Coffers (Gold).
+        /// </summary>
+        public static string FormRadarDisplayTreasureCoffersGold {
+            get {
+                return ResourceManager.GetString("FormRadarDisplayTreasureCoffersGold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Treasure Coffers (Silver).
+        /// </summary>
+        public static string FormRadarDisplayTreasureCoffersSilver {
+            get {
+                return ResourceManager.GetString("FormRadarDisplayTreasureCoffersSilver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable clickthru.
+        /// </summary>
+        public static string FormRadarEnableClickthru {
+            get {
+                return ResourceManager.GetString("FormRadarEnableClickthru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lock overlay.
+        /// </summary>
+        public static string FormRadarLockOverlay {
+            get {
+                return ResourceManager.GetString("FormRadarLockOverlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max. Framerate:.
+        /// </summary>
+        public static string FormRadarMaxFPS {
+            get {
+                return ResourceManager.GetString("FormRadarMaxFPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reading Server ID.
         /// </summary>
         public static string FormReadingSID {
@@ -617,6 +797,33 @@ namespace FFXIV_GameSense.Properties {
         public static string FormTabCtrlPerformance {
             get {
                 return ResourceManager.GetString("FormTabCtrlPerformance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2D Radar.
+        /// </summary>
+        public static string FormTabCtrlRadar {
+            get {
+                return ResourceManager.GetString("FormTabCtrlRadar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string FormToggleButtonOff {
+            get {
+                return ResourceManager.GetString("FormToggleButtonOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        public static string FormToggleButtonOn {
+            get {
+                return ResourceManager.GetString("FormToggleButtonOn", resourceCulture);
             }
         }
         
@@ -876,15 +1083,6 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [{0}] Report received: {1}.
-        /// </summary>
-        public static string ReportReceived {
-            get {
-                return ResourceManager.GetString("ReportReceived", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Restart required for changes to take effect.
         /// </summary>
         public static string RestartForChanges {
@@ -952,7 +1150,7 @@ namespace FFXIV_GameSense.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to key,0,1,2,3
-        ///#,,,DataCenter,
+        ///#,Name,,DataCenter,
         ///int32,str,byte,WorldDCGroupType,bit&amp;01
         ///0,&quot;crossworld&quot;,0,&quot;INVALID&quot;,False
         ///1,&quot;c-funereus&quot;,0,&quot;Gaia&quot;,False
@@ -967,8 +1165,7 @@ namespace FFXIV_GameSense.Properties {
         ///26,&quot;Hecatoncheir&quot;,1,&quot;INVALID&quot;,True
         ///27,&quot;Moomba&quot;,1,&quot;INVALID&quot;,True
         ///28,&quot;Pandaemonium&quot;,1,&quot;Mana&quot;,True
-        ///29,&quot;Shinryu&quot;,1,&quot;Mana&quot;,True
-        ///3 [rest of string was truncated]&quot;;.
+        ///29,&quot;Shinryu&quot;,1,&quot;Mana&quot;,Tru [rest of string was truncated]&quot;;.
         /// </summary>
         public static string World {
             get {

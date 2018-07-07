@@ -120,7 +120,7 @@ namespace FFXIV_GameSense
         {
             hubConnection.Connection.On<Hunt>("ReceiveHunt", hunt =>
             {
-                LogHost.Default.Debug(string.Format(Resources.ReportReceived, GameResources.GetWorldName(hunt.WorldId), hunt.Name));
+                LogHost.Default.Debug(string.Format("[{0}] Report received: {1}", GameResources.GetWorldName(hunt.WorldId), hunt.Name));
                 if (PutInChat(hunt) && Settings.Default.FlashTaskbarIconOnHuntAndFATEs)
                     if (hunt.LastAlive)
                         NativeMethods.FlashTaskbarIcon(Program.mem.Process, 45, true);
@@ -129,7 +129,7 @@ namespace FFXIV_GameSense
             });
             hubConnection.Connection.On<FATEReport>("ReceiveFATE", fate =>
             {
-                //LogHost.Default.Debug(string.Format(Resources.FATEReportReceived, GameResources.GetWorldName(fate.WorldId), fate.Name(true), fate.Progress));
+                //LogHost.Default.Debug(string.Format("[{0}] Report received: {1} - {2}%", GameResources.GetWorldName(fate.WorldId), fate.Name(true), fate.Progress));
                 if (PutInChat(fate) && Settings.Default.FlashTaskbarIconOnHuntAndFATEs)
                     NativeMethods.FlashTaskbarIcon(Program.mem.Process);
             });
