@@ -87,7 +87,7 @@ namespace FFXIV_GameSense
         //        return GetByteArray(IntPtr.Add(_process.MainModule.BaseAddress, zoneInstanceAddress64.ToInt32()), 1)[0];
         //}
 
-        public FFXIVMemory(Process process)
+        public FFXIVMemory(System.Diagnostics.Process process)
         {
             Process = process;
             if (process.ProcessName == "ffxiv")
@@ -184,7 +184,7 @@ namespace FFXIV_GameSense
             FFXIV_64 = 2,
         }
 
-        public Process Process { get; }
+        public System.Diagnostics.Process Process { get; }
 
         public bool ValidateProcess()
         {
@@ -726,7 +726,7 @@ namespace FFXIV_GameSense
                 return f;
         }
 
-        private unsafe List<Combatant> _getCombatantList()
+        internal unsafe List<Combatant> _getCombatantList()
         {
             uint num = 344;
             List<Combatant> result = new List<Combatant>();
@@ -781,7 +781,13 @@ namespace FFXIV_GameSense
                 combatant.PosY = *(float*)&p[combatantOffsets.PosY];
                 combatant.Heading = *(float*)&p[combatantOffsets.Heading];
 
-
+                if(combatant.Type == ObjectType.EventObject)
+                {
+                    IntPtr eventTypeAddr = Is64Bit ? *(IntPtr*)&p[combatantOffsets.EventType] : new IntPtr(*(int*)&p[combatantOffsets.EventType]);
+                    combatant.EventType = (EventType)GetUInt16(eventTypeAddr, 4);
+                    if (combatant.EventType == EventType.CairnOfPassage || combatant.EventType == EventType.CairnOfReturn)
+                        combatant.CairnIsUnlocked = *(&p[combatantOffsets.CairnIsUnlocked]) == 0x04;
+                }
                 if (combatant.Type == ObjectType.Monster)
                 {
                     //if(*(uint*)&p[0xE4]==2149253119)//necessary?
@@ -1078,6 +1084,8 @@ namespace FFXIV_GameSense
         internal int PosY { get; private set; }
         internal int Heading { get; private set; }
         internal int FateID { get; private set; }
+        internal int EventType { get; private set; }
+        internal int CairnIsUnlocked { get; private set; }
         internal int ContentID { get; private set; }
         internal int TargetID { get; private set; }
         internal int TargetID2 { get; private set; }
@@ -1104,8 +1112,10 @@ namespace FFXIV_GameSense
             PosX = 0xA0;
             PosZ = PosX + 0x4;
             PosY = PosZ + 0x4;
-            Heading = PosZ + 0x8;
+            Heading = PosY + 0x8;
             FateID = 0xE8;
+            EventType = Is64Bit ? 0x190 : 0x180;
+            CairnIsUnlocked = Is64Bit ? 0x1A2 : 0x18A;
             TargetID = Is64Bit ? 0x1D8 : 0x1C8;
             TargetID2 = Is64Bit ? 0x990 : 0x9D8;
             int offset;
@@ -1156,6 +1166,8 @@ namespace FFXIV_GameSense
             Command = cmd;
             Parameter = p;
         }
+
+        public override string ToString() => "/" + Command.ToString() + " " + Parameter;
     }
 
     internal enum Command

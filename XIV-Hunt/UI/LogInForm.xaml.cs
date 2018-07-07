@@ -50,7 +50,7 @@ namespace FFXIV_GameSense.UI
 
         internal static void Link_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
 

@@ -15,12 +15,26 @@ namespace FFXIV_GameSense
         Treasure = 0x04,//bronze only
         Aetheryte = 0x05,
         Gathering = 0x06,
-        Cairn = 0x07,//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
+        EventObject = 0x07,//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
         Mount = 0x08,
         Minion = 0x09,
         Retainer = 0x0A,
         LeyLines = 0x0B,//don't know what else this includes
         Furniture = 0xC
+    }
+
+    public enum EventType : ushort
+    {
+        Unknown,
+        //Exit = 1629, //uint perhaps??
+        //Entrance = 2932,
+        CairnOfPassage = 11292,
+        CairnOfReturn = 11297,
+        Hoard = 12353,
+        Banded = 12347,
+        Silver = 5479,
+        Gold = 11500,
+        BronzeTrap = 5478
     }
 
     public class Combatant
@@ -52,9 +66,14 @@ namespace FFXIV_GameSense
         public float PosY { get; set; }
         public float PosZ { get; set; }
         public float Heading { get; set; }
+        public float HeadingDegree => (float)((Heading + Math.PI) * (180.0 / Math.PI));
         public byte EffectiveDistance { get; set; }
         public string Distance { get; set; }
         public string HorizontalDistance { get; set; }
+
+        public EventType EventType { get; set; }
+        public bool CairnIsUnlocked = false;
+        public bool TrapTriggered = false;
 
         public List<Status> StatusList = new List<Status>();
 
