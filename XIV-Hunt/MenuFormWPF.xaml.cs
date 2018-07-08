@@ -637,12 +637,7 @@ namespace FFXIV_GameSense
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Settings.Default.Save();
-#if DEBUG
-            System.Windows.Forms.Application.Restart();
-            Application.Current.Shutdown();
-#else
-            UpdateManager.RestartApp();
-#endif
+            Updater.RestartApp();
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)

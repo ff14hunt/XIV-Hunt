@@ -67,7 +67,7 @@ namespace FFXIV_GameSense
                 Title = GetType().Name,
                 ShowInTaskbar = false,
             };
-            
+
             OverlayWindow.MouseLeftButtonDown += OverlayWindow_MouseLeftButtonDown;
             OverlayWindow.MouseLeftButtonUp += OverlayWindow_MouseLeftButtonUp;
             OverlayWindow.MouseMove += OverlayWindow_MouseMove;
@@ -91,7 +91,7 @@ namespace FFXIV_GameSense
 
         private void Dispatcher_Tick(object sender, EventArgs e)
         {
-            if(ct.IsCancellationRequested)
+            if (ct.IsCancellationRequested)
             {
                 ((DispatcherTimer)sender).Stop();
                 Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -108,7 +108,7 @@ namespace FFXIV_GameSense
 
         private void OverlayWindow_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if(MouseDown)
+            if (MouseDown)
             {
                 Point p = e.GetPosition(OverlayWindow);
                 OverlayWindow.Left += p.X - DragStart.X;
@@ -190,7 +190,7 @@ namespace FFXIV_GameSense
             _tickEngine.Pulse();
             if (!OverlayWindow.IsVisible)
                 return;
-            if(!MouseDown)
+            if (!MouseDown)
                 FollowTargetWindow();
             Combatant self = Program.mem?.GetSelfCombatant();
             List<Combatant> clist = Program.mem?._getCombatantList();
@@ -201,9 +201,8 @@ namespace FFXIV_GameSense
                     clist.RemoveAll(c => c.OwnerID == ID);
                 RemoveUnvantedCombatants(self, clist);
 
-                //bool maximized = TargetWindow.Placement.ShowCmd == Process.NET.Native.Types.WindowStates.Maximize ? true : false;
                 double centerY = OverlayWindow.Height / 2;
-                double centerX = OverlayWindow.Width / 2;
+                double centerX = OverlayWindow.Width / 2;                
                 foreach (Combatant c in clist)
                 {                               //ridiculous posx+posy as key, no idea what else to use
                     if (c.ID == 3758096384 && !miscDrawMap.ContainsKey(c.PosX + c.PosY))//for aetherytes, npcs, and other stuff;
@@ -217,40 +216,40 @@ namespace FFXIV_GameSense
                         OverlayWindow.Add(drawMap[c.ID]);
                     }
 
-                    //factors ?
-                    double relativeToCenterY = (c.PosY - self.PosY) * 5;
-                    double relativeToCenterX = (c.PosX - self.PosX) * 8.5;
-                    if (drawMap.TryGetValue(self.ID, out EntityOverlayControl selfctrl))
-                    {
-                        relativeToCenterY += selfctrl.ActualHeight / 2;
-                        relativeToCenterX -= selfctrl.ActualWidth / 2;
-                    }
+                    double Top = (c.PosY - self.PosY) /** 3*/;
+                    double Left = (c.PosX - self.PosX) /** 3*/;
+                    Top += centerY + (Top * OverlayWindow.Height * .003);
+                    Left += centerX + (Left * OverlayWindow.Width * .003);
                     if (drawMap.ContainsKey(c.ID))
                     {
                         drawMap[c.ID].Update(c);
-                        if (centerY + relativeToCenterY < 0)
+                        Top -= (drawMap[c.ID].ActualHeight / 2);
+                        Left -= (drawMap[c.ID].ActualWidth / 2);
+                        if (Top < 0)
                             Canvas.SetTop(drawMap[c.ID], 0);
-                        else if (centerY + relativeToCenterY > OverlayWindow.Height - drawMap[c.ID].ActualHeight)
+                        else if (Top > OverlayWindow.Height - drawMap[c.ID].ActualHeight)
                             Canvas.SetTop(drawMap[c.ID], OverlayWindow.Height - drawMap[c.ID].ActualHeight);
                         else
-                            Canvas.SetTop(drawMap[c.ID], centerY + relativeToCenterY);
+                            Canvas.SetTop(drawMap[c.ID], Top);
 
-                        if (centerX + relativeToCenterX < 0)
+                        if (Left < 0)
                             Canvas.SetLeft(drawMap[c.ID], 0);
-                        else if (centerX + relativeToCenterX > OverlayWindow.Width - drawMap[c.ID].ActualWidth)
+                        else if (Left > OverlayWindow.Width - drawMap[c.ID].ActualWidth)
                             Canvas.SetLeft(drawMap[c.ID], OverlayWindow.Width - drawMap[c.ID].ActualWidth);
                         else
-                            Canvas.SetLeft(drawMap[c.ID], centerX + relativeToCenterX);
+                            Canvas.SetLeft(drawMap[c.ID], Left);
                     }
                     else if (miscDrawMap.ContainsKey(c.PosX + c.PosY))
                     {
                         miscDrawMap[c.PosX + c.PosY].Update(c);
-                        Canvas.SetTop(miscDrawMap[c.PosX + c.PosY], centerY + relativeToCenterY);
-                        Canvas.SetLeft(miscDrawMap[c.PosX + c.PosY], centerX + relativeToCenterX);
+                        Top -= (miscDrawMap[c.ID].ActualHeight / 2);
+                        Left -= (miscDrawMap[c.ID].ActualWidth / 2);
+                        Canvas.SetTop(miscDrawMap[c.PosX + c.PosY], Top);
+                        Canvas.SetLeft(miscDrawMap[c.PosX + c.PosY], Left);
                     }
                 }
             }
-            
+
             //cleanup
             foreach (KeyValuePair<uint, EntityOverlayControl> entry in drawMap.ToArray())
             {
@@ -285,7 +284,7 @@ namespace FFXIV_GameSense
 
         private void RemoveUnvantedCombatants(Combatant self, List<Combatant> clist)
         {
-            clist.RemoveAll(c => c.ContentID == 5042 || c.ContentID==7395);
+            clist.RemoveAll(c => c.ContentID == 5042 || c.ContentID == 7395);
             if (!Properties.Settings.Default.displaySelf)
                 clist.RemoveAll(c => c.ID == self.ID);
             if (!Properties.Settings.Default.displayMonsters)
@@ -310,7 +309,7 @@ namespace FFXIV_GameSense
             {
                 OverlayWindow.Left = trect.Left + Properties.Settings.Default.RadarWindowOffset.X;
                 OverlayWindow.Top = trect.Top + Properties.Settings.Default.RadarWindowOffset.Y;
-                if(Properties.Settings.Default.RadarWindowSize.IsEmpty)
+                if (Properties.Settings.Default.RadarWindowSize.IsEmpty)
                 {
                     OverlayWindow.Width = (trect.Right - trect.Left);
                     OverlayWindow.Height = (trect.Bottom - trect.Top);

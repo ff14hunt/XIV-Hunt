@@ -1,6 +1,5 @@
 ﻿using FFXIV_GameSense.Properties;
 using Microsoft.Win32;
-using Squirrel;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -67,13 +66,7 @@ namespace FFXIV_GameSense
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
             Settings.Default.Cookies = string.Empty;
-            Settings.Default.Save();
-#if DEBUG
-            System.Windows.Forms.Application.Restart();
-            Application.Current.Shutdown();
-#else
-            UpdateManager.RestartApp();
-#endif
+            Updater.RestartApp();
         }
     }
 }

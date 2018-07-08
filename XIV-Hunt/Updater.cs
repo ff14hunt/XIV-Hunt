@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FFXIV_GameSense
 {
@@ -55,6 +56,7 @@ namespace FFXIV_GameSense
             BackupLastStandaloneSettings();
             RestoreSettings();
             Settings.Default.Reload();
+            //TODO: Toast notification about running from shortcut
         }
 
         /// <summary>
@@ -82,6 +84,17 @@ namespace FFXIV_GameSense
                 string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\last.config";
                 File.Copy(settings, destination, true);
             }
+        }
+
+        internal static void RestartApp()
+        {
+            Settings.Default.Save();
+//#if DEBUG
+            System.Windows.Forms.Application.Restart();
+            Application.Current.Shutdown();
+//#else
+//            UpdateManager.RestartApp();
+//#endif
         }
 
         private static void DeleteOldVersions()
