@@ -27,7 +27,7 @@ namespace FFXIV_GameSense
     {
         Unknown,
         //Exit = 1629, //uint perhaps??
-        //Entrance = 2932,
+        //Entrance = 2632,
         CairnOfPassage = 11292,
         CairnOfReturn = 11297,
         Hoard = 12353,

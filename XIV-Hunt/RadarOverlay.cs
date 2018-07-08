@@ -204,7 +204,7 @@ namespace FFXIV_GameSense
                 //bool maximized = TargetWindow.Placement.ShowCmd == Process.NET.Native.Types.WindowStates.Maximize ? true : false;
                 double centerY = OverlayWindow.Height / 2;
                 double centerX = OverlayWindow.Width / 2;
-                foreach (Combatant c in clist.Where(c => !c.Name.Equals("Trap")))
+                foreach (Combatant c in clist)
                 {                               //ridiculous posx+posy as key, no idea what else to use
                     if (c.ID == 3758096384 && !miscDrawMap.ContainsKey(c.PosX + c.PosY))//for aetherytes, npcs, and other stuff;
                     {
@@ -285,6 +285,7 @@ namespace FFXIV_GameSense
 
         private void RemoveUnvantedCombatants(Combatant self, List<Combatant> clist)
         {
+            clist.RemoveAll(c => c.ContentID == 5042 || c.ContentID==7395);
             if (!Properties.Settings.Default.displaySelf)
                 clist.RemoveAll(c => c.ID == self.ID);
             if (!Properties.Settings.Default.displayMonsters)
