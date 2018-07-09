@@ -621,6 +621,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Background opacity:.
+        /// </summary>
+        public static string FormRadarBackgroundOpacity {
+            get {
+                return ResourceManager.GetString("FormRadarBackgroundOpacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Banded coffers, hoards, cairns (Passage/Return).
         /// </summary>
         public static string FormRadarDisplayExtraDeepDungeon {

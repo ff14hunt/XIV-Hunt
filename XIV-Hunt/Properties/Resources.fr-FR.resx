@@ -403,4 +403,7 @@
   <data name="FormToggleButtonOff" xml:space="preserve">
     <value>Off</value>
   </data>
+  <data name="FormRadarBackgroundOpacity" xml:space="preserve">
+    <value>Background opacity:</value>
+  </data>
 </root>

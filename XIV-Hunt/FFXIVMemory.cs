@@ -24,7 +24,7 @@ namespace FFXIV_GameSense
         private readonly CancellationTokenSource cts;
         internal List<Combatant> Combatants { get; private set; }
         internal object CombatantsLock => new object();
-        internal event EventHandler<CommandEventArgs> OnNewCommand = delegate {};
+        internal event EventHandler<CommandEventArgs> OnNewCommand = delegate { };
         private bool Is64Bit => _mode == FFXIVClientMode.FFXIV_64;
 
         private const string charmapSignature32 = "81f9ffff0000741781f958010000730f8b0c8d";
@@ -123,7 +123,7 @@ namespace FFXIV_GameSense
 
         private void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
                 cts.Cancel();
                 cts.Dispose();
@@ -136,7 +136,7 @@ namespace FFXIV_GameSense
         {
             int interval = 50;
             uint cnt = uint.MinValue;
-            while(!cts.IsCancellationRequested)
+            while (!cts.IsCancellationRequested)
             {
                 Thread.Sleep(interval);
                 if (cnt % 10 == 0 && !ValidateProcess())
@@ -161,7 +161,7 @@ namespace FFXIV_GameSense
             if (string.IsNullOrWhiteSpace(cmd))
                 return;
             WipeLastFailedCommand();
-            if(cmd.StartsWith("/") && cmd.Length > 1 && Enum.TryParse(cmd.Split(' ')[0].Substring(1), true, out Command command))
+            if (cmd.StartsWith("/") && cmd.Length > 1 && Enum.TryParse(cmd.Split(' ')[0].Substring(1), true, out Command command))
             {
                 CommandEventArgs cmdargs = new CommandEventArgs(command, cmd.Substring(cmd.IndexOf(' ') + 1).Trim());
                 OnNewCommand(this, cmdargs);
@@ -354,7 +354,7 @@ namespace FFXIV_GameSense
             {
                 fail.Add(nameof(fateListAddress));
             }
-            
+
             // CURRENTCONTENFINDERCONDITION
             list = SigScan(currentContentFinderConditionSignature, 0, bRIP);
             if (list == null || list.Count == 0)
@@ -465,7 +465,7 @@ namespace FFXIV_GameSense
                     ChatMessage cm = new ChatMessage(ws.Skip(currentStart).Take(currentEnd - currentStart).ToArray()/*, wid*/);
                     if (stopOn != null && stopOn.Invoke(cm))
                         break;
-                    if(filter == null || filter.Invoke(cm))
+                    if (filter == null || filter.Invoke(cm))
                         ChatLog.Add(cm);
                     currentEnd = currentStart;
                     count--;
@@ -507,7 +507,7 @@ namespace FFXIV_GameSense
             if (!PersistentNamedPipeServer.Instance.IsConnected)
             {
                 await NativeMethods.InjectDLL(Process, dllfile, !Is64Bit);
-                for(int w = 0; !PersistentNamedPipeServer.Instance.IsConnected && w < 1000; w += 100)
+                for (int w = 0; !PersistentNamedPipeServer.Instance.IsConnected && w < 1000; w += 100)
                 {
                     await Task.Delay(100);
                 }
@@ -720,7 +720,7 @@ namespace FFXIV_GameSense
                 PosY = BitConverter.ToSingle(ba, Is64Bit ? 0x408 : 0x348),
                 ZoneID = BitConverter.ToUInt16(ba, Is64Bit ? 0x624 : 0x4F4)
             };
-            if (f.ID == 0 || f.Progress < 0 || f.Progress > 100 || !f.PosX.IsWithin(-1024, 1024) || !f.PosY.IsWithin(-1024,1024))
+            if (f.ID == 0 || f.Progress < 0 || f.Progress > 100 || !f.PosX.IsWithin(-1024, 1024) || !f.PosY.IsWithin(-1024, 1024))
                 return null;
             else
                 return f;
@@ -781,11 +781,11 @@ namespace FFXIV_GameSense
                 combatant.PosY = *(float*)&p[combatantOffsets.PosY];
                 combatant.Heading = *(float*)&p[combatantOffsets.Heading];
 
-                if(combatant.Type == ObjectType.EventObject)
+                if (combatant.Type == ObjectType.EventObject)
                 {
                     IntPtr eventTypeAddr = Is64Bit ? *(IntPtr*)&p[combatantOffsets.EventType] : new IntPtr(*(int*)&p[combatantOffsets.EventType]);
                     combatant.EventType = (EventType)GetUInt16(eventTypeAddr, 4);
-                    if (combatant.EventType == EventType.CairnOfPassage || combatant.EventType == EventType.CairnOfReturn)
+                    if (combatant.EventType == EventType.CairnOfPassage || combatant.EventType == EventType.CairnOfReturn || combatant.EventType == EventType.BeaconOfPassage || combatant.EventType == EventType.BeaconOfReturn)
                         combatant.CairnIsUnlocked = *(&p[combatantOffsets.CairnIsUnlocked]) == 0x04;
                 }
                 if (combatant.Type == ObjectType.Monster)
@@ -1126,7 +1126,7 @@ namespace FFXIV_GameSense
                 Job = offset + 0x3E;
                 Level = offset + 0x40;
             }
-            else if(region == GameRegion.Korean)
+            else if (region == GameRegion.Korean)
             {
                 ContentID = Is64Bit ? 0x1684 : 0x1354;
                 offset = Is64Bit ? 0x16A0 : 0x1370;
@@ -1139,7 +1139,7 @@ namespace FFXIV_GameSense
                 offset = Is64Bit ? 0x16F8 : 0x13A0;
                 Job = offset + 0x40;
                 Level = offset + 0x42;
-            }            
+            }
             CurrentHP = offset + 0x8;
             MaxHP = offset + 0xC;
             CurrentMP = offset + 0x10;

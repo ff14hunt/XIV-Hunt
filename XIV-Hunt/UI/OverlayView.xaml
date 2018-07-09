@@ -31,7 +31,7 @@
                 <CheckBox Content="{x:Static properties:Resources.FormRadarDisplayExtraDeepDungeon}" Margin="10,10,0,0" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=displayCairns}"/>
             </UniformGrid>
         </GroupBox>
-        <TextBlock Text="Background opacity:" Margin="0,0,50,118" HorizontalAlignment="Right" Width="Auto" Height="22" VerticalAlignment="Bottom" />
+        <TextBlock Text="{x:Static properties:Resources.FormRadarBackgroundOpacity}" Margin="0,0,50,118" HorizontalAlignment="Right" Width="Auto" Height="22" VerticalAlignment="Bottom" />
         <TextBox Name="RadarBGOpacityTextBox" VerticalContentAlignment="Center" Text="{Binding Source={x:Static properties:Settings.Default}, Path=RadarBGOpacity, UpdateSourceTrigger=PropertyChanged,StringFormat=N0}" Margin="0,0,10,118" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="35"/>
         <TextBlock Text="{x:Static properties:Resources.FormRadarMaxFPS}" Margin="0,0,50,91" HorizontalAlignment="Right" Width="Auto" Height="22" VerticalAlignment="Bottom" />
         <TextBox Name="RadarMaxFrameRateTextBox" VerticalContentAlignment="Center" Text="{Binding Source={x:Static properties:Settings.Default}, Path=RadarMaxFrameRate, UpdateSourceTrigger=PropertyChanged,StringFormat=N0}" Margin="0,0,10,91" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="35"/>

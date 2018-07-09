@@ -30,6 +30,8 @@ namespace FFXIV_GameSense
         //Entrance = 2632,
         CairnOfPassage = 11292,
         CairnOfReturn = 11297,
+        BeaconOfReturn = 18648,
+        BeaconOfPassage = 18660,
         Hoard = 12353,
         Banded = 12347,
         Silver = 5479,

@@ -95,9 +95,9 @@ namespace FFXIV_GameSense.Overlay
                 return IconUris[ObjectType.Treasure.ToString()];
             if(c.Type==ObjectType.EventObject)
             {
-                if (c.EventType == EventType.CairnOfPassage)
+                if (c.EventType == EventType.CairnOfPassage || c.EventType==EventType.BeaconOfPassage)
                     return IconUris[EventType.CairnOfPassage.ToString() + (c.CairnIsUnlocked ? "Unlocked" : string.Empty)];
-                if (c.EventType == EventType.CairnOfReturn)
+                if (c.EventType == EventType.CairnOfReturn || c.EventType == EventType.BeaconOfReturn)
                     return IconUris[EventType.CairnOfReturn.ToString() + (c.CairnIsUnlocked ? "Unlocked" : string.Empty)];
                 if (c.EventType == EventType.Silver)
                     return IconUris[EventType.Silver.ToString()];

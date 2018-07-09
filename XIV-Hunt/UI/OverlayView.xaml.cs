@@ -57,8 +57,8 @@ namespace FFXIV_GameSense.UI
             {
                 if (value > 144)
                     textbox.Text = 144.ToString();
-                else if (value < byte.MinValue)
-                    textbox.Text = byte.MinValue.ToString();
+                else if (value < 1)
+                    textbox.Text = 1.ToString();
                 ro?.SetNewFrameRate();
             }
             else
