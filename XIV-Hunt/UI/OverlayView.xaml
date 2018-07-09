@@ -31,7 +31,9 @@
                 <CheckBox Content="{x:Static properties:Resources.FormRadarDisplayExtraDeepDungeon}" Margin="10,10,0,0" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=displayCairns}"/>
             </UniformGrid>
         </GroupBox>
-        <TextBlock Text="{x:Static properties:Resources.FormRadarMaxFPS}" Margin="0,0,50,91" HorizontalAlignment="Right" Width="90" Height="22" VerticalAlignment="Bottom" />
+        <TextBlock Text="Background opacity:" Margin="0,0,50,118" HorizontalAlignment="Right" Width="Auto" Height="22" VerticalAlignment="Bottom" />
+        <TextBox Name="RadarBGOpacityTextBox" VerticalContentAlignment="Center" Text="{Binding Source={x:Static properties:Settings.Default}, Path=RadarBGOpacity, UpdateSourceTrigger=PropertyChanged,StringFormat=N0}" Margin="0,0,10,118" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="35"/>
+        <TextBlock Text="{x:Static properties:Resources.FormRadarMaxFPS}" Margin="0,0,50,91" HorizontalAlignment="Right" Width="Auto" Height="22" VerticalAlignment="Bottom" />
         <TextBox Name="RadarMaxFrameRateTextBox" VerticalContentAlignment="Center" Text="{Binding Source={x:Static properties:Settings.Default}, Path=RadarMaxFrameRate, UpdateSourceTrigger=PropertyChanged,StringFormat=N0}" Margin="0,0,10,91" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="35"/>
         <CheckBox Content="{x:Static properties:Resources.FormRadarLockOverlay}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=RadarDisableResize}" Margin="0,0,10,71" HorizontalAlignment="Right" Width="130" Height="15" VerticalAlignment="Bottom" Checked="ResizeCheckBox_Checked_1" Unchecked="ResizeCheckBox_Unchecked_1"/>
         <CheckBox Content="{x:Static properties:Resources.FormRadarEnableClickthru}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=RadarEnableClickthru}" Margin="0,0,10,51" HorizontalAlignment="Right" Width="130" Height="15" VerticalAlignment="Bottom" Checked="ClickthruCheckBox_Checked" Unchecked="ClickthruCheckBox_Unchecked"/>

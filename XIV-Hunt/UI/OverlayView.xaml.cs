@@ -32,6 +32,22 @@ namespace FFXIV_GameSense.UI
         {
             InitializeComponent();
             RadarMaxFrameRateTextBox.TextChanged += RadarMaxFrameRateTextBox_TextChanged;
+            RadarBGOpacityTextBox.TextChanged += RadarBGOpacityTextBox_TextChanged;
+        }
+
+        private void RadarBGOpacityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = sender as TextBox;
+            if (byte.TryParse(textbox.Text, out byte value))
+            {
+                if (value > 100)
+                    textbox.Text = 100.ToString();
+                else if (value < byte.MinValue)
+                    textbox.Text = byte.MinValue.ToString();
+                ro?.SetBackgroundOpacity();
+            }
+            else
+                textbox.Text = 0.ToString();
         }
 
         private void RadarMaxFrameRateTextBox_TextChanged(object sender, TextChangedEventArgs e)

@@ -674,5 +674,17 @@ namespace FFXIV_GameSense.Properties {
                 this["RadarMaxFrameRate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte RadarBGOpacity {
+            get {
+                return ((byte)(this["RadarBGOpacity"]));
+            }
+            set {
+                this["RadarBGOpacity"] = value;
+            }
+        }
     }
 }

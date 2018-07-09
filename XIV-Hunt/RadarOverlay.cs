@@ -51,6 +51,11 @@ namespace FFXIV_GameSense
             dispatcher.Interval = _tickEngine.Interval = (1000 / Properties.Settings.Default.RadarMaxFrameRate).Milliseconds();
         }
 
+        internal void SetBackgroundOpacity()
+        {
+            OverlayWindow.Dispatcher.Invoke(()=> OverlayWindow.Background = new SolidColorBrush(Color.FromArgb(Convert.ToByte((Properties.Settings.Default.RadarBGOpacity / 100f) * 255), 0, 0, 0)));
+        }
+
         public override void Disable()
         {
             _tickEngine.IsTicking = false;
@@ -72,7 +77,6 @@ namespace FFXIV_GameSense
             OverlayWindow.MouseLeftButtonUp += OverlayWindow_MouseLeftButtonUp;
             OverlayWindow.MouseMove += OverlayWindow_MouseMove;
             OverlayWindow.SizeChanged += OverlayWindow_SizeChanged;
-            //OverlayWindow.Background = new SolidColorBrush(Color.FromArgb(128, 255, 0, 0));
             // Set up update interval and register events for the tick engine.
             _tickEngine.Interval = (1000 / Properties.Settings.Default.RadarMaxFrameRate).Milliseconds();
             _tickEngine.PreTick += OnPreTick;
@@ -365,6 +369,7 @@ namespace FFXIV_GameSense
                 OverlayWindow.Width = Properties.Settings.Default.RadarWindowSize.Width;
                 OverlayWindow.Height = Properties.Settings.Default.RadarWindowSize.Height;
             }
+            SetBackgroundOpacity();
         }
     }
 }

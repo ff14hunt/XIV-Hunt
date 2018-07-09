@@ -168,5 +168,8 @@
     <Setting Name="RadarMaxFrameRate" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">30</Value>
     </Setting>
+    <Setting Name="RadarBGOpacity" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
