@@ -366,6 +366,7 @@ namespace FFXIV_GameSense
 
         private void MenuForm_FormClosed(object sender, EventArgs e)
         {
+            OverlayView.Dispose();
             Dispose();
             Environment.Exit(0);
         }

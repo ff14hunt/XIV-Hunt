@@ -165,7 +165,7 @@
                 <UI:PerformanceFileListView />
             </TabItem>
             <TabItem Header="{x:Static properties:Resources.FormTabCtrlRadar}">
-                <UI:OverlayView />
+                <UI:OverlayView x:Name="OverlayView"/>
             </TabItem>
         </TabControl>
         <ComboBox x:Name="ProcessComboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" SelectedValuePath="Id" ItemsSource="{Binding Path=ProcessEntries,Mode=OneWay}" SelectedValue="{Binding Id}" IsEnabled="False">
