@@ -126,13 +126,13 @@ namespace FFXIV_GameSense.Overlay
             }
             if (c.Type == ObjectType.NPC)
                 return IconUris[ObjectType.NPC.ToString()];
-            return string.Empty;
+            return @"/Resources/Images/ui/uld/image2.tex.png";
         }
     }
 
     public class EntityOverlayControlViewModel : INotifyPropertyChanged
     {
-        private string icon = EntityOverlayControl.IconUris["PC"];
+        private string icon;
         public string Icon
         {
             get

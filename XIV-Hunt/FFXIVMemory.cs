@@ -241,7 +241,7 @@ namespace FFXIV_GameSense
                 fail.Add(nameof(serverIdAddress));
             }
 
-            string regionpostpend = " game detected.";
+            string regionpostpend = $" (DX{(Is64Bit ? "11" : "9")}) game detected.";
             if (GameResources.IsChineseWorld(GetServerId()))
             {
                 LogHost.Default.Info(GameRegion.Chinese.ToString() + regionpostpend);
