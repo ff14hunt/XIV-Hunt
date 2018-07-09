@@ -628,6 +628,27 @@ namespace FFXIV_GameSense
         {
             return Id.GetHashCode();
         }
+
+        internal static bool TryGetHuntRank(ushort HuntID, out HuntRank hr)
+        {
+            if ((HuntID > 2918 && HuntID < 2936) || (HuntID > 4349 && HuntID < 4362) || (HuntID > 6001 && HuntID < 6014))
+            {
+                hr = HuntRank.B;
+                return true;
+            }
+            if ((HuntID > 2935 && HuntID < 2953) || (HuntID > 4361 && HuntID < 4374) || (HuntID > 5989 && HuntID < 6002))
+            {
+                hr = HuntRank.A;
+                return true;
+            }
+            if ((HuntID > 2952 && HuntID < 2970) || (HuntID > 4373 && HuntID < 4381 && HuntID != 4379) || (HuntID > 5983 && HuntID < 5990))
+            {
+                hr = HuntRank.S;
+                return true;
+            }
+            hr = HuntRank.B;
+            return false;
+        }
     }
 
     class Reporter

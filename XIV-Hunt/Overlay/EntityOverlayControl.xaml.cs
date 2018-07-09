@@ -45,15 +45,33 @@ namespace FFXIV_GameSense.Overlay
             InitializeComponent();
         }
 
-        public EntityOverlayControl(Combatant c)
+        public EntityOverlayControl(Combatant c, bool IsSelf = false)
         {
             InitializeComponent();
             Model = new EntityOverlayControlViewModel
             {
+                NameColor = GetColor(c, IsSelf),
                 Name = c.Name,
                 Icon = GetIcon(c)
             };
             DataContext = Model;
+        }
+
+        private Brush GetColor(Combatant c, bool IsSelf)
+        {
+            if(c.Type==ObjectType.PC)
+                return new SolidColorBrush(IsSelf ? Colors.Green : Colors.LightBlue);
+            if(c.Type==ObjectType.Monster )
+            {
+                if(Hunt.TryGetHuntRank(c.ContentID, out HuntRank hr))
+                {
+                    return new SolidColorBrush(hr == HuntRank.B ? Colors.DarkBlue : Colors.Red);
+                }
+                return new SolidColorBrush(Colors.White);
+            }
+            if (string.IsNullOrWhiteSpace(c.Name))
+                return new SolidColorBrush(Colors.MediumPurple);
+            return new SolidColorBrush(Colors.LightGray);
         }
 
         public String GetName() => Model.Name;
@@ -112,7 +130,7 @@ namespace FFXIV_GameSense.Overlay
         }
     }
 
-    public class EntityOverlayControlViewModel : INotifyPropertyChanged//TODO: Fody.PropertyChanged instead?
+    public class EntityOverlayControlViewModel : INotifyPropertyChanged
     {
         private string icon = EntityOverlayControl.IconUris["PC"];
         public string Icon

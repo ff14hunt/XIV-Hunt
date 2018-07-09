@@ -216,7 +216,7 @@ namespace FFXIV_GameSense
                     }
                     else if (!drawMap.ContainsKey(c.ID))
                     {
-                        drawMap.Add(c.ID, new EntityOverlayControl(c));
+                        drawMap.Add(c.ID, new EntityOverlayControl(c, c.ID == self.ID));
                         OverlayWindow.Add(drawMap[c.ID]);
                     }
 
