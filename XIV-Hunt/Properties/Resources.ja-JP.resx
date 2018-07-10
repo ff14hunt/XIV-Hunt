@@ -137,7 +137,7 @@
     <value>Rank {0}: {1} @ &lt;pos&gt;</value>
   </data>
   <data name="HuntMsgKilled" xml:space="preserve">
-    <value>はちょうど殺されました。</value>
+    <value>Rank {0}: {1}はちょうど殺されました。</value>
   </data>
   <data name="LKIHours" xml:space="preserve">
     <value>{0}時間前</value>

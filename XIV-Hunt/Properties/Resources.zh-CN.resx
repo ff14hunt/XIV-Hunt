@@ -137,7 +137,7 @@
     <value>Rank {0}: {1} @ &lt;pos&gt;</value>
   </data>
   <data name="HuntMsgKilled" xml:space="preserve">
-    <value> was just killed.</value>
+    <value>{0} Rank: {1} was just killed.</value>
   </data>
   <data name="LKIHours" xml:space="preserve">
     <value> {0} hours ago</value>

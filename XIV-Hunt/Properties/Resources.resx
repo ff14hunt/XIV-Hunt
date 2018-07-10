@@ -176,8 +176,8 @@
     <comment>English example: B Rank: Barbastelle @</comment>
   </data>
   <data name="HuntMsgKilled" xml:space="preserve">
-    <value> was just killed.</value>
-    <comment>English example:  was just killed.</comment>
+    <value>{0} Rank: {1} was just killed.</value>
+    <comment>English example: B Rank: Flame Sergeant Dalvag was just killed.</comment>
   </data>
   <data name="LKIHours" xml:space="preserve">
     <value> {0} hours ago</value>

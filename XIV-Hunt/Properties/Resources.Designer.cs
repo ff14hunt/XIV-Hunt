@@ -893,7 +893,7 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  was just killed..
+        ///   Looks up a localized string similar to {0} Rank: {1} was just killed..
         /// </summary>
         public static string HuntMsgKilled {
             get {
