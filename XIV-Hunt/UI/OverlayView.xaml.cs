@@ -103,7 +103,7 @@ namespace FFXIV_GameSense.UI
             {
                 if (disposing)
                 {
-                    if (!cts.IsCancellationRequested)
+                    if (cts != null && !cts.IsCancellationRequested)
                     {
                         cts.Cancel();
                         Thread.Sleep(1000 / Properties.Settings.Default.RadarMaxFrameRate * 2);
