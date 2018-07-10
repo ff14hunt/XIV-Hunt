@@ -37,7 +37,7 @@ namespace FFXIV_GameSense
                 WriteExceptionToErrorFile(new Exception("Failed to restore previous settings.", e));
             }
 #if !DEBUG
-            SquirrelAwareApp.HandleEvents(onAppUpdate: v => Updater.OnAppUpdate(), onFirstRun: () => Updater.OnFirstRun());
+            SquirrelAwareApp.HandleEvents(onAppUpdate: v => Updater.OnAppUpdate(), onFirstRun: Updater.OnFirstRun);
             try { NativeMethods.SetCurrentProcessExplicitAppUserModelID("com.squirrel.XIVHunt.XIV-Hunt"); } catch { }
             using (var cts = new CancellationTokenSource())
             {

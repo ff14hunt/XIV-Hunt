@@ -32,12 +32,12 @@ namespace FFXIV_GameSense
                     {
                         BackupSettings();
                         shouldRestart = true;
-                        //DeleteOldVersions();
-                        mgr.UpdateApp().Wait();//y u no cleanup ლ(ಠ_ಠლ)
+                        DeleteOldVersions();
+                        mgr.UpdateApp().Wait();
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex) { Program.WriteExceptionToErrorFile(ex); }
             if (shouldRestart)
                 UpdateManager.RestartApp();
         }
