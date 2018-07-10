@@ -245,23 +245,19 @@ namespace FFXIV_GameSense
             if (GameResources.IsChineseWorld(GetServerId()))
             {
                 LogHost.Default.Info(GameRegion.Chinese.ToString() + regionpostpend);
-                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Chinese);
                 combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Chinese);
             }
             else if (GameResources.IsKoreanWorld(GetServerId()))
             {
                 LogHost.Default.Info(GameRegion.Korean.ToString() + regionpostpend);
-                serverTimeOffset[2] = Is64Bit ? 0x684 : 0x52C;
-                contentFinderConditionOffset -= Is64Bit ? 0x8 : 0xC;
-                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Korean);
                 combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Korean);
             }
             else
             {
                 LogHost.Default.Info(GameRegion.Global.ToString() + regionpostpend);
-                contentFinderOffsets = new ContentFinderOffsets(Is64Bit, GameRegion.Global);
                 combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Global);
             }
+            contentFinderOffsets = new ContentFinderOffsets(Is64Bit);
 
             // CHARMAP
             list = SigScan(charmapSignature, 0, bRIP);
@@ -1050,18 +1046,10 @@ namespace FFXIV_GameSense
         internal int StateOffset { get; private set; }
         internal int RouletteIdOffset { get; private set; }
 
-        public ContentFinderOffsets(bool Is64Bit, GameRegion region)
+        public ContentFinderOffsets(bool Is64Bit)
         {
-            if (region == GameRegion.Korean)
-            {
-                StateOffset = Is64Bit ? 0x6D : 0x65;
-                RouletteIdOffset = Is64Bit ? 0x72 : 0x6A;
-            }
-            else
-            {
-                StateOffset = Is64Bit ? 0x71 : 0x69;
-                RouletteIdOffset = Is64Bit ? 0x76 : 0x6E;
-            }
+            StateOffset = Is64Bit ? 0x71 : 0x69;
+            RouletteIdOffset = Is64Bit ? 0x76 : 0x6E;
         }
     }
 
@@ -1119,17 +1107,10 @@ namespace FFXIV_GameSense
             TargetID = Is64Bit ? 0x1D8 : 0x1C8;
             TargetID2 = Is64Bit ? 0x990 : 0x9D8;
             int offset;
-            if (region == GameRegion.Chinese)
+            if (region == GameRegion.Chinese || region == GameRegion.Korean)
             {
                 ContentID = Is64Bit ? 0x1694 : 0x136C;
                 offset = Is64Bit ? 0x16B0 : 0x1388;
-                Job = offset + 0x3E;
-                Level = offset + 0x40;
-            }
-            else if (region == GameRegion.Korean)
-            {
-                ContentID = Is64Bit ? 0x1684 : 0x1354;
-                offset = Is64Bit ? 0x16A0 : 0x1370;
                 Job = offset + 0x3E;
                 Level = offset + 0x40;
             }

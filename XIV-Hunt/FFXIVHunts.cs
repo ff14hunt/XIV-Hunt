@@ -435,7 +435,7 @@ namespace FFXIV_GameSense
             joining = true;
             w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = Resources.FormReadingSID);
             ushort sid = Program.mem.GetServerId();
-            Reporter r = new Reporter { WorldID = sid, Name = Program.mem.GetSelfCombatant().Name };
+            Reporter r = new Reporter { WorldID = sid, Name = Program.mem.GetSelfCombatant().Name, Version = Program.AssemblyName.Version };
             LogHost.Default.Info("Joining " + GameResources.GetWorldName(sid));
             if (!await hubConnection.Connection.InvokeAsync<bool>("JoinGroup", r))
                 w1.HuntConnectionTextBlock.Dispatcher.Invoke(() =>
@@ -474,7 +474,7 @@ namespace FFXIV_GameSense
                 )
             {
                 var idx = hunts.IndexOf(hunt);
-                var cm = new ChatMessage();
+                ChatMessage cm = new ChatMessage();
                 if (Settings.Default.OncePerHunt ? !HuntsPutInChat.Contains(hunt.OccurrenceID) : hunts[idx].lastPutInChat < Program.mem.GetServerUtcTime().AddMinutes(-Settings.Default.HuntInterval) && hunt.LastAlive /*&& hunts[idx].lastReportedDead < Program.mem.GetServerUtcTime().AddSeconds(-15)*/)
                 {
                     cm = ChatMessage.MakePosChatMessage(string.Format(Resources.HuntMsg, hunt.Rank.ToString(), hunt.Name), GetZoneId(hunt.Id), hunt.LastX, hunt.LastY);
@@ -490,7 +490,7 @@ namespace FFXIV_GameSense
                 }
                 else if (hunts[idx].lastReportedDead < ServerTimeUtc.AddSeconds(-12) && !hunt.LastAlive)
                 {
-                    cm = ChatMessage.MakePosChatMessage(string.Format(Resources.HuntMsg, hunt.Rank.ToString(), hunt.Name), GetZoneId(hunt.Id), hunt.LastX, hunt.LastY, Resources.HuntMsgKilled);
+                    cm.MessageString = string.Format(Resources.HuntMsgKilled, hunt.Rank.ToString(), hunt.Name);
                     if (cm != null)
                     {
                         _ = Program.mem.WriteChatMessage(cm);
@@ -655,6 +655,7 @@ namespace FFXIV_GameSense
     {
         public ushort WorldID { get; set; }
         public string Name { get; set; }
+        public Version Version { get; set; }
     }
 
     class FATEReport : FATE

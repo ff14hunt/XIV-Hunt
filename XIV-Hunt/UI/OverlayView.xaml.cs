@@ -108,8 +108,10 @@ namespace FFXIV_GameSense.UI
                         cts.Cancel();
                         Thread.Sleep(1000 / Properties.Settings.Default.RadarMaxFrameRate * 2);
                     }
-                    cts.Dispose();
-                    ro.Dispose();
+                    if(cts!=null)
+                        cts.Dispose();
+                    if(ro!=null)
+                        ro.Dispose();
                 }
                 ro = null;
                 disposedValue = true;
