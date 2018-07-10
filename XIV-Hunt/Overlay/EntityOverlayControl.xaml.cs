@@ -60,12 +60,12 @@ namespace FFXIV_GameSense.Overlay
         private Brush GetColor(Combatant c, bool IsSelf)
         {
             if(c.Type==ObjectType.PC)
-                return new SolidColorBrush(IsSelf ? Colors.Green : Colors.LightBlue);
+                return new SolidColorBrush(IsSelf ? Colors.LightGreen : Colors.LightBlue);
             if(c.Type==ObjectType.Monster )
             {
                 if(Hunt.TryGetHuntRank(c.ContentID, out HuntRank hr))
                 {
-                    return new SolidColorBrush(hr == HuntRank.B ? Colors.DarkBlue : Colors.Red);
+                    return new SolidColorBrush(hr == HuntRank.B ? Color.FromArgb(255,0,0,0xE7) : Colors.Red);
                 }
                 return new SolidColorBrush(Colors.White);
             }
