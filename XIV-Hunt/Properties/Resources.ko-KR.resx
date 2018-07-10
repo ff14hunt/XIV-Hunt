@@ -362,48 +362,48 @@
     <value>연결 실패. {0} 초 후 재시도</value>
   </data>
   <data name="FormTabCtrlRadar" xml:space="preserve">
-    <value>2D Radar</value>
+    <value>2D 레이더</value>
   </data>
   <data name="FormRadarDisplaySelf" xml:space="preserve">
-    <value>Own player character (self)</value>
+    <value>내 캐릭터</value>
   </data>
   <data name="FormRadarDisplayOtherPCs" xml:space="preserve">
-    <value>Other players characters</value>
+    <value>다른 플레이어</value>
   </data>
   <data name="FormRadarDisplayMonsters" xml:space="preserve">
-    <value>Monsters</value>
+    <value>몬스터</value>
   </data>
   <data name="FormRadarDisplayTreasureCoffers" xml:space="preserve">
-    <value>Treasure Coffers</value>
+    <value>보물상자</value>
   </data>
   <data name="FormRadarDisplayTreasureCoffersGold" xml:space="preserve">
-    <value>Treasure Coffers (Gold)</value>
+    <value>보물상자 (금)</value>
   </data>
   <data name="FormRadarDisplayTreasureCoffersSilver" xml:space="preserve">
-    <value>Treasure Coffers (Silver)</value>
+    <value>보물상자 (은)</value>
   </data>
   <data name="FormRadarDisplayExtraDeepDungeon" xml:space="preserve">
-    <value>Banded coffers, hoards, cairns (Passage/Return)</value>
+    <value>파묻힌 보물, 석탑 (전송/부활)</value>
   </data>
   <data name="FormRadarDisplayGBH" xml:space="preserve">
-    <value>Only display the following</value>
+    <value>표시하기</value>
   </data>
   <data name="FormRadarMaxFPS" xml:space="preserve">
-    <value>Max. Framerate:</value>
+    <value>최고 프레임 :</value>
   </data>
   <data name="FormRadarLockOverlay" xml:space="preserve">
-    <value>Lock overlay</value>
+    <value>오버레이 잠금</value>
   </data>
   <data name="FormRadarEnableClickthru" xml:space="preserve">
-    <value>Enable clickthru</value>
+    <value>클릭통과 허용</value>
   </data>
   <data name="FormToggleButtonOn" xml:space="preserve">
-    <value>On</value>
+    <value>켜기</value>
   </data>
   <data name="FormToggleButtonOff" xml:space="preserve">
-    <value>Off</value>
+    <value>끄기</value>
   </data>
   <data name="FormRadarBackgroundOpacity" xml:space="preserve">
-    <value>Background opacity:</value>
+    <value>배경 투명도 :</value>
   </data>
 </root>
