@@ -32,7 +32,7 @@ namespace FFXIV_GameSense
                     {
                         BackupSettings();
                         shouldRestart = true;
-                        DeleteOldVersions();
+                        //DeleteOldVersions();
                         mgr.UpdateApp().Wait();//y u no cleanup ლ(ಠ_ಠლ)
                     }
                 }
@@ -89,12 +89,12 @@ namespace FFXIV_GameSense
         internal static void RestartApp()
         {
             Settings.Default.Save();
-//#if DEBUG
+#if DEBUG
             System.Windows.Forms.Application.Restart();
             Application.Current.Shutdown();
-//#else
-//            UpdateManager.RestartApp();
-//#endif
+#else
+            UpdateManager.RestartApp();
+#endif
         }
 
         private static void DeleteOldVersions()
