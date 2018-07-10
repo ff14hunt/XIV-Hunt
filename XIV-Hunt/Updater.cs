@@ -111,7 +111,7 @@ namespace FFXIV_GameSense
             if (!Directory.Exists(packagesDir))
                 return;
             DirectoryInfo packDir = new DirectoryInfo(packagesDir);
-            var olderPackages = packDir.EnumerateFiles("*.nupkg").OrderByDescending(x => x.Name).Skip(4);
+            var olderPackages = packDir.EnumerateFiles("*.nupkg").OrderByDescending(x => x.CreationTimeUtc).Skip(4);
             foreach (var oldPack in olderPackages)
                 try
                 {
