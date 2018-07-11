@@ -137,7 +137,7 @@
     <value> {0} 급 : &lt;pos&gt; {1} </value>
   </data>
   <data name="HuntMsgKilled" xml:space="preserve">
-    <value>{0} 급: {1} 토벌 완료.</value>
+    <value> {0} 급 : {1} 토벌 완료</value>
   </data>
   <data name="LKIHours" xml:space="preserve">
     <value> {0} 시간 전</value>
@@ -347,7 +347,7 @@
     <value>비밀번호 :</value>
   </data>
   <data name="FormLogin2FA" xml:space="preserve">
-    <value>2FA code 사용 시 :</value>
+    <value>2FA code  사용 시 :</value>
   </data>
   <data name="FormLoginLogin" xml:space="preserve">
     <value>로그인</value>
