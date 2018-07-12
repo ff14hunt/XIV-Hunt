@@ -70,7 +70,7 @@ namespace FFXIV_GameSense
             OverlayWindow = new OverlayWindow(targetWindow)
             {
                 Title = GetType().Name,
-                ShowInTaskbar = false,
+                ShowInTaskbar = false
             };
 
             OverlayWindow.Loaded += OverlayWindow_Loaded;

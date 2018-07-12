@@ -31,8 +31,38 @@ namespace FFXIV_GameSense.UI
         public OverlayView()
         {
             InitializeComponent();
+            RadarEntityScaleTextBox.TextChanged += RadarEntityScaleTextBox_TextChanged;
+            RadarEntityOpacityTextBox.TextChanged += RadarEntityOpacityTextBox_TextChanged;
             RadarMaxFrameRateTextBox.TextChanged += RadarMaxFrameRateTextBox_TextChanged;
             RadarBGOpacityTextBox.TextChanged += RadarBGOpacityTextBox_TextChanged;
+        }
+
+        private void RadarEntityScaleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = sender as TextBox;
+            if (float.TryParse(textbox.Text, out float value))
+            {
+                if (value > 2)
+                    textbox.Text = 2.ToString();
+                else if (value < .5)
+                    textbox.Text = .5.ToString();
+            }
+            else
+                textbox.Text = 1.ToString();
+        }
+
+        private void RadarEntityOpacityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = sender as TextBox;
+            if (byte.TryParse(textbox.Text, out byte value))
+            {
+                if (value > 100)
+                    textbox.Text = 100.ToString();
+                else if (value < byte.MinValue)
+                    textbox.Text = byte.MinValue.ToString();
+            }
+            else
+                textbox.Text = 100.ToString();
         }
 
         private void RadarBGOpacityTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -78,9 +108,11 @@ namespace FFXIV_GameSense.UI
                     ro.Initialize(ps.WindowFactory.MainWindow);
                     ro.Enable();
                     System.Windows.Threading.Dispatcher.Run();
-                });
+                })
+                {
+                    IsBackground = true
+                };
                 RadarOverlayThread.SetApartmentState(ApartmentState.STA);
-                RadarOverlayThread.IsBackground = true;
                 RadarOverlayThread.Start();
                 Task.Factory.StartNew(async () =>
                 {

@@ -406,4 +406,10 @@
   <data name="FormRadarBackgroundOpacity" xml:space="preserve">
     <value>Background opacity:</value>
   </data>
+  <data name="FormRadarEntitiesOpacity" xml:space="preserve">
+    <value>Entities opacity:</value>
+  </data>
+  <data name="FormRadarEntitiesScale" xml:space="preserve">
+    <value>Entities scale:</value>
+  </data>
 </root>

@@ -268,7 +268,7 @@
     <Compile Include="UI\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SystemDateTimeFormatConverter.cs" />
+    <Compile Include="UI\Converters.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="XIVResources.cs" />
     <Compile Include="XIVDBObjects.cs" />

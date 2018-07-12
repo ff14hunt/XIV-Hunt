@@ -711,6 +711,24 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entities opacity:.
+        /// </summary>
+        public static string FormRadarEntitiesOpacity {
+            get {
+                return ResourceManager.GetString("FormRadarEntitiesOpacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entities scale:.
+        /// </summary>
+        public static string FormRadarEntitiesScale {
+            get {
+                return ResourceManager.GetString("FormRadarEntitiesScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lock overlay.
         /// </summary>
         public static string FormRadarLockOverlay {

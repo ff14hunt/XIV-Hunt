@@ -3,10 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FFXIV_GameSense.Overlay"
+             xmlns:UI="clr-namespace:FFXIV_GameSense.UI"
+             xmlns:properties="clr-namespace:FFXIV_GameSense.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="42" Width="Auto">
-    <Grid>
+    <UserControl.Resources>
+        <UI:ByteToPercentageConverter x:Key="ByteToPercentageConverter"/>
+    </UserControl.Resources>
+    <Grid Opacity="{Binding Source={x:Static properties:Settings.Default}, Path=RadarEntityOpacity, Converter={StaticResource ByteToPercentageConverter}}">
+        <Grid.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding Source={x:Static properties:Settings.Default}, Path=RadarEntityScale}" ScaleY="{Binding Source={x:Static properties:Settings.Default}, Path=RadarEntityScale}" />
+        </Grid.LayoutTransform>
         <Image x:Name="image" Height="26" Width="26" Source="{Binding Path=Icon}" VerticalAlignment="Top" RenderTransformOrigin=".5,.5"/>
         <TextBlock Width="Auto" TextAlignment="Center" FontWeight="Bold" Text="{Binding Path=Name}" Foreground="{Binding Path=NameColor}" Margin="0,24,0,0"/>
     </Grid>

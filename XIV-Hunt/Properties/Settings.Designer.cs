@@ -686,5 +686,29 @@ namespace FFXIV_GameSense.Properties {
                 this["RadarBGOpacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public float RadarEntityScale {
+            get {
+                return ((float)(this["RadarEntityScale"]));
+            }
+            set {
+                this["RadarEntityScale"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public byte RadarEntityOpacity {
+            get {
+                return ((byte)(this["RadarEntityOpacity"]));
+            }
+            set {
+                this["RadarEntityOpacity"] = value;
+            }
+        }
     }
 }
