@@ -159,12 +159,30 @@ namespace FFXIV_GameSense
         {
             if (!wnd.IsInitialized)
                 throw new Exception("The extension method MakeWindowUntransparent can not be called prior to the window being initialized.");
-            const int GwlExstyle = -20;
-            const uint WsExLayered = 0x00080000;
-            const int WsExTransparent = 0x00000020;
             IntPtr hwnd = new WindowInteropHelper(wnd).Handle;
-            IntPtr ex_style = NativeMethods.GetWindowLongPtr3264(hwnd, GwlExstyle);
-            NativeMethods.SetWindowLongPtr(hwnd, GwlExstyle, Convert.ToUInt32(ex_style.ToInt32() & ~WsExLayered & ~WsExTransparent));
+            IntPtr ex_style = NativeMethods.GetWindowLongPtr3264(hwnd, (int)GetWindowLongFields.GWL_EXSTYLE);
+            NativeMethods.SetWindowLongPtr(hwnd, (int)GetWindowLongFields.GWL_EXSTYLE, Convert.ToUInt32(ex_style.ToInt32() & ~(int)ExtendedWindowStyles.WS_EX_LAYERED & ~(int)ExtendedWindowStyles.WS_EX_TRANSPARENT ));
+        }
+
+        public static void HideFromAltTab(this Window wnd)
+        {
+            if (!wnd.IsInitialized)
+                throw new Exception("The extension method HideFromAltTab can not be called prior to the window being initialized.");
+            IntPtr hwnd = new WindowInteropHelper(wnd).Handle;
+            IntPtr ex_style = NativeMethods.GetWindowLongPtr3264(hwnd, (int)GetWindowLongFields.GWL_EXSTYLE);
+            NativeMethods.SetWindowLongPtr(hwnd, (int)GetWindowLongFields.GWL_EXSTYLE, Convert.ToUInt32(ex_style.ToInt32() | (int)ExtendedWindowStyles.WS_EX_TOOLWINDOW));
+        }
+
+        public enum ExtendedWindowStyles : long
+        {
+            WS_EX_TOOLWINDOW = 0x00000080,
+            WS_EX_LAYERED = 0x00080000,
+            WS_EX_TRANSPARENT = 0x00000020L
+        }
+
+        public enum GetWindowLongFields
+        {
+            GWL_EXSTYLE = -20,
         }
     }
 }

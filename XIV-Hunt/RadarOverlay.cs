@@ -73,6 +73,7 @@ namespace FFXIV_GameSense
                 ShowInTaskbar = false,
             };
 
+            OverlayWindow.Loaded += OverlayWindow_Loaded;
             OverlayWindow.MouseLeftButtonDown += OverlayWindow_MouseLeftButtonDown;
             OverlayWindow.MouseLeftButtonUp += OverlayWindow_MouseLeftButtonUp;
             OverlayWindow.MouseMove += OverlayWindow_MouseMove;
@@ -86,6 +87,8 @@ namespace FFXIV_GameSense
             dispatcher.Interval = _tickEngine.Interval;
             dispatcher.Start();
         }
+
+        private void OverlayWindow_Loaded(object sender, RoutedEventArgs e) => OverlayWindow.HideFromAltTab();
 
         private void OverlayWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
