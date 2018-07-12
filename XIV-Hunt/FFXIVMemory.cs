@@ -64,6 +64,7 @@ namespace FFXIV_GameSense
         private static readonly int[] fateListOffset32 = { 0x13A8, 0x0 };
         private static readonly int[] fateListOffset64 = { 0x16F8, 0x0 };
         private readonly FFXIVClientMode _mode;
+        private GameRegion region;
         private CombatantOffsets combatantOffsets;
         private ContentFinderOffsets contentFinderOffsets;
 
@@ -243,20 +244,14 @@ namespace FFXIV_GameSense
 
             string regionpostpend = $" (DX{(Is64Bit ? "11" : "9")}) game detected.";
             if (GameResources.IsChineseWorld(GetServerId()))
-            {
-                LogHost.Default.Info(GameRegion.Chinese.ToString() + regionpostpend);
-                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Chinese);
-            }
+                region = GameRegion.Chinese;
             else if (GameResources.IsKoreanWorld(GetServerId()))
-            {
-                LogHost.Default.Info(GameRegion.Korean.ToString() + regionpostpend);
-                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Korean);
-            }
+                region = GameRegion.Korean;
             else
-            {
-                LogHost.Default.Info(GameRegion.Global.ToString() + regionpostpend);
-                combatantOffsets = new CombatantOffsets(Is64Bit, GameRegion.Global);
-            }
+                region = GameRegion.Global;
+
+            combatantOffsets = new CombatantOffsets(Is64Bit, region);
+            LogHost.Default.Info(region.ToString() + regionpostpend);
             contentFinderOffsets = new ContentFinderOffsets(Is64Bit);
 
             // CHARMAP
@@ -876,7 +871,8 @@ namespace FFXIV_GameSense
                             return;
                         PersistentNamedPipeServer.SendPipeMessage(new PipeMessage(Process.Id, PMCommand.PlayNote) { Parameter = note.GetStep() });
                         Thread.Sleep(note.Length);
-                        PersistentNamedPipeServer.SendPipeMessage(noteOff);
+                        if(region == GameRegion.Global)
+                            PersistentNamedPipeServer.SendPipeMessage(noteOff);
                         ts = note.TimeSpan + note.Length;
                     }
                 })
@@ -1145,7 +1141,10 @@ namespace FFXIV_GameSense
         public CommandEventArgs(Command cmd, string p)
         {
             Command = cmd;
-            Parameter = p;
+            if (p.Equals('/' + cmd.ToString(), StringComparison.OrdinalIgnoreCase))
+                Parameter = string.Empty;
+            else
+                Parameter = p;
         }
 
         public override string ToString() => "/" + Command.ToString() + " " + Parameter;
