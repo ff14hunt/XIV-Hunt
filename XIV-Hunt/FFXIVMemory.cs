@@ -772,11 +772,11 @@ namespace FFXIV_GameSense
                 combatant.PosY = *(float*)&p[combatantOffsets.PosY];
                 combatant.Heading = *(float*)&p[combatantOffsets.Heading];
 
-                if (combatant.Type == ObjectType.EventObject)
+                if (combatant.Type == ObjectType.EObject)
                 {
                     IntPtr eventTypeAddr = Is64Bit ? *(IntPtr*)&p[combatantOffsets.EventType] : new IntPtr(*(int*)&p[combatantOffsets.EventType]);
-                    combatant.EventType = (EventType)GetUInt16(eventTypeAddr, 4);
-                    if (combatant.EventType == EventType.CairnOfPassage || combatant.EventType == EventType.CairnOfReturn || combatant.EventType == EventType.BeaconOfPassage || combatant.EventType == EventType.BeaconOfReturn)
+                    combatant.EventType = (EObjType)GetUInt16(eventTypeAddr, 4);
+                    if (combatant.EventType == EObjType.CairnOfPassage || combatant.EventType == EObjType.CairnOfReturn || combatant.EventType == EObjType.BeaconOfPassage || combatant.EventType == EObjType.BeaconOfReturn)
                         combatant.CairnIsUnlocked = *(&p[combatantOffsets.CairnIsUnlocked]) == 0x04;
                 }
                 if (combatant.Type == ObjectType.Monster)

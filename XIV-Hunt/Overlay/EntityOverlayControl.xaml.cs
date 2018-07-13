@@ -91,10 +91,10 @@ namespace FFXIV_GameSense.Overlay
             {
                 RotateImage(-c.HeadingDegree);
             }
-            else if(c.Type==ObjectType.EventObject)
+            else if(c.Type==ObjectType.EObject)
             {
                 Model.Icon = GetIcon(c);
-                if (string.IsNullOrWhiteSpace(c.Name) && c.EventType == EventType.Hoard)
+                if (string.IsNullOrWhiteSpace(c.Name) && c.EventType == EObjType.Hoard)
                     Model.Name = "Hoard!";
             }
             else if (c.Type == ObjectType.Monster && c.CurrentHP == 0)
@@ -109,20 +109,20 @@ namespace FFXIV_GameSense.Overlay
                 return IconUris[ObjectType.Monster.ToString()];
             if (c.Type==ObjectType.Aetheryte)
                 return IconUris[ObjectType.Aetheryte.ToString()];
-            if (c.Type == ObjectType.Treasure || c.EventType==EventType.BronzeTrap)
+            if (c.Type == ObjectType.Treasure || c.EventType==EObjType.BronzeTrap)
                 return IconUris[ObjectType.Treasure.ToString()];
-            if(c.Type==ObjectType.EventObject)
+            if(c.Type==ObjectType.EObject)
             {
-                if (c.EventType == EventType.CairnOfPassage || c.EventType==EventType.BeaconOfPassage)
-                    return IconUris[EventType.CairnOfPassage.ToString() + (c.CairnIsUnlocked ? "Unlocked" : string.Empty)];
-                if (c.EventType == EventType.CairnOfReturn || c.EventType == EventType.BeaconOfReturn)
-                    return IconUris[EventType.CairnOfReturn.ToString() + (c.CairnIsUnlocked ? "Unlocked" : string.Empty)];
-                if (c.EventType == EventType.Silver)
-                    return IconUris[EventType.Silver.ToString()];
-                if (c.EventType == EventType.Gold)
-                    return IconUris[EventType.Gold.ToString()];
-                if (c.EventType == EventType.Banded || c.EventType == EventType.Hoard)
-                    return IconUris[EventType.Banded.ToString()];
+                if (c.EventType == EObjType.CairnOfPassage || c.EventType==EObjType.BeaconOfPassage)
+                    return IconUris[EObjType.CairnOfPassage.ToString() + (c.CairnIsUnlocked ? "Unlocked" : string.Empty)];
+                if (c.EventType == EObjType.CairnOfReturn || c.EventType == EObjType.BeaconOfReturn)
+                    return IconUris[EObjType.CairnOfReturn.ToString() + (c.CairnIsUnlocked ? "Unlocked" : string.Empty)];
+                if (c.EventType == EObjType.Silver)
+                    return IconUris[EObjType.Silver.ToString()];
+                if (c.EventType == EObjType.Gold)
+                    return IconUris[EObjType.Gold.ToString()];
+                if (c.EventType == EObjType.Banded || c.EventType == EObjType.Hoard)
+                    return IconUris[EObjType.Banded.ToString()];
             }
             if (c.Type == ObjectType.NPC)
                 return IconUris[ObjectType.NPC.ToString()];

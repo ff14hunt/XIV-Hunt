@@ -15,7 +15,7 @@ namespace FFXIV_GameSense
         Treasure = 0x04,//bronze only
         Aetheryte = 0x05,
         Gathering = 0x06,
-        EventObject = 0x07,//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
+        EObject = 0x07,//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
         Mount = 0x08,
         Minion = 0x09,
         Retainer = 0x0A,
@@ -23,10 +23,10 @@ namespace FFXIV_GameSense
         Furniture = 0xC
     }
 
-    public enum EventType : ushort
+    public enum EObjType : ushort
     {
         Unknown,
-        //Exit = 1629, //uint perhaps??
+        //Exit = 1629,
         //Entrance = 2632,
         CairnOfPassage = 11292,
         CairnOfReturn = 11297,
@@ -73,7 +73,7 @@ namespace FFXIV_GameSense
         public string Distance { get; set; }
         public string HorizontalDistance { get; set; }
 
-        public EventType EventType { get; set; }
+        public EObjType EventType { get; set; }
         public bool CairnIsUnlocked = false;
         public bool TrapTriggered = false;
 

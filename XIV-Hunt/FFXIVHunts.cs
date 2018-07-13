@@ -80,30 +80,9 @@ namespace FFXIV_GameSense
         internal FFXIVHunts(Window1 pw1)
         {
             w1 = pw1;
-            //4.0
-            for (ushort i = 6002; i < 6014; i++)
-                hunts.Add(new Hunt(i, HuntRank.B));
-            for (ushort i = 5990; i < 6002; i++)
-                hunts.Add(new Hunt(i, HuntRank.A));
-            for (ushort i = 5984; i < 5990; i++)
-                hunts.Add(new Hunt(i, HuntRank.S));
+            foreach (KeyValuePair<ushort, HuntRank> kvp in Hunt.RankMap)
+                hunts.Add(new Hunt(kvp.Key));
 
-            //3.0
-            for (ushort i = 4350; i < 4362; i++)
-                hunts.Add(new Hunt(i, HuntRank.B));
-            for (ushort i = 4362; i < 4374; i++)
-                hunts.Add(new Hunt(i, HuntRank.A));
-            for (ushort i = 4374; i < 4381; i++)
-                hunts.Add(new Hunt(i, HuntRank.S));
-            hunts.RemoveAll(hunt => hunt.Id == 4379);//soul crystal?
-
-            //2.0
-            for (ushort i = 2919; i < 2936; i++)
-                hunts.Add(new Hunt(i, HuntRank.B));
-            for (ushort i = 2936; i < 2953; i++)
-                hunts.Add(new Hunt(i, HuntRank.A));
-            for (ushort i = 2953; i < 2970; i++)
-                hunts.Add(new Hunt(i, HuntRank.S));
             CreateConnection();
         }
 
@@ -572,7 +551,7 @@ namespace FFXIV_GameSense
         [JsonProperty]
         internal ushort Id { get; set; }
         [JsonProperty("r")]
-        internal HuntRank Rank { get; set; }
+        internal HuntRank Rank => RankMap[Id];
         [JsonProperty]
         internal DateTime LastReported { get; set; }
         //[JsonProperty("i")]
@@ -587,16 +566,49 @@ namespace FFXIV_GameSense
         internal bool LastAlive { get; set; }
         [JsonProperty]
         internal uint OccurrenceID { get; set; }
+        [JsonIgnore]
         internal string WorldName => GameResources.GetWorldName(WorldId);
+        [JsonIgnore]
         internal string Name => GameResources.GetEnemyName(Id);
+        [JsonIgnore]
+        internal static readonly Dictionary<ushort, HuntRank> RankMap = IdexRanks();
+
+        private static Dictionary<ushort, HuntRank> IdexRanks()
+        {
+            Dictionary<ushort, HuntRank> r = new Dictionary<ushort, HuntRank>();
+            //4.0
+            for (ushort i = 6002; i < 6014; i++)
+                r.Add(i, HuntRank.B);
+            for (ushort i = 5990; i < 6002; i++)
+                r.Add(i, HuntRank.A);
+            for (ushort i = 5984; i < 5990; i++)
+                r.Add(i, HuntRank.S);
+
+            //3.0
+            for (ushort i = 4350; i < 4362; i++)
+                r.Add(i, HuntRank.B);
+            for (ushort i = 4362; i < 4374; i++)
+                r.Add(i, HuntRank.A);
+            for (ushort i = 4374; i < 4381; i++)
+                r.Add(i, HuntRank.S);
+            r.Remove(4379);
+
+            //2.0
+            for (ushort i = 2919; i < 2936; i++)
+                r.Add(i, HuntRank.B);
+            for (ushort i = 2936; i < 2953; i++)
+                r.Add(i, HuntRank.A);
+            for (ushort i = 2953; i < 2970; i++)
+                r.Add(i, HuntRank.S);
+            return r;
+        }
 
         public Hunt() { }//necessary for SignalR receive
 
-        internal Hunt(ushort _id, HuntRank r)
+        internal Hunt(ushort _id)
         {
             WorldId = Program.mem.GetServerId();
             Id = _id;
-            Rank = r;
             LastReported = DateTime.MinValue;
         }
 
@@ -629,26 +641,7 @@ namespace FFXIV_GameSense
             return Id.GetHashCode();
         }
 
-        internal static bool TryGetHuntRank(ushort HuntID, out HuntRank hr)
-        {
-            if ((HuntID > 2918 && HuntID < 2936) || (HuntID > 4349 && HuntID < 4362) || (HuntID > 6001 && HuntID < 6014))
-            {
-                hr = HuntRank.B;
-                return true;
-            }
-            if ((HuntID > 2935 && HuntID < 2953) || (HuntID > 4361 && HuntID < 4374) || (HuntID > 5989 && HuntID < 6002))
-            {
-                hr = HuntRank.A;
-                return true;
-            }
-            if ((HuntID > 2952 && HuntID < 2970) || (HuntID > 4373 && HuntID < 4381 && HuntID != 4379) || (HuntID > 5983 && HuntID < 5990))
-            {
-                hr = HuntRank.S;
-                return true;
-            }
-            hr = HuntRank.B;
-            return false;
-        }
+        internal static bool TryGetHuntRank(ushort HuntID, out HuntRank hr) => (RankMap.TryGetValue(HuntID, out hr)) ? true : false;
     }
 
     class Reporter
