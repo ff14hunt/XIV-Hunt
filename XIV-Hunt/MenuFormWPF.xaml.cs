@@ -226,7 +226,7 @@ namespace FFXIV_GameSense
             FFXIVMemory mem = sender is FFXIVMemory ? sender as FFXIVMemory : Program.mem;
             if (mem == null)
                 return;
-            if (e.Command == Command.Hunt)
+            if (e.Command == Command.Hunt && hunts != null)
             {
                 if (GameResources.TryGetDailyHuntInfo(e.Parameter, out Tuple<ushort, ushort, float, float> hi))
                 {
@@ -254,17 +254,15 @@ namespace FFXIV_GameSense
                     foreach (ushort hid in FFXIVHunts.MapHunts[ZoneID].Where(x => hunts.HuntRankFor(x) == hr))
                         _ = hunts.LastKnownInfoForHunt(hid);
                 }
-                else
+                else if(!string.IsNullOrWhiteSpace(e.Parameter))
                 {
                     string[] pwords = e.Parameter.Split(' ');
                     bool hqprefer = pwords.Last().Equals("HQ", StringComparison.OrdinalIgnoreCase);
-                    FFXIVHunts.LookupItemXIVDB(hqprefer ? string.Join(" ", pwords.Take(pwords.Count() - 1)) : e.Parameter, hqprefer).ContinueWith(t =>
-                       {
-                           if (t.Result != null)
-                           {
-                               _ = mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(t.Result, HQ: hqprefer));
-                           }
-                       });
+                    Task.Factory.StartNew(async ()=> {
+                        Item item = await FFXIVHunts.LookupItemXIVDB(hqprefer ? string.Join(" ", pwords.Take(pwords.Count() - 1)) : e.Parameter, hqprefer);
+                        if(item != null)
+                            await mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(item, HQ: hqprefer));
+                    });
                 }
             }
             else if (e.Command == Command.Perform)

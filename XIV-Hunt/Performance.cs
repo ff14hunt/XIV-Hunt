@@ -24,11 +24,11 @@ namespace FFXIV_GameSense
                     var t = notes.Single(x => x.Name.Equals(st));
                     Sheet.Add(new Note { Id = t.Id, Name = t.Name, Wait = 500 });
                 }
-                else if (st.StartsWith("w", StringComparison.CurrentCultureIgnoreCase) && uint.TryParse(st.Substring(1), out uint duration))
+                else if (st.StartsWith("w", StringComparison.OrdinalIgnoreCase) && uint.TryParse(st.Substring(1), out uint duration))
                 {
                     Sheet.Last().Wait = duration;
                 }
-                else if (st.StartsWith("l", StringComparison.CurrentCultureIgnoreCase) && uint.TryParse(st.Substring(1), out duration))
+                else if (st.StartsWith("l", StringComparison.OrdinalIgnoreCase) && uint.TryParse(st.Substring(1), out duration))
                 {
                     Sheet.Last().Length = duration;
                 }
