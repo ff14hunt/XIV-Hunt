@@ -59,7 +59,7 @@ namespace FFXIV_GameSense
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK && Directory.Exists(dialog.SelectedPath))
-                    PerformDirectoryTextBox.Text = dialog.SelectedPath;
+                    Settings.Default.PerformDirectory = dialog.SelectedPath;
             }
         }
 
@@ -68,5 +68,7 @@ namespace FFXIV_GameSense
             Settings.Default.Cookies = string.Empty;
             Updater.RestartApp();
         }
+
+        private void ForgetPerformDirectoryButton_Click(object sender, RoutedEventArgs e) => Settings.Default.PerformDirectory = string.Empty;
     }
 }

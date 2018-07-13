@@ -32,7 +32,7 @@ namespace FFXIV_GameSense
         internal SoundPlayer Asp;
         internal SoundPlayer Bsp;
         internal SoundPlayer FATEsp;
-        private CheckBox currentCMPlacement;
+        private AlarmButton currentCMPlacement;
         private System.Windows.Forms.NotifyIcon trayIcon;
         private ViewModel vm;
         private static SettingsForm SettingsWindow;
@@ -102,8 +102,8 @@ namespace FFXIV_GameSense
 
         private void CheckSoundStartup()
         {
-            var slist = new List<string> { Settings.Default.SBell, Settings.Default.ABell, Settings.Default.BBell, Settings.Default.FATEBell };
-            for (int i = 0; i < 4; i++)
+            var slist = new string[] { Settings.Default.SBell, Settings.Default.ABell, Settings.Default.BBell, Settings.Default.FATEBell };
+            for (int i = 0; i < slist.Length; i++)
             {
                 if (!string.IsNullOrEmpty(slist[i]) && !slist[i].Equals(Properties.Resources.NoSoundAlert) && File.Exists(slist[i]) && Path.GetExtension(slist[i]).Equals(".wav", StringComparison.OrdinalIgnoreCase))
                 {
@@ -421,18 +421,17 @@ namespace FFXIV_GameSense
             };
             if (ofd.ShowDialog() == true)
             {
-                if (!SetAlarmSound((CheckBox)sender, ofd.FileName))
-                    ((CheckBox)sender).IsChecked = false;
+                if (!SetAlarmSound((AlarmButton)sender, ofd.FileName))
+                    ((AlarmButton)sender).SetOff();
             }
             else
-                ((CheckBox)sender).IsChecked = false;
+                ((AlarmButton)sender).SetOff();
         }
 
-        private bool SetAlarmSound(CheckBox r, string soundFile)
+        private bool SetAlarmSound(AlarmButton r, string soundFile)
         {
             r.ToolTip = Path.GetFileName(soundFile);
-            r.Opacity = 1;
-            r.IsChecked = true;
+            r.SetOn();
             switch (r.Name)
             {
                 case "SBell":
@@ -456,11 +455,10 @@ namespace FFXIV_GameSense
             }
         }
 
-        private void UnsetAlarmSound(CheckBox r)
+        private void UnsetAlarmSound(AlarmButton r)
         {
             r.ToolTip = Properties.Resources.NoSoundAlert;
-            r.Opacity = 0.25;
-            r.IsChecked = false;
+            r.SetOff();
             switch (r.Name)
             {
                 case "SBell":
@@ -488,38 +486,38 @@ namespace FFXIV_GameSense
         {
             if (currentCMPlacement != null)
             {
-                currentCMPlacement.IsChecked = false;
+                currentCMPlacement.SetOff();
                 currentCMPlacement = null;
             }
-            if (((CheckBox)sender).Opacity == 1)
+            if (((AlarmButton)sender).IsOn())
             {
-                UnsetAlarmSound((CheckBox)sender);
+                UnsetAlarmSound((AlarmButton)sender);
             }
-            else if (((CheckBox)sender).Opacity == 0.25)
+            else if (((AlarmButton)sender).IsEnabled)
             {
                 ContextMenu cm = new ContextMenu();
                 var mi1 = new MenuItem { Header = Properties.Resources.FormSFCMNewAlert };
                 mi1.Click += MenuItemClickCallCheckBox;
                 cm.Items.Add(mi1);
-                if (Settings.Default.SBell != Properties.Resources.NoSoundAlert /*&& Ssp.IsLoadCompleted*/)
+                if (Settings.Default.SBell != Properties.Resources.NoSoundAlert)
                 {
                     var miS = new MenuItem { Header = Settings.Default.SBell };
                     miS.Click += MenuItemSoundSelected;
                     cm.Items.Add(miS);
                 }
-                if (Settings.Default.ABell != Properties.Resources.NoSoundAlert /*&& Asp.IsLoadCompleted*/)
+                if (Settings.Default.ABell != Properties.Resources.NoSoundAlert)
                 {
                     var miA = new MenuItem { Header = Settings.Default.ABell };
                     miA.Click += MenuItemSoundSelected;
                     cm.Items.Add(miA);
                 }
-                if (Settings.Default.BBell != Properties.Resources.NoSoundAlert /*&& Bsp.IsLoadCompleted*/)
+                if (Settings.Default.BBell != Properties.Resources.NoSoundAlert)
                 {
                     var miB = new MenuItem { Header = Settings.Default.BBell };
                     miB.Click += MenuItemSoundSelected;
                     cm.Items.Add(miB);
                 }
-                if (Settings.Default.FATEBell != Properties.Resources.NoSoundAlert /*&& FATEsp.IsLoadCompleted*/)
+                if (Settings.Default.FATEBell != Properties.Resources.NoSoundAlert)
                 {
                     var miFATE = new MenuItem { Header = Settings.Default.FATEBell };
                     miFATE.Click += MenuItemSoundSelected;
@@ -537,11 +535,10 @@ namespace FFXIV_GameSense
                     CheckBox_Checked(sender, e);
                 else
                 {
-                    cm.PlacementTarget = (CheckBox)sender;
-                    currentCMPlacement = (CheckBox)sender;
+                    cm.PlacementTarget = currentCMPlacement = (AlarmButton)sender;
                     cm.Closed += Cm_Closed;
-                    ((CheckBox)sender).ContextMenu = cm;
-                    ((CheckBox)sender).ContextMenu.IsOpen = true;
+                    ((AlarmButton)sender).ContextMenu = cm;
+                    ((AlarmButton)sender).ContextMenu.IsOpen = true;
                 }
             }
         }
@@ -549,13 +546,13 @@ namespace FFXIV_GameSense
         private void Cm_Closed(object sender, RoutedEventArgs e)
         {
             if (currentCMPlacement != null)
-                currentCMPlacement.IsChecked = false;
+                currentCMPlacement.SetOff();
             currentCMPlacement = null;
         }
 
         private void MenuItemSoundSelected(object sender, RoutedEventArgs e)
         {
-            var cb = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as CheckBox;
+            var cb = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as AlarmButton;
             SetAlarmSound(cb, ((MenuItem)sender).Header.ToString());
             currentCMPlacement = null;
         }
@@ -623,16 +620,6 @@ namespace FFXIV_GameSense
                 ((UniformGrid)sender).Opacity = 0.35f;
         }
 
-        private void OtherFATEsCheckComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ((ComboBox)sender).SelectedIndex = -1;
-        }
-
-        private void OtherFATEsCheckComboBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            ((ComboBox)sender).IsDropDownOpen = true;
-        }
-
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Settings.Default.Save();
@@ -660,11 +647,11 @@ namespace FFXIV_GameSense
 
         private void FATEBell_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (sender is CheckBox)
+            if (sender is AlarmButton)
             {
                 if (!(bool)e.NewValue && Settings.Default.FATEs.Count == 0)
                 {
-                    UnsetAlarmSound(((CheckBox)sender));
+                    UnsetAlarmSound(((AlarmButton)sender));
                 }
             }
         }

@@ -109,54 +109,6 @@ namespace FFXIV_GameSense.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SPlaySound {
-            get {
-                return ((bool)(this["SPlaySound"]));
-            }
-            set {
-                this["SPlaySound"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool APlaySound {
-            get {
-                return ((bool)(this["APlaySound"]));
-            }
-            set {
-                this["APlaySound"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool BPlaySound {
-            get {
-                return ((bool)(this["BPlaySound"]));
-            }
-            set {
-                this["BPlaySound"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool FATEPlaySound {
-            get {
-                return ((bool)(this["FATEPlaySound"]));
-            }
-            set {
-                this["FATEPlaySound"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool MinimizeToTray {
             get {

@@ -249,6 +249,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="RadarOverlay.cs" />
+    <Compile Include="UI\AlarmButton.xaml.cs">
+      <DependentUpon>AlarmButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\OverlayView.xaml.cs">
       <DependentUpon>OverlayView.xaml</DependentUpon>
     </Compile>
@@ -359,6 +362,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\AlarmButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\OverlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -392,9 +399,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VeteranClanMarks.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\bell alarm icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml">
@@ -451,6 +455,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\ui\uld\image2.tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\sound_off.png" />
+    <Resource Include="Resources\Images\sound_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\DeleteIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
