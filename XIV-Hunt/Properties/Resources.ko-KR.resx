@@ -412,4 +412,7 @@
   <data name="FormRadarEntitiesScale" xml:space="preserve">
     <value>표시 크기 :</value>
   </data>
+  <data name="FormRadarZoom" xml:space="preserve">
+    <value>Zoom:</value>
+  </data>
 </root>

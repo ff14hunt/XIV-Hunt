@@ -412,4 +412,7 @@
   <data name="FormRadarEntitiesScale" xml:space="preserve">
     <value>Entities scale:</value>
   </data>
+  <data name="FormRadarZoom" xml:space="preserve">
+    <value>Zoom:</value>
+  </data>
 </root>

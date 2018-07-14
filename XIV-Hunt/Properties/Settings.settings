@@ -165,5 +165,8 @@
     <Setting Name="RadarEntityOpacity" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="RadarZoom" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

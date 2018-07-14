@@ -647,6 +647,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zoom:.
+        /// </summary>
+        public static string FormRadarZoom {
+            get {
+                return ResourceManager.GetString("FormRadarZoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reading Server ID.
         /// </summary>
         public static string FormReadingSID {

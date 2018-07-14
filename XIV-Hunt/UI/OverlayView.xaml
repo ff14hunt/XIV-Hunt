@@ -31,6 +31,8 @@
                 <CheckBox Content="{x:Static properties:Resources.FormRadarDisplayExtraDeepDungeon}" Margin="10,10,0,0" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=displayCairns}"/>
             </UniformGrid>
         </GroupBox>
+        <TextBlock Text="{x:Static properties:Resources.FormRadarZoom}" Margin="0,0,50,198" HorizontalAlignment="Right" Width="Auto" Height="22" VerticalAlignment="Bottom" />
+        <TextBox Name="RadarZoomTextBox" VerticalContentAlignment="Center" Text="{Binding Source={x:Static properties:Settings.Default}, Path=RadarZoom, UpdateSourceTrigger=PropertyChanged,StringFormat=N2}" Margin="0,0,10,199" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="35"/>
         <TextBlock Text="{x:Static properties:Resources.FormRadarEntitiesScale}" Margin="0,0,50,172" HorizontalAlignment="Right" Width="Auto" Height="22" VerticalAlignment="Bottom" />
         <TextBox Name="RadarEntityScaleTextBox" VerticalContentAlignment="Center" Text="{Binding Source={x:Static properties:Settings.Default}, Path=RadarEntityScale, UpdateSourceTrigger=PropertyChanged,StringFormat=N1}" Margin="0,0,10,172" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="35"/>
         <TextBlock Text="{x:Static properties:Resources.FormRadarBackgroundOpacity}" Margin="0,0,50,118" HorizontalAlignment="Right" Width="Auto" Height="22" VerticalAlignment="Bottom" />

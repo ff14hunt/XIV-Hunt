@@ -223,10 +223,10 @@ namespace FFXIV_GameSense
                         OverlayWindow.Add(drawMap[c.ID]);
                     }
 
-                    double Top = (c.PosY - self.PosY) /** 3*/;
-                    double Left = (c.PosX - self.PosX) /** 3*/;
-                    Top += centerY + (Top * OverlayWindow.Height * .003);
-                    Left += centerX + (Left * OverlayWindow.Width * .003);
+                    double Top = (c.PosY - self.PosY);
+                    double Left = (c.PosX - self.PosX);
+                    Top += centerY + (Top * OverlayWindow.Height * .003 * Properties.Settings.Default.RadarZoom);
+                    Left += centerX + (Left * OverlayWindow.Width * .003 * Properties.Settings.Default.RadarZoom);
                     if (drawMap.ContainsKey(c.ID))
                     {
                         drawMap[c.ID].Update(c);

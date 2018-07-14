@@ -662,5 +662,17 @@ namespace FFXIV_GameSense.Properties {
                 this["RadarEntityOpacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public float RadarZoom {
+            get {
+                return ((float)(this["RadarZoom"]));
+            }
+            set {
+                this["RadarZoom"] = value;
+            }
+        }
     }
 }
