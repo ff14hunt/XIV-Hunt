@@ -559,7 +559,7 @@ namespace FFXIV_GameSense
 
         private void MenuItemClickCallCheckBox(object sender, RoutedEventArgs e)
         {
-            var cb = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as CheckBox;
+            var cb = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as AlarmButton;
             CheckBox_Checked(cb, new RoutedEventArgs());
         }
 
