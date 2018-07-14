@@ -248,13 +248,13 @@
     <value>'/hunt 돌발명' 명령어가 돌발 알림을 활성화 시키기</value>
   </data>
   <data name="FormDutyRoulette" xml:space="preserve">
-    <value>매칭된 던전명 알림</value>
+    <value>무작위 임무 결과 알림</value>
   </data>
   <data name="ContentFinderCondition" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ContentFinderCondition.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="DutyRouletteResult" xml:space="preserve">
-    <value>매칭 결과 : {0}</value>
+    <value>무작위 임무 결과 알림 : {0}</value>
   </data>
   <data name="FormFailedToJoin" xml:space="preserve">
     <value>접속 불가. XIVHunt.net 에서 {0} 인증 확인 필요</value>
@@ -407,9 +407,9 @@
     <value>배경 투명도 :</value>
   </data>
   <data name="FormRadarEntitiesOpacity" xml:space="preserve">
-    <value>Entities opacity:</value>
+    <value>표시 투명도 :</value>
   </data>
   <data name="FormRadarEntitiesScale" xml:space="preserve">
-    <value>Entities scale:</value>
+    <value>표시 크기 :</value>
   </data>
 </root>
