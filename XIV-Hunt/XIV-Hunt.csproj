@@ -146,7 +146,7 @@
       <HintPath>..\packages\Overlay.NET.1.0.2\lib\Overlay.NET.dll</HintPath>
     </Reference>
     <Reference Include="PEReader">
-      <HintPath>..\..\PEReader-master\PEReader\bin\Release\PEReader.dll</HintPath>
+      <HintPath>..\PEReader\PEReader.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

@@ -9,6 +9,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hunt", "Hunt\Hunt.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hunt_x64", "Hunt_x64\Hunt_x64.vcxproj", "{51A133A4-4E12-4939-A09C-B195252FBF19}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PEReader", "PEReader", "{CB074B36-3FE5-43F7-841F-438B641EB804}"
+	ProjectSection(SolutionItems) = preProject
+		PEReader\PEReader.dll = PEReader\PEReader.dll
+		PEReader\PEReader.dll.config = PEReader\PEReader.dll.config
+		PEReader\PEReader.XML = PEReader\PEReader.XML
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
