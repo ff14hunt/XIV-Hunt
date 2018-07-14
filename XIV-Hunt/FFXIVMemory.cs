@@ -252,6 +252,8 @@ namespace FFXIV_GameSense
 
             combatantOffsets = new CombatantOffsets(Is64Bit, region);
             LogHost.Default.Info(region.ToString() + regionpostpend);
+            if (region != GameRegion.Global && !Is64Bit)
+                contentFinderConditionOffset -= 0x4;
             contentFinderOffsets = new ContentFinderOffsets(Is64Bit);
 
             // CHARMAP
