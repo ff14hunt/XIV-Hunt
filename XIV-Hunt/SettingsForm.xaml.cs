@@ -12,17 +12,18 @@ namespace FFXIV_GameSense
     /// </summary>
     public partial class SettingsForm : Window
     {
-        private RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-        private readonly string appName = Assembly.GetExecutingAssembly().GetName().Name;
+        private RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
         private string processpath = Assembly.GetExecutingAssembly().Location;
         public SettingsForm()
         {
             InitializeComponent();
-            var cv = registryKey.GetValue(appName);
-#if !DEBUG
-            var pn = processpath.Substring(processpath.LastIndexOf(@"\") + 1);
-            processpath = processpath.Substring(0, processpath.Substring(0, processpath.LastIndexOf(@"\")).LastIndexOf(@"\") + 1) + "Update.exe --processStart " + pn;
-#endif
+            var cv = registryKey.GetValue(Program.AssemblyName.Name);
+            if(App.IsSquirrelInstall())
+            {
+                var pn = processpath.Substring(processpath.LastIndexOf(@"\") + 1);
+                processpath = processpath.Substring(0, processpath.Substring(0, processpath.LastIndexOf(@"\")).LastIndexOf(@"\") + 1) + "Update.exe --processStart " + pn;
+            }
+
             if (cv != null && cv.Equals(processpath))
                 StartWithWindowsCB.IsChecked = true;
             StartWithWindowsCB.Checked += StartWithWindowsCB_Checked;
@@ -34,9 +35,9 @@ namespace FFXIV_GameSense
 
         private void SettingsForm_Closing(object sender, System.ComponentModel.CancelEventArgs e) => Settings.Default.Save();
 
-        private void StartWithWindowsCB_Unchecked(object sender, RoutedEventArgs e) => registryKey.DeleteValue(appName, false);
+        private void StartWithWindowsCB_Unchecked(object sender, RoutedEventArgs e) => registryKey.DeleteValue(Program.AssemblyName.Name, false);
 
-        private void StartWithWindowsCB_Checked(object sender, RoutedEventArgs e) => registryKey.SetValue(appName, processpath);
+        private void StartWithWindowsCB_Checked(object sender, RoutedEventArgs e) => registryKey.SetValue(Program.AssemblyName.Name, processpath);
 
         private void OncePerHuntCheckBox_Checked(object sender, RoutedEventArgs e) => HuntInterval.IsEnabled = false;
 

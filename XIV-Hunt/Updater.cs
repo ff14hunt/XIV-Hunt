@@ -37,7 +37,7 @@ namespace FFXIV_GameSense
                     }
                 }
             }
-            catch (Exception ex) { Program.WriteExceptionToErrorFile(ex); }
+            catch (Exception ex) { App.WriteExceptionToErrorFile(ex); }
             if (shouldRestart)
                 UpdateManager.RestartApp();
         }
@@ -56,7 +56,6 @@ namespace FFXIV_GameSense
             BackupLastStandaloneSettings();
             RestoreSettings();
             Settings.Default.Reload();
-            //TODO: Toast notification about running from shortcut
         }
 
         /// <summary>
@@ -76,9 +75,9 @@ namespace FFXIV_GameSense
             if (!Directory.Exists(gsDir))
                 return;
             DirectoryInfo di = new DirectoryInfo(gsDir);
-            string mostrecent = di.EnumerateDirectories().OrderByDescending(x => x.CreationTime).First().FullName;
+            string mostrecent = di.EnumerateDirectories().OrderByDescending(x => x.CreationTime).FirstOrDefault().FullName;
             di = new DirectoryInfo(mostrecent);
-            string settings = Path.Combine(di.EnumerateDirectories().OrderByDescending(x => x.CreationTime).First().FullName, "user.config");
+            string settings = Path.Combine(di.EnumerateDirectories().OrderByDescending(x => x.CreationTime).FirstOrDefault().FullName, "user.config");
             if (File.Exists(settings))
             {
                 string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\last.config";
@@ -89,12 +88,13 @@ namespace FFXIV_GameSense
         internal static void RestartApp()
         {
             Settings.Default.Save();
-#if DEBUG
-            System.Windows.Forms.Application.Restart();
-            Application.Current.Shutdown();
-#else
-            UpdateManager.RestartApp();
-#endif
+            if(!App.IsSquirrelInstall())
+            {
+                System.Windows.Forms.Application.Restart();
+                Application.Current.Shutdown();
+            }
+            else
+                UpdateManager.RestartApp();
         }
 
         private static void DeleteOldVersions()
@@ -106,7 +106,7 @@ namespace FFXIV_GameSense
                 {
                     oldDir.Delete(true);
                 }
-                catch (Exception) { }
+                catch { }
             var packagesDir = Path.Combine(appDir.FullName, "packages");
             if (!Directory.Exists(packagesDir))
                 return;
@@ -117,7 +117,7 @@ namespace FFXIV_GameSense
                 {
                     oldPack.Delete();
                 }
-                catch (Exception) { }
+                catch { }
         }
 
         internal static void RestoreSettings()
@@ -135,19 +135,19 @@ namespace FFXIV_GameSense
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(destFile));
             }
-            catch (Exception) { }
+            catch { }
             // Copy backup file in place 
             try
             {
                 File.Copy(sourceFile, destFile, true);
             }
-            catch (Exception) { }
+            catch { }
             // Delete backup file
             try
             {
                 File.Delete(sourceFile);
             }
-            catch (Exception) { }
+            catch { }
         }
     }
 
@@ -158,9 +158,6 @@ namespace FFXIV_GameSense
 
         public Logger(LogView lv) => LogView = lv;
 
-        public void Write(string message, LogLevel level)
-        {
-            LogView.AddLogLine(message.Remove(0, nameof(LogHost).Length), level);
-        }
+        public void Write(string message, LogLevel level) => LogView.AddLogLine(message.Remove(0, nameof(LogHost).Length), level);
     }
 }

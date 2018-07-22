@@ -1085,6 +1085,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} has been installed. It is recommended that you, from now on, start {0} via the shortcuts placed on your desktop and start menu..
+        /// </summary>
+        public static string ToastNotificationAppInstalledShortcut {
+            get {
+                return ResourceManager.GetString("ToastNotificationAppInstalledShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to key,0,1,2,3
         ///#,Name,,DataCenter,
         ///int32,str,byte,WorldDCGroupType,bit&amp;01

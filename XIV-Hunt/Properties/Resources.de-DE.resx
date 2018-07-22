@@ -415,4 +415,7 @@
   <data name="FormRadarZoom" xml:space="preserve">
     <value>Zoom:</value>
   </data>
+  <data name="ToastNotificationAppInstalledShortcut" xml:space="preserve">
+    <value>{0} has been installed. It is recommended that you, from now on, start {0} via the shortcuts placed on your desktop and start menu.</value>
+  </data>
 </root>

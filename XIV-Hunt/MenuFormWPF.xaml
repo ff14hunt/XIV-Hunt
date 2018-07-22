@@ -158,7 +158,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox x:Name="LanguageComboBox" Margin="135,10,0,0" ToolTip="{x:Static properties:Resources.RestartForChanges}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=LanguageCI, Mode=TwoWay}" SelectedValuePath="Tag" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100">
+        <ComboBox x:Name="LanguageComboBox" Margin="135,10,0,0" ToolTip="{x:Static properties:Resources.RestartForChanges}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=LanguageCI}" SelectedValuePath="Tag" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100">
             <ComboBoxItem Content="English" Tag="en-US" />
             <ComboBoxItem Content="Français" Tag="fr-FR" />
             <ComboBoxItem Content="Deutsch" Tag="de-DE" />
