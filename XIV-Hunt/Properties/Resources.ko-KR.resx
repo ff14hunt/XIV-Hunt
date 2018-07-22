@@ -413,7 +413,7 @@
     <value>표시 크기 :</value>
   </data>
   <data name="FormRadarZoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>확대 :</value>
   </data>
   <data name="ToastNotificationAppInstalledShortcut" xml:space="preserve">
     <value>{0} has been installed. It is recommended that you, from now on, start {0} via the shortcuts placed on your desktop and start menu.</value>
