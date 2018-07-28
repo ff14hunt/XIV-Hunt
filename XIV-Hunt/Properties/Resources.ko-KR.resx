@@ -299,7 +299,7 @@
     <value>매칭 알림 발생 시 작업표시줄의 FF14 깜빡이기</value>
   </data>
   <data name="FormFlashTaskbarIconHuntFate" xml:space="preserve">
-    <value>마물 및 던전 알림 발생 시 작업표시줄의 FF14 깜빡이기</value>
+    <value>마물 및 돌발 알림 발생 시 작업표시줄의 FF14 깜빡이기</value>
   </data>
   <data name="FormPerformDirectory" xml:space="preserve">
     <value>연주 트랙 경로 :</value>
@@ -416,6 +416,6 @@
     <value>확대 :</value>
   </data>
   <data name="ToastNotificationAppInstalledShortcut" xml:space="preserve">
-    <value>{0} has been installed. It is recommended that you, from now on, start {0} via the shortcuts placed on your desktop and start menu.</value>
+    <value>{0} 설치 완료. 바탕화면과 시작메뉴에 있는 {0} 바로가기를 실행해주세요.</value>
   </data>
 </root>
