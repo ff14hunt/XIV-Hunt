@@ -350,6 +350,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FATE Presets.
+        /// </summary>
+        public static string FormFATEPresets {
+            get {
+                return ResourceManager.GetString("FormFATEPresets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FATEs:.
         /// </summary>
         public static string FormFATEs {
@@ -1015,6 +1024,16 @@ namespace FFXIV_GameSense.Properties {
         public static string PreparationState {
             get {
                 return ResourceManager.GetString("PreparationState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
+        ///#,EventItem,MonsterNoteTarget{Common}[0],MonsterCount[0],MonsterNoteTarget{Common}[1],MonsterCount[1],MonsterNoteTarget{Common}[2],MonsterCount[2],MonsterNoteTarget{Common}[3],MonsterCount[3],MonsterNoteTarget{Common}[4],MonsterCount[4],MonsterNoteTarget{Common}[5],MonsterCount[5],MonsterNoteTarget{Common}[6],MonsterCount[6],MonsterNoteTarget{Common}[7],MonsterCount[7],MonsterNoteTarget{Common}[8],MonsterCount[8 [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string RelicNote {
+            get {
+                return ResourceManager.GetString("RelicNote", resourceCulture);
             }
         }
         

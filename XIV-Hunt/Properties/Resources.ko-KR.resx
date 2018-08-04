@@ -418,4 +418,10 @@
   <data name="ToastNotificationAppInstalledShortcut" xml:space="preserve">
     <value>{0} 설치 완료. 바탕화면과 시작메뉴에 있는 {0} 바로가기를 실행해주세요.</value>
   </data>
+  <data name="RelicNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RelicNote.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="FormFATEPresets" xml:space="preserve">
+    <value>FATE Presets</value>
+  </data>
 </root>

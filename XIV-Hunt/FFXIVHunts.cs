@@ -163,7 +163,7 @@ namespace FFXIV_GameSense
                 || ((fate.State == FATEState.Preparation) ? fates[idx].lastPutInChat > Program.mem.GetServerUtcTime().AddMinutes(-10) : Math.Abs(fate.Progress - fates[idx].LastReportedProgress) < Settings.Default.FATEMinimumPercentInterval && Settings.Default.FATEMinimumPercentInterval > 0);
             if (FateNotifyCheck(fates[idx].ID) && fates[idx].lastPutInChat < Program.mem.GetServerUtcTime().AddMinutes(-Settings.Default.FATEInterval) && !fate.HasEnded && !skipAnnounce)
             {
-                var cm = new ChatMessage();
+                ChatMessage cm = new ChatMessage();
                 string postpend;
                 if (fate.State == FATEState.Preparation)
                     postpend = Resources.PreparationState;
@@ -187,7 +187,7 @@ namespace FFXIV_GameSense
         {
             World world;
             string e;
-            var r = await Http.GetAsync(baseUrl + "api/worlds/" + Program.mem.GetServerId().ToString());
+            HttpResponseMessage r = await Http.GetAsync(baseUrl + "api/worlds/" + Program.mem.GetServerId().ToString());
             if (r.IsSuccessStatusCode)
                 e = await r.Content.ReadAsStringAsync();
             else
@@ -196,10 +196,10 @@ namespace FFXIV_GameSense
             Hunt result = world.Hunts.First(x => x.Id == id);
             if (result == null)
                 return;
-            var timeSinceLastReport = ServerTimeUtc.Subtract(result.LastReported);
+            TimeSpan timeSinceLastReport = ServerTimeUtc.Subtract(result.LastReported);
             if (timeSinceLastReport < TimeSpan.Zero)
                 timeSinceLastReport = TimeSpan.Zero;
-            var cm = new ChatMessage();
+            ChatMessage cm = new ChatMessage();
             double TotalHours = Math.Floor(timeSinceLastReport.TotalHours);
             if (!result.LastAlive)
             {
@@ -217,7 +217,7 @@ namespace FFXIV_GameSense
             }
             else
             {
-                var zid = GetZoneId(result.Id);
+                ushort zid = GetZoneId(result.Id);
                 cm = ChatMessage.MakePosChatMessage(string.Format(Resources.LKILastSeenAt, result.Name), zid, result.LastX, result.LastY, string.Format(Resources.LKIHoursMinutes, TotalHours, timeSinceLastReport.Minutes));
             }
             await Program.mem.WriteChatMessage(cm);
@@ -230,7 +230,7 @@ namespace FFXIV_GameSense
             FATE result = await hubConnection.Connection.InvokeAsync<FATEReport>("QueryFATE", id);
             if (result == null)
                 return;
-            var timeSinceLastReport = ServerTimeUtc.Subtract(result.LastReported);
+            TimeSpan timeSinceLastReport = ServerTimeUtc.Subtract(result.LastReported);
             if (timeSinceLastReport < TimeSpan.Zero)
                 timeSinceLastReport = TimeSpan.Zero;
             ChatMessage cm = new ChatMessage();
@@ -325,7 +325,7 @@ namespace FFXIV_GameSense
         {
             EnemyObject Enemy;
             string e;
-            var r = await Http.GetAsync("https://api.xivdb.com/enemy/" + bnpcid);
+            HttpResponseMessage r = await Http.GetAsync("https://api.xivdb.com/enemy/" + bnpcid);
             if (r.IsSuccessStatusCode)
                 e = await r.Content.ReadAsStringAsync();
             else
@@ -341,8 +341,8 @@ namespace FFXIV_GameSense
                 temppoints.RemoveAll(x => x.App_data.Fate.Is_fate);
                 Enemy.Map_data.Points = temppoints.ToArray();
             }
-            var n = new Random().Next(0, Enemy.Map_data.Points.Length);
-            var cm = ChatMessage.MakePosChatMessage(string.Format(Resources.LKICanBeFoundAt, GameResources.GetEnemyName(bnpcid, true)), GameResources.MapIdToZoneId(Enemy.Map_data.Points[n].Map_id), Enemy.Map_data.Points[n].App_position.Position.X, Enemy.Map_data.Points[n].App_position.Position.Y, mapId: Enemy.Map_data.Points[n].Map_id);
+            int n = new Random().Next(0, Enemy.Map_data.Points.Length);
+            ChatMessage cm = ChatMessage.MakePosChatMessage(string.Format(Resources.LKICanBeFoundAt, GameResources.GetEnemyName(bnpcid, true)), GameResources.MapIdToZoneId(Enemy.Map_data.Points[n].Map_id), Enemy.Map_data.Points[n].App_position.Position.X, Enemy.Map_data.Points[n].App_position.Position.Y, mapId: Enemy.Map_data.Points[n].Map_id);
             await Program.mem.WriteChatMessage(cm);
         }
 
@@ -421,7 +421,7 @@ namespace FFXIV_GameSense
                 {
                     w1.HuntConnectionTextBlock.Inlines.Clear();
                     w1.HuntConnectionTextBlock.Inlines.Add(string.Format(Resources.FormFailedToJoin, $"{r.Name} ({GameResources.GetWorldName(sid)})").Replace(UI.LogInForm.XIVHuntNet, string.Empty));
-                    var link = new Hyperlink(new Run(UI.LogInForm.XIVHuntNet)) { NavigateUri = new Uri(VerifiedCharactersUrl) };
+                    Hyperlink link = new Hyperlink(new Run(UI.LogInForm.XIVHuntNet)) { NavigateUri = new Uri(VerifiedCharactersUrl) };
                     link.RequestNavigate += UI.LogInForm.Link_RequestNavigate;
                     w1.HuntConnectionTextBlock.Inlines.Add(link);
                 });
@@ -432,7 +432,7 @@ namespace FFXIV_GameSense
                 h.WorldId = sid;
             foreach (FATEReport f in fates)
                 f.WorldId = sid;
-            var zid = Program.mem.GetZoneId();
+            ushort zid = Program.mem.GetZoneId();
             if (Array.IndexOf(DCZones, zid) > -1)
                 await JoinDCZone(zid);
         }
@@ -452,7 +452,7 @@ namespace FFXIV_GameSense
                 || (hunt.IsSB() && hunt.Rank == HuntRank.S && Settings.Default.SSB && Settings.Default.notifyS)
                 )
             {
-                var idx = hunts.IndexOf(hunt);
+                int idx = hunts.IndexOf(hunt);
                 ChatMessage cm = new ChatMessage();
                 if (Settings.Default.OncePerHunt ? !HuntsPutInChat.Contains(hunt.OccurrenceID) : hunts[idx].lastPutInChat < Program.mem.GetServerUtcTime().AddMinutes(-Settings.Default.HuntInterval) && hunt.LastAlive /*&& hunts[idx].lastReportedDead < Program.mem.GetServerUtcTime().AddSeconds(-15)*/)
                 {

@@ -1,6 +1,8 @@
 ﻿using FFXIV_GameSense.Properties;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using XIVDB;
 
 namespace FFXIV_GameSense.UI
@@ -53,6 +55,17 @@ namespace FFXIV_GameSense.UI
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+    }
+
+    public class FATEPresetViewItem
+    {
+        public string Name { get; private set; }
+        public IEnumerable<ushort> FATEIDs { get; private set; }
+        public FATEPresetViewItem(RelicNote book)
+        {
+            Name = book.BookName.FirstLetterToUpperCase();
+            FATEIDs = book.FATEs.Select(x => x.ID);
+        }
     }
 
     public class PerformanceListViewItem

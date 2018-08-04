@@ -4,13 +4,228 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:properties="clr-namespace:FFXIV_GameSense.Properties"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              Height="auto" Width="auto"
              d:DesignHeight="300" d:DesignWidth="500">
+    <UserControl.Resources>
+        <xctk:InverseBoolConverter x:Key="InverseBoolConverter" />
+        <Style BasedOn="{StaticResource {x:Type xctk:SelectorItem}}" TargetType="{x:Type xctk:SelectorItem}">
+            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type xctk:SelectorItem}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Border x:Name="_background"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <CheckBox Margin=".5,0"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                  Foreground="{TemplateBinding Foreground}"
+                                  IsChecked="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Padding="{TemplateBinding Padding}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="_background" Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" />
+                            </Trigger>-->
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="_background" Property="Background" Value="#5D5D5D" />
+                                <Setter TargetName="_background" Property="BorderBrush" Value="#E5FFF8CB" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CheckComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Grid>
+                            <Border x:Name="Background"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <Grid Margin="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="0" MinWidth="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualHeight, Mode=OneWay}" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Margin="1"
+                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     Background="Transparent"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     BorderThickness="0"
+                                     Cursor="Arrow"
+                                     Focusable="False"
+                                     HorizontalScrollBarVisibility="Hidden"
+                                     IsReadOnly="True"
+                                     Padding="{TemplateBinding Padding}"
+                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                     Text="{TemplateBinding Content}"
+                                     VerticalScrollBarVisibility="Hidden" />
+                                <Grid x:Name="ArrowBackground"
+                                  Grid.Column="1"
+                                  Background="Transparent">
+                                    <Path x:Name="Arrow"
+                                      Width="12"
+                                      Height="6"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z "
+                                      Fill="White"
+                                      IsHitTestVisible="false"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                      Stretch="Uniform" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger SourceName="ArrowBackground" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ArrowBackground" Property="Background" Value="{DynamicResource GrayBrush5}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Background" Property="Background" Value="{DynamicResource GrayBrush8}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Background" Property="Background" Value="{DynamicResource GrayBrush7}" />
+                            </Trigger>-->
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Arrow" Property="Fill" Value="#AFAFAF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style BasedOn="{StaticResource {x:Type xctk:CheckComboBox}}" TargetType="{x:Type xctk:CheckComboBox}">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+            <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type xctk:CheckComboBox}">
+                        <Grid x:Name="MainGrid" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <Popup x:Name="PART_Popup"
+                               AllowsTransparency="true"
+                               Focusable="False"
+                               IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                               Placement="Bottom"
+                               PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                               StaysOpen="False">
+                                <Grid MinWidth="{Binding ActualWidth, ElementName=MainGrid}" MaxHeight="{Binding MaxDropDownHeight, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Border x:Name="DropDownBorder"
+                                        Height="Auto"
+                                        Background="#FF313131"
+                                        BorderBrush="LightSlateGray"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Effect="{DynamicResource DropShadowBrush}" />
+                                    <ScrollViewer x:Name="DropDownScrollViewer"
+                                              BorderThickness="0"
+                                              Padding="1">
+                                        <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+
+                            <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                            <ToggleButton x:Name="PART_DropDownButton"
+                                      Margin="0"
+                                      VerticalAlignment="Stretch"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Content="{TemplateBinding Text}"
+                                      Focusable="False"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      IsHitTestVisible="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource InverseBoolConverter}}"
+                                      Padding="{TemplateBinding Padding}"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                      Style="{DynamicResource CheckComboBoxToggleButton}" />
+
+                            <Border x:Name="FocusBorder"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Static SystemColors.HighlightBrush}"
+                                BorderThickness="0,.5,0,.5"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Visibility="Collapsed" />
+                            <Border x:Name="DisabledVisualElement"
+                                Background="{DynamicResource ControlsDisabledBrush}"
+                                BorderBrush="{DynamicResource ControlsDisabledBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                IsHitTestVisible="False"
+                                Opacity="0.6"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Visibility="Collapsed" />
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="FocusBorder" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="FocusBorder" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter TargetName="FocusBorder" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="DisabledVisualElement" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid FrameworkElement.SizeChanged="Grid_SizeChanged">
-        <TextBox x:Name="FilterTextBox" Foreground="#FFEEEEEE" Background="#FF313131" MinHeight="25" Height="25" Width="350" VerticalAlignment="Top" GotFocus="FilterTextBox_GotFocus" LostFocus="FilterTextBox_LostFocus" TextChanged="FilterTextBox_TextChanged" HorizontalAlignment="Left" Panel.ZIndex="0"/>
-        <TextBlock x:Name="FilterCoverTextBlock" Text="{x:Static properties:Resources.FormSearchCoverText}" Margin="5,5,0,0" IsHitTestVisible="False" Foreground="#FFEEEEEE" Background="Transparent" Width="{Binding Path=ActualWidth, ElementName=FilterTextBox}" VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Panel.ZIndex="1"/>
-        <TextBlock x:Name="SelectedFateCountTextBlock" Text="{x:Static properties:Resources.FormFATESingle}" FrameworkElement.SizeChanged="SelectedFateCountTextBlock_SizeChanged"  Margin="0,5,5,0" Width="Auto" HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="-1"/>
+        <Grid Height="30" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".66*"/>
+                <ColumnDefinition Width=".33*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" HorizontalAlignment="Left" x:Name="FilterTextBox" Foreground="#FFEEEEEE" Background="#FF313131" MinHeight="25" Height="25" Width="250" VerticalAlignment="Top" GotFocus="FilterTextBox_GotFocus" LostFocus="FilterTextBox_LostFocus" TextChanged="FilterTextBox_TextChanged" Panel.ZIndex="0"/>
+            <TextBlock Grid.Column="0" x:Name="FilterCoverTextBlock" Text="{x:Static properties:Resources.FormSearchCoverText}" MaxWidth="100" Margin="5,3,0,0" IsHitTestVisible="False" Foreground="#FFEEEEEE" Background="Transparent" Width="{Binding Path=ActualWidth, ElementName=FilterTextBox}" VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Panel.ZIndex="1"/>
+            <TextBlock Grid.Column="0" x:Name="SelectedFateCountTextBlock" Text="{x:Static properties:Resources.FormFATESingle}" FrameworkElement.SizeChanged="SelectedFateCountTextBlock_SizeChanged"  Margin="0,5,5,0" Width="Auto" HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="-1"/>
+            <xctk:CheckComboBox Grid.Column="1" x:Name="PresetCheckComboBox" Height="25" VerticalAlignment="Top" DisplayMemberPath="Name" Background="#FF313131" Foreground="White" ToolTip="{x:Static properties:Resources.FormFATEPresets}" />
+        </Grid>
         <ListView x:Name="ListView" ItemsSource="{Binding}" HorizontalContentAlignment="Left" Background="#FF313131" SelectionMode="Extended" GridViewColumnHeader.Click="FATEsListView_GridViewColumnHeaderClick" Margin="0,30,0,0">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

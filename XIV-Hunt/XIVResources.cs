@@ -11,7 +11,8 @@ namespace XIVDB
 {
     public class FATEInfo
     {
-        private const string HtmlTagsRegex = "<.*?>";
+        internal const string HtmlTagsRegex = "<.*?>";
+        public ushort ID { get; private set; }
         public byte ClassJobLevel { get; private set; }
         public string Name { get; private set; }
         public string NameWithTags { get; private set; }
@@ -20,12 +21,28 @@ namespace XIVDB
 
         public FATEInfo(CsvParser csv)
         {
+            ID = ushort.Parse(csv["#"]);
             NameWithTags = csv[nameof(Name)].Trim('"', ' ');
             ClassJobLevel = byte.Parse(csv[nameof(ClassJobLevel)]);
             Name = Regex.Replace(NameWithTags, HtmlTagsRegex, string.Empty);
             IconMap = csv["Icon{Map}"].Trim('"').Replace(".tex", ".png");
             if (csv.HasColum(nameof(EurekaFate)))
                 EurekaFate = csv[nameof(EurekaFate)].Trim('"') == "1";
+        }
+    }
+
+    public class RelicNote
+    {
+        public string BookName { get; private set; }
+        public List<FATEInfo> FATEs { get; private set; }
+
+        public RelicNote(CsvParser csv)
+        {
+            BookName = csv["EventItem"].Trim('"');
+            IEnumerable<KeyValuePair<string, int>> fatecols = csv.Columns.Where(x => x.Key.StartsWith("Fate"));
+            FATEs = new List<FATEInfo>(fatecols.Count());
+            foreach (KeyValuePair<string, int> col in fatecols)
+                FATEs.Add(GameResources.GetFATEInfo(GameResources.GetFateId(Regex.Replace(csv[col.Key].Trim('"'), FATEInfo.HtmlTagsRegex, string.Empty), true)));
         }
     }
 
@@ -37,6 +54,15 @@ namespace XIVDB
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
         private static readonly Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(ValidWorld).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
         private static readonly Dictionary<ushort, string> ContentFinderCondition = IndexContentFinderCondition();
+
+        internal static List<RelicNote> GetRelicNotes()
+        {
+            List<RelicNote> books = new List<RelicNote>();
+            CsvParser csv = new CsvParser(Resources.RelicNote);
+            while (csv.Advance())
+                books.Add(new RelicNote(csv));
+            return books;
+        }
 
         private static Dictionary<ushort, string> IndexContentFinderCondition()
         {
@@ -309,7 +335,7 @@ namespace XIVDB
 
         internal static bool TryGetZoneID(string ZoneName, out ushort ZoneID)
         {
-            foreach (var line in Resources.TerritoryType.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3))
+            foreach (string line in Resources.TerritoryType.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3))
             {
                 if (line.Split(',')[6].Trim('"').Equals(ZoneName, StringComparison.OrdinalIgnoreCase))
                 {
@@ -323,10 +349,10 @@ namespace XIVDB
 
         internal static List<Note> GetPerformanceNotes()
         {
-            var l = new List<Note>();
+            List<Note> l = new List<Note>();
             foreach (string n in Resources.Perform.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(4))
             {
-                var np = n.Split(',');
+                string[] np = n.Split(',');
                 l.Add(new Note { Id = (byte)(byte.Parse(np[0]) + 0x17), Name = np[2].Trim('"') });
             }
             return l;
@@ -337,7 +363,7 @@ namespace XIVDB
     {
         private const string LineSep = "\r\n";
         private readonly int colCount;
-        private readonly Dictionary<string, int> columns = new Dictionary<string, int>();
+        public Dictionary<string, int> Columns { get; private set; } = new Dictionary<string, int>();
         private List<string[]> Records;
         private int recordIterator = 0;
         public CsvParser(string csvstring)
@@ -346,7 +372,7 @@ namespace XIVDB
             int i;
             for (i = 0; i < header.Length; i++)
                 if (!string.IsNullOrWhiteSpace(header[i]))
-                    columns.Add(header[i], i);
+                    Columns.Add(header[i], i);
             colCount = i;
             Records = SplitRecords(csvstring.Substring(csvstring.IndexOfNth(LineSep, 0, 3) + LineSep.Length));
         }
@@ -386,8 +412,8 @@ namespace XIVDB
 
         public bool Advance() => ++recordIterator < Records.Count;
 
-        public string this[string colname] => Records.ElementAt(recordIterator)[columns[colname]];
+        public string this[string colname] => Records.ElementAt(recordIterator)[Columns[colname]];
 
-        public bool HasColum(string colname) => columns.ContainsKey(colname);
+        public bool HasColum(string colname) => Columns.ContainsKey(colname);
     }
 }
