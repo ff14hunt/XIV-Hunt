@@ -658,9 +658,9 @@ int32,str,str,byte,PlaceName,PlaceName,PlaceName,Map,byte,byte,byte,uint16,bit&0
 758,"e3fb_2","ex2/02_est_e3/fld/e3fb/level/e3fb",1,"Othard","Othard","Clairière de Jade","e3fb/00",10,2,10,291,True,93,False,0,True,False,False,False,1001,122024,124858,,0,"",-1,268,-1,False,2,0,0,0,False
 759,"e3ec","ex2/02_est_e3/evt/e3ec/level/e3ec",1,"Othard","Othard","Quartier enclavé de Doma","e3ec/00",10,0,0,0,False,84,False,0,True,False,False,False,1215,-1,-1,"ArrayEventHandler#853818",0,"Quartier enclavé de Doma",-1,0,-1,False,2,0,22,0,False
 760,"e0198","ex2/01_gyr_g3/fld/g3f1/level/g3f1",1,"Gyr Abania","Gyr Abania","Les Marges","g3f1/00",9,3,9,477,False,79,False,0,True,False,False,False,1001,-1,-1,,182,"",-1,279,-1,False,2,0,12,0,False
-761,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
-762,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
-763,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
+761,"e3fc","ex2/02_est_e3/fld/e3fc/level/e3fc",1,"Othard","Othard","Domaine du roi des cieux","e3fc/00",10,2,10,474,False,0,False,0,True,False,False,False,1001,122026,124862,,0,"",-1,281,-1,False,2,0,0,0,False
+762,"e3fc_2","ex2/02_est_e3/fld/e3fc/level/e3fc",1,"Othard","Othard","Domaine du roi des cieux","e3fc/00",10,2,10,475,False,0,False,0,True,False,False,False,1001,122026,124863,,0,"",-1,282,-1,False,2,0,0,0,False
+763,"z3fb","ex2/05_zon_z3/fld/z3fb/level/z3fb",1,"???","","Eurêka Pagos","z3fb/00",1,3,41,581,False,94,False,1,True,False,True,False,524,122010,124752,,0,"",-1,0,-1,False,2,0,0,0,False
 764,"e3e8","ex2/02_est_e3/evt/e3e8/level/e3e8",1,"Othard","Othard","Sanctuaire Reisen","e3e8/00",10,0,15,0,False,0,False,0,True,False,False,False,519,-1,-1,"ArrayEventHandler#853789",0,"Onokoro",-1,0,-1,False,2,0,0,0,False
 765,"l1p2_2","ffxiv/pvp_xx/pvp/l1p2/level/l1p2",4,"Mor Dhona","Mor Dhona","Arène de la Tour de Cristal","l1p2/00",6,2,28,478,False,90,False,0,True,False,False,False,1001,-1,-1,,0,"",1100,270,-1,True,0,0,0,0,False
 766,"l1p2_3","ffxiv/pvp_xx/pvp/l1p2/level/l1p2",4,"Mor Dhona","Mor Dhona","Arène de la Tour de Cristal","l1p2/00",6,2,28,479,False,90,False,0,True,False,False,False,1001,-1,-1,,0,"",1100,270,-1,True,0,0,0,0,False

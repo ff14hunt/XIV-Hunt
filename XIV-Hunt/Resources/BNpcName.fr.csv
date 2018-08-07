@@ -7094,7 +7094,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7090,"Qalyana brahmin",0,"Qalyanas brahmins",0,0,1,1,0
 7091,"brahmin rêveuse",0,"brahmins rêveuses",0,0,1,1,0
 7092,"Byakko",0,"Byakko",0,0,1,0,1
-7093,"Byakko",0,"Byakko",0,0,1,0,1
+7093,"Hakutei",0,"Hakutei",0,0,1,0,1
 7094,"aramitama",0,"aramitama",0,1,1,0,0
 7095,"aramitama",0,"aramitama",0,1,1,0,0
 7096,"déesse Chadarnouk",0,"déesses Chadarnouk",0,0,1,1,0
@@ -7222,7 +7222,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7218,"bibao de Dairyu",0,"bibao de Dairyu",0,0,1,0,0
 7219,"babouin",0,"babouins",0,0,1,0,0
 7220,"furet de Dairyu",0,"furets de Dairyu",0,0,1,0,0
-7221,"",0,"",0,0,0,0,0
+7221,"Rathalos",0,"Rathalos",0,0,1,0,0
 7222,"squelette nocturne",0,"squelettes nocturnes",0,0,1,0,0
 7223,"Bélias le Titan",0,"Bélias le Titan",0,0,1,0,1
 7224,"serviteur de Bélias",0,"serviteurs de Bélias",0,0,1,0,0
@@ -7249,7 +7249,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7245,"Famfrit le Nuage Ténébreux",0,"Famfrit le Nuage Ténébreux",0,0,1,0,1
 7246,"aiguière ténèbreuse",0,"aiguières ténèbreuses",0,1,1,1,0
 7247,"sphère d'eau ténébreuse",0,"sphères d'eau ténébreuses",0,0,1,1,0
-7248,"",0,"",0,0,0,0,0
+7248,"lapin du bonheur",0,"lapins du bonheur",0,0,1,0,0
 7249,"bulle d'énergie",0,"bulles d'énergie",0,0,1,1,0
 7250,"guerrier à la pistolame",0,"guerriers à la pistolame",0,0,1,0,0
 7251,"mage redoutable",0,"mages redoutables",0,0,1,0,0
@@ -7404,79 +7404,79 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7400,"illusion protectrice",0,"illusions protectrices",0,1,1,1,0
 7401,"débris d'aéronef",0,"débris d'aéronef",0,0,1,0,0
 7402,"agresseur mystérieux",0,"agresseurs mystérieux",0,1,1,0,0
-7403,"",0,"",0,0,0,0,0
-7404,"",0,"",0,0,0,0,0
-7405,"",0,"",0,0,0,0,0
-7406,"",0,"",0,0,0,0,0
-7407,"",0,"",0,0,0,0,0
-7408,"",0,"",0,0,0,0,0
-7409,"",0,"",0,0,0,0,0
-7410,"",0,"",0,0,0,0,0
-7411,"",0,"",0,0,0,0,0
-7412,"",0,"",0,0,0,0,0
-7413,"",0,"",0,0,0,0,0
-7414,"",0,"",0,0,0,0,0
-7415,"",0,"",0,0,0,0,0
-7416,"",0,"",0,0,0,0,0
-7417,"",0,"",0,0,0,0,0
-7418,"",0,"",0,0,0,0,0
-7419,"",0,"",0,0,0,0,0
-7420,"",0,"",0,0,0,0,0
-7421,"",0,"",0,0,0,0,0
-7422,"",0,"",0,0,0,0,0
-7423,"",0,"",0,0,0,0,0
-7424,"",0,"",0,0,0,0,0
-7425,"",0,"",0,0,0,0,0
-7426,"",0,"",0,0,0,0,0
-7427,"",0,"",0,0,0,0,0
-7428,"",0,"",0,0,0,0,0
-7429,"",0,"",0,0,0,0,0
-7430,"",0,"",0,0,0,0,0
-7431,"",0,"",0,0,0,0,0
-7432,"",0,"",0,0,0,0,0
-7433,"",0,"",0,0,0,0,0
-7434,"",0,"",0,0,0,0,0
-7435,"",0,"",0,0,0,0,0
-7436,"",0,"",0,0,0,0,0
-7437,"",0,"",0,0,0,0,0
-7438,"",0,"",0,0,0,0,0
-7439,"",0,"",0,0,0,0,0
-7440,"",0,"",0,0,0,0,0
-7441,"",0,"",0,0,0,0,0
-7442,"",0,"",0,0,0,0,0
-7443,"",0,"",0,0,0,0,0
-7444,"",0,"",0,0,0,0,0
-7445,"",0,"",0,0,0,0,0
-7446,"",0,"",0,0,0,0,0
-7447,"",0,"",0,0,0,0,0
-7448,"",0,"",0,0,0,0,0
-7449,"",0,"",0,0,0,0,0
-7450,"",0,"",0,0,0,0,0
-7451,"",0,"",0,0,0,0,0
-7452,"",0,"",0,0,0,0,0
-7453,"",0,"",0,0,0,0,0
-7454,"",0,"",0,0,0,0,0
-7455,"",0,"",0,0,0,0,0
-7456,"",0,"",0,0,0,0,0
-7457,"",0,"",0,0,0,0,0
-7458,"",0,"",0,0,0,0,0
-7459,"",0,"",0,0,0,0,0
-7460,"",0,"",0,0,0,0,0
-7461,"",0,"",0,0,0,0,0
-7462,"",0,"",0,0,0,0,0
-7463,"",0,"",0,0,0,0,0
-7464,"",0,"",0,0,0,0,0
-7465,"",0,"",0,0,0,0,0
-7466,"",0,"",0,0,0,0,0
-7467,"",0,"",0,0,0,0,0
-7468,"",0,"",0,0,0,0,0
-7469,"",0,"",0,0,0,0,0
-7470,"",0,"",0,0,0,0,0
-7471,"",0,"",0,0,0,0,0
-7472,"",0,"",0,0,0,0,0
-7473,"",0,"",0,0,0,0,0
-7474,"",0,"",0,0,0,0,0
-7475,"",0,"",0,0,0,0,0
+7403,"puk Pagos",0,"puks Pagos",0,0,1,0,0
+7404,"limace des neiges",0,"limaces des neiges",0,0,1,1,0
+7405,"vindthurs d'Eurêka",0,"vindthurs d'Eurêka",0,0,1,0,0
+7406,"dodo meurtrier",0,"dodos meurtriers",0,0,1,0,0
+7407,"aurélie des neiges",0,"aurélies des neiges",0,1,1,1,0
+7408,"taupe de la Val",0,"taupes de la Val",0,0,1,1,0
+7409,"sarcopte de la Val",0,"sarcoptes de la Val",0,0,1,0,0
+7410,"fluturini du Nord",0,"fluturinis du Nord",0,0,1,0,0
+7411,"loup Pagos",0,"loups Pagos",0,0,1,0,0
+7412,"yarzon miraculé",0,"yarzons miraculés",0,0,1,0,0
+7413,"yukinko",0,"yukinko",0,0,1,0,0
+7414,"fourmi de la Val",0,"fourmis de la Val",0,0,1,1,0
+7415,"roselette de la Val",0,"roselettes de la Val",0,0,1,1,0
+7416,"mante de la Val",0,"mantes de la Val",0,0,1,1,0
+7417,"galago de la Val",0,"galagos de la Val",0,0,1,0,0
+7418,"tursus Pagos",0,"tursus Pagos",0,0,1,0,0
+7419,"huwasi",0,"huwasi",0,0,1,0,0
+7420,"ahuri",0,"ahuris",0,1,1,0,0
+7421,"gnou Pagos",0,"gnous Pagos",0,0,1,0,0
+7422,"oculus Pagos",0,"oculi Pagos",0,1,1,0,0
+7423,"bouquetin Pagos",0,"bouquetins Pagos",0,0,1,0,0
+7424,"mandragore sylvestre",0,"mandragores sylvestres",0,0,1,1,0
+7425,"raie des tempêtes",0,"raies des tempêtes",0,0,1,1,0
+7426,"chevalier miroir des glaces",0,"chevaliers miroir des glaces",0,0,1,0,0
+7427,"gelato gelé",0,"gelati gelés",0,0,1,0,0
+7428,"ours Pagos",0,"ours Pagos",0,1,1,0,0
+7429,"onctueux oculaire",0,"onctueux oculaires",0,1,1,0,0
+7430,"sankchinni rachitique",0,"sankchinnis rachitiques",0,0,1,0,0
+7431,"opken errant",0,"opkens errants",0,1,1,0,0
+7432,"goobbue des blizzards",0,"goobbues des blizzards",0,0,1,0,0
+7433,"colibri du Nord",0,"colibris du Nord",0,0,1,0,0
+7434,"démon de sang",0,"démons de sang",0,0,1,0,0
+7435,"gardien de la Val",0,"gardiens de la Val",0,0,1,0,0
+7436,"wyverne du néant",0,"wyvernes du néant",0,0,1,1,0
+7437,"uragnite coralligène",0,"uragnites coralligènes",0,1,1,1,0
+7438,"hippocerf Pagos",0,"hippocerfs Pagos",0,1,1,0,0
+7439,"peiste peau-de-givre",0,"peistes peau-de-givre",0,0,1,0,0
+7440,"dicholitus",0,"dicholiti",0,0,1,0,0
+7441,"tyrannosaure évadé",0,"tyrannosaures évadés",0,0,1,0,0
+7442,"minotaure du laboratoire",0,"minotaures du laboratoire",0,0,1,0,0
+7443,"ruszor féroce",0,"ruszors féroces",0,0,1,0,0
+7444,"centaure Pagos",0,"centaures Pagos",0,0,1,0,0
+7445,"vouivre du néant",0,"vouivres du néant",0,0,1,1,0
+7446,"urolithe gardien",0,"urolithes gardiens",0,1,1,0,0
+7447,"buffle ancien",0,"buffles anciens",0,0,1,0,0
+7448,"eibis gelé",0,"eibis gelés",0,1,1,0,0
+7449,"manticore des vallées",0,"manticores des vallées",0,0,1,1,0
+7450,"cisailleur de la Val",0,"cisailleurs de la Val",0,0,1,0,0
+7451,"serpent-monde",0,"serpents-monde",0,0,1,0,0
+7452,"crocodile Pagos",0,"crocodiles Pagos",0,0,1,0,0
+7453,"ver de la Val",0,"vers de la Val",0,0,1,0,0
+7454,"syricta du néant",0,"syrictas du néant",0,0,1,0,0
+7455,"matamata ambréclat",0,"matamata ambréclats",0,0,1,0,0
+7456,"fleur-dépouille de la Val",0,"fleurs-dépouilles de la Val",0,0,1,1,0
+7457,"grand amphiptère",0,"grands amphiptères",0,0,1,0,0
+7458,"bulot de la Val",0,"bulots de la Val",0,0,1,0,0
+7459,"chimère Pagos",0,"chimères Pagos",0,0,1,1,0
+7460,"dragon inférieur du néant",0,"dragons inférieurs du néant",0,0,1,0,0
+7461,"protecteur de la Val",0,"protecteurs de la Val",0,0,1,0,0
+7462,"ameretât",0,"ameretât",0,1,1,0,0
+7463,"griffon de la Val",0,"griffons de la Val",0,0,1,0,0
+7464,"brobinyak zombi",0,"brobinyaks zombis",0,0,1,0,0
+7465,"démon de l'incunable",0,"démons de l'incunable",0,0,1,0,0
+7466,"gespenst",0,"gespensts",0,0,1,0,0
+7467,"tourmenteur",0,"tourmenteurs",0,0,1,0,0
+7468,"cadavre de la Val",0,"cadavres de la Val",0,0,1,0,0
+7469,"élémentaire des tempêtes de neige",0,"élémentaires des tempêtes de neige",0,1,1,0,0
+7470,"élémentaire des tempêtes de foudre",0,"élémentaires des tempêtes de foudre",0,1,1,0,0
+7471,"élémentaire de neige fondue",0,"élémentaires de neige fondue",0,1,1,0,0
+7472,"élémentaire d'ambre",0,"élémentaires d'ambre",0,1,1,0,0
+7473,"dragon gelé du néant",0,"dragons gelés du néant",0,0,1,0,0
+7474,"anubis Pagos",0,"anubis Pagos",0,1,1,0,0
+7475,"queue de Rathalos",0,"queues de Rathalos",0,0,1,1,0
 7476,"apparition d'Asahi",0,"apparitions d'Asahi",0,1,1,1,0
 7477,"apparition de Gosetsu",0,"apparitions de Gosetsu",0,1,1,1,0
 7478,"Hiruko",0,"Hiruko",0,0,1,0,1
@@ -7496,48 +7496,48 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7492,"pilier de glace",0,"piliers de glace",0,0,1,0,0
 7493,"Onra",0,"Onra",0,0,1,0,1
 7494,"prison de vent",0,"prisons de vent",0,0,1,1,0
-7495,"",0,"",0,0,0,0,0
-7496,"",0,"",0,0,0,0,0
-7497,"",0,"",0,0,0,0,0
-7498,"",0,"",0,0,0,0,0
-7499,"",0,"",0,0,0,0,0
-7500,"",0,"",0,0,0,0,0
-7501,"",0,"",0,0,0,0,0
-7502,"",0,"",0,0,0,0,0
-7503,"",0,"",0,0,0,0,0
-7504,"",0,"",0,0,0,0,0
-7505,"",0,"",0,0,0,0,0
-7506,"",0,"",0,0,0,0,0
-7507,"",0,"",0,0,0,0,0
-7508,"",0,"",0,0,0,0,0
-7509,"",0,"",0,0,0,0,0
-7510,"",0,"",0,0,0,0,0
-7511,"",0,"",0,0,0,0,0
-7512,"",0,"",0,0,0,0,0
-7513,"",0,"",0,0,0,0,0
-7514,"",0,"",0,0,0,0,0
-7515,"",0,"",0,0,0,0,0
-7516,"",0,"",0,0,0,0,0
-7517,"",0,"",0,0,0,0,0
-7518,"",0,"",0,0,0,0,0
-7519,"",0,"",0,0,0,0,0
-7520,"",0,"",0,0,0,0,0
-7521,"",0,"",0,0,0,0,0
-7522,"",0,"",0,0,0,0,0
-7523,"",0,"",0,0,0,0,0
-7524,"",0,"",0,0,0,0,0
-7525,"",0,"",0,0,0,0,0
-7526,"",0,"",0,0,0,0,0
-7527,"",0,"",0,0,0,0,0
-7528,"",0,"",0,0,0,0,0
-7529,"",0,"",0,0,0,0,0
-7530,"",0,"",0,0,0,0,0
-7531,"",0,"",0,0,0,0,0
-7532,"",0,"",0,0,0,0,0
-7533,"",0,"",0,0,0,0,0
-7534,"",0,"",0,0,0,0,0
-7535,"",0,"",0,0,0,0,0
-7536,"",0,"",0,0,0,0,0
+7495,"Archi Angra Mainyu",0,"Archi Angra Mainyu",0,1,1,0,1
+7496,"La Faucheuse",0,"La Faucheuse",0,0,1,1,1
+7497,"Anapos",0,"Anapos",0,1,1,0,1
+7498,"élémentaire d'Anapos",0,"élémentaires d'Anapos",0,1,1,0,0
+7499,"vache sacrée d'Eurêka",0,"vaches sacrées d'Eurêka",0,0,1,1,0
+7500,"アピス",0,"",0,0,1,0,0
+7501,"disciple d'Eurêka",0,"disciples d'Eurêkas",0,0,1,0,0
+7502,"sphère arcanique",0,"sphères arcaniques",0,0,1,1,0
+7503,"Roi Igloo",0,"Roi Igloo",0,0,1,0,1
+7504,"igloo",0,"igloos",0,1,1,0,0
+7505,"Cassie la copieuse",0,"Cassie la copieuse",0,0,1,1,1
+7506,"anila",0,"anilas",0,1,1,0,0
+7507,"apa fétide",0,"apas fétides",0,1,1,0,0
+7508,"Roi Arthro",0,"Roi Arthro",0,0,1,0,1
+7509,"crabe chevalier",0,"crabes chevaliers",0,0,1,0,0
+7510,"bulle",0,"bulles",0,0,1,1,0
+7511,"gaz empoisonné",0,"gaz empoisonnés",0,0,1,0,0
+7512,"Surabhi",0,"Surabhi",0,0,1,0,1
+7513,"tombeglace",0,"tombeglaces",0,0,1,0,0
+7514,"Ancestrotaure",0,"Ancestrotaure",0,1,1,0,1
+7515,"Spiritaure",0,"Spiritaure",0,0,1,0,1
+7516,"Graboïde",0,"Graboïdes",0,0,1,0,1
+7517,"ver de glace",0,"vers de glace",0,0,1,0,0
+7518,"Hakutaku",0,"Hakutaku",0,0,1,0,1
+7519,"tourbillon de feu",0,"tourbillons de feu",0,0,1,0,0
+7520,"Dragon cendré",0,"Dragons cendrés",0,0,1,0,1
+7521,"défunt errant",0,"défunts errants",0,0,1,0,0
+7522,"Asag",0,"Asag",0,1,1,0,1
+7523,"Hadhayosh",0,"Hadhayosh",0,0,1,0,1
+7524,"Horus",0,"Horus",0,0,1,0,1
+7525,"boule ardente",0,"boules ardentes",0,0,1,1,0
+7526,"Reine des neiges",0,"Reine des neiges",0,0,1,1,1
+7527,"flocon fidèle",0,"flocons fidèles",0,0,1,0,0
+7528,"cristal de glace",0,"cristaux de glace",0,0,1,0,0
+7529,"Louhi",0,"Louhi",0,0,1,1,1
+7530,"cadavre preste",0,"cadavres prestes",0,0,1,0,0
+7531,"Cristallocéros",0,"Cristallocéros",0,0,1,0,1
+7532,"esclave",0,"esclaves",0,1,1,0,0
+7533,"Qiongji",0,"Qiongji",0,0,1,0,1
+7534,"yukidama",0,"yukidama",0,0,1,0,0
+7535,"Taxim",0,"Taxim",0,0,1,0,1
+7536,"serviteur de Taxim",0,"serviteurs de Taxim",0,0,1,0,0
 7537,"spectre de Zenos",0,"spectres de Zenos",0,0,1,0,0
 7538,"Benandonner",0,"Benandonner",0,0,1,0,1
 7539,"esclave du néant profond",0,"esclaves du néant profond",0,1,1,0,0
@@ -7568,9 +7568,9 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7564,"soldate des Immortels",0,"soldates des Immortels",0,0,1,1,0
 7565,"aventurier aguerri",0,"aventuriers aguerris",0,1,1,0,0
 7566,"aventurière aguerrie",0,"aven<SoftHyphen/>tu<SoftHyphen/>rières aguerries",0,1,1,1,0
-7567,"",0,"",0,0,0,0,0
-7568,"",0,"",0,0,0,0,0
-7569,"",0,"",0,0,0,0,0
+7567,"élémentaire Pagos",0,"élémentaires Pagos",0,1,1,0,0
+7568,"cadavre funeste",0,"cadavres funestes",0,0,1,0,0
+7569,"cadavre redoutable",0,"cadavres redoutables",0,0,1,0,0
 7570,"",0,"",0,0,0,0,0
 7571,"",0,"",0,0,0,0,0
 7572,"",0,"",0,0,0,0,0
@@ -7612,15 +7612,15 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7608,"",0,"",0,0,0,0,0
 7609,"",0,"",0,0,0,0,0
 7610,"korrigan",0,"korrigans",0,0,1,0,0
-7611,"",0,"",0,0,0,0,0
-7612,"",0,"",0,0,0,0,0
-7613,"",0,"",0,0,0,0,0
-7614,"",0,"",0,0,0,0,0
-7615,"",0,"",0,0,0,0,0
-7616,"",0,"",0,0,0,0,0
-7617,"",0,"",0,0,0,0,0
-7618,"",0,"",0,0,0,0,0
-7619,"",0,"",0,0,0,0,0
+7611,"Baraqiel",0,"Baraqiel",0,0,1,0,1
+7612,"Mog aventurier",0,"Mogs aventuriers",0,0,1,0,0
+7613,"Cirrate Christelle",0,"Cirrate Christelle",0,0,1,1,1
+7614,"limace vivace",0,"limaces vivaces",0,0,1,1,0
+7615,"limace délicate",0,"limaces délicates",0,0,1,1,0
+7616,"roselette rebelle",0,"roselettes rebelles",0,0,1,1,0
+7617,"bouillon avarié",0,"bouillons avariés",0,0,1,0,0
+7618,"Benandonner",0,"Benandonner",0,0,1,0,1
+7619,"flan du néant profond",0,"flans du néant profond",0,0,1,0,0
 7620,"",0,"",0,0,0,0,0
 7621,"",0,"",0,0,0,0,0
 7622,"",0,"",0,0,0,0,0
@@ -7633,7 +7633,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7629,"",0,"",0,0,0,0,0
 7630,"",0,"",0,0,0,0,0
 7631,"",0,"",0,0,0,0,0
-7632,"",0,"",0,0,0,0,0
+7632,"chimère",0,"chimères",0,0,1,1,0
 7633,"",0,"",0,0,0,0,0
 7634,"",0,"",0,0,0,0,0
 7635,"",0,"",0,0,0,0,0
