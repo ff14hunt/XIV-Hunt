@@ -47,14 +47,4 @@ namespace XIVDB
         public uint fate { get; set; }
         public bool Is_fate { get; set; }
     }
-
-    public class Item
-    {
-        public string Color { get; set; }
-        public ushort Id { get; set; }
-        public string Name { get; set; }
-        public byte Rarity { get; set; }
-        public bool Can_be_HQ { get; set; }
-        public Uri Url_API { get; set; }
-    }
 }

@@ -397,6 +397,7 @@
     </Compile>
     <Compile Include="UI\Converters.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="XIVAPI.cs" />
     <Compile Include="XIVResources.cs" />
     <Compile Include="XIVDBObjects.cs" />
   </ItemGroup>

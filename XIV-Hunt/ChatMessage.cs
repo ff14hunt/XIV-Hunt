@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using XIVDB;
+using XIVAPI;
 
 namespace FFXIV_GameSense
 {
@@ -115,7 +116,7 @@ namespace FFXIV_GameSense
             byte[] ItemHeader1And2 = new byte[] { 0x02, 0x13, 0x06, 0xFE, 0xFF }.Concat(raritycolor).Concat(new byte[] { 0x03, 0x02, 0x27, 0x07, 0x03, 0xF2 }).ToArray();
             byte[] ItemHeaderEnd = new byte[] { 0x02, 0x01, 0x03 };
             byte[] end = new byte[] { 0x02, 0x27, 0x07, 0xCF, 0x01, 0x01, 0x01, 0xFF, 0x01, 0x03, 0x02, 0x13, 0x02, 0xEC, 0x03 };
-            HQ = HQ && Item.Can_be_HQ;
+            HQ = HQ && Item.CanBeHq;
             if (HQ)
             {
                 ItemHeader1And2[ItemHeader1And2.Length - 1] = 0xF6;
@@ -123,8 +124,8 @@ namespace FFXIV_GameSense
                 end = HQChar.Concat(end).ToArray();
                 Item.Name += " ";
             }
-            byte[] idba = BitConverter.GetBytes(HQ ? Item.Id + 1000000 : Item.Id).Reverse().SkipWhile(x=>x==0x00).ToArray();
-            if (Item.Id <= byte.MaxValue)//Currencies
+            byte[] idba = BitConverter.GetBytes(HQ ? Item.ID + 1000000 : Item.ID).Reverse().SkipWhile(x=>x==0x00).ToArray();
+            if (Item.ID <= byte.MaxValue)//Currencies
             {
                 ItemHeader1And2 = ItemHeader1And2.Take(ItemHeader1And2.Count() - 1).ToArray();
                 idba = new byte[] { ++idba[0], 0x02 };
@@ -141,7 +142,7 @@ namespace FFXIV_GameSense
             //                                            ?     ?     R     G     B
             var color = new byte[] { 0x02, 0x13, 0x06, 0xFE, 0xFF, 0xFF, 0x7B, 0x1A, 0x03 };
             if (Array.IndexOf(ItemHeader1And2, 0x00) > -1)
-                throw new ArgumentException("ItemHeader contains 0x00. Params: " + Item.Id, nameof(Item));
+                throw new ArgumentException("ItemHeader contains 0x00. Params: " + Item.ID, nameof(Item));
             cm.Message = Encoding.UTF8.GetBytes(prepend).Concat(ItemHeader1And2).Concat(ItemHeaderEnd).Concat(color).Concat(arrow).Concat(Encoding.UTF8.GetBytes(Item.Name)).Concat(end).ToArray();
             if (!string.IsNullOrEmpty(postpend))
                 cm.Message = cm.Message.Concat(Encoding.UTF8.GetBytes(postpend)).ToArray();
