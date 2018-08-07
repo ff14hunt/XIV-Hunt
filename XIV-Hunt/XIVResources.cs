@@ -234,7 +234,7 @@ namespace XIVDB
             int i = 0;
             while (i < lines.Length)
             {
-                if (lines[i].Split(',')[15].Trim('"').Equals(name) && ushort.TryParse(lines[i].Split(',')[7], out ushort x))
+                if (string.Concat(lines[i].Split(',')[6].Skip(1).TakeWhile(c => c != '/')) == name && ushort.TryParse(lines[i].Split(',')[7], out ushort x))
                 {
                     CachedSizeFactors.Add(zoneId, x);
                     return x;
@@ -246,7 +246,7 @@ namespace XIVDB
 
         internal static ushort MapIdToZoneId(uint mapId)
         {
-            string codename = Resources.Map.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3).ToArray()[mapId].Split(',')[15].Trim('"');
+            string codename = string.Concat(Resources.Map.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3).ToArray()[mapId].Split(',')[6].Trim('"').TakeWhile(c=>c!='/'));
             return GetZoneIdFromCodeName(codename);
         }
 
@@ -288,7 +288,7 @@ namespace XIVDB
             while (i < lines.Length)
             {
                 string[] line = lines[i].Split(',');
-                if (line[15].Trim('"') == name && ushort.TryParse(line[0], out ushort x))
+                if (string.Concat(line[6].Skip(1).TakeWhile(c => c != '/')) == name && ushort.TryParse(line[0], out ushort x))
                 {
                     d.Add(x, line[12].Trim('"'));
                 }
