@@ -49,7 +49,7 @@
                                 <CheckBox.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormARRAbrv}"/>
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormARRAbrv}"/>
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
@@ -58,7 +58,7 @@
                                 <CheckBox.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormHWAbrv}" />
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormHWAbrv}" />
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
@@ -66,8 +66,8 @@
                             <CheckBox x:Name="SSB" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=SSB, Mode=TwoWay}" Checked="FilterCheckBoxOpacityUp" Unchecked="FilterCheckBoxOpacityDown" Opacity="0.35">
                                 <CheckBox.Template>
                                     <ControlTemplate>
-                                        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormSBAbrv}" />
+                                        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3" >
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormSBAbrv}" />
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
@@ -79,7 +79,7 @@
                                 <CheckBox.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormARRAbrv}" />
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormARRAbrv}" />
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
@@ -88,7 +88,7 @@
                                 <CheckBox.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormHWAbrv}" />
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormHWAbrv}" />
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
@@ -97,7 +97,7 @@
                                 <CheckBox.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormSBAbrv}" />
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormSBAbrv}" />
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
@@ -109,7 +109,7 @@
                                 <CheckBox.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormARRAbrv}" />
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormARRAbrv}" />
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
@@ -118,7 +118,7 @@
                                 <CheckBox.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormHWAbrv}" />
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormHWAbrv}" />
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
@@ -127,7 +127,7 @@
                                 <CheckBox.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2,0,2,3">
-                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{x:Static properties:Resources.FormSBAbrv}" />
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{x:Static properties:Resources.FormSBAbrv}" />
                                         </Border>
                                     </ControlTemplate>
                                 </CheckBox.Template>
