@@ -45,7 +45,7 @@ namespace XIVAPI
 
         public async Task<Item> SearchForItem(string itemName, bool detailed = false, uint page = 1)
         {
-            HttpResponseMessage r = await GetAsync($"/search?string={WebUtility.UrlEncode(itemName)}&index=item{page}&string_algo=multi_match&language={Thread.CurrentThread.CurrentUICulture.Name.Substring(0, 2)}");
+            HttpResponseMessage r = await GetAsync($"/search?string={WebUtility.UrlEncode(itemName)}&index=item&page={page}&string_algo=multi_match&language={Thread.CurrentThread.CurrentUICulture.Name.Substring(0, 2)}");
             if (!r.IsSuccessStatusCode)
                 return null;
             JObject jObject = JObject.Parse(await r.Content.ReadAsStringAsync());
