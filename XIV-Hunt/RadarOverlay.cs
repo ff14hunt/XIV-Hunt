@@ -291,7 +291,7 @@ namespace FFXIV_GameSense
 
         private void RemoveUnvantedCombatants(Combatant self, List<Combatant> clist)
         {
-            clist.RemoveAll(c => c.ContentID == 5042 || c.ContentID == 7395);
+            clist.RemoveAll(c => c.BNpcNameID == 5042 || c.BNpcNameID == 7395);
             if (!Properties.Settings.Default.displaySelf)
                 clist.RemoveAll(c => c.ID == self.ID);
             if (!Properties.Settings.Default.displayMonsters)

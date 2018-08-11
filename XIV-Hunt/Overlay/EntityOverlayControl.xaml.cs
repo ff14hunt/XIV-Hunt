@@ -63,7 +63,7 @@ namespace FFXIV_GameSense.Overlay
                 return new SolidColorBrush(IsSelf ? Colors.LightGreen : Colors.LightBlue);
             if(c.Type==ObjectType.Monster )
             {
-                if(Hunt.TryGetHuntRank(c.ContentID, out HuntRank hr))
+                if(Hunt.TryGetHuntRank(c.BNpcNameID, out HuntRank hr))
                 {
                     return new SolidColorBrush(hr == HuntRank.B ? Color.FromArgb(255,0,0,0xE7) : Colors.Red);
                 }

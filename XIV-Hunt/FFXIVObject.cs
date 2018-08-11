@@ -51,7 +51,7 @@ namespace FFXIV_GameSense
         public string JobName => Enum.GetName(typeof(JobEnum), Job);
         public byte Level { get; set; }
         public string Name { get; set; }
-        public ushort ContentID { get; set; }
+        public ushort BNpcNameID { get; set; }
         public uint FateID { get; set; }
         public uint CurrentHP { get; set; }
         public uint MaxHP { get; set; }
@@ -70,98 +70,25 @@ namespace FFXIV_GameSense
         public float Heading { get; set; }
         public float HeadingDegree => (float)((Heading + Math.PI) * (180.0 / Math.PI));
         public byte EffectiveDistance { get; set; }
-        public string Distance { get; set; }
-        public string HorizontalDistance { get; set; }
 
         public EObjType EventType { get; set; }
         public bool CairnIsUnlocked = false;
-        public bool TrapTriggered = false;
 
         public List<Status> StatusList = new List<Status>();
 
-        public int HPPercent
-        {
-            get
-            {
-                try
-                {
-                    if (MaxHP == 0) return 0;
-                    return Convert.ToInt16(Convert.ToDouble(CurrentHP) / Convert.ToDouble(MaxHP) * 100);
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
-        }
-        public int MPPercent
-        {
-            get
-            {
-                try
-                {
-                    if (MaxMP == 0) return 0;
-                    return Convert.ToInt16(Convert.ToDouble(CurrentMP) / Convert.ToDouble(MaxMP) * 100);
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
-        }
-        public int TPPercent
-        {
-            get
-            {
-                try
-                {
-                    if (MaxTP == 0) return 0;
-                    return Convert.ToInt16(Convert.ToDouble(CurrentTP) / Convert.ToDouble(MaxTP) * 100);
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
-        }
-        public int GPPercent
-        {
-            get
-            {
-                try
-                {
-                    if (MaxGP == 0) return 0;
-                    return Convert.ToInt16(Convert.ToDouble(CurrentGP) / Convert.ToDouble(MaxGP) * 100);
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
-        }
-        public int CPPercent
-        {
-            get
-            {
-                try
-                {
-                    if (MaxCP == 0) return 0;
-                    return Convert.ToInt16(Convert.ToDouble(CurrentCP) / Convert.ToDouble(MaxCP) * 100);
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
-        }
+        public float HPPercent => ((float)CurrentHP / (MaxHP * 100));
+        public float MPPercent => ((float)CurrentMP / (MaxMP * 100));
+        public float TPPercent => ((float)CurrentTP / (MaxTP * 100));
+        public float GPPercent => ((float)CurrentGP / (MaxGP * 100));
+        public float CPPercent => ((float)CurrentCP / (MaxCP * 100));
 
         public bool IsBattleClass() => !(Job >= JobEnum.CRP && Job <= JobEnum.FSH);
 
-        public bool IsGatherer() => Job >= JobEnum.MIN && Job <= JobEnum.FSH;
+        public bool IsGatherer() => IsGatherer(Job);
 
         public static bool IsGatherer(JobEnum j) => j >= JobEnum.MIN && j <= JobEnum.FSH;
 
-        public bool IsCrafter() => Job >= JobEnum.CRP && Job <= JobEnum.CUL;
+        public bool IsCrafter() => IsCrafter(Job);
 
         public static bool IsCrafter(JobEnum j) => j >= JobEnum.CRP && j <= JobEnum.CUL;
 

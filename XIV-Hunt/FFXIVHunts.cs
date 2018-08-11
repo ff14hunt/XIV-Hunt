@@ -267,7 +267,7 @@ namespace FFXIV_GameSense
                 await LeaveDCZone();
             }
             lastZone = thisZone;
-            foreach (Combatant c in mem.Combatants.Where(c => c.Type == ObjectType.Monster && hunts.Exists(h => h.Id == c.ContentID && GetZoneId(c.ContentID) == thisZone)))
+            foreach (Combatant c in mem.Combatants.Where(c => c.Type == ObjectType.Monster && hunts.Exists(h => h.Id == c.BNpcNameID && GetZoneId(c.BNpcNameID) == thisZone)))
             {
                 _ = ReportHunt(c);
             }
@@ -480,7 +480,7 @@ namespace FFXIV_GameSense
 
         private async Task ReportHunt(Combatant c)
         {
-            int idx = hunts.FindIndex(h => h.Id == c.ContentID);
+            int idx = hunts.FindIndex(h => h.Id == c.BNpcNameID);
             if (hunts[idx].LastReported > ServerTimeUtc.AddSeconds(-5) && c.CurrentHP > 0)
                 return;//no need to report this often
             //else if (!hunts[idx].LastAlive && hunts[idx].LastReported > DateTime.UtcNow.AddSeconds(-5))

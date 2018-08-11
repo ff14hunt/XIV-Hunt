@@ -785,10 +785,10 @@ namespace FFXIV_GameSense
                 {
                     //if(*(uint*)&p[0xE4]==2149253119)//necessary?
                     combatant.FateID = *(uint*)&p[combatantOffsets.FateID];
-                    combatant.ContentID = *(ushort*)&p[combatantOffsets.ContentID];
+                    combatant.BNpcNameID = *(ushort*)&p[combatantOffsets.BNpcNameID];
                 }
                 else
-                    combatant.FateID = combatant.ContentID = 0;
+                    combatant.FateID = combatant.BNpcNameID = 0;
 
                 combatant.TargetID = *(uint*)&p[combatantOffsets.TargetID];
                 if (combatant.TargetID == 3758096384u)
@@ -1072,7 +1072,7 @@ namespace FFXIV_GameSense
         internal int FateID { get; private set; }
         internal int EventType { get; private set; }
         internal int CairnIsUnlocked { get; private set; }
-        internal int ContentID { get; private set; }
+        internal int BNpcNameID { get; private set; }
         internal int TargetID { get; private set; }
         internal int TargetID2 { get; private set; }
         internal int Job { get; private set; }
@@ -1107,14 +1107,14 @@ namespace FFXIV_GameSense
             int offset;
             if (region == GameRegion.Chinese || region == GameRegion.Korean)
             {
-                ContentID = Is64Bit ? 0x1694 : 0x136C;
+                BNpcNameID = Is64Bit ? 0x1694 : 0x136C;
                 offset = Is64Bit ? 0x16B0 : 0x1388;
                 Job = offset + 0x3E;
                 Level = offset + 0x40;
             }
             else
             {
-                ContentID = Is64Bit ? 0x16D8 : 0x1380;
+                BNpcNameID = Is64Bit ? 0x16D8 : 0x1380;
                 offset = Is64Bit ? 0x16F8 : 0x13A0;
                 Job = offset + 0x40;
                 Level = offset + 0x42;
