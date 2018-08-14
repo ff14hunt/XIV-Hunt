@@ -143,5 +143,10 @@ namespace FFXIV_GameSense
             }
             catch (Exception ex) { LogHost.Default.WarnException("Could not show toast.", ex); }
         }
+
+        public static string GetAppTitle()
+        {
+            return ((AssemblyTitleAttribute)Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(AssemblyTitleAttribute), false))?.Title;
+        }
     }
 }

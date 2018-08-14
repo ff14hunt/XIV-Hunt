@@ -466,14 +466,8 @@ namespace FFXIV_GameSense
         {
             try
             {
-                if (r == HuntRank.S && Settings.Default.SBell != Resources.NoSoundAlert)
-                    w1.Ssp.Play();
-                else if (r == HuntRank.A && Settings.Default.ABell != Resources.NoSoundAlert)
-                    w1.Asp.Play();
-                else if (r == HuntRank.B && Settings.Default.BBell != Resources.NoSoundAlert)
-                    w1.Bsp.Play();
-                else if (r == HuntRank.FATE && Settings.Default.FATEBell != Resources.NoSoundAlert)
-                    w1.FATEsp.Play();
+                if (w1.sounds.TryGetValue(r, out var soundPlayer))
+                    soundPlayer.Play();
             }
             catch (Exception ex) { LogHost.Default.ErrorException(nameof(CheckAndPlaySound), ex); }
         }

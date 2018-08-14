@@ -29,10 +29,7 @@ namespace FFXIV_GameSense
     {
         private DispatcherTimer dispatcherTimer1s;
         private FFXIVHunts hunts;
-        internal SoundPlayer Ssp;
-        internal SoundPlayer Asp;
-        internal SoundPlayer Bsp;
-        internal SoundPlayer FATEsp;
+        internal Dictionary<HuntRank, SoundPlayer> sounds = new Dictionary<HuntRank, SoundPlayer>();
         private AlarmButton currentCMPlacement;
         private System.Windows.Forms.NotifyIcon trayIcon;
         private ViewModel vm;
@@ -182,11 +179,10 @@ namespace FFXIV_GameSense
                     dispatcherTimer1s.Interval = TimeSpan.FromSeconds(dispatcherTimer1s.Interval.TotalSeconds + 1);
                 if (ex is FFXIVMemory.MemoryScanException)
                     LogHost.Default.InfoException(nameof(FFXIVMemory.MemoryScanException), ex);
+                else if (ex is Win32Exception)
+                    LogHost.Default.ErrorException("Could not read process memory. Possibly lacking privileges.", ex);
                 else
-                {
                     LogHost.Default.WarnException("Unknown exception", ex);
-                    //Program.WriteExceptionToErrorFile(ex);
-                }
             }
 #endif
         }
@@ -195,7 +191,7 @@ namespace FFXIV_GameSense
         {
             if (Program.mem == null || !Program.mem.ValidateProcess() || Program.mem.GetSelfCombatant() == null || Program.mem.Process.Id != (int?)ProcessComboBox.SelectedValue)
             {
-                HuntConnectionTextBlock.Text = string.Format(Properties.Resources.FormNoProcess, "ffxiv.exe" + (Environment.Is64BitProcess ? "/ffxiv_dx11.exe" : string.Empty));
+                HuntConnectionTextBlock.Text = string.Format(Properties.Resources.FormNoProcess, FFXIVProcessHelper.DX9ExeName + (Environment.Is64BitProcess ? "/"+FFXIVProcessHelper.DX11ExeName : string.Empty));
                 if (ProcessComboBox.SelectedValue != null && FFXIVProcessHelper.GetFFXIVProcess((int)ProcessComboBox.SelectedValue) != null)
                 {
                     if (Program.mem != null)
@@ -381,22 +377,17 @@ namespace FFXIV_GameSense
         {
             if(disposing)
             {
-                if (Ssp != null)
-                    Ssp.Dispose();
-                if (Asp != null)
-                    Asp.Dispose();
-                if (Bsp != null)
-                    Bsp.Dispose();
-                if (FATEsp != null)
-                    FATEsp.Dispose();
+                dispatcherTimer1s.Stop();
+                foreach (KeyValuePair<HuntRank, SoundPlayer> s in sounds)
+                    if (s.Value != null)
+                        s.Value.Dispose();
                 if (hunts != null)
                     hunts.Dispose();
-                Ssp = Asp = Bsp = FATEsp = null;
-                if(cts!=null)
+                sounds.Clear();
+                if (cts!=null)
                     cts.Dispose();
                 cts = null;
 
-                dispatcherTimer1s.Stop();
                 trayIcon.Dispose();
                 if (hunts != null)
                 {
@@ -437,19 +428,19 @@ namespace FFXIV_GameSense
             switch (r.Name)
             {
                 case "SBell":
-                    Ssp = new SoundPlayer(soundFile);
+                    sounds[HuntRank.S] = new SoundPlayer(soundFile);
                     Settings.Default.SBell = soundFile;
                     return true;
                 case "ABell":
-                    Asp = new SoundPlayer(soundFile);
+                    sounds[HuntRank.A] = new SoundPlayer(soundFile);
                     Settings.Default.ABell = soundFile;
                     return true;
                 case "BBell":
-                    Bsp = new SoundPlayer(soundFile);
+                    sounds[HuntRank.B] = new SoundPlayer(soundFile);
                     Settings.Default.BBell = soundFile;
                     return true;
                 case "FATEBell":
-                    FATEsp = new SoundPlayer(soundFile);
+                    sounds[HuntRank.FATE] = new SoundPlayer(soundFile);
                     Settings.Default.FATEBell = soundFile;
                     return true;
                 default:
@@ -461,22 +452,39 @@ namespace FFXIV_GameSense
         {
             r.ToolTip = Properties.Resources.NoSoundAlert;
             r.SetOff();
+            SoundPlayer s;
             switch (r.Name)
             {
                 case "SBell":
-                    if (Ssp != null) Ssp.Dispose();
+                    if (sounds.TryGetValue(HuntRank.S, out s))
+                    {
+                        s.Dispose();
+                        sounds.Remove(HuntRank.S);
+                    }
                     Settings.Default.SBell = Properties.Resources.NoSoundAlert;
                     break;
                 case "ABell":
-                    if (Asp != null) Asp.Dispose();
+                    if (sounds.TryGetValue(HuntRank.A, out s))
+                    {
+                        s.Dispose();
+                        sounds.Remove(HuntRank.A);
+                    }
                     Settings.Default.ABell = Properties.Resources.NoSoundAlert;
                     break;
                 case "BBell":
-                    if (Bsp != null) Bsp.Dispose();
+                    if (sounds.TryGetValue(HuntRank.B, out s))
+                    {
+                        s.Dispose();
+                        sounds.Remove(HuntRank.B);
+                    }
                     Settings.Default.BBell = Properties.Resources.NoSoundAlert;
                     break;
                 case "FATEBell":
-                    if (FATEsp != null) FATEsp.Dispose();
+                    if (sounds.TryGetValue(HuntRank.FATE, out s))
+                    {
+                        s.Dispose();
+                        sounds.Remove(HuntRank.FATE);
+                    }
                     Settings.Default.FATEBell = Properties.Resources.NoSoundAlert;
                     break;
                 default:
