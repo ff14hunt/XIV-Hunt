@@ -1,5 +1,6 @@
 ﻿using FFXIV_GameSense.Properties;
 using Microsoft.Win32;
+using NAudio.Wave;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -31,6 +32,19 @@ namespace FFXIV_GameSense
             Closing += SettingsForm_Closing;
             if (!Directory.Exists(Settings.Default.PerformDirectory))
                 PerformDirectoryTextBox.Text = string.Empty;
+            RefreshAudioDevicesComboBox();
+        }
+
+        private void RefreshAudioDevicesComboBox()
+        {
+            for (int n = 0; n < WaveOut.DeviceCount; n++)
+            {
+                WaveOutCapabilities waveOutCapabilities = WaveOut.GetCapabilities(n);
+                if(!AudioDevicesComboBox.Items.Contains(waveOutCapabilities.ProductName))
+                    AudioDevicesComboBox.Items.Add(waveOutCapabilities.ProductName);
+            }
+            if (AudioDevicesComboBox.Items.Contains(Settings.Default.AudioDevice))
+                AudioDevicesComboBox.SelectedItem = Settings.Default.AudioDevice;
         }
 
         private void SettingsForm_Closing(object sender, System.ComponentModel.CancelEventArgs e) => Settings.Default.Save();
@@ -38,10 +52,6 @@ namespace FFXIV_GameSense
         private void StartWithWindowsCB_Unchecked(object sender, RoutedEventArgs e) => registryKey.DeleteValue(Program.AssemblyName.Name, false);
 
         private void StartWithWindowsCB_Checked(object sender, RoutedEventArgs e) => registryKey.SetValue(Program.AssemblyName.Name, processpath);
-
-        private void OncePerHuntCheckBox_Checked(object sender, RoutedEventArgs e) => HuntInterval.IsEnabled = false;
-
-        private void OncePerHuntCheckBox_Unchecked(object sender, RoutedEventArgs e) => HuntInterval.IsEnabled = true;
 
         private void FATEPercentInterval_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -71,5 +81,13 @@ namespace FFXIV_GameSense
         }
 
         private void ForgetPerformDirectoryButton_Click(object sender, RoutedEventArgs e) => Settings.Default.PerformDirectory = string.Empty;
+
+        private void AudioDevicesComboBox_GotFocus(object sender, RoutedEventArgs e) => RefreshAudioDevicesComboBox();
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if(SoundPlayer.WaveDevice != null)
+                SoundPlayer.WaveDevice.Volume = (float)e.NewValue;
+        }
     }
 }

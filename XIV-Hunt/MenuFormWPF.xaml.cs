@@ -2,6 +2,7 @@
 using FFXIV_GameSense.Properties;
 using FFXIV_GameSense.UI;
 using Microsoft.Win32;
+using NAudio.Wave;
 using Newtonsoft.Json;
 using Splat;
 using Squirrel;
@@ -13,7 +14,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,7 +29,7 @@ namespace FFXIV_GameSense
     {
         private DispatcherTimer dispatcherTimer1s;
         private FFXIVHunts hunts;
-        internal Dictionary<HuntRank, SoundPlayer> sounds = new Dictionary<HuntRank, SoundPlayer>();
+        internal Dictionary<HuntRank, MediaFoundationReader> sounds = new Dictionary<HuntRank, MediaFoundationReader>();
         private AlarmButton currentCMPlacement;
         private System.Windows.Forms.NotifyIcon trayIcon;
         private ViewModel vm;
@@ -104,7 +104,7 @@ namespace FFXIV_GameSense
             var slist = new string[] { Settings.Default.SBell, Settings.Default.ABell, Settings.Default.BBell, Settings.Default.FATEBell };
             for (int i = 0; i < slist.Length; i++)
             {
-                if (!string.IsNullOrEmpty(slist[i]) && !slist[i].Equals(Properties.Resources.NoSoundAlert) && File.Exists(slist[i]) && Path.GetExtension(slist[i]).Equals(".wav", StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrEmpty(slist[i]) && !slist[i].Equals(Properties.Resources.NoSoundAlert) && File.Exists(slist[i]))
                 {
                     switch (i)
                     {
@@ -378,7 +378,7 @@ namespace FFXIV_GameSense
             if(disposing)
             {
                 dispatcherTimer1s.Stop();
-                foreach (KeyValuePair<HuntRank, SoundPlayer> s in sounds)
+                foreach (KeyValuePair<HuntRank, MediaFoundationReader> s in sounds)
                     if (s.Value != null)
                         s.Value.Dispose();
                 if (hunts != null)
@@ -408,7 +408,7 @@ namespace FFXIV_GameSense
             OpenFileDialog ofd = new OpenFileDialog()
             {
                 Title = Properties.Resources.FormSFDialogTitle,
-                Filter = Properties.Resources.FormSFDialogFilter + " (*.wav)|*.wav",
+                Filter = Properties.Resources.FormSFDialogFilter + "|*.mp3;*.wav;*.wma;*.aiff;*.aac",
                 CheckFileExists = true,
                 CheckPathExists = true
             };
@@ -428,19 +428,19 @@ namespace FFXIV_GameSense
             switch (r.Name)
             {
                 case "SBell":
-                    sounds[HuntRank.S] = new SoundPlayer(soundFile);
+                    sounds[HuntRank.S] = new MediaFoundationReader(soundFile);
                     Settings.Default.SBell = soundFile;
                     return true;
                 case "ABell":
-                    sounds[HuntRank.A] = new SoundPlayer(soundFile);
+                    sounds[HuntRank.A] = new MediaFoundationReader(soundFile);
                     Settings.Default.ABell = soundFile;
                     return true;
                 case "BBell":
-                    sounds[HuntRank.B] = new SoundPlayer(soundFile);
+                    sounds[HuntRank.B] = new MediaFoundationReader(soundFile);
                     Settings.Default.BBell = soundFile;
                     return true;
                 case "FATEBell":
-                    sounds[HuntRank.FATE] = new SoundPlayer(soundFile);
+                    sounds[HuntRank.FATE] = new MediaFoundationReader(soundFile);
                     Settings.Default.FATEBell = soundFile;
                     return true;
                 default:
@@ -452,43 +452,36 @@ namespace FFXIV_GameSense
         {
             r.ToolTip = Properties.Resources.NoSoundAlert;
             r.SetOff();
-            SoundPlayer s;
+            MediaFoundationReader s;
             switch (r.Name)
             {
                 case "SBell":
                     if (sounds.TryGetValue(HuntRank.S, out s))
-                    {
-                        s.Dispose();
                         sounds.Remove(HuntRank.S);
-                    }
                     Settings.Default.SBell = Properties.Resources.NoSoundAlert;
                     break;
                 case "ABell":
                     if (sounds.TryGetValue(HuntRank.A, out s))
-                    {
-                        s.Dispose();
                         sounds.Remove(HuntRank.A);
-                    }
                     Settings.Default.ABell = Properties.Resources.NoSoundAlert;
                     break;
                 case "BBell":
                     if (sounds.TryGetValue(HuntRank.B, out s))
-                    {
-                        s.Dispose();
                         sounds.Remove(HuntRank.B);
-                    }
                     Settings.Default.BBell = Properties.Resources.NoSoundAlert;
                     break;
                 case "FATEBell":
                     if (sounds.TryGetValue(HuntRank.FATE, out s))
-                    {
-                        s.Dispose();
                         sounds.Remove(HuntRank.FATE);
-                    }
                     Settings.Default.FATEBell = Properties.Resources.NoSoundAlert;
                     break;
                 default:
                     return;
+            }
+            if(s != null)
+            {
+                s.Position = s.Length;
+                s.Dispose();
             }
         }
 

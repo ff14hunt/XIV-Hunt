@@ -265,7 +265,7 @@
     <comment>English: Choose a sound file to be played when a report is written to chat</comment>
   </data>
   <data name="FormSFDialogFilter" xml:space="preserve">
-    <value>Sound files</value>
+    <value>Audio files</value>
     <comment>English: Sound files</comment>
   </data>
   <data name="FormSFCMNewAlert" xml:space="preserve">

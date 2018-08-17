@@ -467,7 +467,7 @@ namespace FFXIV_GameSense
             try
             {
                 if (w1.sounds.TryGetValue(r, out var soundPlayer))
-                    soundPlayer.Play();
+                    _ = SoundPlayer.Play(soundPlayer);
             }
             catch (Exception ex) { LogHost.Default.ErrorException(nameof(CheckAndPlaySound), ex); }
         }

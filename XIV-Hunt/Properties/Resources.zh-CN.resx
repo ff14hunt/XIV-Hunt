@@ -215,7 +215,7 @@
     <value>Choose a sound file to be played when a report is written to chat</value>
   </data>
   <data name="FormSFDialogFilter" xml:space="preserve">
-    <value>Sound files</value>
+    <value>音频文件</value>
   </data>
   <data name="FormSFCMNewAlert" xml:space="preserve">
     <value>Choose new alert...</value>

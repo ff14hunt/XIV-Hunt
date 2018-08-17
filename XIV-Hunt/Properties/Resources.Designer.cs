@@ -701,7 +701,7 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sound files.
+        ///   Looks up a localized string similar to Audio files.
         /// </summary>
         public static string FormSFDialogFilter {
             get {
