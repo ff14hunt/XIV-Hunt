@@ -18,7 +18,7 @@ namespace FFXIV_GameSense
                 await Task.Delay(10);
             WaveDevice = new WaveOutEvent
             {
-                Volume = Settings.Default.Volume,//TODO: live
+                Volume = Settings.Default.Volume,
                 DeviceNumber = FindSelectedDeviceNumber()
             };
             WaveDevice.Init(reader);
