@@ -30,17 +30,19 @@ namespace FFXIV_GameSense
         {
             { 0x0, typeof(Entity) },
             { 0x1, typeof(PC) },
-            { 0x2, typeof(Monster) },//BattleNPC
-            { 0x3, typeof(NPC) },
+            { 0x2, typeof(Monster) },//BNPC = BattleNPC
+            { 0x3, typeof(NPC) },//ENPC = ?NPC
             { 0x4, typeof(Treasure) },//bronze only
             { 0x5, typeof(Aetheryte) },
-            { 0x6, typeof(Gathering) },
-            { 0x7, typeof(EObject) },//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
+            { 0x6, typeof(GatheringPoint) },
+            { 0x7, typeof(EObject) },//EOBJ = EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
             { 0x8, typeof(Mount) },
             { 0x9, typeof(Minion) },
             { 0xA, typeof(Retainer) },
-            { 0xB, typeof(LeyLines) },//don't know what else this includes
-            { 0xC, typeof(Furniture) },
+            { 0xB, typeof(Area) },//don't know what else this includes
+            { 0xC, typeof(Housing) },
+            { 0xD, typeof(Cutscene) },
+            { 0xE, typeof(CardStand) },
         };
 
         private const string charmapSignature32 = "81f9ffff0000741781f958010000730f8b0c8d";
@@ -757,7 +759,7 @@ namespace FFXIV_GameSense
                     byte[] c = GetByteArray(p, 0x25D0);
                     Entity entity = GetEntityFromByteArray(c);
                     //skip
-                    if (entity is Minion || entity is Furniture || entity is Gathering || entity is NPC || entity is LeyLines || entity is Retainer)
+                    if (entity is Minion || entity is Housing || entity is GatheringPoint || entity is NPC || entity is Area || entity is Retainer)
                         continue;
                     if (entity.ID != 0 && entity.ID != 3758096384u && !result.Exists((Entity x) => x.ID == entity.ID))
                     {

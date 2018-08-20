@@ -194,7 +194,7 @@ namespace FFXIV_GameSense
 
     public class Aetheryte : Entity  { }
 
-    public class Gathering : Entity { }
+    public class GatheringPoint : Entity { }
     
     public class Mount : Entity { }
 
@@ -202,9 +202,13 @@ namespace FFXIV_GameSense
 
     public class Retainer : Entity { }
 
-    public class Furniture : Entity { }
+    public class Housing : Entity { }
 
-    public class LeyLines : Entity { }
+    public class Area : Entity { }
+
+    public class Cutscene : Entity { }
+
+    public class CardStand : Entity { }
 
     public class FATE
     {
