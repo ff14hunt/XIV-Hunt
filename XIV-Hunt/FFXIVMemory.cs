@@ -20,32 +20,27 @@ namespace FFXIV_GameSense
             public MemoryScanException(string message) : base(message) { }
         }
 
-        private enum ObjectType : byte
-        {
-            Unknown = 0x00,
-            PC = 0x01,
-            Monster = 0x02,//BattleNPC
-            NPC = 0x03,
-            Treasure = 0x04,//bronze only
-            Aetheryte = 0x05,
-            Gathering = 0x06,
-            EObject = 0x07,//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
-            Mount = 0x08,
-            Minion = 0x09,
-            Retainer = 0x0A,
-            LeyLines = 0x0B,//don't know what else this includes
-            Furniture = 0xC
-        }
-
         private Thread _thread;
         private readonly CancellationTokenSource cts;
         internal List<Entity> Combatants { get; private set; }
         internal object CombatantsLock => new object();
         internal event EventHandler<CommandEventArgs> OnNewCommand = delegate { };
         private bool Is64Bit => _mode == FFXIVClientMode.FFXIV_64;
-        private readonly Dictionary<ObjectType, Type> objTypes = new Dictionary<ObjectType, Type>
+        private readonly Dictionary<byte, Type> objTypes = new Dictionary<byte, Type>
         {
-            { ObjectType.Unknown, typeof(Entity) }
+            { 0x0, typeof(Entity) },
+            { 0x1, typeof(PC) },
+            { 0x2, typeof(Monster) },//BattleNPC
+            { 0x3, typeof(NPC) },
+            { 0x4, typeof(Treasure) },//bronze only
+            { 0x5, typeof(Aetheryte) },
+            { 0x6, typeof(Gathering) },
+            { 0x7, typeof(EObject) },//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
+            { 0x8, typeof(Mount) },
+            { 0x9, typeof(Minion) },
+            { 0xA, typeof(Retainer) },
+            { 0xB, typeof(LeyLines) },//don't know what else this includes
+            { 0xC, typeof(Furniture) },
         };
 
         private const string charmapSignature32 = "81f9ffff0000741781f958010000730f8b0c8d";
@@ -124,9 +119,6 @@ namespace FFXIV_GameSense
             {
                 _mode = FFXIVClientMode.Unknown;
             }
-
-            foreach (var t in Enum.GetValues(typeof(ObjectType)).Cast<ObjectType>().Skip(1))
-                objTypes[t]= Type.GetType("FFXIV_GameSense." + t.ToString());
 
             GetPointerAddress();
 
@@ -783,7 +775,7 @@ namespace FFXIV_GameSense
             Entity entity;
             fixed (byte* p = source)
             {
-                entity = (Entity)Activator.CreateInstance(objTypes[(ObjectType)p[combatantOffsets.Type]]);//alternatively a manually typed switch statement
+                entity = (Entity)Activator.CreateInstance(objTypes[objTypes.ContainsKey(p[combatantOffsets.Type]) ? p[combatantOffsets.Type] : (byte)0]);//alternatively a manually typed switch statement
                 entity.Name = GetStringFromBytes(source, combatantOffsets.Name);
                 entity.ID = *(uint*)&p[combatantOffsets.ID];
                 entity.OwnerID = *(uint*)&p[combatantOffsets.OwnerID];
