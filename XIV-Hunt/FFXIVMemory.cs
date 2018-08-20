@@ -26,7 +26,7 @@ namespace FFXIV_GameSense
         internal object CombatantsLock => new object();
         internal event EventHandler<CommandEventArgs> OnNewCommand = delegate { };
         private bool Is64Bit => _mode == FFXIVClientMode.FFXIV_64;
-        private readonly Dictionary<byte, Type> objTypes = new Dictionary<byte, Type>
+        private static readonly Dictionary<byte, Type> ObjectTypeMap = new Dictionary<byte, Type>
         {
             { 0x0, typeof(Entity) },
             { 0x1, typeof(PC) },
@@ -775,7 +775,7 @@ namespace FFXIV_GameSense
             Entity entity;
             fixed (byte* p = source)
             {
-                entity = (Entity)Activator.CreateInstance(objTypes[objTypes.ContainsKey(p[combatantOffsets.Type]) ? p[combatantOffsets.Type] : (byte)0]);//alternatively a manually typed switch statement
+                entity = (Entity)Activator.CreateInstance(ObjectTypeMap[ObjectTypeMap.ContainsKey(p[combatantOffsets.Type]) ? p[combatantOffsets.Type] : (byte)0]);//alternatively a manually typed switch statement
                 entity.Name = GetStringFromBytes(source, combatantOffsets.Name);
                 entity.ID = *(uint*)&p[combatantOffsets.ID];
                 entity.OwnerID = *(uint*)&p[combatantOffsets.OwnerID];
