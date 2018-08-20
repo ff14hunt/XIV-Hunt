@@ -5,24 +5,6 @@ using XIVDB;
 
 namespace FFXIV_GameSense
 {
-
-    public enum ObjectType : byte
-    {
-        Unknown = 0x00,
-        PC = 0x01,
-        Monster = 0x02,//BattleNPC
-        NPC = 0x03,
-        Treasure = 0x04,//bronze only
-        Aetheryte = 0x05,
-        Gathering = 0x06,
-        EObject = 0x07,//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
-        Mount = 0x08,
-        Minion = 0x09,
-        Retainer = 0x0A,
-        LeyLines = 0x0B,//don't know what else this includes
-        Furniture = 0xC
-    }
-
     public enum EObjType : ushort
     {
         Unknown,
@@ -39,31 +21,13 @@ namespace FFXIV_GameSense
         BronzeTrap = 5478
     }
 
-    public class Combatant
+    public class Entity
     {
         public uint ID { get; set; }
         public uint OwnerID { get; set; }
         public int Order { get; set; }
-        public ObjectType Type { get; set; }
         public uint TargetID { get; set; }
-
-        public JobEnum Job { get; set; }
-        public string JobName => Enum.GetName(typeof(JobEnum), Job);
-        public byte Level { get; set; }
         public string Name { get; set; }
-        public ushort BNpcNameID { get; set; }
-        public uint FateID { get; set; }
-        public uint CurrentHP { get; set; }
-        public uint MaxHP { get; set; }
-        public uint CurrentMP { get; set; }
-        public uint MaxMP { get; set; }
-        public ushort MaxTP { get; set; }
-        public ushort CurrentTP { get; set; }
-        public ushort MaxGP { get; set; }
-        public ushort CurrentGP { get; set; }
-        public ushort MaxCP { get; set; }
-        public ushort CurrentCP { get; set; }
-
         public float PosX { get; set; }
         public float PosY { get; set; }
         public float PosZ { get; set; }
@@ -71,28 +35,7 @@ namespace FFXIV_GameSense
         public float HeadingDegree => (float)((Heading + Math.PI) * (180.0 / Math.PI));
         public byte EffectiveDistance { get; set; }
 
-        public EObjType EventType { get; set; }
-        public bool CairnIsUnlocked = false;
-
-        public List<Status> StatusList = new List<Status>();
-
-        public float HPPercent => ((float)CurrentHP / (MaxHP * 100));
-        public float MPPercent => ((float)CurrentMP / (MaxMP * 100));
-        public float TPPercent => ((float)CurrentTP / (MaxTP * 100));
-        public float GPPercent => ((float)CurrentGP / (MaxGP * 100));
-        public float CPPercent => ((float)CurrentCP / (MaxCP * 100));
-
-        public bool IsBattleClass() => !(Job >= JobEnum.CRP && Job <= JobEnum.FSH);
-
-        public bool IsGatherer() => IsGatherer(Job);
-
-        public static bool IsGatherer(JobEnum j) => j >= JobEnum.MIN && j <= JobEnum.FSH;
-
-        public bool IsCrafter() => IsCrafter(Job);
-
-        public static bool IsCrafter(JobEnum j) => j >= JobEnum.CRP && j <= JobEnum.CUL;
-
-        public float GetDistanceTo(Combatant target)
+        public float GetDistanceTo(Entity target)
         {
             var distanceX = Math.Abs(PosX - target.PosX);
             var distanceY = Math.Abs(PosY - target.PosY);
@@ -117,7 +60,7 @@ namespace FFXIV_GameSense
             return (float)Math.Sqrt((distanceX * distanceX) + (distanceY * distanceY));
         }
 
-        public float GetHorizontalDistanceTo(Combatant target)
+        public float GetHorizontalDistanceTo(Entity target)
         {
             var distanceX = Math.Abs(PosX - target.PosX);
             var distanceY = Math.Abs(PosY - target.PosY);
@@ -196,6 +139,72 @@ namespace FFXIV_GameSense
             return r /= 0.02f;
         }
     }
+
+    public abstract class Combatant : Entity
+    {
+        public JobEnum Job { get; set; }
+        public string JobName => Enum.GetName(typeof(JobEnum), Job);
+        public byte Level { get; set; }
+        public uint CurrentHP { get; set; }
+        public uint MaxHP { get; set; }
+        public uint CurrentMP { get; set; }
+        public uint MaxMP { get; set; }
+        public ushort MaxTP { get; set; }
+        public ushort CurrentTP { get; set; }
+        public ushort MaxGP { get; set; }
+        public ushort CurrentGP { get; set; }
+        public ushort MaxCP { get; set; }
+        public ushort CurrentCP { get; set; }
+        public List<Status> StatusList = new List<Status>();
+
+        public float HPPercent => ((float)CurrentHP / (MaxHP * 100));
+        public float MPPercent => ((float)CurrentMP / (MaxMP * 100));
+        public float TPPercent => ((float)CurrentTP / (MaxTP * 100));
+        public float GPPercent => ((float)CurrentGP / (MaxGP * 100));
+        public float CPPercent => ((float)CurrentCP / (MaxCP * 100));
+
+        public bool IsBattleClass() => !(Job >= JobEnum.CRP && Job <= JobEnum.FSH);
+
+        public bool IsGatherer() => IsGatherer(Job);
+
+        public static bool IsGatherer(JobEnum j) => j >= JobEnum.MIN && j <= JobEnum.FSH;
+
+        public bool IsCrafter() => IsCrafter(Job);
+
+        public static bool IsCrafter(JobEnum j) => j >= JobEnum.CRP && j <= JobEnum.CUL;
+    }
+
+    public class PC : Combatant { }
+
+    public class Monster : Combatant
+    {
+        public ushort BNpcNameID { get; set; }
+        public uint FateID { get; set; }
+    }
+
+    public class EObject : Entity
+    {
+        public EObjType SubType { get; set; }
+        public bool CairnIsUnlocked = false;
+    }
+
+    public class Treasure : Entity  { }
+
+    public class NPC : Entity  { }
+
+    public class Aetheryte : Entity  { }
+
+    public class Gathering : Entity { }
+    
+    public class Mount : Entity { }
+
+    public class Minion : Entity { }
+
+    public class Retainer : Entity { }
+
+    public class Furniture : Entity { }
+
+    public class LeyLines : Entity { }
 
     public class FATE
     {

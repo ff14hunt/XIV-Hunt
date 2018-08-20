@@ -195,22 +195,22 @@ namespace FFXIV_GameSense
             // Raises the events only when the given interval has
             // passed since the last event, so it is okay to call every frame
             _tickEngine.Pulse();
-            if (!OverlayWindow.IsVisible)
+            if (OverlayWindow == null || !OverlayWindow.IsVisible)
                 return;
             if (!MouseDown)
                 FollowTargetWindow();
-            Combatant self = Program.mem?.GetSelfCombatant();
-            List<Combatant> clist = Program.mem?._getCombatantList();
+            Entity self = Program.mem?.GetSelfCombatant();
+            List<Entity> clist = Program.mem?._getCombatantList();
             if (self != null && clist != null)
             {
                 clist.RemoveAll(c => c.OwnerID == self.ID);
-                foreach (uint ID in clist.Where(c => c.Type == ObjectType.PC).Select(x => x.ID).ToList())
+                foreach (uint ID in clist.OfType<PC>().Select(x => x.ID).ToList())
                     clist.RemoveAll(c => c.OwnerID == ID);
                 RemoveUnvantedCombatants(self, clist);
 
                 double centerY = OverlayWindow.Height / 2;
                 double centerX = OverlayWindow.Width / 2;                
-                foreach (Combatant c in clist)
+                foreach (Entity c in clist)
                 {                               //ridiculous posx+posy as key, no idea what else to use
                     if (c.ID == 3758096384 && !miscDrawMap.ContainsKey(c.PosX + c.PosY))//for aetherytes, npcs, and other stuff;
                     {
@@ -261,7 +261,7 @@ namespace FFXIV_GameSense
             foreach (KeyValuePair<uint, EntityOverlayControl> entry in drawMap.ToArray())
             {
                 //Hide hoard/cairn, after Banded Coffer appeared... hmm Hoard will re-appear if going out of "sight" and in again
-                if (entry.Value.GetName().Equals("Hoard!") && (clist?.Any(c => c.EventType == EObjType.Banded) ?? false))
+                if (entry.Value.GetName().Equals("Hoard!") && (clist?.OfType<EObject>().Any(c => c.SubType == EObjType.Banded) ?? false))
                 {
                     entry.Value.Visibility = Visibility.Collapsed;
                     if (!hoardsDiscovered.Contains(entry.Key))
@@ -289,24 +289,24 @@ namespace FFXIV_GameSense
             }
         }
 
-        private void RemoveUnvantedCombatants(Combatant self, List<Combatant> clist)
+        private void RemoveUnvantedCombatants(Entity self, List<Entity> clist)
         {
-            clist.RemoveAll(c => c.BNpcNameID == 5042 || c.BNpcNameID == 7395);
+            clist.RemoveAll(c => c is Monster && (((Monster)c).BNpcNameID == 5042 || ((Monster)c).BNpcNameID == 7395));
             if (!Properties.Settings.Default.displaySelf)
                 clist.RemoveAll(c => c.ID == self.ID);
             if (!Properties.Settings.Default.displayMonsters)
-                clist.RemoveAll(c => c.Type == ObjectType.Monster);
+                clist.RemoveAll(c => c is Monster);
             if (!Properties.Settings.Default.displayTreasureCoffers)
-                clist.RemoveAll(c => c.Type == ObjectType.Treasure);
+                clist.RemoveAll(c => c is Treasure);
             if (!Properties.Settings.Default.displayCairns)
-                clist.RemoveAll(c => c.Type == ObjectType.EObject && c.EventType != EObjType.Silver && c.EventType != EObjType.Gold);
+                clist.RemoveAll(c => c is EObject && ((EObject)c).SubType != EObjType.Silver && ((EObject)c).SubType != EObjType.Gold);
             if (!Properties.Settings.Default.displayOtherPCs)
-                clist.RemoveAll(c => c.Type == ObjectType.PC && c.ID != self.ID);
+                clist.RemoveAll(c => c is PC && c.ID != self.ID);
             if (!Properties.Settings.Default.displaySilverTreasureCoffers)
-                clist.RemoveAll(c => c.Type == ObjectType.EObject && c.EventType == EObjType.Silver);
+                clist.RemoveAll(c => c is EObject && ((EObject)c).SubType == EObjType.Silver);
             if (!Properties.Settings.Default.displayGoldTreasureCoffers)
-                clist.RemoveAll(c => c.Type == ObjectType.EObject && c.EventType == EObjType.Gold);
-            if (clist.Any(c => c.Type == ObjectType.EObject && c.EventType == EObjType.Hoard && hoardsDiscovered.Contains(c.ID)))
+                clist.RemoveAll(c => c is EObject && ((EObject)c).SubType == EObjType.Gold);
+            if (clist.Any(c => c is EObject && ((EObject)c).SubType == EObjType.Hoard && hoardsDiscovered.Contains(c.ID)))
                 clist.RemoveAll(c => c.ID == hoardsDiscovered.Last());
         }
 

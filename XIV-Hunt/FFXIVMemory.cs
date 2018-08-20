@@ -20,12 +20,33 @@ namespace FFXIV_GameSense
             public MemoryScanException(string message) : base(message) { }
         }
 
+        private enum ObjectType : byte
+        {
+            Unknown = 0x00,
+            PC = 0x01,
+            Monster = 0x02,//BattleNPC
+            NPC = 0x03,
+            Treasure = 0x04,//bronze only
+            Aetheryte = 0x05,
+            Gathering = 0x06,
+            EObject = 0x07,//EventOBject some furniture, silver&gold treasure coffers, hoards, FATE items etc...
+            Mount = 0x08,
+            Minion = 0x09,
+            Retainer = 0x0A,
+            LeyLines = 0x0B,//don't know what else this includes
+            Furniture = 0xC
+        }
+
         private Thread _thread;
         private readonly CancellationTokenSource cts;
-        internal List<Combatant> Combatants { get; private set; }
+        internal List<Entity> Combatants { get; private set; }
         internal object CombatantsLock => new object();
         internal event EventHandler<CommandEventArgs> OnNewCommand = delegate { };
         private bool Is64Bit => _mode == FFXIVClientMode.FFXIV_64;
+        private readonly Dictionary<ObjectType, Type> objTypes = new Dictionary<ObjectType, Type>
+        {
+            { ObjectType.Unknown, typeof(Entity) }
+        };
 
         private const string charmapSignature32 = "81f9ffff0000741781f958010000730f8b0c8d";
         private const string charmapSignature64 = "488b420848c1e8033da701000077248bc0488d0d";
@@ -104,9 +125,12 @@ namespace FFXIV_GameSense
                 _mode = FFXIVClientMode.Unknown;
             }
 
+            foreach (var t in Enum.GetValues(typeof(ObjectType)).Cast<ObjectType>().Skip(1))
+                objTypes[t]= Type.GetType("FFXIV_GameSense." + t.ToString());
+
             GetPointerAddress();
 
-            Combatants = new List<Combatant>();
+            Combatants = new List<Entity>();
             cts = new CancellationTokenSource();
             _thread = new Thread(new ThreadStart(ScanMemoryLoop))
             {
@@ -171,7 +195,7 @@ namespace FFXIV_GameSense
 
         private void ScanCombatants()
         {
-            List<Combatant> c = _getCombatantList();
+            List<Entity> c = _getCombatantList();
             lock (CombatantsLock)
             {
                 Combatants = c;
@@ -405,7 +429,7 @@ namespace FFXIV_GameSense
             Debug.WriteLine(nameof(currentContentFinderConditionAddress) + ": 0x{0:X}", currentContentFinderConditionAddress.ToInt64());
             Debug.WriteLine(nameof(lastFailedCommandAddress) + ": 0x{0:X}", lastFailedCommandAddress.ToInt64());
 
-            Combatant c = GetSelfCombatant();
+            Entity c = GetSelfCombatant();
             if (c == null)
                 throw new MemoryScanException(string.Format(Properties.Resources.FailedToSigScan, nameof(charmapAddress)));
             else
@@ -567,9 +591,9 @@ namespace FFXIV_GameSense
             return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(BitConverter.ToUInt32(ba, 0)).AddMilliseconds(BitConverter.ToUInt16(ba, 4));
         }
 
-        public Combatant GetTargetCombatant()
+        public Entity GetTargetCombatant()
         {
-            Combatant target = null;
+            Entity target = null;
             IntPtr address = IntPtr.Zero;
 
             byte[] source = GetByteArray(targetAddress, 128);
@@ -590,18 +614,18 @@ namespace FFXIV_GameSense
             }
 
             source = GetByteArray(address, 0x3F40);
-            target = GetCombatantFromByteArray(source);
+            target = GetEntityFromByteArray(source);
             return target;
         }
 
-        public Combatant GetSelfCombatant()
+        public PC GetSelfCombatant()
         {
-            Combatant self = null;
+            PC self = null;
             IntPtr address = Is64Bit ? (IntPtr)GetUInt64(charmapAddress) : (IntPtr)GetUInt32(charmapAddress);
             if (address.ToInt64() > 0)
             {
                 byte[] source = GetByteArray(address, 0x3F40);
-                self = GetCombatantFromByteArray(source);
+                self = (PC)GetEntityFromByteArray(source);
             }
             return self;
         }
@@ -719,10 +743,10 @@ namespace FFXIV_GameSense
                 return f;
         }
 
-        internal unsafe List<Combatant> _getCombatantList()
+        internal unsafe List<Entity> _getCombatantList()
         {
             uint num = 344;
-            List<Combatant> result = new List<Combatant>();
+            List<Entity> result = new List<Entity>();
 
             uint sz = Is64Bit ? (uint)8 : 4;
             byte[] source = GetByteArray(charmapAddress, sz * num);
@@ -739,77 +763,76 @@ namespace FFXIV_GameSense
                 if (!(p == IntPtr.Zero))
                 {
                     byte[] c = GetByteArray(p, 0x25D0);
-                    Combatant combatant = GetCombatantFromByteArray(c);
+                    Entity entity = GetEntityFromByteArray(c);
                     //skip
-                    if (combatant.Type == ObjectType.Minion || combatant.Type == ObjectType.Furniture || combatant.Type == ObjectType.Gathering || combatant.Type == ObjectType.NPC || combatant.Type == ObjectType.LeyLines || combatant.Type == ObjectType.Retainer)
+                    if (entity is Minion || entity is Furniture || entity is Gathering || entity is NPC || entity is LeyLines || entity is Retainer)
                         continue;
-                    if (combatant.ID != 0 && combatant.ID != 3758096384u && !result.Exists((Combatant x) => x.ID == combatant.ID))
+                    if (entity.ID != 0 && entity.ID != 3758096384u && !result.Exists((Entity x) => x.ID == entity.ID))
                     {
-                        combatant.Order = i;
-                        result.Add(combatant);
+                        entity.Order = i;
+                        result.Add(entity);
                     }
                 }
             }
             return result;
         }
 
-        internal unsafe Combatant GetCombatantFromByteArray(byte[] source)
+        internal unsafe Entity GetEntityFromByteArray(byte[] source)
         {
             int offset = 0;
-            Combatant combatant = new Combatant();
+            Entity entity;
             fixed (byte* p = source)
             {
-                combatant.Name = GetStringFromBytes(source, combatantOffsets.Name);
-                combatant.ID = *(uint*)&p[combatantOffsets.ID];
-                combatant.OwnerID = *(uint*)&p[combatantOffsets.OwnerID];
-                if (combatant.OwnerID == 3758096384u)
+                entity = (Entity)Activator.CreateInstance(objTypes[(ObjectType)p[combatantOffsets.Type]]);//alternatively a manually typed switch statement
+                entity.Name = GetStringFromBytes(source, combatantOffsets.Name);
+                entity.ID = *(uint*)&p[combatantOffsets.ID];
+                entity.OwnerID = *(uint*)&p[combatantOffsets.OwnerID];
+                if (entity.OwnerID == 3758096384u)
                 {
-                    combatant.OwnerID = 0u;
+                    entity.OwnerID = 0u;
                 }
-                combatant.Type = (ObjectType)p[combatantOffsets.Type];
-                combatant.EffectiveDistance = p[combatantOffsets.EffectiveDistance];
 
-                combatant.PosX = *(float*)&p[combatantOffsets.PosX];
-                combatant.PosZ = *(float*)&p[combatantOffsets.PosZ];
-                combatant.PosY = *(float*)&p[combatantOffsets.PosY];
-                combatant.Heading = *(float*)&p[combatantOffsets.Heading];
+                entity.EffectiveDistance = p[combatantOffsets.EffectiveDistance];
 
-                if (combatant.Type == ObjectType.EObject)
+                entity.PosX = *(float*)&p[combatantOffsets.PosX];
+                entity.PosZ = *(float*)&p[combatantOffsets.PosZ];
+                entity.PosY = *(float*)&p[combatantOffsets.PosY];
+                entity.Heading = *(float*)&p[combatantOffsets.Heading];
+
+                if (entity is EObject)
                 {
                     IntPtr eventTypeAddr = Is64Bit ? *(IntPtr*)&p[combatantOffsets.EventType] : new IntPtr(*(int*)&p[combatantOffsets.EventType]);
-                    combatant.EventType = (EObjType)GetUInt16(eventTypeAddr, 4);
-                    if (combatant.EventType == EObjType.CairnOfPassage || combatant.EventType == EObjType.CairnOfReturn || combatant.EventType == EObjType.BeaconOfPassage || combatant.EventType == EObjType.BeaconOfReturn)
-                        combatant.CairnIsUnlocked = *(&p[combatantOffsets.CairnIsUnlocked]) == 0x04;
+                    ((EObject)entity).SubType = (EObjType)GetUInt16(eventTypeAddr, 4);
+                    if (((EObject)entity).SubType == EObjType.CairnOfPassage || ((EObject)entity).SubType == EObjType.CairnOfReturn || ((EObject)entity).SubType == EObjType.BeaconOfPassage || ((EObject)entity).SubType == EObjType.BeaconOfReturn)
+                        ((EObject)entity).CairnIsUnlocked = *(&p[combatantOffsets.CairnIsUnlocked]) == 0x04;
                 }
-                if (combatant.Type == ObjectType.Monster)
+                if (entity is Monster)
                 {
                     //if(*(uint*)&p[0xE4]==2149253119)//necessary?
-                    combatant.FateID = *(uint*)&p[combatantOffsets.FateID];
-                    combatant.BNpcNameID = *(ushort*)&p[combatantOffsets.BNpcNameID];
-                }
-                else
-                    combatant.FateID = combatant.BNpcNameID = 0;
-
-                combatant.TargetID = *(uint*)&p[combatantOffsets.TargetID];
-                if (combatant.TargetID == 3758096384u)
-                {
-                    combatant.TargetID = *(uint*)&p[combatantOffsets.TargetID2];
+                    ((Monster)entity).FateID = *(uint*)&p[combatantOffsets.FateID];
+                    ((Monster)entity).BNpcNameID = *(ushort*)&p[combatantOffsets.BNpcNameID];
                 }
 
-                if (combatant.Type == ObjectType.PC || combatant.Type == ObjectType.Monster)
+                entity.TargetID = *(uint*)&p[combatantOffsets.TargetID];
+                if (entity.TargetID == 3758096384u)
                 {
-                    combatant.Job = (JobEnum)p[combatantOffsets.Job];
-                    combatant.Level = p[combatantOffsets.Level];
-                    combatant.CurrentHP = *(uint*)&p[combatantOffsets.CurrentHP];
-                    combatant.MaxHP = *(uint*)&p[combatantOffsets.MaxHP];
-                    combatant.CurrentMP = *(uint*)&p[combatantOffsets.CurrentMP];
-                    combatant.MaxMP = *(uint*)&p[combatantOffsets.MaxMP];
-                    combatant.CurrentTP = *(ushort*)&p[combatantOffsets.CurrentTP];
-                    combatant.MaxTP = 1000;
-                    combatant.CurrentGP = *(ushort*)&p[combatantOffsets.CurrentGP];
-                    combatant.MaxGP = *(ushort*)&p[combatantOffsets.MaxGP];
-                    combatant.CurrentCP = *(ushort*)&p[combatantOffsets.CurrentCP];
-                    combatant.MaxCP = *(ushort*)&p[combatantOffsets.MaxCP];
+                    entity.TargetID = *(uint*)&p[combatantOffsets.TargetID2];
+                }
+
+                if (entity is Combatant)
+                {
+                    ((Combatant)entity).Job = (JobEnum)p[combatantOffsets.Job];
+                    ((Combatant)entity).Level = p[combatantOffsets.Level];
+                    ((Combatant)entity).CurrentHP = *(uint*)&p[combatantOffsets.CurrentHP];
+                    ((Combatant)entity).MaxHP = *(uint*)&p[combatantOffsets.MaxHP];
+                    ((Combatant)entity).CurrentMP = *(uint*)&p[combatantOffsets.CurrentMP];
+                    ((Combatant)entity).MaxMP = *(uint*)&p[combatantOffsets.MaxMP];
+                    ((Combatant)entity).CurrentTP = *(ushort*)&p[combatantOffsets.CurrentTP];
+                    ((Combatant)entity).MaxTP = 1000;
+                    ((Combatant)entity).CurrentGP = *(ushort*)&p[combatantOffsets.CurrentGP];
+                    ((Combatant)entity).MaxGP = *(ushort*)&p[combatantOffsets.MaxGP];
+                    ((Combatant)entity).CurrentCP = *(ushort*)&p[combatantOffsets.CurrentCP];
+                    ((Combatant)entity).MaxCP = *(ushort*)&p[combatantOffsets.MaxCP];
 
                     offset = combatantOffsets.StatusEffectsStart;
                     int countedStatusEffects = 0;
@@ -821,26 +844,14 @@ namespace FFXIV_GameSense
                             status.Value = *(short*)&p[offset + 2];
                             status.Timer = *(float*)&p[offset + 4];
                             status.CasterId = *(uint*)&p[offset + 8];
-                            combatant.StatusList.Add(status);
+                            (entity as Combatant).StatusList.Add(status);
                         }
                         offset += 12;
                         countedStatusEffects++;
                     }
                 }
-                else
-                {
-                    combatant.CurrentHP =
-                    combatant.MaxHP =
-                    combatant.CurrentMP =
-                    combatant.MaxMP =
-                    combatant.MaxTP =
-                    combatant.MaxGP =
-                    combatant.CurrentGP =
-                    combatant.CurrentCP =
-                    combatant.CurrentTP = 0;
-                }
             }
-            return combatant;
+            return entity;
         }
 
         internal async Task PlayPerformance(Performance p, CancellationToken performCancelationToken)

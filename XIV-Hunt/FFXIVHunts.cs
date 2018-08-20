@@ -267,7 +267,7 @@ namespace FFXIV_GameSense
                 await LeaveDCZone();
             }
             lastZone = thisZone;
-            foreach (Combatant c in mem.Combatants.Where(c => c.Type == ObjectType.Monster && hunts.Exists(h => h.Id == c.BNpcNameID && GetZoneId(c.BNpcNameID) == thisZone)))
+            foreach (Monster c in mem.Combatants.OfType<Monster>().Where(c => hunts.Exists(h => h.Id == c.BNpcNameID && GetZoneId(c.BNpcNameID) == thisZone)))
             {
                 _ = ReportHunt(c);
             }
@@ -472,7 +472,7 @@ namespace FFXIV_GameSense
             catch (Exception ex) { LogHost.Default.ErrorException(nameof(CheckAndPlaySound), ex); }
         }
 
-        private async Task ReportHunt(Combatant c)
+        private async Task ReportHunt(Monster c)
         {
             int idx = hunts.FindIndex(h => h.Id == c.BNpcNameID);
             if (hunts[idx].LastReported > ServerTimeUtc.AddSeconds(-5) && c.CurrentHP > 0)

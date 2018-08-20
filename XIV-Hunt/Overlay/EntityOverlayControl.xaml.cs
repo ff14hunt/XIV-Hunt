@@ -45,7 +45,7 @@ namespace FFXIV_GameSense.Overlay
             InitializeComponent();
         }
 
-        public EntityOverlayControl(Combatant c, bool IsSelf = false)
+        public EntityOverlayControl(Entity c, bool IsSelf = false)
         {
             InitializeComponent();
             Model = new EntityOverlayControlViewModel
@@ -57,13 +57,13 @@ namespace FFXIV_GameSense.Overlay
             DataContext = Model;
         }
 
-        private Brush GetColor(Combatant c, bool IsSelf)
+        private Brush GetColor(Entity c, bool IsSelf)
         {
-            if(c.Type==ObjectType.PC)
+            if(c is PC)
                 return new SolidColorBrush(IsSelf ? Colors.LightGreen : Colors.LightBlue);
-            if(c.Type==ObjectType.Monster )
+            if(c is Monster)
             {
-                if(Hunt.TryGetHuntRank(c.BNpcNameID, out HuntRank hr))
+                if(Hunt.TryGetHuntRank(((Monster)c).BNpcNameID, out HuntRank hr))
                 {
                     return new SolidColorBrush(hr == HuntRank.B ? Color.FromArgb(255,0,0,0xE7) : Colors.Red);
                 }
@@ -74,7 +74,7 @@ namespace FFXIV_GameSense.Overlay
             return new SolidColorBrush(Colors.LightGray);
         }
 
-        public String GetName() => Model.Name;
+        public string GetName() => Model.Name;
 
         private void SetNameColor(Brush brush) => Model.NameColor = brush;
 
@@ -84,48 +84,48 @@ namespace FFXIV_GameSense.Overlay
             image.RenderTransform = rotateTransform;
         }
 
-        public void Update(Combatant c)
+        public void Update(Entity c)
         {
-            Model.Name = !string.IsNullOrWhiteSpace(c.Name) ? c.Name : c.Type.ToString() + " No Name";
-            if (c.Type == ObjectType.PC)
+            Model.Name = !string.IsNullOrWhiteSpace(c.Name) ? c.Name : c.GetType().Name + " No Name";
+            if (c is PC)
             {
                 RotateImage(-c.HeadingDegree);
             }
-            else if(c.Type==ObjectType.EObject)
+            else if(c is EObject)
             {
                 Model.Icon = GetIcon(c);
-                if (string.IsNullOrWhiteSpace(c.Name) && c.EventType == EObjType.Hoard)
+                if (string.IsNullOrWhiteSpace(c.Name) && ((EObject)c).SubType == EObjType.Hoard)
                     Model.Name = "Hoard!";
             }
-            else if (c.Type == ObjectType.Monster && c.CurrentHP == 0)
+            else if (c is Combatant && ((Combatant)c).CurrentHP == 0)
                 Visibility = Visibility.Hidden;
         }
 
-        private string GetIcon(Combatant c)
+        private string GetIcon(Entity c)
         {
-            if (c.Type == ObjectType.PC)
-                return IconUris[ObjectType.PC.ToString()];
-            if (c.Type == ObjectType.Monster)
-                return IconUris[ObjectType.Monster.ToString()];
-            if (c.Type==ObjectType.Aetheryte)
-                return IconUris[ObjectType.Aetheryte.ToString()];
-            if (c.Type == ObjectType.Treasure || c.EventType==EObjType.BronzeTrap)
-                return IconUris[ObjectType.Treasure.ToString()];
-            if(c.Type==ObjectType.EObject)
+            if (c is PC)
+                return IconUris[typeof(PC).Name];
+            if (c is Monster)
+                return IconUris[typeof(Monster).Name];
+            if (c is Aetheryte)
+                return IconUris[typeof(Aetheryte).Name];
+            if (c is Treasure || (c is EObject && ((EObject)c).SubType == EObjType.BronzeTrap))
+                return IconUris[typeof(Treasure).Name];
+            if(c is EObject)
             {
-                if (c.EventType == EObjType.CairnOfPassage || c.EventType==EObjType.BeaconOfPassage)
-                    return IconUris[EObjType.CairnOfPassage.ToString() + (c.CairnIsUnlocked ? "Unlocked" : string.Empty)];
-                if (c.EventType == EObjType.CairnOfReturn || c.EventType == EObjType.BeaconOfReturn)
-                    return IconUris[EObjType.CairnOfReturn.ToString() + (c.CairnIsUnlocked ? "Unlocked" : string.Empty)];
-                if (c.EventType == EObjType.Silver)
+                if (((EObject)c).SubType == EObjType.CairnOfPassage || ((EObject)c).SubType==EObjType.BeaconOfPassage)
+                    return IconUris[EObjType.CairnOfPassage.ToString() + (((EObject)c).CairnIsUnlocked ? "Unlocked" : string.Empty)];
+                if (((EObject)c).SubType == EObjType.CairnOfReturn || ((EObject)c).SubType == EObjType.BeaconOfReturn)
+                    return IconUris[EObjType.CairnOfReturn.ToString() + (((EObject)c).CairnIsUnlocked ? "Unlocked" : string.Empty)];
+                if (((EObject)c).SubType == EObjType.Silver)
                     return IconUris[EObjType.Silver.ToString()];
-                if (c.EventType == EObjType.Gold)
+                if (((EObject)c).SubType == EObjType.Gold)
                     return IconUris[EObjType.Gold.ToString()];
-                if (c.EventType == EObjType.Banded || c.EventType == EObjType.Hoard)
+                if (((EObject)c).SubType == EObjType.Banded || ((EObject)c).SubType == EObjType.Hoard)
                     return IconUris[EObjType.Banded.ToString()];
             }
-            if (c.Type == ObjectType.NPC)
-                return IconUris[ObjectType.NPC.ToString()];
+            if (c is NPC)
+                return IconUris[typeof(NPC).Name];
             return @"/Resources/Images/ui/uld/image2.tex.png";
         }
     }
