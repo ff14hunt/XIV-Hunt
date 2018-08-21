@@ -25,13 +25,13 @@ namespace FFXIV_GameSense.Overlay
         private const string icondir = @"/Resources/Images/ui/icon/060000/";
         internal static readonly Dictionary<string, string> IconUris = new Dictionary<string, string>
         {
-            { "PC", icondir+"060443.tex.png"},
-            { "NPC", "/Resources/Images/NPC.png" },
-            { "Monster", "/Resources/enemy.ico" },
-            { "Treasure", icondir+"060356.tex.png" },
+            { typeof(PC).Name, icondir+"060443.tex.png"},
+            { typeof(NPC).Name, "/Resources/Images/NPC.png" },
+            { typeof(Monster).Name, "/Resources/enemy.ico" },
+            { typeof(Treasure).Name, icondir+"060356.tex.png" },
             { "Silver", icondir+"060355.tex.png" },
             { "Gold", icondir+"060354.tex.png" },
-            { "Aetheryte", icondir+"060453.tex.png" },
+            { typeof(Aetheryte).Name, icondir+"060453.tex.png" },
             { "CairnOfReturn", icondir+"060905.tex.png" },
             { "CairnOfReturnUnlocked", icondir+"060906.tex.png" },
             { "CairnOfPassage", icondir+"060907.tex.png" },
