@@ -85,6 +85,7 @@ namespace FFXIV_GameSense
 
         internal static void WriteExceptionToErrorFile(Exception ex)
         {
+            //TODO: prevent localization
             File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "error.txt"), $"{DateTime.UtcNow} {ex.GetType().ToString()}:{ex.Message}{Environment.NewLine}{ex.StackTrace}{Environment.NewLine}");
         }
 
