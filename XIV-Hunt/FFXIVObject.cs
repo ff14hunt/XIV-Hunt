@@ -254,22 +254,16 @@ namespace FFXIV_GameSense
             Duration = f.Duration;
         }
 
-        public override bool Equals(System.Object obj)
+        public override bool Equals(object obj)
         {
             if (!(obj is FATE f) || obj == null)
                 return false;
             return (ID == f.ID);
         }
 
-        public override int GetHashCode()
-        {
-            return ID.GetHashCode();
-        }
+        public override int GetHashCode() => ID.GetHashCode();
 
-        public bool IsDataCenterShared()
-        {
-            return (ID > 962 && ID < 1101) || FATEInfo.EurekaFate;
-        }
+        public bool IsDataCenterShared() => (ID > 962 && ID < 1101) || FATEInfo?.EurekaFate == true;
     }
 
     public enum FATEState : byte

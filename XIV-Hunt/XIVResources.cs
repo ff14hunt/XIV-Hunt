@@ -17,7 +17,7 @@ namespace XIVDB
         public string Name { get; private set; }
         public string NameWithTags { get; private set; }
         public string IconMap { get; private set; }
-        public bool EurekaFate { get; private set; } = false;
+        public bool EurekaFate { get; private set; }
 
         public FATEInfo(CsvParser csv)
         {
@@ -111,6 +111,8 @@ namespace XIVDB
 
         internal static ushort GetFateId(string name, bool ignoreCase = false)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                return 0;
             foreach (KeyValuePair<ushort, FATEInfo> f in Fate)
                 if (f.Value.Name.Equals(name, ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
                     return f.Key;
