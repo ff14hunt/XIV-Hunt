@@ -424,4 +424,7 @@
   <data name="FormFATEPresets" xml:space="preserve">
     <value>FATEプリセット</value>
   </data>
+  <data name="DCInstanceMatch" xml:space="preserve">
+    <value>{0}: Instance matched. Tracked for {1} minutes. {2}</value>
+  </data>
 </root>

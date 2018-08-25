@@ -111,7 +111,7 @@ namespace FFXIV_GameSense
             });
             hubConnection.Connection.On<DataCenterInstanceMatchInfo>("DCInstanceMatch", instance =>
             {
-                string s = $"{Program.AssemblyName.Name}: Instance matched. Tracked for {(ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0")} minutes. {baseUrl}DCInstance/{instance.ID}";
+                string s = string.Format(Resources.DCInstanceMatch, Program.AssemblyName.Name, (ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0"), $"{baseUrl}DCInstance/{instance.ID}");
                 LogHost.Default.Info("DCInstanceMatch: " + s);
                 DCInstance = instance;
                 ChatMessage cm = new ChatMessage { MessageString = s };
@@ -501,7 +501,6 @@ namespace FFXIV_GameSense
         }
     }
 
-    [JsonObject]
     public class DataCenterInstanceMatchInfo
     {
         public uint ID { get; set; }

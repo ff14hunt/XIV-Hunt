@@ -19,7 +19,7 @@
                 <Image Source="Resources/LogIcon.png" MaxHeight="26" />
             </StackPanel>
         </Button>
-        <TextBlock x:Name="HuntConnectionTextBlock" Margin="10,37,0,0" Text="ConnectionStringDammy" Height="38" VerticalAlignment="Top"/>
+        <TextBlock x:Name="HuntConnectionTextBlock" Margin="10,37,0,0" Text="ConnectionStringDammy" Height="28" VerticalAlignment="Top"/>
         <TabControl Margin="5,65,5,5">
             <TabItem Header="{x:Static properties:Resources.FormTabCtrlNotifications}">
                 <GroupBox IsHitTestVisible="True" x:Name="HuntNotifyGroupBox" Margin="0,0,0,0" Header="{x:Static properties:Resources.GroupBoxHeader}" IsEnabled="False">

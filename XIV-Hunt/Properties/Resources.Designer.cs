@@ -1136,5 +1136,11 @@ namespace FFXIV_GameSense.Properties {
                 return ResourceManager.GetString("World", resourceCulture);
             }
         }
+
+        public static string DCInstanceMatch {
+            get {
+                return ResourceManager.GetString("DCInstanceMatch", resourceCulture);
+            }
+        }
     }
 }
