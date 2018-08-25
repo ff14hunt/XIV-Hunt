@@ -159,12 +159,54 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <ComboBox x:Name="LanguageComboBox" Margin="135,10,0,0" ToolTip="{x:Static properties:Resources.RestartForChanges}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=LanguageCI}" SelectedValuePath="Tag" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100">
-            <ComboBoxItem Content="English" Tag="en-US" />
-            <ComboBoxItem Content="Français" Tag="fr-FR" />
-            <ComboBoxItem Content="Deutsch" Tag="de-DE" />
-            <ComboBoxItem Content="日本語" Tag="ja-JP" />
-            <ComboBoxItem Content="中文" Tag="zh-CN" />
-            <ComboBoxItem Content="한국어" Tag="ko-KR" />
+            <ComboBoxItem Tag="en-US">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="Resources/Images/english.png"/>
+                        <TextBlock>English</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="fr-FR" >
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="Resources/Images/french.png"/>
+                        <TextBlock>Français</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="de-DE">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="Resources/Images/german.png"/>
+                        <TextBlock>Deutsch</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="ja-JP">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="Resources/Images/japanese.png"/>
+                        <TextBlock>日本語</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="zh-CN">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="Resources/Images/chinese.png"/>
+                        <TextBlock>中文</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="ko-KR">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="Resources/Images/korean.png"/>
+                        <TextBlock>한국어</TextBlock>
+                </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
         </ComboBox>
     </Grid>
 </Window>

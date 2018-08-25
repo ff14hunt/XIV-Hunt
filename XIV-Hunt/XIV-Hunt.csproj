@@ -594,6 +594,14 @@
   <ItemGroup>
     <Resource Include="Resources\Images\DeleteIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\chinese.png" />
+    <Resource Include="Resources\Images\english.png" />
+    <Resource Include="Resources\Images\french.png" />
+    <Resource Include="Resources\Images\german.png" />
+    <Resource Include="Resources\Images\japanese.png" />
+    <Resource Include="Resources\Images\korean.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
