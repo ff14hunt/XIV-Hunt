@@ -53,8 +53,8 @@ namespace FFXIV_GameSense
         private static readonly uint[] DCZones = new uint[] { 630, 656, 732, 763 };
         private static HuntsHubConnection hubConnection;
         internal static HttpClient Http { get; private set; } = new HttpClient();
-        internal static bool Joined { get; private set; } = false;
-        private static bool joining = false;
+        internal static bool Joined { get; private set; }
+        private static bool joining;
         private static ushort lastJoined, lastZone;
         internal const string baseUrl = "https://xivhunt.net/";
         //internal const string baseUrl = "http://localhost:5000/";
