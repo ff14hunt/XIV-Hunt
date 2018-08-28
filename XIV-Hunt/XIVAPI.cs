@@ -30,14 +30,14 @@ namespace XIVAPI
     class XIVAPIClient
     {
         private const int MaximumRequestPerSecond = 20;
-        private static TimeSpan msBetweenEachRequest = TimeSpan.FromMilliseconds(1000 / MaximumRequestPerSecond);
+        private static readonly TimeSpan msBetweenEachRequest = TimeSpan.FromMilliseconds(1000 / MaximumRequestPerSecond);
         private static DateTime LastCall = DateTime.MinValue;
         private readonly HttpClient http = new HttpClient { BaseAddress = new Uri("https://xivapi.com/") };
 
         private async Task<HttpResponseMessage> GetAsync(string url)
         {
             while (LastCall > DateTime.UtcNow.Subtract(msBetweenEachRequest))
-                await Task.Delay((int)msBetweenEachRequest.TotalMilliseconds);
+                await Task.Delay(msBetweenEachRequest);
             HttpResponseMessage r = await http.GetAsync(url);
             LastCall = DateTime.UtcNow;
             return r;
