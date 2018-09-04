@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +9,12 @@ namespace FFXIV_GameSense
 {
     internal class ChatMessage
     {
-        [JsonIgnore]
         internal DateTime Timestamp { get; set; }
-        [JsonProperty]
         private uint Epoch => Timestamp.ToEpoch();
-        [JsonProperty]
         internal ChatChannel Channel { get; set; }
         internal ChatFilter Filter { get; set; }
-        [JsonProperty]
         internal Sender Sender { get; set; }
-        [JsonProperty]
         private byte[] Message { get; set; }
-        [JsonIgnore]
         internal string MessageString
         {
             get => Encoding.UTF8.GetString(Message);
@@ -215,19 +208,12 @@ namespace FFXIV_GameSense
 
     public class Sender
     {
-        [JsonProperty]
         public string Name { get; private set; }
-        //[JsonProperty]
         //public ushort WorldID { get; private set; }
-        //[JsonIgnore]
         //public string WorldName => GameResources.GetWorldName(WorldID);
-        //[JsonIgnore]
         //private static readonly byte[] WorldSign = new byte[] { 0x02, 0x12, 0x02, 0x59, 0x03 };
-        [JsonIgnore]
         private static readonly byte[] LinkStart = new byte[] { 0x02, 0x27 };
-        [JsonIgnore]
         private static readonly byte[] LinkEnd = new byte[] { 0x02, 0x27, 0x07, 0xCF, 0x01, 0x01, 0x01, 0xFF, 0x01, 0x03 };
-        [JsonIgnore]
         private static readonly byte[] LinkStartTemplate = new byte[] { 0x02, 0x27, 0x00, 0x01, 0x1F, 0x01, 0x01, 0xFF, 0x0B, 0x00 };
 
         public Sender(byte[] senderpart/*, ushort wid*/)

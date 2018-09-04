@@ -131,6 +131,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: Instance matched. {1}.
+        /// </summary>
+        public static string DCInstanceMatch {
+            get {
+                return ResourceManager.GetString("DCInstanceMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duty Roulette result: {0}.
         /// </summary>
         public static string DutyRouletteResult {
@@ -1136,10 +1145,27 @@ namespace FFXIV_GameSense.Properties {
                 return ResourceManager.GetString("World", resourceCulture);
             }
         }
-
-        public static string DCInstanceMatch {
+        
+        /// <summary>
+        ///   Looks up a localized string similar to key,0
+        ///#,Name
+        ///int32,str
+        ///0,&quot;INVALID&quot;
+        ///1,&quot;Elemental&quot;
+        ///2,&quot;Gaia&quot;
+        ///3,&quot;Mana&quot;
+        ///4,&quot;Aether&quot;
+        ///5,&quot;Primal&quot;
+        ///6,&quot;Chaos&quot;
+        ///7,&quot;&quot;
+        ///97,&quot;Korea&quot;
+        ///98,&quot;China&quot;
+        ///99,&quot;Beta&quot;
+        ///.
+        /// </summary>
+        public static string WorldDCGroupType {
             get {
-                return ResourceManager.GetString("DCInstanceMatch", resourceCulture);
+                return ResourceManager.GetString("WorldDCGroupType", resourceCulture);
             }
         }
     }

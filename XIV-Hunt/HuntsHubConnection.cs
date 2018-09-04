@@ -26,7 +26,7 @@ namespace FFXIV_GameSense
         {
             Connection = new HubConnectionBuilder().WithUrl(FFXIVHunts.baseUrl + HuntsHubEndpoint, o =>
             {
-                o.Cookies = Login(Program.mem.GetServerId());
+                o.Cookies = Login(Program.mem.GetWorldId());
             }).Build();
             Connection.Closed += Connection_Closed;
         }
@@ -65,7 +65,7 @@ namespace FFXIV_GameSense
                         Settings.Default.Save();
                         Connection = new HubConnectionBuilder().WithUrl(FFXIVHunts.baseUrl + HuntsHubEndpoint, o =>
                         {
-                            o.Cookies = Login(Program.mem.GetServerId());
+                            o.Cookies = Login(Program.mem.GetWorldId());
                         }).Build();
                         Connection.Closed += Connection_Closed;
                         IsConnecting = false;

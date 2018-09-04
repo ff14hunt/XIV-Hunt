@@ -432,6 +432,7 @@
     <None Include="Resources\Fate.fr.csv" />
     <None Include="Resources\Fate.jp.csv" />
     <None Include="Resources\Map.csv" />
+    <None Include="Resources\WorldDCGroupType.csv" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.de-DE.resx">

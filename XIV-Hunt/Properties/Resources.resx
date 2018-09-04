@@ -478,6 +478,9 @@
     <value>FATE Presets</value>
   </data>
   <data name="DCInstanceMatch" xml:space="preserve">
-    <value>{0}: Instance matched. Tracked for {1} minutes. {2}</value>
+    <value>{0}: Instance matched. {1}</value>
+  </data>
+  <data name="WorldDCGroupType" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WorldDCGroupType.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

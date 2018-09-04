@@ -425,6 +425,6 @@
     <value>FATE Presets</value>
   </data>
   <data name="DCInstanceMatch" xml:space="preserve">
-    <value>{0}: Instance matched. Tracked for {1} minutes. {2}</value>
+    <value>{0}: Instance matched. {1}</value>
   </data>
 </root>

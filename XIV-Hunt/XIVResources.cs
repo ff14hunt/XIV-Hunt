@@ -52,7 +52,8 @@ namespace XIVDB
         private static readonly string[] lineEnding = new string[] { Environment.NewLine };
         private static readonly Dictionary<ushort, FATEInfo> Fate = IndexFates();
         private static Dictionary<ushort, ushort> CachedSizeFactors = new Dictionary<ushort, ushort>();
-        private static readonly Dictionary<ushort, string> WorldNames = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(ValidWorld).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => line[1].Trim('"'));
+        private static readonly Dictionary<byte, string> WorldDCGroupType = Resources.WorldDCGroupType.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries).Skip(3).Where(x => byte.TryParse(x.Split(',')[0], out byte _)).Select(line => line.Split(',')).ToDictionary(line => byte.Parse(line[0]), line => line[1].Trim('"'));
+        private static readonly Dictionary<ushort, World> World = Resources.World.Split(lineEnding, StringSplitOptions.None).Skip(3).Where(ValidWorld).Select(line => line.Split(',')).ToDictionary(line => ushort.Parse(line[0]), line => new World(line));
         private static readonly Dictionary<ushort, string> ContentFinderCondition = IndexContentFinderCondition();
 
         internal static List<RelicNote> GetRelicNotes()
@@ -89,11 +90,20 @@ namespace XIVDB
             return ushort.TryParse(col[0], out ushort _) && (col[4] == "True" && col[3].Trim('"') != "INVALID" || col[3].Trim('"') == "China" || col[3].Trim('"') == "Korea");
         }
 
-        internal static bool IsValidWorldID(ushort id) => WorldNames.ContainsKey(id);
+        internal static bool IsValidWorldID(ushort id) => World.ContainsKey(id);
 
         internal static bool IsChineseWorld(ushort id) => id > 1023 && id < 1170;
 
         internal static bool IsKoreanWorld(ushort id) => id > 2074 && id < 2079;
+
+        public static byte GetDataCenterID(string v) => WorldDCGroupType.FirstOrDefault(x => x.Value.Equals(v, StringComparison.OrdinalIgnoreCase)).Key;
+
+        public static string GetDataCenterName(byte dcid)
+        {
+            if(WorldDCGroupType.TryGetValue(dcid, out string dcname))
+                return dcname;
+            return "Unknown DataCenter: " + dcid;
+        }
 
         internal static string GetContentFinderName(ushort id)
         {
@@ -183,10 +193,14 @@ namespace XIVDB
 
         public static string GetWorldName(ushort id)
         {
-            if (WorldNames.TryGetValue(id, out string wn))
-                return wn;
+            if (World.TryGetValue(id, out World wn))
+                return wn.Name;
             return "Unknown World: " + id;
         }
+
+        internal static string GetDataCenterName(ushort worldid) => WorldDCGroupType[GetDataCenterID(worldid)];
+
+        internal static byte GetDataCenterID(ushort worldid) => World[worldid].DataCenterID;
 
         internal static string GetZoneName(uint zoneId)
         {
@@ -417,5 +431,19 @@ namespace XIVDB
         public string this[string colname] => Records.ElementAt(recordIterator)[Columns[colname]];
 
         public bool HasColum(string colname) => Columns.ContainsKey(colname);
+    }
+
+    public class World
+    {
+        public ushort ID { get; private set; }
+        public string Name { get; private set; }
+        public byte DataCenterID { get; private set; }
+
+        public World(string[] line)
+        {
+            ID = ushort.Parse(line[0]);
+            Name = line[1].Trim('"');
+            DataCenterID = GameResources.GetDataCenterID(line[3].Trim('"'));
+        }
     }
 }

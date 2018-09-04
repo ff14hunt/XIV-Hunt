@@ -49,8 +49,8 @@ namespace FFXIV_GameSense
         private const string charmapSignature64 = "488b420848c1e8033da701000077248bc0488d0d";
         private const string targetSignature32 = "75**5fc746**********5ec3833d**********75**833d";
         private const string targetSignature64 = "5fc3483935********75**483935";
-        private const string zoneIdSignature32 = "a802752f8b4f04560fb735";
-        private const string zoneIdSignature64 = "e8********f30f108d********4c8d85********0fb705";
+        private const string instanceServerIdSignature32 = "8b078bcf6a**8b80********ffd08bc8e8********3c**75**8b15";
+        private const string instanceServerIdSignature64 = "8b5c24**4c8b05********488b15";
         private const string serverTimeSignature32 = "c20400558bec83ec0c53568b35";
         private const string serverTimeSignature64 = "4833c448898424d0040000488be9c644243000488b0d";
         private const string chatLogStartSignature32 = "8b45fc83e0f983c809ff750850ff35********e8********8b0d";
@@ -59,8 +59,8 @@ namespace FFXIV_GameSense
         private const string fateListSignature64 = "be********488bcbe8********4881c3********4883ee**75**488b05";
         private const string contentFinderConditionSignature32 = "e8********5f5e5dc2****0fb646**b9";
         private const string contentFinderConditionSignature64 = "440fb643**488d51**488d0d";
-        private const string serverIdSignature32 = "8b15********85d274**8b028bcaff50**8b0d";
-        private const string serverIdSignature64 = "e8********488bbc24********488b7424**488b0d";
+        private const string worldIdSignature32 = "8b15********85d274**8b028bcaff50**8b0d";
+        private const string worldIdSignature64 = "e8********488bbc24********488b7424**488b0d";
         private const string lastFailedCommandSignature32 = "83f9**7c**5b5fb8";
         private const string lastFailedCommandSignature64 = "4183f8**7c**488d05";
         private const string currentContentFinderConditionSignature32 = "6a**b9********e8********393d";
@@ -71,6 +71,8 @@ namespace FFXIV_GameSense
         private const int lastFailedCommandOffset64 = 0x1C2;
         private const int currentContentFinderConditionOffset32 = 0x8;
         private const int currentContentFinderConditionOffset64 = 0xC;
+        private const int instanceServerIdOffset32 = 0x580;
+        private const int instanceServerIdOffset64 = 0x620;
         private static readonly int[] serverTimeOffset32 = { 0x14C0, 0x4, 0x644 };
         private static readonly int[] serverTimeOffset64 = { 0x1710, 0x8, 0x7D4 };
         private static readonly int[] chatLogStartOffset32 = { 0x18, 0x2C0, 0x0 };
@@ -89,11 +91,11 @@ namespace FFXIV_GameSense
         private IntPtr charmapAddress = IntPtr.Zero;
         private IntPtr targetAddress = IntPtr.Zero;
         private IntPtr fateListAddress = IntPtr.Zero;
-        private IntPtr zoneIdAddress = IntPtr.Zero;
+        private IntPtr instanceServerIdAddress = IntPtr.Zero;
         private IntPtr serverTimeAddress = IntPtr.Zero;
         private IntPtr chatLogStartAddress = IntPtr.Zero;
         private IntPtr chatLogTailAddress = IntPtr.Zero;
-        private IntPtr serverIdAddress = IntPtr.Zero;
+        private IntPtr worldIdAddress = IntPtr.Zero;
         private IntPtr contentFinderConditionAddress = IntPtr.Zero;
         private IntPtr currentContentFinderConditionAddress = IntPtr.Zero;
         private IntPtr lastFailedCommandAddress = IntPtr.Zero;
@@ -213,7 +215,7 @@ namespace FFXIV_GameSense
             }
             if (charmapAddress == IntPtr.Zero ||
                 targetAddress == IntPtr.Zero ||
-                serverIdAddress == IntPtr.Zero ||
+                worldIdAddress == IntPtr.Zero ||
                 !IsValidServerId())
             {
                 return GetPointerAddress();
@@ -225,53 +227,56 @@ namespace FFXIV_GameSense
         {
             string charmapSignature = !Is64Bit ? charmapSignature32 : charmapSignature64;
             string targetSignature = !Is64Bit ? targetSignature32 : targetSignature64;
-            string zoneIdSignature = !Is64Bit ? zoneIdSignature32 : zoneIdSignature64;
             string serverTimeSignature = !Is64Bit ? serverTimeSignature32 : serverTimeSignature64;
             string chatLogStartSignature = !Is64Bit ? chatLogStartSignature32 : chatLogStartSignature64;
             string fateListSignature = !Is64Bit ? fateListSignature32 : fateListSignature64;
             string contentFinderConditionSignature = !Is64Bit ? contentFinderConditionSignature32 : contentFinderConditionSignature64;
-            string serverIdSignature = !Is64Bit ? serverIdSignature32 : serverIdSignature64;
+            string worldIdSignature = !Is64Bit ? worldIdSignature32 : worldIdSignature64;
             string lastFailedCommandSignature = !Is64Bit ? lastFailedCommandSignature32 : lastFailedCommandSignature64;
             string currentContentFinderConditionSignature = !Is64Bit ? currentContentFinderConditionSignature32 : currentContentFinderConditionSignature64;
+            string instanceServerIdSignature = !Is64Bit ? instanceServerIdSignature32 : instanceServerIdSignature64;
             int[] serverTimeOffset = !Is64Bit ? serverTimeOffset32 : serverTimeOffset64;
             int[] chatLogStartOffset = !Is64Bit ? chatLogStartOffset32 : chatLogStartOffset64;
             int[] chatLogTailOffset = !Is64Bit ? chatLogTailOffset32 : chatLogTailOffset64;
-            int[] serverIdOffset = !Is64Bit ? serverIdOffset32 : serverIdOffset64;
+            int[] worldIdOffset = !Is64Bit ? serverIdOffset32 : serverIdOffset64;
             int contentFinderConditionOffset = !Is64Bit ? contentFinderConditionOffset32 : contentFinderConditionOffset64;
             int currentContentFinderConditionOffset = !Is64Bit ? currentContentFinderConditionOffset32 : currentContentFinderConditionOffset64;
             int lastFailedCommandOffset = !Is64Bit ? lastFailedCommandOffset32 : lastFailedCommandOffset64;
+            int instanceServerIdOffset = !Is64Bit ? instanceServerIdOffset32 : instanceServerIdOffset64;
 
             List<string> fail = new List<string>();
 
             bool bRIP = Is64Bit;
 
-            // SERVERID
-            List<IntPtr> list = SigScan(serverIdSignature, 0, bRIP);
+            // WORLDID
+            List<IntPtr> list = SigScan(worldIdSignature, 0, bRIP);
             if (list == null || list.Count == 0)
             {
-                serverIdAddress = IntPtr.Zero;
+                worldIdAddress = IntPtr.Zero;
             }
             if (list.Count == 1)
             {
-                serverIdAddress = ResolvePointerPath(list[0], serverIdOffset);
+                worldIdAddress = ResolvePointerPath(list[0], worldIdOffset);
             }
-            if (serverIdAddress == IntPtr.Zero)
+            if (worldIdAddress == IntPtr.Zero)
             {
-                fail.Add(nameof(serverIdAddress));
+                fail.Add(nameof(worldIdAddress));
             }
 
-            string regionpostpend = $" (DX{(Is64Bit ? "11" : "9")}) game detected.";
-            if (GameResources.IsChineseWorld(GetServerId()))
+            if (GameResources.IsChineseWorld(GetWorldId()))
                 region = GameRegion.Chinese;
-            else if (GameResources.IsKoreanWorld(GetServerId()))
+            else if (GameResources.IsKoreanWorld(GetWorldId()))
                 region = GameRegion.Korean;
             else
                 region = GameRegion.Global;
 
             combatantOffsets = new CombatantOffsets(Is64Bit, region);
-            LogHost.Default.Info(region.ToString() + regionpostpend);
-            if (region != GameRegion.Global && !Is64Bit)
+            LogHost.Default.Info(region.ToString() + $" (DX{(Is64Bit ? "11" : "9")}) game detected.");
+            if (region != GameRegion.Global && !Is64Bit)//TODO: test chinese
+            {
                 contentFinderConditionOffset -= 0x4;
+                instanceServerIdOffset -= 0x4;
+            }
             contentFinderOffsets = new ContentFinderOffsets(Is64Bit);
 
             // CHARMAP
@@ -304,15 +309,15 @@ namespace FFXIV_GameSense
                 fail.Add(nameof(targetAddress));
             }
 
-            // ZONEID
-            list = SigScan(zoneIdSignature, 0, bRIP);
+            // ZONEID + INSTANCESERVERID
+            list = SigScan(instanceServerIdSignature, 0, bRIP);
             if (list.Count == 1)
             {
-                zoneIdAddress = list[0];
+                instanceServerIdAddress = list[0] + instanceServerIdOffset;
             }
-            if (zoneIdAddress == IntPtr.Zero)
+            if (instanceServerIdAddress == IntPtr.Zero)
             {
-                fail.Add(nameof(zoneIdAddress));
+                fail.Add(nameof(instanceServerIdAddress));
             }
 
             // SERVERTIME
@@ -413,11 +418,11 @@ namespace FFXIV_GameSense
 
             Debug.WriteLine(nameof(charmapAddress) + ": 0x{0:X}", charmapAddress.ToInt64());
             Debug.WriteLine(nameof(targetAddress) + ": 0x{0:X}", targetAddress.ToInt64());
-            Debug.WriteLine(nameof(zoneIdAddress) + ": 0x{0:X}", zoneIdAddress.ToInt64());
+            Debug.WriteLine(nameof(instanceServerIdAddress) + ": 0x{0:X}", instanceServerIdAddress.ToInt64());
             Debug.WriteLine(nameof(chatLogStartAddress) + ": 0x{0:X}", chatLogStartAddress.ToInt64());
             Debug.WriteLine(nameof(chatLogTailAddress) + ": 0x{0:X}", chatLogTailAddress.ToInt64());
             Debug.WriteLine(nameof(fateListAddress) + ": 0x{0:X}", fateListAddress.ToInt64());
-            Debug.WriteLine(nameof(serverIdAddress) + ": 0x{0:X}", serverIdAddress.ToInt64());
+            Debug.WriteLine(nameof(worldIdAddress) + ": 0x{0:X}", worldIdAddress.ToInt64());
             Debug.WriteLine(nameof(serverTimeAddress) + ": 0x{0:X}", serverTimeAddress.ToInt64());
             Debug.WriteLine(nameof(contentFinderConditionAddress) + ": 0x{0:X}", contentFinderConditionAddress.ToInt64());
             Debug.WriteLine(nameof(currentContentFinderConditionAddress) + ": 0x{0:X}", currentContentFinderConditionAddress.ToInt64());
@@ -635,7 +640,7 @@ namespace FFXIV_GameSense
 
         private bool IsValidServerId()
         {
-            ushort id = GetServerId();
+            ushort id = GetWorldId();
             if (!GameResources.IsValidWorldID(id))
             {
                 LogHost.Default.Warn(id + " is not a valid server id");
@@ -644,7 +649,7 @@ namespace FFXIV_GameSense
             return true;
         }
 
-        internal ushort GetServerId() => BitConverter.ToUInt16(GetByteArray(serverIdAddress, 2), 0);
+        internal ushort GetWorldId() => BitConverter.ToUInt16(GetByteArray(worldIdAddress, 2), 0);
 
         //public Combatant GetAnchorCombatant()
         //{
@@ -1041,7 +1046,9 @@ namespace FFXIV_GameSense
             return list;
         }
 
-        public ushort GetZoneId() => BitConverter.ToUInt16(GetByteArray(zoneIdAddress, 2), 0);
+        public ushort GetZoneId() => GetUInt16(instanceServerIdAddress, 2);
+
+        public byte GetInstanceServerId() => GetByteArray(instanceServerIdAddress, 1)[0];
     }
 
     internal class ContentFinderOffsets
