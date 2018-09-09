@@ -49,7 +49,6 @@ namespace FFXIV_GameSense
             Title = Program.AssemblyName.Name + " " + Program.AssemblyName.Version.ToString(3) + " - " + (Environment.Is64BitProcess ? 64 : 32) + "-Bit";
             vm = new ViewModel();
             Closed += MenuForm_FormClosed;
-            Locator.CurrentMutable.RegisterLazySingleton(() => new XIVAPIClient());
             dispatcherTimer1s = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
@@ -257,8 +256,8 @@ namespace FFXIV_GameSense
                     string[] pwords = e.Parameter.Split(' ');
                     bool hqprefer = pwords.Last().Equals("HQ", StringComparison.OrdinalIgnoreCase);
                     Task.Factory.StartNew(async ()=> {
-                        Item item = await Locator.CurrentMutable.GetService<XIVAPIClient>().SearchForItem(hqprefer ? string.Join(" ", pwords.Take(pwords.Length - 1)) : e.Parameter, hqprefer);
-                        if(item != null)
+                        Item item = await hunts.QueryItem(hqprefer ? string.Join(" ", pwords.Take(pwords.Length - 1)) : e.Parameter);
+                        if (item != null)
                             await mem.WriteChatMessage(ChatMessage.MakeItemChatMessage(item, HQ: hqprefer));
                     });
                 }

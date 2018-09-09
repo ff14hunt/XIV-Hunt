@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 using System.Net.Http;
 using System.Windows.Documents;
 using Splat;
+using XIVAPI;
+using System.Threading;
 
 namespace FFXIV_GameSense
 {
@@ -230,6 +232,8 @@ namespace FFXIV_GameSense
                 cm = ChatMessage.MakePosChatMessage(string.Format(Resources.LKIFATE, result.Name(), Math.Floor(timeSinceLastReport.TotalHours), timeSinceLastReport.Minutes), result.ZoneID, result.PosX, result.PosY);
             await Program.mem.WriteChatMessage(cm);
         }
+
+        internal async Task<Item> QueryItem(string itemsearch) => await hubConnection.Connection.InvokeAsync<Item>(nameof(QueryItem), itemsearch, Thread.CurrentThread.CurrentUICulture.Name);
 
         internal async void Check(FFXIVMemory mem)
         {
