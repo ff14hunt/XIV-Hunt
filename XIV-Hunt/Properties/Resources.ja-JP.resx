@@ -197,7 +197,7 @@
     <value>トレイに最小化</value>
   </data>
   <data name="BNpcName" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BNpcName.jp.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\BNpcName.ja.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="FormARRAbrv" xml:space="preserve">
     <value>新生</value>
@@ -209,7 +209,7 @@
     <value>紅蓮</value>
   </data>
   <data name="TerritoryType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TerritoryType.jp.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\TerritoryType.ja.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="FormSFDialogTitle" xml:space="preserve">
     <value>チャットに報告が書き込まれたときに再生するサウンドファイルを選択する&lt;</value>
@@ -224,7 +224,7 @@
     <value>FATEs:</value>
   </data>
   <data name="Fate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fate.jp.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\Fate.ja.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="StartWithWindows" xml:space="preserve">
     <value>Start with Windows</value>
@@ -251,7 +251,7 @@
     <value>Duty Roulette results</value>
   </data>
   <data name="ContentFinderCondition" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ContentFinderCondition.jp.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\ContentFinderCondition.ja.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="DutyRouletteResult" xml:space="preserve">
     <value>Duty Roulette result: {0}</value>
@@ -419,7 +419,7 @@
     <value>{0} has been installed. It is recommended that you, from now on, start {0} via the shortcuts placed on your desktop and start menu.</value>
   </data>
   <data name="RelicNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RelicNote.jp.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\RelicNote.ja.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="FormFATEPresets" xml:space="preserve">
     <value>FATEプリセット</value>
