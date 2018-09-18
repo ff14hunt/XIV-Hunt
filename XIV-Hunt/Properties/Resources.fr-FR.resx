@@ -427,4 +427,7 @@
   <data name="DCInstanceMatch" xml:space="preserve">
     <value>{0}: Instance matched. {1}</value>
   </data>
+  <data name="FormJoinLocked" xml:space="preserve">
+    <value>Reporting is locked. {0} maintenance is needed.</value>
+  </data>
 </root>

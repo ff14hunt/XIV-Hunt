@@ -422,6 +422,15 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reporting is locked. {0} maintenance is needed..
+        /// </summary>
+        public static string FormJoinLocked {
+            get {
+                return ResourceManager.GetString("FormJoinLocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A {0} account, with a verified character on {1}, is required..
         /// </summary>
         public static string FormLogin {

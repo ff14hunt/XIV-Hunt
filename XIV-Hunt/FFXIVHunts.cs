@@ -371,7 +371,8 @@ namespace FFXIV_GameSense
             ushort sid = Program.mem.GetWorldId();
             Reporter r = new Reporter { WorldID = sid, Name = Program.mem.GetSelfCombatant().Name, Version = Program.AssemblyName.Version };
             LogHost.Default.Info("Joining " + GameResources.GetWorldName(sid));
-            if (!await hubConnection.Connection.InvokeAsync<bool>("JoinGroup", r))
+            JoinGroupResult result = await hubConnection.Connection.InvokeAsync<JoinGroupResult>("JoinGroup", r);
+            if (result == JoinGroupResult.Denied)
                 w1.HuntConnectionTextBlock.Dispatcher.Invoke(() =>
                 {
                     w1.HuntConnectionTextBlock.Inlines.Clear();
@@ -380,6 +381,8 @@ namespace FFXIV_GameSense
                     link.RequestNavigate += UI.LogInForm.Link_RequestNavigate;
                     w1.HuntConnectionTextBlock.Inlines.Add(link);
                 });
+            else if(result == JoinGroupResult.Locked)
+                w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormJoinLocked, Program.AssemblyName.Name));
             joining = false;
             Joined = true;
             lastJoined = sid;
@@ -647,5 +650,12 @@ namespace FFXIV_GameSense
         A,
         S,
         FATE
+    }
+
+    public enum JoinGroupResult
+    {
+        Denied,
+        Joined,
+        Locked
     }
 }
