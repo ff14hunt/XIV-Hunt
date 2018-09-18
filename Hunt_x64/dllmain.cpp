@@ -200,7 +200,7 @@ void CallSlashInstance()
 	if (SlashInstanceFuncAddress == NULL || SlashInstancePAddress[0] == NULL || SlashInstancePAddress[1] == NULL || SlashInstancePAddress[2] == NULL)
 		return;
 	uintptr_t RCX, RDX, R8;
-	RCX = ResolvePointerPath(SlashInstancePAddress[0], { 0x90, 0x2FA8, 0x0 });
+	RCX = ResolvePointerPath(SlashInstancePAddress[0], { 0x90, 0x2FA8/*0x3028*/, 0x0 });//0x3028 better?
 	RDX = ResolvePointerPath(SlashInstancePAddress[1], { 0x30, 0x8, 0x400 });
 	R8 = ResolvePointerPath(SlashInstancePAddress[2], { 0x8, 0x0 });
 	typedef __int64(__fastcall *pFunctionAddress)(uintptr_t, uintptr_t, uintptr_t);
