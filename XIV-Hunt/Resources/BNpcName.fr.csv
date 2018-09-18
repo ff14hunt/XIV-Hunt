@@ -3623,7 +3623,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 3619,"amphiptère",0,"amphiptères",0,1,1,0,0
 3620,"archéosaure",0,"archéosaures",0,1,1,0,0
 3621,"golem de calcaire",0,"golems de calcaire",0,0,1,0,0
-3622,"dragon des brumes",0,"dragons des brumes",0,0,1,0,0
+3622,"draconide des brumes",0,"draconides des brumes",0,0,1,0,0
 3623,"dragonnet",0,"dragonnets",0,0,1,0,0
 3624,"vouivre",0,"vouivres",0,0,1,1,0
 3625,"vinaigrier à lames",0,"vinaigriers à lames",0,0,1,0,0
@@ -6094,7 +6094,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 6090,"Daigoro",0,"Daigoro",0,0,1,0,1
 6091,"Kageyama",0,"Kageyama",0,0,1,0,1
 6092,"shishi-gashira",0,"shishi-gashira",0,0,1,0,0
-6093,"inoshikacho",0,"inoshikacho",0,1,1,0,0
+6093,"ino-shika-cho",0,"ino-shika-cho",0,1,1,0,0
 6094,"résistant mhigois",0,"résistants mhigois",0,0,1,0,0
 6095,"Shiden le cri du ciel",0,"Shiden le cri du ciel",0,0,1,0,1
 6096,"Ugetsu l'assassin",0,"Ugetsu l'assassin",0,1,1,0,1
@@ -6548,7 +6548,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 6544,"brute ura",0,"brutes ura",0,0,1,1,0
 6545,"Undsiig",0,"Undsiig",0,0,1,0,1
 6546,"Mangas",0,"Mangas",0,0,1,0,1
-6547,"éleveuse olkund",0,"éleveuses olkund",0,1,1,1,0
+6547,"éleveur olkund",0,"éleveurs olkund",0,1,1,0,0
 6548,"chuluu de Gergei",0,"chuluu de Gergei",0,0,1,0,0
 6549,"hainag domestique",0,"hainags domestiques",0,0,1,0,0
 6550,"gedan grégaire",0,"gedans grégaires",0,0,1,0,0
@@ -7238,14 +7238,14 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7234,"spectre de soldat impérial",0,"spectres de soldats impériaux",0,0,1,0,0
 7235,"aze de vent",0,"azes de vent",0,1,1,0,0
 7236,"cyclone",0,"cyclones",0,0,1,0,0
-7237,"automate N°7",0,"automate N°7",0,1,1,0,0
+7237,"Bâtisseur n°7",0,"Bâtisseurs n°7",0,0,1,0,0
 7238,"rouage",0,"rouages",0,0,1,0,0
 7239,"missile",0,"missiles",0,0,1,0,0
 7240,"Soroban",0,"Soroban",0,0,1,0,1
 7241,"colonne d'eau",0,"colonnes d'eau",0,0,1,1,0
 7242,"Tataru",0,"Tataru",0,0,1,1,1
 7243,"Carbuncle malachite",0,"Carbuncle malachite",0,0,1,0,1
-7244,"automate N°7 amélioré",0,"automates N°7 amélioré",0,1,1,0,0
+7244,"Bâtisseur n°7 amélioré",0,"Bâtisseurs n°7 améliorés",0,0,1,0,0
 7245,"Famfrit le Nuage Ténébreux",0,"Famfrit le Nuage Ténébreux",0,0,1,0,1
 7246,"aiguière ténèbreuse",0,"aiguières ténèbreuses",0,1,1,1,0
 7247,"sphère d'eau ténébreuse",0,"sphères d'eau ténébreuses",0,0,1,1,0
@@ -7579,38 +7579,38 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7575,"",0,"",0,0,0,0,0
 7576,"",0,"",0,0,0,0,0
 7577,"",0,"",0,0,0,0,0
-7578,"",0,"",0,0,0,0,0
-7579,"",0,"",0,0,0,0,0
-7580,"",0,"",0,0,0,0,0
-7581,"",0,"",0,0,0,0,0
+7578,"perforateur kobold",0,"perforateurs kobolds",0,0,1,0,0
+7579,"chevaucheur de vagues sahuagin",0,"chevaucheurs de vagues sahuagins",0,0,1,0,0
+7580,"avaleur de feu amalj'aa",0,"avaleurs de feu amalj'aa",0,1,1,0,0
+7581,"hurleciel ixal",0,"hurleciels ixali",0,0,1,0,0
 7582,"Onra",0,"Onra",0,0,1,0,1
 7583,"sphère de sable",0,"sphères de sable",0,0,1,1,0
 7584,"jinba des Cieux",0,"jinba des Cieux",0,0,1,0,0
-7585,"",0,"",0,0,0,0,0
-7586,"",0,"",0,0,0,0,0
-7587,"",0,"",0,0,0,0,0
-7588,"",0,"",0,0,0,0,0
-7589,"",0,"",0,0,0,0,0
-7590,"",0,"",0,0,0,0,0
-7591,"",0,"",0,0,0,0,0
-7592,"",0,"",0,0,0,0,0
-7593,"",0,"",0,0,0,0,0
-7594,"",0,"",0,0,0,0,0
-7595,"",0,"",0,0,0,0,0
-7596,"",0,"",0,0,0,0,0
-7597,"",0,"",0,0,0,0,0
-7598,"",0,"",0,0,0,0,0
-7599,"",0,"",0,0,0,0,0
-7600,"",0,"",0,0,0,0,0
-7601,"",0,"",0,0,0,0,0
-7602,"",0,"",0,0,0,0,0
-7603,"",0,"",0,0,0,0,0
-7604,"",0,"",0,0,0,0,0
-7605,"",0,"",0,0,0,0,0
-7606,"",0,"",0,0,0,0,0
-7607,"",0,"",0,0,0,0,0
-7608,"",0,"",0,0,0,0,0
-7609,"",0,"",0,0,0,0,0
+7585,"dullahan du temple sacré",0,"dullahans du temple sacré",0,0,1,0,0
+7586,"totem du temple sacré",0,"totems du temple sacré",0,0,1,0,0
+7587,"skate'ne du temple sacré",0,"skate'ne du temple sacré",0,0,1,0,0
+7588,"bête du temple sacré",0,"bêtes du temple sacré",0,0,1,1,0
+7589,"Kelpie du temple sacré",0,"Kelpie du temple sacré",0,0,1,0,1
+7590,"Hati",0,"Hati",0,0,1,0,1
+7591,"chimère du temple sacré",0,"chimères du temple sacré",0,0,1,1,0
+7592,"korrigan du temple sacré",0,"korrigans du temple sacré",0,0,1,0,0
+7593,"arachné du temple sacré",0,"arachnés du temple sacré",0,1,1,1,0
+7594,"prince matanga",0,"princes matangas",0,0,1,0,0
+7595,"oiseau du temple sacré",0,"oiseaux du temple sacré",0,1,1,0,0
+7596,"plume d'oiseau",0,"plumes d'oiseau",0,0,1,1,0
+7597,"ancien du temple sacré",0,"anciens du temple sacré",0,1,1,0,0
+7598,"idole du temple sacré",0,"idoles du temple sacré",0,1,1,1,0
+7599,"Altesse namazu nain doré",0,"Altesses namazu nains dorés",0,1,1,1,1
+7600,"mandragore du temple sacré",0,"mandragores du temple sacré",0,0,1,1,0
+7601,"Airavata du temple sacré",0,"Airavata du temple sacré",0,1,1,0,1
+7602,"Namazu nain doré",0,"Namazu nains dorés",0,0,1,0,0
+7603,"matanga du temple sacré",0,"matangas du temple sacré",0,0,1,0,0
+7604,"oignon du temple sacré",0,"oignons du temple sacré",0,1,1,0,0
+7605,"aubergine du temple sacré",0,"aubergines du temple sacré",0,1,1,1,0
+7606,"ail du temple sacré",0,"aulx du temple sacré",0,1,1,0,0
+7607,"tomate du temple sacré",0,"tomates du temple sacré",0,0,1,1,0
+7608,"reine du temple sacré",0,"reines du temple sacré",0,0,1,1,0
+7609,"Atomos du temple sacré",0,"Atomos du temple sacré",0,1,1,0,1
 7610,"korrigan",0,"korrigans",0,0,1,0,0
 7611,"Baraqiel",0,"Baraqiel",0,0,1,0,1
 7612,"Mog aventurier",0,"Mogs aventuriers",0,0,1,0,0
@@ -7621,112 +7621,112 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7617,"bouillon avarié",0,"bouillons avariés",0,0,1,0,0
 7618,"Benandonner",0,"Benandonner",0,0,1,0,1
 7619,"flan du néant profond",0,"flans du néant profond",0,0,1,0,0
-7620,"",0,"",0,0,0,0,0
-7621,"",0,"",0,0,0,0,0
-7622,"",0,"",0,0,0,0,0
-7623,"",0,"",0,0,0,0,0
-7624,"",0,"",0,0,0,0,0
-7625,"",0,"",0,0,0,0,0
-7626,"",0,"",0,0,0,0,0
-7627,"",0,"",0,0,0,0,0
-7628,"",0,"",0,0,0,0,0
-7629,"",0,"",0,0,0,0,0
-7630,"",0,"",0,0,0,0,0
-7631,"",0,"",0,0,0,0,0
+7620,"hydrosphère",0,"hydrosphères",0,1,1,1,0
+7621,"oculus du temple sacré",0,"oculi du temple sacré",0,1,1,0,0
+7622,"arachné du temple sacré",0,"arachnés du temple sacré",0,1,1,1,0
+7623,"arachné du temple sacré",0,"arachnés du temple sacré",0,1,1,1,0
+7624,"arachné du temple sacré",0,"arachnés du temple sacré",0,1,1,1,0
+7625,"namazu nain doré",0,"namazu nains dorés",0,0,1,0,0
+7626,"matanga du temple sacré",0,"matangas du temple sacré",0,0,1,0,0
+7627,"allosaure du temple sacré",0,"allosaures du temple sacré",0,1,1,0,0
+7628,"apanda du temple sacré",0,"apandas du temple sacré",0,1,1,0,0
+7629,"manticore du temple sacré",0,"manticores du temple sacré",0,0,1,1,0
+7630,"vodoriga du temple sacré",0,"vodorigas du temple sacré",0,0,1,1,0
+7631,"tête du temple sacré",0,"têtes du temple sacré",0,0,1,1,0
 7632,"chimère",0,"chimères",0,0,1,1,0
-7633,"",0,"",0,0,0,0,0
-7634,"",0,"",0,0,0,0,0
-7635,"",0,"",0,0,0,0,0
-7636,"",0,"",0,0,0,0,0
-7637,"",0,"",0,0,0,0,0
-7638,"",0,"",0,0,0,0,0
-7639,"",0,"",0,0,0,0,0
-7640,"",0,"",0,0,0,0,0
-7641,"",0,"",0,0,0,0,0
-7642,"",0,"",0,0,0,0,0
-7643,"",0,"",0,0,0,0,0
-7644,"",0,"",0,0,0,0,0
-7645,"",0,"",0,0,0,0,0
-7646,"",0,"",0,0,0,0,0
-7647,"",0,"",0,0,0,0,0
-7648,"",0,"",0,0,0,0,0
-7649,"",0,"",0,0,0,0,0
-7650,"",0,"",0,0,0,0,0
-7651,"",0,"",0,0,0,0,0
-7652,"",0,"",0,0,0,0,0
-7653,"",0,"",0,0,0,0,0
-7654,"",0,"",0,0,0,0,0
-7655,"",0,"",0,0,0,0,0
-7656,"",0,"",0,0,0,0,0
+7633,"Oméga-M",0,"Oméga-M",0,1,1,1,1
+7634,"Oméga-F",0,"Oméga-F",0,1,1,1,1
+7635,"Oméga",0,"Oméga",0,1,1,1,1
+7636,"Oméga",0,"Oméga",0,1,1,1,1
+7637,"unité bras gauche",0,"unités bras gauche",0,1,1,1,0
+7638,"unité bras droit",0,"unités bras droit",0,1,1,1,0
+7639,"unité arrière",0,"unités arrières",0,1,1,1,0
+7640,"unité optique",0,"unités optiques",0,1,1,1,0
+7641,"Midgardsormr",0,"Midgardsormr",0,0,1,0,1
+7642,"canne démoniaque putrescente",0,"cannes démoniaques putrescentes",0,0,1,0,0
+7643,"feu du dragon",0,"feux du dragon",0,0,1,0,0
+7644,"tête de dragon",0,"têtes de dragon",0,0,1,1,0
+7645,"dragon ancien",0,"dragons anciens",0,0,1,0,0
+7646,"clef immortelle",0,"clefs immortelles",0,0,1,1,0
+7647,"belladone flétrie",0,"belladones flétries",0,0,1,1,0
+7648,"dorpokkur",0,"dorpokkur",0,0,1,0,0
+7649,"matamata boueux",0,"matamata boueux",0,0,1,0,0
+7650,"Raskovnik épanoui",0,"Raskovnik épanouis",0,0,1,0,0
+7651,"sankchinni envahissant",0,"sankchinnis en<SoftHyphen/>va<SoftHyphen/>his<SoftHyphen/>sants",0,0,1,0,0
+7652,"kaluk flétri",0,"kaluks flétris",0,0,1,0,0
+7653,"sangsue de l'Arboretum",0,"sangsues de l'Arboretum",0,0,1,1,0
+7654,"biloko épanoui",0,"bilokos épanouis",0,0,1,0,0
+7655,"biféricéras de l'Arboretum",0,"biféricéras de l'Arboretum",0,0,1,0,0
+7656,"limace de l'Arboretum",0,"limaces de l'Arboretum",0,0,1,1,0
 7657,"",0,"",0,0,0,0,0
-7658,"",0,"",0,0,0,0,0
-7659,"",0,"",0,0,0,0,0
-7660,"",0,"",0,0,0,0,0
-7661,"",0,"",0,0,0,0,0
-7662,"",0,"",0,0,0,0,0
-7663,"",0,"",0,0,0,0,0
+7658,"apa immaculée",0,"apas immaculées",0,1,1,1,0
+7659,"nullchu",0,"nullchus",0,0,1,0,0
+7660,"Lakhamu",0,"Lakhamu",0,0,1,1,1
+7661,"golem de bourbe",0,"golems de bourbe",0,0,1,0,0
+7662,"Tokkapchi",0,"Tokkapchi",0,0,1,0,1
+7663,"boule de boue",0,"boules de boue",0,0,1,1,0
 7664,"",0,"",0,0,0,0,0
-7665,"",0,"",0,0,0,0,0
-7666,"",0,"",0,0,0,0,0
-7667,"",0,"",0,0,0,0,0
-7668,"",0,"",0,0,0,0,0
-7669,"",0,"",0,0,0,0,0
-7670,"",0,"",0,0,0,0,0
-7671,"",0,"",0,0,0,0,0
-7672,"",0,"",0,0,0,0,0
-7673,"",0,"",0,0,0,0,0
-7674,"",0,"",0,0,0,0,0
-7675,"",0,"",0,0,0,0,0
-7676,"",0,"",0,0,0,0,0
-7677,"",0,"",0,0,0,0,0
-7678,"",0,"",0,0,0,0,0
-7679,"",0,"",0,0,0,0,0
-7680,"",0,"",0,0,0,0,0
-7681,"",0,"",0,0,0,0,0
-7682,"",0,"",0,0,0,0,0
-7683,"",0,"",0,0,0,0,0
-7684,"",0,"",0,0,0,0,0
-7685,"",0,"",0,0,0,0,0
-7686,"",0,"",0,0,0,0,0
-7687,"",0,"",0,0,0,0,0
-7688,"",0,"",0,0,0,0,0
-7689,"",0,"",0,0,0,0,0
-7690,"",0,"",0,0,0,0,0
-7691,"",0,"",0,0,0,0,0
-7692,"",0,"",0,0,0,0,0
-7693,"",0,"",0,0,0,0,0
-7694,"",0,"",0,0,0,0,0
-7695,"",0,"",0,0,0,0,0
-7696,"",0,"",0,0,0,0,0
-7697,"",0,"",0,0,0,0,0
-7698,"",0,"",0,0,0,0,0
-7699,"",0,"",0,0,0,0,0
-7700,"",0,"",0,0,0,0,0
-7701,"",0,"",0,0,0,0,0
-7702,"",0,"",0,0,0,0,0
-7703,"",0,"",0,0,0,0,0
-7704,"",0,"",0,0,0,0,0
-7705,"",0,"",0,0,0,0,0
-7706,"",0,"",0,0,0,0,0
-7707,"",0,"",0,0,0,0,0
-7708,"",0,"",0,0,0,0,0
-7709,"",0,"",0,0,0,0,0
-7710,"",0,"",0,0,0,0,0
-7711,"",0,"",0,0,0,0,0
-7712,"",0,"",0,0,0,0,0
-7713,"",0,"",0,0,0,0,0
-7714,"",0,"",0,0,0,0,0
-7715,"",0,"",0,0,0,0,0
-7716,"",0,"",0,0,0,0,0
-7717,"",0,"",0,0,0,0,0
-7718,"",0,"",0,0,0,0,0
-7719,"",0,"",0,0,0,0,0
-7720,"",0,"",0,0,0,0,0
-7721,"",0,"",0,0,0,0,0
-7722,"",0,"",0,0,0,0,0
-7723,"",0,"",0,0,0,0,0
-7724,"",0,"",0,0,0,0,0
-7725,"",0,"",0,0,0,0,0
+7665,"dorpokkur boueux",0,"dorpokkur boueux",0,0,1,0,0
+7666,"Oméga",0,"Oméga",0,1,1,1,1
+7667,"Hedetet",0,"Hedetet",0,0,1,0,1
+7668,"cristal décoloré",0,"cristaux décolorés",0,0,1,0,0
+7669,"drone défectueux",0,"drones défectueux",0,0,1,0,0
+7670,"drone des mines",0,"drones des mines",0,0,1,0,0
+7671,"trancheur de pierre",0,"trancheurs de pierre",0,0,1,0,0
+7672,"dragon des brumes",0,"dragons des brumes",0,0,1,0,0
+7673,"tête des brumes",0,"têtes des brumes",0,0,1,1,0
+7674,"geôle des brumes",0,"geôles des brumes",0,0,1,1,0
+7675,"Kukulkan",0,"Kukulkan",0,0,1,0,1
+7676,"marionnette de Kukulkan",0,"marionnettes de Kukulkan",0,0,1,1,0
+7677,"luminare calciné",0,"luminares calcinés",0,0,1,0,0
+7678,"desman du désert",0,"desmans du désert",0,0,1,0,0
+7679,"droïde calciné",0,"droïdes calcinés",0,0,1,0,0
+7680,"paladin calciné",0,"paladins calcinés",0,0,1,0,0
+7681,"cuirassé Dreadnaught calciné",0,"cuirassés Dreadnaught calcinés",0,0,1,0,0
+7682,"coblyn calciné",0,"coblyns calcinés",0,0,1,0,0
+7683,"doblyn calciné",0,"doblyns calcinés",0,0,1,0,0
+7684,"drone calciné",0,"drones calcinés",0,0,1,0,0
+7685,"giga ver",0,"giga vers",0,0,1,0,0
+7686,"giga ver diapré",0,"giga vers diaprés",0,0,1,0,0
+7687,"traqueur de ver",0,"traqueurs de ver",0,0,1,0,0
+7688,"traqueur de giga ver",0,"traqueurs de giga ver",0,0,1,0,0
+7689,"roche instable",0,"roches instables",0,0,1,1,0
+7690,"sphère d'extraction",0,"sphères d'extraction",0,0,1,1,0
+7691,"Chaos",0,"Chaos",0,0,1,0,1
+7692,"sphère de chaos",0,"sphères de chaos",0,0,1,1,0
+7693,"sphère de chaos",0,"sphères de chaos",0,0,1,1,0
+7694,"cristal noir",0,"cristaux noirs",0,0,1,0,0
+7695,"Oméga",0,"Oméga",0,1,1,1,1
+7696,"astéropoing",0,"astéropoings",0,1,1,0,0
+7697,"astéropoing",0,"astéropoings",0,1,1,0,0
+7698,"astéropoing",0,"astéropoings",0,1,1,0,0
+7699,"vérifiniveau",0,"vérifiniveaux",0,0,1,0,0
+7700,"vérifiniveau",0,"vérifiniveaux",0,0,1,0,0
+7701,"cuirassé Dreadnaught reprogrammé",0,"cuirassés Dreadnaught reprogrammés",0,0,1,0,0
+7702,"Suzaku",0,"Suzaku",0,0,1,1,1
+7703,"plume de Suzaku",0,"plumes de Suzaku",0,0,1,1,0
+7704,"plume de queue de Suzaku",0,"plumes de queue de Suzaku",0,0,1,1,0
+7705,"chant d'amour",0,"chants d'amour",0,0,1,0,0
+7706,"chant de haine",0,"chants de haine",0,0,1,0,0
+7707,"poème phosphoré",0,"poèmes phosphorés",0,0,1,0,0
+7708,"poème larmoyant",0,"poèmes larmoyants",0,0,1,0,0
+7709,"poème démuni",0,"poèmes démunis",0,0,1,0,0
+7710,"poème captif",0,"poèmes captifs",0,0,1,0,0
+7711,"flamme boréale",0,"flammes boréales",0,0,1,1,0
+7712,"flamme occidentale",0,"flammes occidentales",0,0,1,1,0
+7713,"flamme australe",0,"flammes australes",0,0,1,1,0
+7714,"flamme orientale",0,"flammes orientales",0,0,1,1,0
+7715,"poussière d'étoile",0,"poussière d'étoile",0,0,1,1,0
+7716,"Daidukul l'enjoué",0,"Daidukul l'enjoué",0,0,1,0,1
+7717,"khun chuluu des Dotharl",0,"khun chuluu des Dotharl",0,0,1,0,0
+7718,"écaille d'Azim",0,"écaille d'Azim",0,1,1,1,0
+7719,"gardien du temple sacré",0,"gardiens du temple sacré",0,0,1,0,0
+7720,"katasharin du temple sacré",0,"katasharin du temple sacré",0,0,1,0,0
+7721,"ahriman du temple sacré",0,"ahrimans du temple sacré",0,1,1,0,0
+7722,"dragon cuirassé du temple sacré",0,"dragons cuirassés du temple sacré",0,0,1,0,0
+7723,"scribe du temple sacré",0,"scribes du temple sacré",0,0,1,0,0
+7724,"syricta du temple sacré",0,"syrictas du temple sacré",0,0,1,0,0
+7725,"oiseau de feu",0,"oiseaux de feu",0,1,1,0,0
 7726,"",0,"",0,0,0,0,0
 7727,"",0,"",0,0,0,0,0
 7728,"",0,"",0,0,0,0,0
@@ -7853,9 +7853,9 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7849,"",0,"",0,0,0,0,0
 7850,"",0,"",0,0,0,0,0
 7851,"",0,"",0,0,0,0,0
-7852,"",0,"",0,0,0,0,0
-7853,"",0,"",0,0,0,0,0
-7854,"",0,"",0,0,0,0,0
+7852,"point de convergence électrique",0,"points de convergence électrique",0,0,1,0,0
+7853,"astéropoing renforcé",0,"astéropoings renforcés",0,1,1,0,0
+7854,"le clan des légumes du temple sacré",0,"les clans des légumes du temple sacré",0,0,1,0,1
 7855,"",0,"",0,0,0,0,0
 7856,"",0,"",0,0,0,0,0
 7857,"",0,"",0,0,0,0,0
@@ -8001,3 +8001,204 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7997,"",0,"",0,0,0,0,0
 7998,"",0,"",0,0,0,0,0
 7999,"",0,"",0,0,0,0,0
+8000,"",0,"",0,0,0,0,0
+8001,"",0,"",0,0,0,0,0
+8002,"",0,"",0,0,0,0,0
+8003,"",0,"",0,0,0,0,0
+8004,"",0,"",0,0,0,0,0
+8005,"",0,"",0,0,0,0,0
+8006,"",0,"",0,0,0,0,0
+8007,"",0,"",0,0,0,0,0
+8008,"",0,"",0,0,0,0,0
+8009,"",0,"",0,0,0,0,0
+8010,"",0,"",0,0,0,0,0
+8011,"",0,"",0,0,0,0,0
+8012,"",0,"",0,0,0,0,0
+8013,"",0,"",0,0,0,0,0
+8014,"",0,"",0,0,0,0,0
+8015,"",0,"",0,0,0,0,0
+8016,"",0,"",0,0,0,0,0
+8017,"",0,"",0,0,0,0,0
+8018,"",0,"",0,0,0,0,0
+8019,"",0,"",0,0,0,0,0
+8020,"",0,"",0,0,0,0,0
+8021,"",0,"",0,0,0,0,0
+8022,"",0,"",0,0,0,0,0
+8023,"",0,"",0,0,0,0,0
+8024,"",0,"",0,0,0,0,0
+8025,"",0,"",0,0,0,0,0
+8026,"",0,"",0,0,0,0,0
+8027,"",0,"",0,0,0,0,0
+8028,"",0,"",0,0,0,0,0
+8029,"",0,"",0,0,0,0,0
+8030,"",0,"",0,0,0,0,0
+8031,"",0,"",0,0,0,0,0
+8032,"",0,"",0,0,0,0,0
+8033,"",0,"",0,0,0,0,0
+8034,"",0,"",0,0,0,0,0
+8035,"",0,"",0,0,0,0,0
+8036,"",0,"",0,0,0,0,0
+8037,"",0,"",0,0,0,0,0
+8038,"",0,"",0,0,0,0,0
+8039,"",0,"",0,0,0,0,0
+8040,"",0,"",0,0,0,0,0
+8041,"",0,"",0,0,0,0,0
+8042,"",0,"",0,0,0,0,0
+8043,"",0,"",0,0,0,0,0
+8044,"",0,"",0,0,0,0,0
+8045,"",0,"",0,0,0,0,0
+8046,"",0,"",0,0,0,0,0
+8047,"",0,"",0,0,0,0,0
+8048,"",0,"",0,0,0,0,0
+8049,"",0,"",0,0,0,0,0
+8050,"",0,"",0,0,0,0,0
+8051,"",0,"",0,0,0,0,0
+8052,"",0,"",0,0,0,0,0
+8053,"",0,"",0,0,0,0,0
+8054,"",0,"",0,0,0,0,0
+8055,"",0,"",0,0,0,0,0
+8056,"",0,"",0,0,0,0,0
+8057,"",0,"",0,0,0,0,0
+8058,"",0,"",0,0,0,0,0
+8059,"",0,"",0,0,0,0,0
+8060,"",0,"",0,0,0,0,0
+8061,"",0,"",0,0,0,0,0
+8062,"",0,"",0,0,0,0,0
+8063,"",0,"",0,0,0,0,0
+8064,"",0,"",0,0,0,0,0
+8065,"",0,"",0,0,0,0,0
+8066,"",0,"",0,0,0,0,0
+8067,"",0,"",0,0,0,0,0
+8068,"",0,"",0,0,0,0,0
+8069,"",0,"",0,0,0,0,0
+8070,"",0,"",0,0,0,0,0
+8071,"",0,"",0,0,0,0,0
+8072,"",0,"",0,0,0,0,0
+8073,"",0,"",0,0,0,0,0
+8074,"",0,"",0,0,0,0,0
+8075,"",0,"",0,0,0,0,0
+8076,"",0,"",0,0,0,0,0
+8077,"",0,"",0,0,0,0,0
+8078,"",0,"",0,0,0,0,0
+8079,"",0,"",0,0,0,0,0
+8080,"",0,"",0,0,0,0,0
+8081,"",0,"",0,0,0,0,0
+8082,"",0,"",0,0,0,0,0
+8083,"",0,"",0,0,0,0,0
+8084,"",0,"",0,0,0,0,0
+8085,"",0,"",0,0,0,0,0
+8086,"",0,"",0,0,0,0,0
+8087,"",0,"",0,0,0,0,0
+8088,"",0,"",0,0,0,0,0
+8089,"",0,"",0,0,0,0,0
+8090,"",0,"",0,0,0,0,0
+8091,"",0,"",0,0,0,0,0
+8092,"",0,"",0,0,0,0,0
+8093,"",0,"",0,0,0,0,0
+8094,"",0,"",0,0,0,0,0
+8095,"",0,"",0,0,0,0,0
+8096,"",0,"",0,0,0,0,0
+8097,"",0,"",0,0,0,0,0
+8098,"",0,"",0,0,0,0,0
+8099,"",0,"",0,0,0,0,0
+8100,"",0,"",0,0,0,0,0
+8101,"",0,"",0,0,0,0,0
+8102,"",0,"",0,0,0,0,0
+8103,"",0,"",0,0,0,0,0
+8104,"",0,"",0,0,0,0,0
+8105,"",0,"",0,0,0,0,0
+8106,"",0,"",0,0,0,0,0
+8107,"",0,"",0,0,0,0,0
+8108,"",0,"",0,0,0,0,0
+8109,"",0,"",0,0,0,0,0
+8110,"",0,"",0,0,0,0,0
+8111,"",0,"",0,0,0,0,0
+8112,"",0,"",0,0,0,0,0
+8113,"",0,"",0,0,0,0,0
+8114,"",0,"",0,0,0,0,0
+8115,"",0,"",0,0,0,0,0
+8116,"",0,"",0,0,0,0,0
+8117,"",0,"",0,0,0,0,0
+8118,"",0,"",0,0,0,0,0
+8119,"",0,"",0,0,0,0,0
+8120,"",0,"",0,0,0,0,0
+8121,"",0,"",0,0,0,0,0
+8122,"",0,"",0,0,0,0,0
+8123,"",0,"",0,0,0,0,0
+8124,"",0,"",0,0,0,0,0
+8125,"",0,"",0,0,0,0,0
+8126,"",0,"",0,0,0,0,0
+8127,"",0,"",0,0,0,0,0
+8128,"",0,"",0,0,0,0,0
+8129,"",0,"",0,0,0,0,0
+8130,"",0,"",0,0,0,0,0
+8131,"",0,"",0,0,0,0,0
+8132,"",0,"",0,0,0,0,0
+8133,"",0,"",0,0,0,0,0
+8134,"",0,"",0,0,0,0,0
+8135,"",0,"",0,0,0,0,0
+8136,"",0,"",0,0,0,0,0
+8137,"",0,"",0,0,0,0,0
+8138,"",0,"",0,0,0,0,0
+8139,"",0,"",0,0,0,0,0
+8140,"",0,"",0,0,0,0,0
+8141,"",0,"",0,0,0,0,0
+8142,"",0,"",0,0,0,0,0
+8143,"",0,"",0,0,0,0,0
+8144,"",0,"",0,0,0,0,0
+8145,"",0,"",0,0,0,0,0
+8146,"",0,"",0,0,0,0,0
+8147,"",0,"",0,0,0,0,0
+8148,"",0,"",0,0,0,0,0
+8149,"",0,"",0,0,0,0,0
+8150,"",0,"",0,0,0,0,0
+8151,"",0,"",0,0,0,0,0
+8152,"",0,"",0,0,0,0,0
+8153,"",0,"",0,0,0,0,0
+8154,"",0,"",0,0,0,0,0
+8155,"",0,"",0,0,0,0,0
+8156,"",0,"",0,0,0,0,0
+8157,"",0,"",0,0,0,0,0
+8158,"",0,"",0,0,0,0,0
+8159,"",0,"",0,0,0,0,0
+8160,"",0,"",0,0,0,0,0
+8161,"",0,"",0,0,0,0,0
+8162,"",0,"",0,0,0,0,0
+8163,"",0,"",0,0,0,0,0
+8164,"",0,"",0,0,0,0,0
+8165,"",0,"",0,0,0,0,0
+8166,"",0,"",0,0,0,0,0
+8167,"",0,"",0,0,0,0,0
+8168,"",0,"",0,0,0,0,0
+8169,"",0,"",0,0,0,0,0
+8170,"",0,"",0,0,0,0,0
+8171,"",0,"",0,0,0,0,0
+8172,"",0,"",0,0,0,0,0
+8173,"",0,"",0,0,0,0,0
+8174,"",0,"",0,0,0,0,0
+8175,"",0,"",0,0,0,0,0
+8176,"",0,"",0,0,0,0,0
+8177,"",0,"",0,0,0,0,0
+8178,"",0,"",0,0,0,0,0
+8179,"",0,"",0,0,0,0,0
+8180,"",0,"",0,0,0,0,0
+8181,"",0,"",0,0,0,0,0
+8182,"",0,"",0,0,0,0,0
+8183,"",0,"",0,0,0,0,0
+8184,"",0,"",0,0,0,0,0
+8185,"",0,"",0,0,0,0,0
+8186,"",0,"",0,0,0,0,0
+8187,"",0,"",0,0,0,0,0
+8188,"",0,"",0,0,0,0,0
+8189,"",0,"",0,0,0,0,0
+8190,"",0,"",0,0,0,0,0
+8191,"",0,"",0,0,0,0,0
+8192,"",0,"",0,0,0,0,0
+8193,"",0,"",0,0,0,0,0
+8194,"",0,"",0,0,0,0,0
+8195,"",0,"",0,0,0,0,0
+8196,"",0,"",0,0,0,0,0
+8197,"",0,"",0,0,0,0,0
+8198,"",0,"",0,0,0,0,0
+8199,"",0,"",0,0,0,0,0
+8200,"",0,"",0,0,0,0,0
