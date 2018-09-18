@@ -53,7 +53,7 @@ namespace FFXIV_GameSense
         private const string instanceServerIdSignature64 = "8b5c24**4c8b05********488b15";
         private const string serverTimeSignature32 = "c20400558bec83ec0c53568b35";
         private const string serverTimeSignature64 = "4833c448898424d0040000488be9c644243000488b0d";
-        private const string chatLogStartSignature32 = "8b45fc83e0f983c809ff750850ff35********e8********8b0d";
+        private const string chatLogStartSignature32 = "83c8**ff75**50ff35********e8********8b0d";
         private const string chatLogStartSignature64 = "e8********85c0740e488b0d********33D2E8********488b0d";
         private const string fateListSignature32 = "8bc8e8********8bf0eb**33f6ff75**8bcee8********8b15";
         private const string fateListSignature64 = "be********488bcbe8********4881c3********4883ee**75**488b05";
@@ -61,23 +61,23 @@ namespace FFXIV_GameSense
         private const string contentFinderConditionSignature64 = "440fb643**488d51**488d0d";
         private const string worldIdSignature32 = "8b15********85d274**8b028bcaff50**8b0d";
         private const string worldIdSignature64 = "e8********488bbc24********488b7424**488b0d";
-        private const string lastFailedCommandSignature32 = "83f9**7c**5b5fb8";
-        private const string lastFailedCommandSignature64 = "4183f8**7c**488d05";
+        private const string lastFailedCommandSignature32 = "b8********5dc333c05dc368";
+        private const string lastFailedCommandSignature64 = "4883c4**5bc333c04883c4**5bc3488d0d";
         private const string currentContentFinderConditionSignature32 = "6a**b9********e8********393d";
         private const string currentContentFinderConditionSignature64 = "75**33d2488d0d********e8********48393d";
-        private const int contentFinderConditionOffset32 = 0xC8;
+        private const int contentFinderConditionOffset32 = 0xC4;
         private const int contentFinderConditionOffset64 = 0xF4;
         private const int lastFailedCommandOffset32 = 0x1B2;
-        private const int lastFailedCommandOffset64 = 0x1C2;
+        private const int lastFailedCommandOffset64 = 0x1D2;
         private const int currentContentFinderConditionOffset32 = 0x8;
         private const int currentContentFinderConditionOffset64 = 0xC;
         private const int instanceServerIdOffset32 = 0x580;
         private const int instanceServerIdOffset64 = 0x620;
-        private static readonly int[] serverTimeOffset32 = { 0x14C0, 0x4, 0x644 };
-        private static readonly int[] serverTimeOffset64 = { 0x1710, 0x8, 0x7D4 };
-        private static readonly int[] chatLogStartOffset32 = { 0x18, 0x2C0, 0x0 };
+        private static readonly int[] serverTimeOffset32 = { 0x14C0, 0x4, 0x69C };
+        private static readonly int[] serverTimeOffset64 = { 0x1710, 0x8, 0x844 };
+        private static readonly int[] chatLogStartOffset32 = { 0x18, 0x2BC, 0x0 };
         private static readonly int[] chatLogStartOffset64 = { 0x30, 0x3D8, 0x0 };
-        private static readonly int[] chatLogTailOffset32 = { 0x18, 0x2C4 };
+        private static readonly int[] chatLogTailOffset32 = { 0x18, 0x2C0 };
         private static readonly int[] chatLogTailOffset64 = { 0x30, 0x3E0 };
         private static readonly int[] serverIdOffset32 = { 0x20, 0x174 };
         private static readonly int[] serverIdOffset64 = { 0x28, 0x288 };
@@ -272,10 +272,21 @@ namespace FFXIV_GameSense
 
             combatantOffsets = new CombatantOffsets(Is64Bit, region);
             LogHost.Default.Info(region.ToString() + $" (DX{(Is64Bit ? "11" : "9")}) game detected.");
-            if (region != GameRegion.Global && !Is64Bit)//TODO: test chinese
+            if(region != GameRegion.Global)
             {
-                contentFinderConditionOffset -= 0x4;
-                instanceServerIdOffset -= 0x4;
+                if(!Is64Bit)//TODO: test chinese
+                {
+                    instanceServerIdOffset -= 0x4;
+                    lastFailedCommandOffset += 0x4;
+                    serverTimeOffset[2] = 0x644;
+                    chatLogStartOffset[1] = 0x2C0;
+                    chatLogTailOffset[1] = 0x2C4;
+                }
+                else
+                {
+                    lastFailedCommandOffset -= 0x8;
+                    serverTimeOffset[2] = 0x7D4;
+                }
             }
             contentFinderOffsets = new ContentFinderOffsets(Is64Bit);
 
@@ -1126,8 +1137,8 @@ namespace FFXIV_GameSense
             }
             else
             {
-                BNpcNameID = Is64Bit ? 0x16D8 : 0x1380;
-                offset = Is64Bit ? 0x16F8 : 0x13A0;
+                BNpcNameID = Is64Bit ? 0x1728 : 0x13E0;
+                offset = Is64Bit ? 0x1748 : 0x1400;
                 Job = offset + 0x40;
                 Level = offset + 0x42;
             }

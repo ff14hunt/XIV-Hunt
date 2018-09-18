@@ -545,9 +545,6 @@
     <None Include="MML\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Hunt_x64.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Hunt.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -603,6 +600,9 @@
     <Resource Include="Resources\Images\german.png" />
     <Resource Include="Resources\Images\japanese.png" />
     <Resource Include="Resources\Images\korean.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hunt_x64.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
