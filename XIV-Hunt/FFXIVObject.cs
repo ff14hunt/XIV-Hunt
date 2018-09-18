@@ -157,12 +157,6 @@ namespace FFXIV_GameSense
         public ushort CurrentCP { get; set; }
         public List<Status> StatusList = new List<Status>();
 
-        public float HPPercent => ((float)CurrentHP / (MaxHP * 100));
-        public float MPPercent => ((float)CurrentMP / (MaxMP * 100));
-        public float TPPercent => ((float)CurrentTP / (MaxTP * 100));
-        public float GPPercent => ((float)CurrentGP / (MaxGP * 100));
-        public float CPPercent => ((float)CurrentCP / (MaxCP * 100));
-
         public bool IsBattleClass() => !(Job >= JobEnum.CRP && Job <= JobEnum.FSH);
 
         public bool IsGatherer() => IsGatherer(Job);
