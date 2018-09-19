@@ -67,9 +67,13 @@ namespace XIVDB
 
         private static Dictionary<ushort, string> IndexContentFinderCondition()
         {
-            string[] lines = Resources.ContentFinderCondition.Split(lineEnding, StringSplitOptions.RemoveEmptyEntries);
-            int namepos = Array.IndexOf(lines[1].Split(','), "InstanceContent");
-            return lines.Skip(4).Select(x => x.Split(',')).Where(x => !string.IsNullOrWhiteSpace(x[namepos].Trim('"'))).ToDictionary(x => ushort.Parse(x[0]), x => x[namepos].Trim('"').FirstLetterToUpperCase());
+            Dictionary<ushort, string> ContentFinderCondition = new Dictionary<ushort, string>();
+            CsvParser csv = new CsvParser(Resources.ContentFinderCondition);
+            string ColumnName = Thread.CurrentThread.CurrentUICulture.Name == "ko-KR" ? "InstanceContent" : "Content";
+            while (csv.Advance())
+                if(!string.IsNullOrWhiteSpace(csv[ColumnName].Trim('"')))
+                    ContentFinderCondition.Add(ushort.Parse(csv["#"]), csv[ColumnName].Trim('"').FirstLetterToUpperCase());
+            return ContentFinderCondition;
         }
 
         private static Dictionary<ushort, FATEInfo> IndexFates()

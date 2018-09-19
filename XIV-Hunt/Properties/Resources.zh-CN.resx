@@ -427,4 +427,7 @@
   <data name="FormJoinLocked" xml:space="preserve">
     <value>Reporting is locked. {0} maintenance is needed.</value>
   </data>
+  <data name="ContentFinderCondition" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ContentFinderCondition.zh.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

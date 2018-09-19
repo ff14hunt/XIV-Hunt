@@ -425,6 +425,7 @@
     <None Include="Resources\ContentFinderCondition.fr.csv" />
     <None Include="Resources\ContentFinderCondition.ja.csv" />
     <None Include="Resources\ContentFinderCondition.ko.csv" />
+    <None Include="Resources\ContentFinderCondition.zh.csv" />
     <None Include="Resources\Fate.ko.csv" />
     <None Include="Resources\Fate.zh.csv" />
     <None Include="Resources\Fate.csv" />
