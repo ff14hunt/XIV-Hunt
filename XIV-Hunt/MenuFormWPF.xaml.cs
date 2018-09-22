@@ -228,14 +228,17 @@ namespace FFXIV_GameSense
                 if (GameResources.TryGetDailyHuntInfo(e.Parameter, out Tuple<ushort, ushort, float, float> hi))
                 {
                     _ = mem.WriteChatMessage(ChatMessage.MakePosChatMessage(string.Format(Properties.Resources.LKICanBeFoundAt, GameResources.GetEnemyName(hi.Item1, true)), hi.Item2, hi.Item3, hi.Item4));
+                    return;
                 }
                 else if (hunts.hunts.Exists(x => x.Name.Equals(e.Parameter, StringComparison.OrdinalIgnoreCase)))
                 {
                     _ = hunts.LastKnownInfoForHunt(hunts.hunts.First(x => x.Name.Equals(e.Parameter, StringComparison.OrdinalIgnoreCase)).Id);
+                    return;
                 }
                 else if (GameResources.GetEnemyId(e.Parameter, out ushort bnpcid))
                 {
                     _ = hunts.RandomPositionForBNpc(bnpcid);
+                    return;
                 }
                 ushort fid = GameResources.GetFateId(e.Parameter, true);
                 if (fid > 0)
