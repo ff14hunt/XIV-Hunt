@@ -23,7 +23,7 @@ namespace FFXIV_GameSense
         private Thread _thread;
         private readonly CancellationTokenSource cts;
         internal List<Entity> Combatants { get; private set; }
-        internal object CombatantsLock => new object();
+        private object CombatantsLock => new object();//mmm
         internal event EventHandler<CommandEventArgs> OnNewCommand = delegate { };
         private bool Is64Bit => _mode == FFXIVClientMode.FFXIV_64;
         private static readonly Dictionary<byte, Type> ObjectTypeMap = new Dictionary<byte, Type>
@@ -49,8 +49,8 @@ namespace FFXIV_GameSense
         private const string charmapSignature64 = "488b420848c1e8033da701000077248bc0488d0d";
         private const string targetSignature32 = "75**5fc746**********5ec3833d**********75**833d";
         private const string targetSignature64 = "5fc3483935********75**483935";
-        private const string instanceServerIdSignature32 = "8b078bcf6a**8b80********ffd08bc8e8********3c**75**8b15";
-        private const string instanceServerIdSignature64 = "8b5c24**4c8b05********488b15";
+        private const string zoneIdSignature32 = "a802752f8b4f04560fb735";
+        private const string zoneIdSignature64 = "e8********f30f108d********4c8d85********0fb705";
         private const string serverTimeSignature32 = "c20400558bec83ec0c53568b35";
         private const string serverTimeSignature64 = "4833c448898424d0040000488be9c644243000488b0d";
         private const string chatLogStartSignature32 = "83c8**ff75**50ff35********e8********8b0d";
@@ -71,8 +71,6 @@ namespace FFXIV_GameSense
         private const int lastFailedCommandOffset64 = 0x1D2;
         private const int currentContentFinderConditionOffset32 = 0x8;
         private const int currentContentFinderConditionOffset64 = 0xC;
-        private const int instanceServerIdOffset32 = 0x580;
-        private const int instanceServerIdOffset64 = 0x620;
         private static readonly int[] serverTimeOffset32 = { 0x14C0, 0x4, 0x69C };
         private static readonly int[] serverTimeOffset64 = { 0x1710, 0x8, 0x844 };
         private static readonly int[] chatLogStartOffset32 = { 0x18, 0x2BC, 0x0 };
@@ -91,7 +89,7 @@ namespace FFXIV_GameSense
         private IntPtr charmapAddress = IntPtr.Zero;
         private IntPtr targetAddress = IntPtr.Zero;
         private IntPtr fateListAddress = IntPtr.Zero;
-        private IntPtr instanceServerIdAddress = IntPtr.Zero;
+        private IntPtr zoneIdAddress = IntPtr.Zero;
         private IntPtr serverTimeAddress = IntPtr.Zero;
         private IntPtr chatLogStartAddress = IntPtr.Zero;
         private IntPtr chatLogTailAddress = IntPtr.Zero;
@@ -234,7 +232,7 @@ namespace FFXIV_GameSense
             string worldIdSignature = !Is64Bit ? worldIdSignature32 : worldIdSignature64;
             string lastFailedCommandSignature = !Is64Bit ? lastFailedCommandSignature32 : lastFailedCommandSignature64;
             string currentContentFinderConditionSignature = !Is64Bit ? currentContentFinderConditionSignature32 : currentContentFinderConditionSignature64;
-            string instanceServerIdSignature = !Is64Bit ? instanceServerIdSignature32 : instanceServerIdSignature64;
+            string zoneIdSignature = !Is64Bit ? zoneIdSignature32 : zoneIdSignature64;
             int[] serverTimeOffset = !Is64Bit ? serverTimeOffset32 : serverTimeOffset64;
             int[] chatLogStartOffset = !Is64Bit ? chatLogStartOffset32 : chatLogStartOffset64;
             int[] chatLogTailOffset = !Is64Bit ? chatLogTailOffset32 : chatLogTailOffset64;
@@ -242,7 +240,6 @@ namespace FFXIV_GameSense
             int contentFinderConditionOffset = !Is64Bit ? contentFinderConditionOffset32 : contentFinderConditionOffset64;
             int currentContentFinderConditionOffset = !Is64Bit ? currentContentFinderConditionOffset32 : currentContentFinderConditionOffset64;
             int lastFailedCommandOffset = !Is64Bit ? lastFailedCommandOffset32 : lastFailedCommandOffset64;
-            int instanceServerIdOffset = !Is64Bit ? instanceServerIdOffset32 : instanceServerIdOffset64;
 
             List<string> fail = new List<string>();
 
@@ -276,7 +273,6 @@ namespace FFXIV_GameSense
             {
                 if(!Is64Bit)//TODO: test chinese
                 {
-                    instanceServerIdOffset -= 0x4;
                     lastFailedCommandOffset += 0x4;
                     serverTimeOffset[2] = 0x644;
                     chatLogStartOffset[1] = 0x2C0;
@@ -320,15 +316,15 @@ namespace FFXIV_GameSense
                 fail.Add(nameof(targetAddress));
             }
 
-            // ZONEID + INSTANCESERVERID
-            list = SigScan(instanceServerIdSignature, 0, bRIP);
+            // ZONEID
+            list = SigScan(zoneIdSignature, 0, bRIP);
             if (list.Count == 1)
             {
-                instanceServerIdAddress = list[0] + instanceServerIdOffset;
+                zoneIdAddress = list[0];
             }
-            if (instanceServerIdAddress == IntPtr.Zero)
+            if (zoneIdAddress == IntPtr.Zero)
             {
-                fail.Add(nameof(instanceServerIdAddress));
+                fail.Add(nameof(zoneIdAddress));
             }
 
             // SERVERTIME
@@ -429,7 +425,7 @@ namespace FFXIV_GameSense
 
             Debug.WriteLine(nameof(charmapAddress) + ": 0x{0:X}", charmapAddress.ToInt64());
             Debug.WriteLine(nameof(targetAddress) + ": 0x{0:X}", targetAddress.ToInt64());
-            Debug.WriteLine(nameof(instanceServerIdAddress) + ": 0x{0:X}", instanceServerIdAddress.ToInt64());
+            Debug.WriteLine(nameof(zoneIdAddress) + ": 0x{0:X}", zoneIdAddress.ToInt64());
             Debug.WriteLine(nameof(chatLogStartAddress) + ": 0x{0:X}", chatLogStartAddress.ToInt64());
             Debug.WriteLine(nameof(chatLogTailAddress) + ": 0x{0:X}", chatLogTailAddress.ToInt64());
             Debug.WriteLine(nameof(fateListAddress) + ": 0x{0:X}", fateListAddress.ToInt64());
@@ -1057,9 +1053,7 @@ namespace FFXIV_GameSense
             return list;
         }
 
-        public ushort GetZoneId() => GetUInt16(instanceServerIdAddress, 2);
-
-        public byte GetInstanceServerId() => GetByteArray(instanceServerIdAddress, 1)[0];
+        public ushort GetZoneId() => GetUInt16(zoneIdAddress, 0);
     }
 
     internal class ContentFinderOffsets

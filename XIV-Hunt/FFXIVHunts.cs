@@ -62,7 +62,8 @@ namespace FFXIV_GameSense
         //internal const string baseUrl = "http://localhost:5000/";
         internal const string VerifiedCharactersUrl = baseUrl + "Manage/VerifiedCharacters";
         private static DateTime ServerTimeUtc;
-        private bool JoinedDCInstance;
+        private static DateTime LastShoutChatSync;
+        private static DataCenterInstanceMatchInfo DCInstance;
         private readonly Window1 w1;
 
         internal async Task LeaveGroup()
@@ -72,7 +73,7 @@ namespace FFXIV_GameSense
             await LeaveDCZone();
             await hubConnection.Connection.InvokeAsync(nameof(LeaveGroup), lastJoined);
             LogHost.Default.Info("Left " + GameResources.GetWorldName(lastJoined));
-            JoinedDCInstance = Joined = false;
+            Joined = false;
         }
 
         internal FFXIVHunts(Window1 pw1)
@@ -110,6 +111,14 @@ namespace FFXIV_GameSense
                 if (PutInChat(fate) && Settings.Default.FlashTaskbarIconOnHuntAndFATEs)
                     NativeMethods.FlashTaskbarIcon(Program.mem.Process);
             });
+            hubConnection.Connection.On<DataCenterInstanceMatchInfo>("DCInstanceMatch", instance =>
+            {
+                string s = string.Format(Resources.DCInstanceMatch, Program.AssemblyName.Name, (ServerTimeUtc - instance.StartTime).TotalMinutes.ToString("F0"), $"{baseUrl}DCInstance/{instance.ID}");
+                LogHost.Default.Info("DCInstanceMatch: " + s);
+                DCInstance = instance;
+                ChatMessage cm = new ChatMessage { MessageString = s };
+                _ = Program.mem.WriteChatMessage(cm);
+            });
             hubConnection.Connection.On<int>("ConnectedCount", connectedCount =>
             {
                 w1.HuntConnectionTextBlock.Dispatcher.Invoke(() => w1.HuntConnectionTextBlock.Text = string.Format(Resources.FormConnectedToCount, GameResources.GetWorldName(Program.mem.GetWorldId()), connectedCount - 1));
@@ -119,7 +128,7 @@ namespace FFXIV_GameSense
 
         private Task Connection_Closed(Exception arg)
         {
-            JoinedDCInstance = Joined = joining = false;
+            Joined = joining = false;
             return Task.CompletedTask;
         }
 
@@ -253,11 +262,11 @@ namespace FFXIV_GameSense
                 HuntsPutInChat.Clear();
             }
 
-            if (Array.IndexOf(DCZones, thisZone) > -1 && Array.IndexOf(DCZones, lastZone) == -1 && Joined && !JoinedDCInstance)
+            if (Array.IndexOf(DCZones, thisZone) > -1 && Array.IndexOf(DCZones, lastZone) == -1 && Joined)
             {
-                await JoinDCZone(thisZone, mem.GetInstanceServerId());
+                LastShoutChatSync = await JoinDCZone(thisZone);
             }
-            else if (Array.IndexOf(DCZones, lastZone) > -1 && Array.IndexOf(DCZones, thisZone) == -1 && JoinedDCInstance)
+            else if (Array.IndexOf(DCZones, lastZone) > -1 && Array.IndexOf(DCZones, thisZone) == -1)
             {
                 await LeaveDCZone();
             }
@@ -265,6 +274,10 @@ namespace FFXIV_GameSense
             foreach (Monster c in mem.Combatants.OfType<Monster>().Where(c => hunts.Exists(h => h.Id == c.BNpcNameID && GetZoneId(c.BNpcNameID) == thisZone)))
             {
                 _ = ReportHunt(c);
+            }
+            if (Array.IndexOf(DCZones, thisZone) > -1 && LastShoutChatSync != null)
+            {
+                await ReportDCShoutChat(mem.ReadChatLogBackwards(filter: x => x.Channel == ChatChannel.Shout, stopOn: x => x.Timestamp <= LastShoutChatSync).OrderByDescending(x => x.Timestamp).Take(10));
             }
             foreach (FATE f in mem.GetFateList().Where(f => f.ZoneID == thisZone))
             {
@@ -281,25 +294,32 @@ namespace FFXIV_GameSense
             {
                 if (hubConnection.Connected && Joined)
                     await hubConnection.Connection.InvokeAsync(nameof(LeaveDCZone));
-                JoinedDCInstance = false;
             }
             catch (Exception e) { LogHost.Default.WarnException(nameof(LeaveDCZone), e); }
         }
 
-        private async Task JoinDCZone(ushort zoneid, byte InstanceServerID)
+        private async Task<DateTime> JoinDCZone(ushort zoneid)
         {
-            Debug.WriteLine(nameof(JoinDCZone) + " " + zoneid + " " + InstanceServerID);
+            Debug.WriteLine(nameof(JoinDCZone) + " " + zoneid);
             try
             {
                 if (hubConnection.Connected && Joined)
-                    JoinedDCInstance = await hubConnection.Connection.InvokeAsync<bool>(nameof(JoinDCZone), zoneid, InstanceServerID);
+                    return await hubConnection.Connection.InvokeAsync<DateTime>(nameof(JoinDCZone), zoneid, DCInstance?.ID > 0 ? DCInstance?.ID : 0);
             }
             catch (Exception e) { LogHost.Default.WarnException(nameof(JoinDCZone), e); }
-            if (JoinedDCInstance)
+            return DateTime.MaxValue;
+        }
+
+        private async Task ReportDCShoutChat(IEnumerable<ChatMessage> recentShoutChat)
+        {
+            if (recentShoutChat.Any() && hubConnection.Connected && Joined)
             {
-                string s = string.Format(Resources.DCInstanceMatch, Program.AssemblyName.Name, $"{baseUrl}DCInstance/{GameResources.GetDataCenterName(lastJoined)}/{zoneid}/{InstanceServerID}");
-                LogHost.Default.Info("DCInstanceMatch: " + s);
-                await Program.mem.WriteChatMessage(new ChatMessage { MessageString = s });
+                try
+                {
+                    await hubConnection.Connection.InvokeAsync(nameof(ReportDCShoutChat), recentShoutChat);
+                    LastShoutChatSync = recentShoutChat.Max(x => x.Timestamp);
+                }
+                catch (Exception e) { LogHost.Default.WarnException(nameof(ReportDCShoutChat), e); }
             }
         }
 
@@ -392,7 +412,7 @@ namespace FFXIV_GameSense
                 f.WorldId = sid;
             ushort zid = Program.mem.GetZoneId();
             if (Array.IndexOf(DCZones, zid) > -1)
-                await JoinDCZone(zid, Program.mem.GetInstanceServerId());
+                await JoinDCZone(zid);
         }
 
         private bool PutInChat(Hunt hunt)

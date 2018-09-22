@@ -4,23 +4,32 @@ using System.Linq;
 using System.Text;
 using XIVDB;
 using XIVAPI;
+using Newtonsoft.Json;
 
 namespace FFXIV_GameSense
 {
     internal class ChatMessage
     {
+        [JsonIgnore]
         internal DateTime Timestamp { get; set; }
+        [JsonProperty]
         private uint Epoch => Timestamp.ToEpoch();
+        [JsonProperty]
         internal ChatChannel Channel { get; set; }
         internal ChatFilter Filter { get; set; }
+        [JsonProperty]
         internal Sender Sender { get; set; }
+        [JsonProperty]
         private byte[] Message { get; set; }
+        [JsonIgnore]
         internal string MessageString
         {
             get => Encoding.UTF8.GetString(Message);
             set => Message = Encoding.UTF8.GetBytes(value);
         }
+        [JsonIgnore]
         private const string possep = "<pos>";
+        [JsonIgnore]
         private static readonly Dictionary<string, byte[]> Tags = new Dictionary<string, byte[]>
         {
             { "<Emphasis>",  new byte[] { 0x02, 0x1A, 0x02, 0x02, 0x03 } },
@@ -29,8 +38,11 @@ namespace FFXIV_GameSense
             { "<Indent/>", new byte[] { 0x02, 0x1D, 0x01, 0x03 } },
             { "<22/>",  new byte[] { 0x02, 0x16, 0x01, 0x03 } }
         };
+        [JsonIgnore]
         private static readonly byte[] arrow = new byte[] { 0xEE, 0x82, 0xBB, 0x02, 0x13, 0x02, 0xEC, 0x03 };
+        [JsonIgnore]
         private static readonly byte[] HQChar = new byte[] { 0xEE, 0x80, 0xBC };
+        [JsonIgnore]
         private static readonly Dictionary<int, byte[]> RarityColors = new Dictionary<int, byte[]>
         {
             { 1, new byte[] { 0xF3, 0xF3, 0xF3 } },
@@ -208,12 +220,16 @@ namespace FFXIV_GameSense
 
     public class Sender
     {
+        [JsonProperty]
         public string Name { get; private set; }
         //public ushort WorldID { get; private set; }
         //public string WorldName => GameResources.GetWorldName(WorldID);
         //private static readonly byte[] WorldSign = new byte[] { 0x02, 0x12, 0x02, 0x59, 0x03 };
+        [JsonIgnore]
         private static readonly byte[] LinkStart = new byte[] { 0x02, 0x27 };
+        [JsonIgnore]
         private static readonly byte[] LinkEnd = new byte[] { 0x02, 0x27, 0x07, 0xCF, 0x01, 0x01, 0x01, 0xFF, 0x01, 0x03 };
+        [JsonIgnore]
         private static readonly byte[] LinkStartTemplate = new byte[] { 0x02, 0x27, 0x00, 0x01, 0x1F, 0x01, 0x01, 0xFF, 0x0B, 0x00 };
 
         public Sender(byte[] senderpart/*, ushort wid*/)

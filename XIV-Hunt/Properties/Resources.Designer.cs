@@ -85,8 +85,8 @@ namespace FFXIV_GameSense.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to key,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77
-        ///#,,,,InstanceContent,,,,,,ContentMemberType,,,,,,ClassJobLevel{Required},ClassJobLevel{Sync},ItemLevel{Required},ItemLevel{Sync},,,,,,ContentIndicator,,,,,,,,,,,,,Icon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-        ///int32,str,uint16,byte,InstanceContent,bit&amp;01,byte,uint32,uint32,byte,Conte [rest of string was truncated]&quot;;.
+        ///#,,TerritoryType,ContentLinkType,Content,,,,,,ContentMemberType,,,,,,ClassJobLevel{Required},ClassJobLevel{Sync},ItemLevel{Required},ItemLevel{Sync},,AllowReplacement,,,,,,HighEndDuty,,,,,,Name,ContentType,Transient,,,Image,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+        ///int32,str,Territor [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ContentFinderCondition {
             get {
@@ -131,7 +131,7 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Instance matched. {1}.
+        ///   Looks up a localized string similar to {0}: Instance matched. Tracked for {1} minutes. {2}.
         /// </summary>
         public static string DCInstanceMatch {
             get {
@@ -1152,29 +1152,6 @@ namespace FFXIV_GameSense.Properties {
         public static string World {
             get {
                 return ResourceManager.GetString("World", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to key,0
-        ///#,Name
-        ///int32,str
-        ///0,&quot;INVALID&quot;
-        ///1,&quot;Elemental&quot;
-        ///2,&quot;Gaia&quot;
-        ///3,&quot;Mana&quot;
-        ///4,&quot;Aether&quot;
-        ///5,&quot;Primal&quot;
-        ///6,&quot;Chaos&quot;
-        ///7,&quot;&quot;
-        ///97,&quot;Korea&quot;
-        ///98,&quot;China&quot;
-        ///99,&quot;Beta&quot;
-        ///.
-        /// </summary>
-        public static string WorldDCGroupType {
-            get {
-                return ResourceManager.GetString("WorldDCGroupType", resourceCulture);
             }
         }
     }
