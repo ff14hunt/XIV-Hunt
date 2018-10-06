@@ -29,7 +29,7 @@ namespace FFXIV_GameSense
     {
         private DispatcherTimer dispatcherTimer1s;
         private FFXIVHunts hunts;
-        internal Dictionary<HuntRank, MediaFoundationReader> sounds = new Dictionary<HuntRank, MediaFoundationReader>();
+        internal Dictionary<HuntRank, AudioFileReader> sounds = new Dictionary<HuntRank, AudioFileReader>();
         private AlarmButton currentCMPlacement;
         private System.Windows.Forms.NotifyIcon trayIcon;
         private ViewModel vm;
@@ -380,7 +380,7 @@ namespace FFXIV_GameSense
             if(disposing)
             {
                 dispatcherTimer1s.Stop();
-                foreach (KeyValuePair<HuntRank, MediaFoundationReader> s in sounds)
+                foreach (KeyValuePair<HuntRank, AudioFileReader> s in sounds)
                     if (s.Value != null)
                         s.Value.Dispose();
                 if (hunts != null)
@@ -430,19 +430,19 @@ namespace FFXIV_GameSense
             switch (r.Name)
             {
                 case "SBell":
-                    sounds[HuntRank.S] = new MediaFoundationReader(soundFile);
+                    sounds[HuntRank.S] = new AudioFileReader(soundFile);
                     Settings.Default.SBell = soundFile;
                     return true;
                 case "ABell":
-                    sounds[HuntRank.A] = new MediaFoundationReader(soundFile);
+                    sounds[HuntRank.A] = new AudioFileReader(soundFile);
                     Settings.Default.ABell = soundFile;
                     return true;
                 case "BBell":
-                    sounds[HuntRank.B] = new MediaFoundationReader(soundFile);
+                    sounds[HuntRank.B] = new AudioFileReader(soundFile);
                     Settings.Default.BBell = soundFile;
                     return true;
                 case "FATEBell":
-                    sounds[HuntRank.FATE] = new MediaFoundationReader(soundFile);
+                    sounds[HuntRank.FATE] = new AudioFileReader(soundFile);
                     Settings.Default.FATEBell = soundFile;
                     return true;
                 default:
@@ -454,7 +454,7 @@ namespace FFXIV_GameSense
         {
             r.ToolTip = Properties.Resources.NoSoundAlert;
             r.SetOff();
-            MediaFoundationReader s;
+            AudioFileReader s;
             switch (r.Name)
             {
                 case "SBell":

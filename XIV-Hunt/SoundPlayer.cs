@@ -12,7 +12,7 @@ namespace FFXIV_GameSense
     {
         public static WaveOutEvent WaveDevice { get; private set; }
 
-        public static async Task Play(MediaFoundationReader reader)
+        public static async Task Play(AudioFileReader reader)
         {
             while (WaveDevice?.PlaybackState == PlaybackState.Playing)
                 await Task.Delay(10);
@@ -21,11 +21,11 @@ namespace FFXIV_GameSense
                 Volume = Settings.Default.Volume,
                 DeviceNumber = FindSelectedDeviceNumber()
             };
+            reader.Position = 0;
             WaveDevice.Init(reader);
             WaveDevice.Play();
             WaveDevice.PlaybackStopped += delegate 
             {
-                reader.Position = 0;
                 WaveDevice.Dispose();
             };
         }
