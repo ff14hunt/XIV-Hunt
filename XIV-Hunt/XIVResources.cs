@@ -68,7 +68,7 @@ namespace XIVDB
         {
             Dictionary<ushort, string> ContentFinderCondition = new Dictionary<ushort, string>();
             CsvParser csv = new CsvParser(Resources.ContentFinderCondition);
-            string ColumnName = Thread.CurrentThread.CurrentUICulture.Name == "ko-KR" ? "InstanceContent" : "Content";
+            string ColumnName = "Content";
             while (csv.Advance())
                 if(!string.IsNullOrWhiteSpace(csv[ColumnName].Trim('"')))
                     ContentFinderCondition.Add(ushort.Parse(csv["#"]), csv[ColumnName].Trim('"').FirstLetterToUpperCase());
