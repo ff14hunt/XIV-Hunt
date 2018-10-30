@@ -422,12 +422,12 @@
     <value>..\Resources\RelicNote.ko.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="FormFATEPresets" xml:space="preserve">
-    <value>FATE Presets</value>
+    <value>돌발 프리셋</value>
   </data>
   <data name="DCInstanceMatch" xml:space="preserve">
-    <value>{0}: Instance matched. Tracked for {1} minutes. {2}</value>
+    <value>{0}: 인스턴스 매치. {1} 분 동안 추적 됨. {2}</value>
   </data>
   <data name="FormJoinLocked" xml:space="preserve">
-    <value>Reporting is locked. {0} maintenance is needed.</value>
+    <value>제보 잠김. {0} 점검 필요.</value>
   </data>
 </root>
