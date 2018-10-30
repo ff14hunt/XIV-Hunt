@@ -271,9 +271,10 @@ namespace FFXIV_GameSense
             LogHost.Default.Info(region.ToString() + $" (DX{(Is64Bit ? "11" : "9")}) game detected.");
             if(region != GameRegion.Global)
             {
-                if(!Is64Bit)//TODO: test chinese
+                if(!Is64Bit)
                 {
                     lastFailedCommandOffset += 0x4;
+                    contentFinderConditionOffset += 0x4;
                     serverTimeOffset[2] = 0x644;
                     chatLogStartOffset[1] = 0x2C0;
                     chatLogTailOffset[1] = 0x2C4;
@@ -1124,8 +1125,8 @@ namespace FFXIV_GameSense
             int offset;
             if (region == GameRegion.Chinese || region == GameRegion.Korean)
             {
-                BNpcNameID = Is64Bit ? 0x1694 : 0x136C;
-                offset = Is64Bit ? 0x16B0 : 0x1388;
+                BNpcNameID = Is64Bit ? 0x16D8 : 0x1380;
+                offset = Is64Bit ? 0x16F8 : 0x13A0;
                 Job = offset + 0x3E;
                 Level = offset + 0x40;
             }
@@ -1145,10 +1146,7 @@ namespace FFXIV_GameSense
             MaxGP = offset + 0x1C;
             CurrentCP = offset + 0x1E;
             MaxCP = offset + 0x20;
-            if (region == GameRegion.Chinese || region == GameRegion.Korean)
-                StatusEffectsStart = Is64Bit ? offset + 0xB8 : offset + 0x94;
-            else
-                StatusEffectsStart = Is64Bit ? offset + 0xC0 : offset + 0xA4;
+            StatusEffectsStart = Is64Bit ? offset + 0xC0 : offset + 0xA4;
         }
     }
 
