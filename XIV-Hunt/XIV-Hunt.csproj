@@ -378,6 +378,12 @@
     <Compile Include="UI\AlarmButton.xaml.cs">
       <DependentUpon>AlarmButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\LanguageSelector.xaml.cs">
+      <DependentUpon>LanguageSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LanguageSelector.xaml.cs">
+      <DependentUpon>LanguageSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\OverlayView.xaml.cs">
       <DependentUpon>OverlayView.xaml</DependentUpon>
     </Compile>
@@ -501,6 +507,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\AlarmButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\LanguageSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\LanguageSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

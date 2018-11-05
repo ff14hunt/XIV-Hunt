@@ -31,11 +31,19 @@ namespace FFXIV_GameSense
             }
 
             bool isFirstInstall = RestoreSettings();
-
+            if(isFirstInstall)
+            {
+                try
+                {
+                    Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                    new UI.LanguageSelector().ShowDialog();
+                }
+                catch (Exception) { }
+            }
             if (IsSquirrelInstall())
             {
                 SquirrelAwareApp.HandleEvents(onAppUpdate: v => Updater.OnAppUpdate(), onFirstRun: Updater.OnFirstRun);
-                using (var cts = new CancellationTokenSource())
+                using (CancellationTokenSource cts = new CancellationTokenSource())
                 {
                     var updateTask = Updater.Create(cts.Token);
                     updateTask.Start();
@@ -73,15 +81,17 @@ namespace FFXIV_GameSense
             }
             catch (Exception ex)
             {
-                WriteExceptionToErrorFile(new Exception("Failed to restore previous settings.", ex));
+                Exception ex1 = new Exception("Failed to restore previous settings. Restoring default settings.", ex);
+                WriteExceptionToErrorFile(ex1);
+                LogHost.Default.WarnException(ex1.Message, ex);
+                Settings.Default.Reset();
+                Settings.Default.Reload();
+                return true;
             }
             return isFirstInstall;
         }
 
-        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            WriteExceptionToErrorFile((Exception)e.ExceptionObject);
-        }
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e) => WriteExceptionToErrorFile((Exception)e.ExceptionObject);
 
         internal static void WriteExceptionToErrorFile(Exception ex)
         {

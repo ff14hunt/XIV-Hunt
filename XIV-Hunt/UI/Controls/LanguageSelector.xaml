@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="FFXIV_GameSense.UI.Controls.LanguageSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FFXIV_GameSense.UI.Controls"
+             xmlns:properties="clr-namespace:FFXIV_GameSense.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="22" d:DesignWidth="100">
+    <Grid>
+        <ComboBox x:Name="LanguageComboBox" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=LanguageCI}" SelectedValuePath="Tag" MinHeight="22" MinWidth="100" VerticalContentAlignment="Center">
+            <ComboBoxItem Tag="en-US">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="/Resources/Images/english.png"/>
+                        <TextBlock>English</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="fr-FR" >
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="/Resources/Images/french.png"/>
+                        <TextBlock>Français</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="de-DE">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="/Resources/Images/german.png"/>
+                        <TextBlock>Deutsch</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="ja-JP">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="/Resources/Images/japanese.png"/>
+                        <TextBlock>日本語</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="zh-CN">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="/Resources/Images/chinese.png"/>
+                        <TextBlock>中文</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="ko-KR">
+                <ComboBoxItem.Content>
+                    <StackPanel Orientation="Horizontal" Height="16">
+                        <Image Source="/Resources/Images/korean.png"/>
+                        <TextBlock>한국어</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem.Content>
+            </ComboBoxItem>
+        </ComboBox>
+    </Grid>
+</UserControl>

@@ -856,6 +856,36 @@ namespace FFXIV_GameSense.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string LanguageSelectorContinue {
+            get {
+                return ResourceManager.GetString("LanguageSelectorContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select XIV-Hunt language.
+        ///Keep in mind that Korean and Chinese 
+        ///character sets are exclusive to those 
+        ///game-versions..
+        /// </summary>
+        public static string LanguageSelectorInfo {
+            get {
+                return ResourceManager.GetString("LanguageSelectorInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Language Selector.
+        /// </summary>
+        public static string LanguageSelectorTitle {
+            get {
+                return ResourceManager.GetString("LanguageSelectorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} can be found at .
         /// </summary>
         public static string LKICanBeFoundAt {

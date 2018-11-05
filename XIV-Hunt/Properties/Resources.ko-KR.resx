@@ -430,4 +430,16 @@
   <data name="FormJoinLocked" xml:space="preserve">
     <value>제보 잠김. {0} 점검 필요.</value>
   </data>
+  <data name="LanguageSelectorInfo" xml:space="preserve">
+    <value>Please select XIV-Hunt language.
+Keep in mind that Korean and Chinese 
+character sets are exclusive to those 
+game-versions.</value>
+  </data>
+  <data name="LanguageSelectorContinue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="LanguageSelectorTitle" xml:space="preserve">
+    <value>{0} Language Selector</value>
+  </data>
 </root>

@@ -70,7 +70,6 @@ namespace FFXIV_GameSense
                     trayIcon.Visible = false;
                 };
             DataContext = vm;
-            LanguageComboBox.SelectionChanged += LanguageComboBox_SelectionChanged;
             if (Settings.Default.StartMinimized)
             {
                 WindowState = WindowState.Minimized;
@@ -623,12 +622,6 @@ namespace FFXIV_GameSense
                 ((UniformGrid)sender).Opacity = 1f;
             else
                 ((UniformGrid)sender).Opacity = 0.35f;
-        }
-
-        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Settings.Default.Save();
-            Updater.RestartApp();
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)
