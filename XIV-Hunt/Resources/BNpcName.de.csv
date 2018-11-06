@@ -1,5 +1,5 @@
 ﻿key,0,1,2,3,4,5,6,7
-#,Singular,,Plural,,StartsWithVowel,,,
+#,Singular,Adjective,Plural,PossessivePronoun,StartsWithVowel,,Pronoun,Article
 int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 0,"",0,"",0,0,1,0,0
 1,"",0,"",0,0,0,0,0
@@ -6435,7 +6435,7 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 6431,"Tränenhustenopfer",4,"Tränenhustenopfer",2,0,1,2,0
 6432,"wütend[a] Bauer",8,"wütend[a] Bauern",1,0,1,0,0
 6433,"übernatürlich[a] Chapuli",3,"übernatürlich[a] Chapulis",1,0,1,2,0
-6434,"Holzfäller",3,"Holzfäller",1,0,0,0,1
+6434,"Holzfäller",3,"Holzfäller",1,0,1,0,1
 6435,"Etain",3,"None",1,0,0,0,1
 6436,"",0,"",0,0,0,0,0
 6437,"Waffentruhe",3,"Waffentruhen",1,0,1,1,0
@@ -6893,8 +6893,8 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 6889,"Wellenkrieger",4,"Wellenkrieger",2,0,1,0,0
 6890,"Wellenkrieger",4,"Wellenkrieger",2,0,1,0,0
 6891,"Wellenoberst",3,"Wellenoberste",2,0,1,0,0
-6892,"",0,"",0,0,0,0,0
-6893,"",0,"",0,0,0,0,0
+6892,"klebrig[a] Geira-Katze",3,"klebrig[a] Geira-Katzen",2,0,1,1,0
+6893,"Ibukimaru",3,"Ibukimaru",1,0,0,0,1
 6894,"angelockt[a] Gasame",3,"angelockt[a] Gasame",1,0,1,0,0
 6895,"angelockt[a] Tatsunoko",3,"angelockt[a] Tatsunoko",1,0,1,0,0
 6896,"Salzschwalben-Larve",3,"Salzschwalben-Larven",1,0,1,1,0
@@ -7571,14 +7571,14 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7567,"Pagos-Elementar",4,"Pagos-Elementare",2,0,1,0,0
 7568,"tot[a] Giftmischer",4,"tot[a] Giftmischer",2,0,1,0,0
 7569,"tot[a] Werfer",4,"tot[a] Werfer",2,0,1,0,0
-7570,"",0,"",0,0,0,0,0
-7571,"",0,"",0,0,0,0,0
-7572,"",0,"",0,0,0,0,0
-7573,"",0,"",0,0,0,0,0
-7574,"",0,"",0,0,0,0,0
-7575,"",0,"",0,0,0,0,0
-7576,"",0,"",0,0,0,0,0
-7577,"",0,"",0,0,0,0,0
+7570,"Yojinbo",3,"NONE",1,0,0,0,1
+7571,"Inoshikacho",3,"Inoshikacho",1,0,1,0,0
+7572,"Gilgamesch-Doppelgänger",4,"Gilgamesch-Doppelgänger",2,0,1,0,0
+7573,"Gilgamesch",3,"NONE",1,0,0,0,1
+7574,"Drachenkopf",4,"Drachenköpfe",2,0,1,0,0
+7575,"Eisenkette",3,"Eisenketten",1,0,1,1,0
+7576,"Elektro-Kraft",3,"Elektro-Kräfte",2,0,1,1,0
+7577,"Gilgamesch",3,"NONE",1,0,0,0,1
 7578,"Kobold-Felsspalter",4,"Kobold-Felsspalter",2,0,1,0,0
 7579,"Sahagin-Wellenreiter",4,"Sahagin-Wellenreiter",2,0,1,0,0
 7580,"Amalj'aa-Flammenfresser",4,"Amalj'aa-Flammenfresser",2,0,1,0,0
@@ -7727,132 +7727,132 @@ int32,str,sbyte,str,sbyte,sbyte,sbyte,sbyte,sbyte
 7723,"Altar-Scholar",6,"Altar-Scholaren",2,0,1,0,0
 7724,"Altar-Syricta",4,"Altar-Syrictas",1,0,1,0,0
 7725,"Flammenvogel",4,"Flammenvögel",2,0,1,0,0
-7726,"",0,"",0,0,0,0,0
-7727,"",0,"",0,0,0,0,0
-7728,"",0,"",0,0,0,0,0
-7729,"",0,"",0,0,0,0,0
-7730,"",0,"",0,0,0,0,0
-7731,"",0,"",0,0,0,0,0
-7732,"",0,"",0,0,0,0,0
-7733,"",0,"",0,0,0,0,0
-7734,"",0,"",0,0,0,0,0
-7735,"",0,"",0,0,0,0,0
-7736,"",0,"",0,0,0,0,0
-7737,"",0,"",0,0,0,0,0
-7738,"",0,"",0,0,0,0,0
-7739,"",0,"",0,0,0,0,0
-7740,"",0,"",0,0,0,0,0
-7741,"",0,"",0,0,0,0,0
-7742,"",0,"",0,0,0,0,0
-7743,"",0,"",0,0,0,0,0
-7744,"",0,"",0,0,0,0,0
-7745,"",0,"",0,0,0,0,0
-7746,"",0,"",0,0,0,0,0
-7747,"",0,"",0,0,0,0,0
-7748,"",0,"",0,0,0,0,0
-7749,"",0,"",0,0,0,0,0
-7750,"",0,"",0,0,0,0,0
-7751,"",0,"",0,0,0,0,0
-7752,"",0,"",0,0,0,0,0
-7753,"",0,"",0,0,0,0,0
-7754,"",0,"",0,0,0,0,0
-7755,"",0,"",0,0,0,0,0
-7756,"",0,"",0,0,0,0,0
-7757,"",0,"",0,0,0,0,0
-7758,"",0,"",0,0,0,0,0
-7759,"",0,"",0,0,0,0,0
-7760,"",0,"",0,0,0,0,0
-7761,"",0,"",0,0,0,0,0
-7762,"",0,"",0,0,0,0,0
-7763,"",0,"",0,0,0,0,0
-7764,"",0,"",0,0,0,0,0
-7765,"",0,"",0,0,0,0,0
-7766,"",0,"",0,0,0,0,0
-7767,"",0,"",0,0,0,0,0
-7768,"",0,"",0,0,0,0,0
-7769,"",0,"",0,0,0,0,0
-7770,"",0,"",0,0,0,0,0
-7771,"",0,"",0,0,0,0,0
-7772,"",0,"",0,0,0,0,0
-7773,"",0,"",0,0,0,0,0
-7774,"",0,"",0,0,0,0,0
-7775,"",0,"",0,0,0,0,0
-7776,"",0,"",0,0,0,0,0
-7777,"",0,"",0,0,0,0,0
-7778,"",0,"",0,0,0,0,0
-7779,"",0,"",0,0,0,0,0
-7780,"",0,"",0,0,0,0,0
-7781,"",0,"",0,0,0,0,0
-7782,"",0,"",0,0,0,0,0
-7783,"",0,"",0,0,0,0,0
-7784,"",0,"",0,0,0,0,0
-7785,"",0,"",0,0,0,0,0
-7786,"",0,"",0,0,0,0,0
-7787,"",0,"",0,0,0,0,0
-7788,"",0,"",0,0,0,0,0
-7789,"",0,"",0,0,0,0,0
-7790,"",0,"",0,0,0,0,0
-7791,"",0,"",0,0,0,0,0
-7792,"",0,"",0,0,0,0,0
-7793,"",0,"",0,0,0,0,0
-7794,"",0,"",0,0,0,0,0
-7795,"",0,"",0,0,0,0,0
-7796,"",0,"",0,0,0,0,0
-7797,"",0,"",0,0,0,0,0
-7798,"",0,"",0,0,0,0,0
-7799,"",0,"",0,0,0,0,0
-7800,"",0,"",0,0,0,0,0
-7801,"",0,"",0,0,0,0,0
-7802,"",0,"",0,0,0,0,0
-7803,"",0,"",0,0,0,0,0
-7804,"",0,"",0,0,0,0,0
-7805,"",0,"",0,0,0,0,0
-7806,"",0,"",0,0,0,0,0
-7807,"",0,"",0,0,0,0,0
-7808,"",0,"",0,0,0,0,0
-7809,"",0,"",0,0,0,0,0
-7810,"",0,"",0,0,0,0,0
-7811,"",0,"",0,0,0,0,0
-7812,"",0,"",0,0,0,0,0
-7813,"",0,"",0,0,0,0,0
-7814,"",0,"",0,0,0,0,0
-7815,"",0,"",0,0,0,0,0
-7816,"",0,"",0,0,0,0,0
-7817,"",0,"",0,0,0,0,0
-7818,"",0,"",0,0,0,0,0
-7819,"",0,"",0,0,0,0,0
-7820,"",0,"",0,0,0,0,0
-7821,"",0,"",0,0,0,0,0
-7822,"",0,"",0,0,0,0,0
-7823,"",0,"",0,0,0,0,0
-7824,"",0,"",0,0,0,0,0
-7825,"",0,"",0,0,0,0,0
-7826,"",0,"",0,0,0,0,0
-7827,"",0,"",0,0,0,0,0
-7828,"",0,"",0,0,0,0,0
-7829,"",0,"",0,0,0,0,0
-7830,"",0,"",0,0,0,0,0
-7831,"",0,"",0,0,0,0,0
-7832,"",0,"",0,0,0,0,0
-7833,"",0,"",0,0,0,0,0
-7834,"",0,"",0,0,0,0,0
-7835,"",0,"",0,0,0,0,0
-7836,"",0,"",0,0,0,0,0
-7837,"",0,"",0,0,0,0,0
-7838,"",0,"",0,0,0,0,0
-7839,"",0,"",0,0,0,0,0
-7840,"",0,"",0,0,0,0,0
-7841,"",0,"",0,0,0,0,0
-7842,"",0,"",0,0,0,0,0
-7843,"",0,"",0,0,0,0,0
-7844,"",0,"",0,0,0,0,0
-7845,"",0,"",0,0,0,0,0
-7846,"",0,"",0,0,0,0,0
-7847,"",0,"",0,0,0,0,0
-7848,"",0,"",0,0,0,0,0
-7849,"",0,"",0,0,0,0,0
-7850,"",0,"",0,0,0,0,0
-7851,"",0,"",0,0,0,0,0
+7726,"Lesath",3,"Lesath",1,0,0,0,1
+7727,"Eldthurs",3,"Eldthurs",1,0,0,0,1
+7728,"Schwefelschleim",4,"Schwefelschleime",2,0,1,0,0
+7729,"Glaukopis",3,"Glaukopis",1,0,0,0,1
+7730,"geflügelt[a] Tochter[p]",3,"geflügelt[a] Töchter[p]",2,0,1,1,0
+7731,"Penthesilea",3,"Penthesilea",1,0,0,1,1
+7732,"rot[a] Asche",3,"rot[a] Aschen",1,0,1,1,0
+7733,"blau[a] Asche",3,"blau[a] Aschen",1,0,1,1,0
+7734,"Schwert[p] der Königin",4,"Schwerter[p] der Königin",2,0,1,2,0
+7735,"Schild[p] der Königin",4,"Schilde[p] der Königin",2,0,1,0,0
+7736,"Graffiacane",3,"Graffiacane",1,0,0,0,1
+7737,"Graffi",3,"Graffi",1,0,0,0,1
+7738,"Acane",3,"Acane",1,0,0,1,1
+7739,"Skalli",3,"Skalli",1,0,0,0,1
+7740,"Sophist",6,"Sophisten",1,0,1,0,0
+7741,"Zuhörer",4,"Zuhörer",2,0,1,0,0
+7742,"Askalaphos",3,"Askalaphos",1,0,0,0,1
+7743,"Erd-Familiar",4,"Erd-Familiare",2,0,1,0,0
+7744,"Wasser-Familiar",4,"Wasser-Familiare",2,0,1,0,0
+7745,"Wind-Familiar",4,"Wind-Familiare",2,0,1,0,0
+7746,"Großherzog Batym",3,"Großherzog Batym",1,0,0,0,1
+7747,"Dämonen-Elementar",4,"Dämonen-Elementare",2,0,1,0,0
+7748,"Wüterix [t] Söldner",4,"Wüterix [t] Söldner",2,0,0,0,1
+7749,"Magitek-Gobbrecher[p] III-E",4,"Magitek-Gobbrecher[p] III-E",2,0,1,0,0
+7750,"Holzfäller",3,"Holzfäller",1,0,1,0,1
+7751,"Trauerweide",8,"Trauerweiden",1,0,0,1,1
+7752,"schluchzend[a] Schössling",4,"schluchzend[a] Schösslinge",2,0,1,0,0
+7753,"Flauros",3,"Flauros",1,0,0,0,1
+7754,"Aetolus",3,"Aetolus",1,0,0,0,1
+7755,"Gewitterwolke",3,"Gewitterwolken",1,0,1,1,0
+7756,"Dux",3,"Dux",1,0,0,0,1
+7757,"Donnerwolke",3,"Donnerwolke",1,0,1,1,0
+7758,"Donnerkugel",3,"Donnerkugeln",1,0,1,1,0
+7759,"Leukosia",3,"Leukosia",1,0,0,1,1
+7760,"Iris",3,"Iris",1,0,0,1,1
+7761,"Träne",3,"Tränen",1,0,1,1,0
+7762,"Regenbogentropfen",4,"Regenbogentropfen",1,0,1,0,0
+7763,"Yin-Yang",3,"Yin-Yangs",1,0,0,0,1
+7764,"Pyros-Elementar",4,"Pyros-Elementare",2,0,1,0,0
+7765,"streunend[a] Schnippler",4,"streunend[a] Schnippler",2,0,1,0,0
+7766,"streunend[a] Mörderkrabbe",3,"streunend[a] Mörderkrabben",1,0,1,1,0
+7767,"Pyros-Karlabos",3,"Pyros-Karlabosse",2,0,1,0,0
+7768,"Felsklumpen",4,"Felsklumpen",1,0,1,0,0
+7769,"Pyros-Holzgolem",4,"Pyros-Holzgolems",1,0,1,0,0
+7770,"Pyros-Schnittholzgolem",4,"Pyros-Schnittholzgolems",1,0,1,0,0
+7771,"Taifun-Exergon",4,"Taifun-Exergone",2,0,1,2,0
+7772,"Gewitter-Exergon",4,"Gewitter-Exergone",2,0,1,2,0
+7773,"Asche-Exergon",4,"Asche-Exergone",2,0,1,2,0
+7774,"Schneesturm-Exergon",4,"Schneesturm-Exergone",2,0,1,2,0
+7775,"Pyros-Wolf",4,"Pyros-Wölfe",2,0,1,0,0
+7776,"Pyros-Bhut",4,"Pyros-Bhuts",1,0,1,0,0
+7777,"Pyros-Geist",4,"Pyros-Geister",2,0,1,0,0
+7778,"Val-Geist",4,"Val-Geister",2,0,1,0,0
+7779,"Dunkel-Troubadour",4,"Dunkel-Troubadoure",2,0,1,0,0
+7780,"Pyros-Parthenope",3,"Pyros-Parthenopen",1,0,1,1,0
+7781,"Dunkel-Parthenope",3,"Dunkel-Parthenopen",1,0,1,1,0
+7782,"Delphyne",3,"Delphyne",1,0,1,1,0
+7783,"Delphyne",3,"Delphyne",1,0,1,1,0
+7784,"seelenlos[a] Fährtenfinder",4,"seelenlos[a] Fährtenfinder",2,0,1,0,0
+7785,"seelenlos[a] Agent",6,"seelenlos[a] Agenten",1,0,1,0,0
+7786,"Spriggan-Pankratiast",6,"Spriggan-Pankratiasten",1,0,1,0,0
+7787,"Pyros-Zobalos",3,"Pyros-Zobalosse",2,0,1,0,0
+7788,"schlendernd[a] Schössling",4,"schlendernd[a] Schösslinge",2,0,1,0,0
+7789,"Val-Eisfalle",3,"Val-Eisfallen",1,0,1,1,0
+7790,"Pyros-Coeurl",3,"Pyros-Coeurl",1,0,1,0,0
+7791,"nördlich[a] Greif",6,"nördlich[a] Greife",2,0,1,0,0
+7792,"Gibbon",4,"Gibbons",1,0,1,0,0
+7793,"Pyros-Schnecke",3,"Pyros-Schnecken",1,0,1,1,0
+7794,"Pyros-Kongamato",4,"Pyros-Kongamatos",1,0,1,0,0
+7795,"Cardian",3,"Cardians",1,0,1,0,0
+7796,"Pyros-Schlange",3,"Pyros-Schlangen",1,0,1,1,0
+7797,"Defoliator",4,"Defoliatoren",1,0,1,0,0
+7798,"Pyros-Gremlin",4,"Pyros-Gremlins",1,0,1,0,0
+7799,"streunend[a] Schnippler",4,"streunend[a] Schnippler",2,0,1,0,0
+7800,"Nichtsspringer",4,"Nichtsspringer",2,0,1,0,0
+7801,"Tintenauge",4,"Tintenaugen",1,0,1,2,0
+7802,"Mega-Gris",3,"Mega-Gris",1,0,1,0,0
+7803,"mechanisch[a] Wächter",4,"mechanisch[a] Wächter",2,0,1,0,0
+7804,"Pyros-Chelone",3,"Pyros-Chelonen",1,0,1,1,0
+7805,"Flammenschwinge",3,"Flammenschwingen",1,0,1,1,0
+7806,"Wasserspeier",4,"Wasserspeier",2,0,1,0,0
+7807,"Hippomartimus",3,"Hippomartimus",1,0,1,2,0
+7808,"Pyros-Apanda",4,"Pyros-Apandas",1,0,1,0,0
+7809,"Val-Mammut",4,"Val-Mammuts",1,0,1,2,0
+7810,"Machairodus",3,"Machairodus",1,0,1,0,0
+7811,"Pyros-Nerodia",3,"Pyros-Nerodias",1,0,1,1,0
+7812,"Val-Wikinger",4,"Val-Wikinger",2,0,1,0,0
+7813,"verloren[a] Haokah",3,"verloren[a] Haokah",1,0,1,0,0
+7814,"überfällig[a] Buch",2,"überfällig[a] Bücher",2,0,1,2,0
+7815,"Val-Yeti",4,"Val-Yetis",1,0,1,0,0
+7816,"Knipser",4,"Knipser",2,0,1,0,0
+7817,"Pyros-Karlabos",3,"Pyros-Karlabosse",2,0,1,0,0
+7818,"nördlich[a] Rochen",4,"nördlich[a] Rochen",1,0,1,0,0
+7819,"Pyros-Igelbomber",4,"Pyros-Igelbomber",2,0,1,0,0
+7820,"Pyros-Pudding",4,"Pyros-Puddings",1,0,1,0,0
+7821,"Val-Einhänder",4,"Val-Einhänder",2,0,1,0,0
+7822,"Pyros-Nanka",3,"Pyros-Nankas",1,0,1,0,0
+7823,"Pyros-Gulo-Gulo",3,"Pyros-Gulo-Gulo",1,0,1,0,0
+7824,"Vogelfresser",4,"Vogelfresser",2,0,1,0,0
+7825,"Pyros-Krabbe",3,"Pyros-Krabben",1,0,1,1,0
+7826,"schneeweiß[a] Flamme",3,"schneeweiß[a] Flammen",1,0,1,1,0
+7827,"Dingo",4,"Dingos",1,0,1,0,0
+7828,"Pyros-Schleim",4,"Pyros-Schleime",2,0,1,0,0
+7829,"nördlich[a] Grizzly",4,"nördlich[a] Grizzlys",1,0,1,0,0
+7830,"nördlich[a] Schwalbe",3,"nördlich[a] Schwalben",1,0,1,1,0
+7831,"Val-Piranu",4,"Val-Piranus",1,0,1,0,0
+7832,"Indigohand-Ausbrecher",4,"Indigohand-Ausbrecher",2,0,1,0,0
+7833,"Pyros-Falke",8,"Pyros-Falken",1,0,1,0,0
+7834,"Pyros-Holzgolem",4,"Pyros-Holzgolems",1,0,1,0,0
+7835,"Pyros-Bilsenkraut",4,"Pyros-Bilsenkräuter",2,0,1,0,0
+7836,"Matanga-Vertrieben[a]",3,"Matanga-Vertrieben[a]",1,0,1,0,0
+7837,"Pyros-Baumschrat",4,"Pyros-Baumschrate",2,0,1,0,0
+7838,"Val-Hornrabe",8,"Val-Hornraben",1,0,1,0,0
+7839,"Val-Minotaurus",3,"Val-Minotauren",1,0,1,0,0
+7840,"gefertigt[a] Singha",3,"gefertigt[a] Singha",1,0,1,0,0
+7841,"Val-Skatene",3,"Val-Skatenen",1,0,1,1,0
+7842,"Stegoceras",3,"Stegoceras",1,0,1,0,0
+7843,"Zebu",3,"Zebu",1,0,1,0,0
+7844,"antik[a] Nichtsdrache",8,"antik[a] Nichtsdrachen",1,0,1,0,0
+7845,"Pyros-Hektokulus",3,"Pyros-Hektokuli",1,0,1,0,0
+7846,"Val-Blutgleiter",4,"Val-Blutgleiter",2,0,1,0,0
+7847,"Val-Gigantopithecus",3,"Val-Gigantopithecus",1,0,1,0,0
+7848,"Pyros-Shuck",4,"Pyros-Shucks",1,0,1,0,0
+7849,"Flammen-Nichtsdrache",8,"Flammen-Nichtsdrachen",1,0,1,0,0
+7850,"Pyros-Seelenstein-Superstruktur",3,"Pyros-Seelenstein-Superstrukturen",1,0,1,1,0
+7851,"Aasgreif",6,"Aasgreife",2,0,1,0,0
 7852,"Ziel[p] des Blitzstrahls",4,"Ziele[p] des Blitzstrahls",2,0,1,2,0
 7853,"verstärkt[a] Raketenschlag",4,"verstärkt[a] Raketenschläge",2,0,1,0,0
 7854,"Altar-Mandragora",3,"Altar-Mandragoras",1,0,1,1,0

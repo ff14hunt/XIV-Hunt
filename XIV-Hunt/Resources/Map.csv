@@ -317,7 +317,7 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 313,4,13,0,1,233,"r2d3/00",200,-148,35,"Coerthas","Xelphatol","",70,32766,"Xelphatol",True,False
 314,0,0,0,1,0,"default/00",100,0,0,"The Black Shroud","The Palace of the Dead","",-1,0,"The Palace of the Dead",True,True
 315,0,0,0,1,0,"default/00",100,0,0,"???","The Aquapolis","",-1,0,"The Aquapolis",True,False
-316,0,0,0,1,0,"a2ff/00",400,0,0,"Abalathia's Spine","Last Remnant","",-1,0,"Last Remnant",True,False
+316,0,0,0,1,0,"a2ff/00",400,0,0,"Abalathia's Spine","Last Remnant","",-1,0,"Kugane Ohashi",True,False
 317,0,0,1,1,248,"f1d9/01",200,0,0,"The Black Shroud","Haunted Manor","Ground Floor",-1,0,"Haunted Manor",True,False
 318,0,0,2,1,247,"f1d9/02",200,0,0,"The Black Shroud","Haunted Manor","Second Floor",-1,0,"Haunted Manor",True,False
 319,0,0,3,1,249,"f1d9/03",200,0,0,"The Black Shroud","Haunted Manor","Cellarage",-1,0,"Haunted Manor",True,False
@@ -380,7 +380,7 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 376,0,0,0,1,295,"o3e1/00",400,0,0,"La Noscea","The <Emphasis>Misery</Emphasis>","",-1,0,"The <Emphasis>Misery</Emphasis>",True,True
 377,0,0,0,1,302,"e3e1/00",400,0,0,"Hingashi","Ruby Bazaar Offices","",-1,0,"Ruby Bazaar Offices",True,True
 378,0,0,0,1,297,"e3e5/00",400,0,0,"Othard","The House of the Fierce","",-1,0,"The House of the Fierce",True,True
-379,0,0,0,1,298,"e3ea/00",400,-60,-46,"Othard","Doman Enclave","",-1,0,"Doman Enclave",True,True
+379,0,0,0,1,298,"e3ea/00",400,-60,-46,"Othard","The Doman Enclave","",-1,0,"The Doman Enclave",True,True
 380,0,0,0,1,0,"e3ti/00",400,0,0,"Hingashi","Bokairo Inn","",-1,0,"Bokairo Inn",True,False
 381,0,0,0,1,0,"g3e1/00",400,0,0,"Gyr Abania","The First Altar of Djanan Qhat","",-1,0,"The First Altar of Djanan Qhat",True,True
 382,0,0,0,1,0,"g3e3/00",400,0,0,"Gyr Abania","The Resonatorium","",-1,0,"The Lochs",True,False
@@ -438,7 +438,7 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 434,0,0,0,1,0,"e1i4/00",400,0,0,"Hingashi","Private Chambers - Shirogane","",-1,0,"Company Workshop - Shirogane",True,False
 435,0,0,0,1,0,"g3fc/01",400,0,0,"Gyr Abania","Transparency","",-1,0,"Transparency",True,False
 436,0,0,0,1,0,"g3fc/02",400,0,32,"Gyr Abania","Myth","",-1,0,"Transparency",True,False
-437,0,0,0,1,298,"e3eb/00",400,-60,-46,"Othard","Doman Enclave","",-1,0,"Doman Enclave",True,True
+437,0,0,0,1,298,"e3eb/00",400,-60,-46,"Othard","The Doman Enclave","",-1,0,"The Doman Enclave",True,True
 438,0,0,0,1,0,"e1i4/00",400,0,0,"Hingashi","Kobai Goten Apartment","",-1,0,"Kobai Goten Apartment",True,False
 439,11,8,0,1,321,"e3d5/00",200,0,0,"Othard","Hells' Lid","",94,16382,"Hells' Lid",True,False
 440,0,0,0,1,311,"l1p2/00",200,0,0,"Mor Dhona","Crystal Tower Training Grounds","",-1,0,"Crystal Tower Training Grounds",True,False
@@ -464,7 +464,7 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 460,0,0,0,1,0,"z3o7/10",400,-216,-72,"Gyr Abania","Sigmascape V1.0","",-1,0,"Sigmascape V1.0",True,False
 461,0,0,0,1,314,"e3e7/00",400,0,0,"Othard","Kienkan","",-1,0,"Kienkan",True,True
 462,0,0,0,1,319,"e3e8/00",400,-62,475,"Othard","Reisen Temple","",-1,0,"Reisen Temple",True,True
-463,0,0,0,1,313,"e3ec/00",400,-60,-46,"Othard","Doman Enclave","",-1,0,"Doman Enclave",True,False
+463,0,0,0,1,313,"e3ec/00",400,23,34,"Othard","The Doman Enclave","",-1,0,"The Doman Enclave",True,False
 464,11,9,2,1,322,"e3d6/01",200,240,0,"Othard","The Swallow's Compass","The Swallow's Compass",92,62,"The Swallow's Compass",True,False
 465,11,9,3,1,323,"e3d6/02",200,-240,0,"Othard","The Swallow's Compass","The One River",92,960,"The Swallow's Compass",True,False
 466,11,9,1,1,324,"e3d6/03",200,-15,0,"Othard","The Swallow's Compass","The Dairyu Chain",92,15360,"The Swallow's Compass",True,False
@@ -481,11 +481,33 @@ int32,byte,byte,sbyte,byte,uint16,str,uint16,int16,int16,PlaceName,PlaceName,Pla
 477,0,0,0,1,0,"default/00",100,0,0,"Othard","Heaven-on-High","",-1,0,"Heaven-on-High",True,True
 478,0,0,0,1,0,"default/00",100,0,0,"Othard","The Burn","",-1,0,"The Burn",True,False
 479,0,0,0,1,325,"e3ee/00",400,0,0,"Othard","Castrum Fluminis","",-1,0,"Castrum Fluminis",True,True
-480,0,0,0,1,0,"e3d7/00",200,0,0,"Othard","The Burn","",-1,0,"",True,False
-481,0,0,1,1,0,"d2d9/01",200,40,6,"Dravania","","First Floor",-1,0,"",True,False
-482,0,0,2,1,0,"d2d9/02",200,55,-4,"Dravania","","The Underworks",-1,0,"",True,False
+480,11,10,0,1,336,"e3d7/00",200,0,0,"Othard","The Burn","",99,65534,"The Burn",True,False
+481,7,15,1,1,332,"d2d9/01",200,0,0,"Dravania","Saint Mocianne's Arboretum (Hard)","First Floor",97,62,"Saint Mocianne's Arboretum",True,False
+482,7,15,2,1,333,"d2d9/02",200,0,0,"Dravania","Saint Mocianne's Arboretum (Hard)","The Underworks",97,8128,"Saint Mocianne's Arboretum",True,False
 483,0,0,0,1,0,"default/00",100,0,0,"???","The Ridorana Cataract","",-1,0,"The Ridorana Cataract",True,True
-484,0,0,0,0,0,"",100,0,0,"","","",-1,0,,True,False
-485,0,0,0,0,0,"",100,0,0,"","","",-1,0,,True,False
-486,0,0,0,0,0,"",100,0,0,"","","",-1,0,,True,False
+484,0,0,0,1,335,"z3fc/00",100,0,0,"???","Eureka Pyros","",98,16382,"Eureka Pyros",True,False
+485,0,0,0,1,0,"z3oc/00",400,-100,-100,"Gyr Abania","Psiscape V1.0","",-1,0,"Psiscape V1.0",True,False
+486,0,0,0,1,0,"z3oe/00",400,-100,-100,"Gyr Abania","The Interdimensional Rift","",-1,0,"The Interdimensional Rift",True,False
 487,0,0,0,1,334,"w1t1/01",200,0,0,"Thanalan","Ul'dah - Steps of Nald","",-1,0,"Ul'dah - Steps of Nald",True,False
+488,0,0,0,1,0,"w1p1/00",100,0,0,"","","",-1,0,"",True,False
+489,0,0,0,1,0,"e3ff/00",400,-100,-100,"Hingashi","Kugane Ohashi","",-1,0,"Kugane Ohashi",True,False
+490,0,0,0,1,0,"w1tz/00",400,-100,-100,"Thanalan","","",-1,0,"",True,False
+491,0,0,0,1,0,"n4f1/00",100,0,0,"???","","",-1,0,"",True,False
+492,0,0,0,1,0,"n4f2/00",100,0,0,"???","","",-1,0,"",True,False
+493,0,0,0,1,0,"n4f3/00",100,0,0,"???","","",-1,0,"",True,False
+494,0,0,0,1,0,"n4f4/00",100,0,0,"???","","",-1,0,"",True,False
+495,0,0,0,1,0,"n4f5/00",100,0,0,"???","","",-1,0,"",True,False
+496,0,0,0,1,0,"n4f6/00",100,0,0,"???","","",-1,0,"",True,False
+497,0,0,0,1,0,"n4t1/00",200,0,0,"???","","",-1,0,"",True,False
+498,0,0,0,1,0,"n4t2/00",200,0,0,"???","","",-1,0,"",True,False
+499,0,0,0,1,0,"o3c2/00",400,-100,-100,"???","The Shifting Altars of Uznair","",-1,0,"The Shifting Altars of Uznair",True,False
+500,8,10,0,1,0,"g3d5/00",200,0,0,"Gyr Abania","","",-1,0,"",True,False
+501,0,0,0,1,0,"z3od/00",400,-100,-100,"Gyr Abania","Psiscape V2.0","",-1,0,"Psiscape V2.0",True,False
+502,0,0,0,1,0,"z3of/00",400,-100,-100,"Gyr Abania","The Interdimensional Rift","",-1,0,"The Interdimensional Rift",True,False
+503,0,0,0,1,0,"e3fe/00",400,-100,-100,"Othard","Hells' Kier","",-1,0,"Hells' Kier",True,False
+504,0,0,1,1,337,"f1d9/01",200,0,0,"The Black Shroud","The Haunted Manor","Ground Floor",-1,0,"Haunted Manor",True,True
+505,0,0,2,1,338,"f1d9/02",200,0,0,"The Black Shroud","The Haunted Manor","Second Floor",-1,0,"Haunted Manor",True,True
+506,0,0,3,1,339,"f1d9/03",200,0,0,"The Black Shroud","The Haunted Manor","Cellarage",-1,0,"Haunted Manor",True,True
+507,0,0,0,1,0,"default/00",400,0,0,"Thanalan","The Fall of Belah'dia","",-1,0,"The Fall of Belah'dia",True,False
+508,0,0,0,1,0,"default/00",100,0,0,"Gyr Abania","The Interdimensional Rift","",-1,0,"The Interdimensional Rift",True,True
+509,0,0,0,1,0,"default/00",400,-100,-100,"Gyr Abania","The Interdimensional Rift","",-1,0,"The Interdimensional Rift",True,True

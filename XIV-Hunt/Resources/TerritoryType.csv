@@ -250,7 +250,7 @@ int32,str,str,byte,PlaceName,PlaceName,PlaceName,Map,byte,byte,byte,uint16,bit&0
 350,"f1d4","ffxiv/fst_f1/dun/f1d4/level/f1d4",1,"The Black Shroud","The Black Shroud","Haukke Manor","f1d4/01",3,2,3,19,False,0,False,0,True,False,False,False,1001,122003,124204,,0,"",-1,0,-1,False,0,0,0,0,False
 351,"l1e1","ffxiv/lak_l1/evt/l1e1/level/l1e1",1,"Mor Dhona","Mor Dhona","The Rising Stones","l1e1/00",6,0,15,0,False,0,False,0,True,False,False,False,1114,-1,-1,"ArrayEventHandler#852110",0,"Revenant's Toll",-1,0,-1,False,0,0,0,0,False
 352,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
-353,"z1z1","ex2/02_est_e3/fld/e3ff/level/e3ff",1,"Othard","Othard","","e3ff/00",10,2,10,70,False,0,False,0,True,False,False,False,1001,122024,124868,,0,"",-1,327,-1,False,2,0,0,0,False
+353,"z1z1","ex2/02_est_e3/fld/e3ff/level/e3ff",1,"Othard","Othard","Kugane Ohashi","e3ff/00",10,2,10,70,False,0,False,0,True,False,False,False,1001,122024,124868,,0,"",-1,327,-1,False,2,0,0,0,False
 354,"z1z2","ex1/03_abr_a2/fld/a2fd/level/a2fd",1,"Abalathia's Spine","Abalathia's Spine","Containment Bay S1T7","a2fd/00",7,2,10,71,False,66,False,0,True,False,False,False,1001,122019,124911,,0,"",-1,139,-1,False,1,0,0,0,False
 355,"f1b1","ffxiv/fst_f1/bah/f1b1/level/f1b1",1,"The Black Shroud","The Black Shroud","Dalamud's Shadow","f1b1/00",3,2,16,98,False,0,False,0,True,False,False,False,1001,122003,124511,,0,"",-1,39,-1,False,0,0,0,0,False
 356,"f1b2","ffxiv/fst_f1/bah/f1b2/level/f1b2",1,"The Black Shroud","The Black Shroud","The Outer Coil","f1b2/01",3,2,16,99,False,28,False,0,True,False,False,False,1001,122003,124512,,0,"",-1,40,-1,False,0,0,0,0,False
@@ -692,7 +692,7 @@ int32,str,str,byte,PlaceName,PlaceName,PlaceName,Map,byte,byte,byte,uint16,bit&0
 792,"w1eg","ffxiv/wil_w1/evt/w1eg/level/w1eg",1,"Thanalan","Thanalan","The Fall of Belah'dia","default/00",4,3,44,600,False,0,False,0,True,False,False,False,251,-1,-1,,0,"",-1,0,-1,False,0,0,0,0,False
 793,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
 794,"o3c2","ex2/03_ocn_o3/cnt/o3c2/level/o3c2",1,"???","","The Shifting Altars of Uznair","o3c2/00",1,3,33,586,False,0,False,0,True,False,False,False,1001,122010,124754,,0,"",-1,341,-1,False,2,0,0,0,False
-795,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
+795,"z3fc","ex2/05_zon_z3/fld/z3fc/level/z3fc",1,"???","","Eureka Pyros","z3fc/00",1,3,41,598,False,96,False,1,True,False,True,False,524,122010,124753,,0,"",-1,0,-1,False,2,0,23,0,False
 796,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
 797,"ec010","ex2/02_est_e3/fld/e3f3/level/e3f3",1,"Othard","Othard","The Azim Steppe","e3f3/00",10,1,29,609,False,0,False,0,True,False,False,False,1001,-1,-1,,0,"",1000,336,-1,False,2,0,0,0,False
 798,"z3oc","ex2/05_zon_z3/ome/z3oc/level/z3oc",1,"Gyr Abania","Gyr Abania","Psiscape V1.0","z3oc/00",9,2,17,587,False,92,False,0,True,False,False,False,1001,122016,124469,,0,"",-1,331,-1,False,2,0,0,0,False
@@ -703,7 +703,7 @@ int32,str,str,byte,PlaceName,PlaceName,PlaceName,Map,byte,byte,byte,uint16,bit&0
 803,"z3od_2","ex2/05_zon_z3/ome/z3od/level/z3od",1,"Gyr Abania","Gyr Abania","Psiscape V2.0","z3od/00",9,2,17,592,False,92,False,0,True,False,False,False,1001,122016,124474,,0,"",-1,338,-1,False,2,0,0,0,False
 804,"z3oe_2","ex2/05_zon_z3/ome/z3oe/level/z3oe",1,"Gyr Abania","Gyr Abania","The Interdimensional Rift","z3oe/00",9,2,17,593,False,92,False,0,True,False,False,False,1001,122016,124475,,0,"",-1,340,-1,False,2,0,0,0,False
 805,"z3of_2","ex2/05_zon_z3/ome/z3of/level/z3of",1,"Gyr Abania","Gyr Abania","The Interdimensional Rift","z3of/00",9,2,17,594,False,92,False,0,True,False,False,False,1001,122016,124476,,0,"",-1,329,-1,False,2,0,0,0,False
-806,"","",0,"","","","",0,0,0,0,False,0,False,0,False,False,False,False,0,0,0,,0,"",0,0,0,False,0,0,0,0,False
+806,"e3ff","ex2/02_est_e3/fld/e3ff/level/e3ff",1,"Othard","Othard","Kugane Ohashi","e3ff/00",10,2,10,595,False,0,False,0,True,False,False,False,1001,122024,124868,,0,"",-1,327,-1,False,2,0,0,0,False
 807,"z3e8","ex2/05_zon_z3/ome/z3ob/level/z3ob",1,"Gyr Abania","Gyr Abania","The Interdimensional Rift","default/00",9,0,12,0,False,92,False,0,True,False,False,False,479,122016,124451,"ArrayEventHandler#853842",0,"Castrum Oriens",-1,0,-1,False,2,0,24,0,False
 808,"z3e9","ex2/05_zon_z3/ome/z3of/level/z3of",1,"Gyr Abania","Gyr Abania","The Interdimensional Rift","default/00",9,0,15,0,False,92,False,0,True,False,False,False,479,-1,-1,"ArrayEventHandler#853847",0,"Castrum Oriens",-1,0,-1,False,2,0,0,0,False
 809,"f1d9_event","ffxiv/fst_f1/dun/f1d9/level/f1d9",1,"The Black Shroud","The Black Shroud","Haunted Manor","f1d9/01",3,0,32,0,False,0,False,0,True,False,False,False,408,-1,-1,,0,"Bentbranch Meadows",-1,0,-1,False,0,0,0,0,False
