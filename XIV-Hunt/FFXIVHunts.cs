@@ -52,7 +52,7 @@ namespace FFXIV_GameSense
         internal List<Hunt> hunts = new List<Hunt>();
         private static List<FATEReport> fates = GameResources.GetFates().Select(x => new FATEReport(x)).ToList();
         private static List<uint> HuntsPutInChat = new List<uint>();
-        private static readonly uint[] DCZones = new uint[] { 630, 656, 732, 763 };
+        private static readonly uint[] DCZones = new uint[] { 630, 656, 732, 763, 795 };
         private static HuntsHubConnection hubConnection;
         internal static HttpClient Http { get; private set; } = new HttpClient();
         internal static bool Joined { get; private set; }
