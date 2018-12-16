@@ -31,7 +31,7 @@ namespace FFXIV_GameSense
             }
 
             bool isFirstInstall = RestoreSettings();
-            if(isFirstInstall)
+            if(isFirstInstall && IsSquirrelInstall())
             {
                 try
                 {
@@ -62,7 +62,6 @@ namespace FFXIV_GameSense
                     await Task.Delay(1000);
                     TryShowInstalledShortcutInfoToast();
                 });
-
         }
 
         private static bool RestoreSettings()

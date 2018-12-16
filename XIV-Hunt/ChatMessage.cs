@@ -85,11 +85,7 @@ namespace FFXIV_GameSense
             Message = arr.Skip(pos).ToArray();
         }
 
-        private static DateTime UnixTimeStampToDateTime(uint unixTimeStamp)
-        {
-            // Unix timestamp is seconds past epoch
-            return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimeStamp);
-        }
+        private static DateTime UnixTimeStampToDateTime(uint unixTimeStamp) => new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimeStamp);
 
         internal byte[] ToArray()
         {
